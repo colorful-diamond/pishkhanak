@@ -1,167 +1,333 @@
-# Pishkhanak (پیشخوانک)
+# Pishkhanak (پیشخوانک) - Financial Services Platform
 
 <p align="center">
-  <!-- It's good to have a logo here if you have one! -->
-  <!-- <img src="link_to_your_logo.png" width="400" alt="Pishkhanak Logo"> -->
+  <a href="https://pishkhanak.com">
+    <img src="https://img.shields.io/badge/Website-pishkhanak.com-blue" alt="Website">
+  </a>
+  <a href="https://packagist.org/packages/laravel/framework">
+    <img src="https://img.shields.io/packagist/l/laravel/framework" alt="License">
+  </a>
+  <img src="https://img.shields.io/badge/PHP-8.1%2B-blue" alt="PHP Version">
+  <img src="https://img.shields.io/badge/Laravel-11-red" alt="Laravel Version">
 </p>
 
-<p align="center">
-  <!-- Add relevant badges here, e.g., build status, version, license -->
-  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-  <!-- Add other badges as needed -->
-</p>
+## Overview
 
-## About Pishkhanak
+Pishkhanak is a comprehensive financial services platform built with Laravel 11, offering a wide range of Iranian financial, administrative, and governmental inquiry services. The platform integrates with multiple payment gateways and features an advanced AI content generation system.
 
-Pishkhanak is a comprehensive web application designed to simplify a wide range of financial, administrative, and public services for users. Inspired by the "Pishkhan 24" mobile application, this platform aims to provide a centralized hub for managing various inquiries and payments.
+## 🚀 Key Features
 
-The project leverages the power and elegance of the Laravel framework to deliver a robust and user-friendly experience.
+### Core Services
+- **Financial Inquiries**: IBAN validation, card-to-account mapping, credit scoring
+- **Vehicle Services**: Traffic violations, vehicle information, insurance history
+- **Identity Services**: National ID validation, passport tracking, military service status
+- **Banking Services**: Account inquiries, cheque status, facility information
+- **Government Services**: Social security, tax inquiries, postal code validation
 
-## Key Features
+### Advanced Capabilities
+- **AI Content Generation**: Automated blog content creation with Gemini AI
+- **Multi-Gateway Payments**: Jibit, Finnotech, and Sepehr integrations
+- **Real-time Processing**: WebSocket support via Laravel Reverb
+- **Admin Dashboard**: Comprehensive Filament-based administration
+- **Background Processing**: Queue-based service handling
+- **Cache Management**: Redis-powered performance optimization
 
-Pishkhanak offers (or aims to offer) a multitude of services, including but not limited to:
+### Technical Features
+- **SMS Authentication**: Multi-provider SMS verification
+- **Wallet System**: User credit management with transaction history
+- **Token Management**: Automatic API token refresh and health monitoring
+- **Backup System**: Automated database and file backups
+- **Telegram Integration**: Bot-based notifications and support
+- **Image Generation**: AI-powered thumbnail and content images
 
-*   **Financial Services:**
-    *   Management of justice shares and cash subsidies.
-    *   Bill payments (gas, electricity, water, phone, taxes).
-    *   Mobile top-ups and internet package purchases.
-*   **Administrative & Public Services:**
-    *   Social security inquiries (insurance records, payroll slips).
-    *   Postal package tracking.
-    *   Passport tracking.
-    *   SIM card registration inquiries.
-*   **Content & Information:**
-    *   A blog for articles and updates.
-    *   Standard informational pages (About, Services, Contact).
-*   **User Management:**
-    *   Secure user authentication and authorization.
-    *   Potential for social logins (e.g., Discord).
-*   **Advanced Capabilities:**
-    *   Real-time notifications and updates (via Laravel Reverb and WebSockets).
-    *   Integration with AI services (OpenAI, Midjourney) for potential advanced features.
-    *   YouTube API integration for video-related functionalities.
-    *   Administrative dashboard (likely built with Filament).
+## 🏗️ Architecture
 
-## Tech Stack
+### Project Structure
+```
+app/
+├── Console/Commands/     # Artisan commands and scheduled tasks
+├── Filament/            # Admin panel resources and pages
+├── Http/Controllers/    # Request handling and business logic
+├── Models/             # Eloquent models and database relationships
+├── Services/           # Business logic and external API integrations
+├── Jobs/               # Queue-based background processing
+└── Helpers/            # Utility functions and helpers
 
-Pishkhanak is built with a modern and powerful technology stack:
+resources/views/        # Blade templates
+routes/                # Route definitions
+database/              # Migrations, seeders, and factories
+config/                # Configuration files
+```
 
-### Backend
-*   **Framework:** Laravel 11
-*   **PHP Version:** ^8.1 || ^8.2
-*   **Key Packages:**
-    *   Filament: For building beautiful admin panels.
-    *   Spatie Laravel Suite: (Media Library, Tags, Permissions, Sitemap, Sluggable, Translatable) for various common application needs.
-    *   Laravel Reverb: For real-time WebSocket communication.
-    *   Laravel Socialite: For OAuth authentication.
-    *   Laravel Telescope: For debugging and inspection.
-    *   OpenAI PHP Laravel: For integrating OpenAI services.
-    *   Ediasoft Midjourney API PHP: For integrating Midjourney services.
-    *   Google API Client (YouTube): For YouTube integration.
-    *   Intervention Image: For image manipulation.
-    *   Predis: For Redis client.
-*   **Database:** (Not specified, but Laravel supports MySQL, PostgreSQL, SQLite, SQL Server)
+### Service Layer Architecture
 
-### Frontend
-*   **Build Tool:** Vite
-*   **CSS:** Tailwind CSS, Flowbite (Tailwind components)
-*   **JavaScript:** Alpine.js, Laravel Echo, Pusher-JS
-*   **UI Frameworks/Libraries:** Blade UI Kit, various icon sets.
+#### Payment Services
+- `PaymentService`: Core payment processing
+- `ServicePaymentService`: Service-specific payment handling
+- `GuestServiceClaimService`: Anonymous user payment processing
 
-### Python Components
-*   The project includes an `index.py` file and a `bots/` directory. These Python components might be used for:
-    *   Specialized backend tasks or microservices.
-    *   Data scraping, processing, or automation scripts.
-    *   Chatbot development and integration (e.g., Telegram bots).
-    *   Machine learning model serving or interaction.
-    *(Please elaborate on their specific roles if you wish to include more detail here.)*
+#### AI Services
+- `AiService`: Core AI functionality
+- `GeminiService`: Google Gemini integration
+- `ContentEnhancementService`: Content improvement and SEO
+- `ImageGenerationService`: AI image creation
+- `BlogImageService`: Automated blog thumbnails
 
-## Getting Started
+#### External API Services
+- `Finnotech/`: Complete Finnotech API integration
+- `Jibit/`: Jibit payment gateway services
+- `TelegramBotService`: Telegram bot functionality
+- `SmsService`: Multi-provider SMS handling
 
-### Prerequisites
-*   PHP (version as specified in `composer.json`)
-*   Composer
-*   Node.js and npm/yarn
-*   A database server (e.g., MySQL, PostgreSQL)
-*   Redis (for caching, queues, Reverb)
+## 📋 Requirements
 
-### Installation
-1.  **Clone the repository:**
-    ```bash
-    git clone <your-repository-url>
-    cd pishkhanak # Or your project's root directory
-    ```
+### System Requirements
+- **PHP**: 8.1, 8.2, 8.3, or 8.4
+- **Database**: PostgreSQL (recommended), MySQL, or SQLite
+- **Redis**: For caching, sessions, and queues
+- **Node.js**: For asset compilation
+- **Composer**: PHP dependency management
 
-2.  **Install PHP dependencies:**
-    ```bash
-    composer install
-    ```
+### External Dependencies
+- **Filament 3.2+**: Admin panel framework
+- **Laravel Reverb**: WebSocket server
+- **Intervention Image**: Image processing
+- **Spatie Packages**: Permissions, media library, tags
+- **OpenAI PHP**: AI content generation
+- **Telegram Bot API**: Bot integration
 
-3.  **Install frontend dependencies:**
-    ```bash
-    npm install
-    # or
-    yarn install
-    ```
+## 🔧 Installation
 
-4.  **Set up your environment file:**
-    *   Copy the example environment file:
-        ```bash
-        cp .env.example .env
-        ```
-    *   Generate your application key:
-        ```bash
-        php artisan key:generate
-        ```
-    *   Configure your database connection, `APP_NAME` (e.g., Pishkhanak), `APP_URL`, mail, queue, Reverb, and other services in the `.env` file.
-        *   `APP_NAME=Pishkhanak`
-        *   `REVERB_APP_ID`, `REVERB_APP_KEY`, `REVERB_APP_SECRET`
-        *   Database credentials (`DB_CONNECTION`, `DB_HOST`, etc.)
-        *   Credentials for external APIs (OpenAI, Google, Midjourney, Socialite providers, etc.)
+### 1. Clone and Setup
+```bash
+git clone https://github.com/colorful-diamond/pishkhanak.git
+cd pishkhanak
+composer install
+npm install
+```
 
-5.  **Run database migrations (and seeders if available):**
-    ```bash
-    php artisan migrate --seed # Add --seed if you have seeders
-    ```
+### 2. Environment Configuration
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-6.  **Link storage directory:**
-    ```bash
-    php artisan storage:link
-    ```
+### 3. Database Setup
+```bash
+php artisan migrate
+php artisan db:seed
+php artisan storage:link
+```
 
-7.  **Build frontend assets:**
-    ```bash
-    npm run dev # For development with hot reloading
-    # or
-    npm run build # For production
-    ```
+### 4. External Services Configuration
 
-8.  **Start the Reverb server (for real-time features):**
-    Ensure your Reverb configuration is correct in `.env` and `config/reverb.php`.
-    ```bash
-    php artisan reverb:start
-    ```
-    You might also need to configure a queue worker:
-    ```bash
-    php artisan queue:work
-    ```
+#### API Keys Required
+```env
+# AI Services
+OPENROUTER_API_KEY=your_openrouter_key
+GEMINI_API_KEY=your_gemini_key
 
-9.  **Serve the application:**
-    ```bash
-    php artisan serve
-    ```
-    Access the application at the URL provided (usually `http://localhost:8000`).
+# Payment Gateways
+JIBIT_CLIENT_ID=your_jibit_client_id
+JIBIT_CLIENT_SECRET=your_jibit_secret
+SEPEHR_GATEWAY_KEY=your_sepehr_key
 
-## Contributing
+# SMS Services
+SMS_API_KEY=your_sms_api_key
 
-Thank you for considering contributing to Pishkhanak! Please follow standard Laravel community guidelines and consider creating an issue to discuss significant changes before development.
+# Telegram Bot
+TELEGRAM_BOT_TOKEN=your_telegram_token
+```
 
-(You can add more specific contribution guidelines here if you have them.)
+### 5. Queue and Cache Setup
+```bash
+# Redis configuration
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+CACHE_DRIVER=redis
+QUEUE_CONNECTION=redis
 
-## Security Vulnerabilities
+# Start queue workers
+php artisan queue:work --daemon
 
-If you discover a security vulnerability within Pishkhanak, please send an e-mail to [your-email@example.com](mailto:your-email@example.com). All security vulnerabilities will be promptly addressed. (Replace with your actual security contact email, or refer to Laravel's security policy if appropriate).
+# Start Reverb WebSocket server
+php artisan reverb:start
+```
 
-## License
+### 6. Build Assets
+```bash
+npm run build
+```
 
-The Pishkhanak project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 7. Start Application
+```bash
+php artisan serve
+```
+
+## 📚 Documentation
+
+### Service Controllers
+The platform uses a factory pattern for service controllers:
+
+```php
+// Service Controller Factory
+ServiceControllerFactory::create('iban-check', $request);
+```
+
+### Payment Flow
+1. **Service Request**: User initiates service request
+2. **Payment Validation**: Gateway-specific validation
+3. **API Processing**: External API call with retry logic
+4. **Result Storage**: Secure result caching
+5. **User Notification**: SMS/email confirmation
+
+### AI Content Generation
+```php
+// Generate blog content
+$aiService = new AiService();
+$content = $aiService->generateBlogPost($title, $keywords);
+
+// Generate images
+$imageService = new ImageGenerationService();
+$thumbnail = $imageService->generateThumbnail($content);
+```
+
+## 🔐 Security Features
+
+### Data Protection
+- **API Token Encryption**: Secure token storage and rotation
+- **Request Signing**: Webhook signature verification
+- **Rate Limiting**: API request throttling
+- **Input Validation**: Comprehensive request validation
+
+### Authentication
+- **Multi-factor SMS**: SMS-based verification
+- **Social Login**: OAuth integration (Discord, Google)
+- **Guest Services**: Anonymous service access
+- **Admin 2FA**: Two-factor admin authentication
+
+## 📊 Monitoring & Logging
+
+### Health Monitoring
+- **Token Health**: Automatic API token validation
+- **Queue Monitoring**: Background job status tracking
+- **Performance Metrics**: Response time monitoring
+- **Error Tracking**: Comprehensive error logging
+
+### Admin Dashboard Features
+- **Service Statistics**: Usage analytics and reporting
+- **Payment Tracking**: Transaction monitoring
+- **User Management**: Account administration
+- **Content Management**: Blog and page editing
+- **AI Content Pipeline**: Content generation monitoring
+
+## 🤖 AI Integration
+
+### Content Generation Pipeline
+1. **Topic Analysis**: Keyword and trend analysis
+2. **Content Creation**: AI-powered article generation
+3. **SEO Optimization**: Meta tags and structure optimization
+4. **Image Generation**: Automated thumbnail creation
+5. **Publication**: Automated publishing workflow
+
+### AI Services
+- **Blog Content**: Automated article generation
+- **Service Descriptions**: Dynamic service documentation
+- **User Support**: AI-powered auto-responses
+- **Image Generation**: Custom thumbnails and graphics
+
+## 🚀 Deployment
+
+### Production Setup
+```bash
+# Optimize for production
+composer install --optimize-autoloader --no-dev
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Queue workers with supervisor
+php artisan queue:work --daemon --tries=3 --timeout=60
+
+# Schedule cron jobs
+* * * * * cd /path/to/project && php artisan schedule:run >> /dev/null 2>&1
+```
+
+### Environment Considerations
+- **Database**: Use PostgreSQL for production
+- **Cache**: Redis cluster for high availability
+- **Storage**: S3-compatible object storage
+- **Monitoring**: Set up application monitoring
+- **Backup**: Automated daily backups
+
+## 📈 Performance Optimization
+
+### Caching Strategy
+- **Service Results**: 24-hour result caching
+- **API Responses**: Intelligent response caching
+- **Static Content**: CDN-optimized asset delivery
+- **Database Queries**: Query result caching
+
+### Queue Optimization
+- **Background Processing**: Heavy operations in queues
+- **Retry Logic**: Intelligent failure handling
+- **Priority Queues**: Critical operation prioritization
+- **Batch Processing**: Bulk operation optimization
+
+## 🛠️ Maintenance
+
+### Regular Tasks
+```bash
+# Token refresh (daily)
+php artisan tokens:refresh
+
+# Cleanup expired data
+php artisan cleanup:expired-results
+php artisan cleanup:expired-otps
+
+# Backup (daily)
+php artisan backup:run
+
+# Health checks
+php artisan tokens:health-check
+php artisan system:status
+```
+
+### Monitoring Commands
+```bash
+# Check queue status
+php artisan queue:monitor
+
+# View logs
+php artisan telescope:publish
+php artisan horizon:publish
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+- Follow PSR-12 coding standards
+- Write comprehensive tests
+- Update documentation for new features
+- Use meaningful commit messages
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## 🙋 Support
+
+For support and questions:
+- **Email**: support@pishkhanak.com
+- **Telegram**: @PishkhanakSupport
+- **Issues**: GitHub Issues tracker
+
+---
+
+**Pishkhanak** - Simplifying financial services for everyone 🚀
