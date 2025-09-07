@@ -1,0 +1,162 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+@import '../../../../vendor/archilex/filament-filter-sets/resources/css/plugin.css';
+@import './dashboard-charts.css';
+
+/* @import '../../../../node_modules/cropperjs/dist/cropper.css'; */
+
+@config '../../../../panel/tailwind.config.js';
+
+/* Import Iran Sans font faces */
+@font-face {
+  font-family: 'IRANSans';
+  src: url('../../../../resources/fonts/IRANSansWeb.woff2') format('woff2'),
+       url('../../../../resources/fonts/IRANSansWeb.woff') format('woff'),
+       url('../../../../resources/fonts/IRANSansWeb.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IRANSans';
+  src: url('../../../../resources/fonts/IRANSansWeb_Light.woff2') format('woff2'),
+       url('../../../../resources/fonts/IRANSansWeb_Light.woff') format('woff'),
+       url('../../../../resources/fonts/IRANSansWeb_Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IRANSans';
+  src: url('../../../../resources/fonts/IRANSansWeb_Medium.woff2') format('woff2'),
+       url('../../../../resources/fonts/IRANSansWeb_Medium.woff') format('woff'),
+       url('../../../../resources/fonts/IRANSansWeb_Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IRANSans';
+  src: url('../../../../resources/fonts/IRANSansWeb_Bold.woff2') format('woff2'),
+       url('../../../../resources/fonts/IRANSansWeb_Bold.woff') format('woff'),
+       url('../../../../resources/fonts/IRANSansWeb_Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Apply Iran Sans font to all Filament elements */
+html, body, 
+.fi-body,
+.fi-sidebar,
+.fi-main,
+.fi-topbar,
+.fi-header,
+.fi-content,
+input, textarea, select, button,
+.fi-btn, .fi-input,
+.fi-ta-text,
+h1, h2, h3, h4, h5, h6,
+p, span, div, label,
+.fi-fo-field-wrp,
+.fi-table,
+.fi-pagination,
+* {
+  font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+}
+
+/* Ensure proper RTL direction for Filament */
+.fi-body {
+  direction: rtl;
+}
+
+/* Override any conflicting font-family rules */
+.fi-sidebar-nav-item-label,
+.fi-sidebar-nav-group-label,
+.fi-topbar-item,
+.fi-main-ctn {
+  font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+}
+
+/* Main color variables */
+:root {
+  --primary: #38bdf8; /* sky-400 */
+  --primary-dark: #0ea5e9; /* sky-500 */
+  --sidebar-bg: #f0f9ff; /* sky-50 */
+  --sidebar-active: #e0e8f9; /* custom-50 */
+  --card-bg: #fff;
+  --card-shadow: 0 2px 8px 0 rgba(56,189,248,0.07);
+}
+
+/* Sidebar styling */
+.fi-sidebar {
+  background: var(--sidebar-bg) !important;
+  border-left: 1px solid #e0e8f9;
+}
+.fi-sidebar-nav-item, .fi-sidebar-nav-group {
+  border-radius: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+.fi-sidebar-nav-item.is-active, .fi-sidebar-nav-item:hover, .fi-sidebar-nav-group.is-active, .fi-sidebar-nav-group:hover {
+  background: var(--sidebar-active) !important;
+  color: var(--primary-dark) !important;
+}
+.fi-sidebar-nav-item-label, .fi-sidebar-nav-group-label {
+  color: var(--primary-dark) !important;
+}
+
+/* Topbar and header */
+.fi-topbar, .fi-header {
+  background: #fff !important;
+  border-bottom: 1px solid #e0e8f9;
+}
+
+/* Primary buttons */
+.fi-btn-primary, .fi-btn-primary:focus, .fi-btn-primary:active {
+  background: var(--primary) !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 2px 8px 0 rgba(56,189,248,0.07);
+}
+.fi-btn-primary:hover {
+  background: var(--primary-dark) !important;
+}
+
+/* Card and widget styling */
+.fi-card, .fi-widget, .fi-table, .fi-main-ctn, .fi-content {
+  background: var(--card-bg) !important;
+  border-radius: 1rem !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+/* Remove gradients from all Filament elements */
+[class*="bg-gradient"], .bg-gradient-to-br, .bg-gradient-to-r, .bg-gradient-to-l, .bg-gradient-to-t, .bg-gradient-to-b {
+  background: none !important;
+}
+
+/* Table header and row styling */
+.fi-table th {
+  background: #f0f9ff !important;
+  color: var(--primary-dark) !important;
+}
+.fi-table tr {
+  border-bottom: 1px solid #e0e8f9 !important;
+}
+
+/* Widget/stat highlight */
+.fi-widget .fi-stat-value {
+  color: var(--primary-dark) !important;
+}
+
+/* Focus/active states */
+input:focus, select:focus, textarea:focus, .fi-input:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px #bae6fd !important;
+}
+
+/* Misc */
+.fi-pagination .fi-btn {
+  border-radius: 0.5rem !important;
+}

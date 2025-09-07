@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+	<meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام دسته چک صیادی</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /credit/v2/clients/{clientId}/chequebookInquiry
+* **شرح: **  در این سرویس با وارد کردن شماره حساب، میتوانید اطلاعات مربوط به لیست دسته چک های صیادی متصل به آن حساب را در خروجی مشاهده نمایید.
+
+* **اسکوپ: **  ```credit:chequebook-inquiry:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+* **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/credit/v2/clients/{clientId}/chequebookInquiry?trackId={trackId}&deposit={deposit}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+<!--&#x202b; در صورتی که کلاینت توکن های client-credential مختلفی بر روی حسابهای متعدد خود ساخته باشد , با استفاده از هر یک از آنها میتواند این سرویس را فراخوانی کند (شماره حساب مرتبط با توکن اهمیت ندارد)-->
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```9f412213-a02d-4d22-b0a1-536942222381```
+
+* **deposit:**  (اجباری) شماره حساب
+  * example:  ```0026547823```
+
+
+###Results Format
+
+#### Successful result format (status code 200)
+*‌ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+{
+	 "responseCode": "FN-CTKZ-20002800000",
+	 "trackId": "abf04237-9ee7-87150f1efada"
+	 "result": {
+         "chequeDetails": [
+             {
+                 "accountNo": "0101252337009",
+                 "branchCodeAndName": "0127/گاندی - بیمه رازی",
+                 "branchCode": "0127",
+                 "branchName": "گاندی-بیمه رازی",
+                 "approvedDate": "1401/09/23",
+                 "customerName": "محمدعلي دى پير",
+                 "customerNo": "0053682167",
+                 "customerType": "1",
+                 "deliveryBranchCode": "0297",
+                 "expireDate": "14040923",
+                 "isABunch": "false",
+                 "issuanceDate": "14010923",
+                 "mediaType": "BANS",
+                 "nationalCode": "0010009007",
+                 "serialNoFrom": "8785410145586299",
+                 "serialNoTo": "6480010145586308",
+                 "serialNumbers": "868401016546299,4768013265586300,17270101467986301,4482064535586302,4098010174126303,2807589645586304,1959010146356305,5199010145326306,3737452145586307,6480058795586308",
+                 "iban": "IR600620000000101276454009",
+                 "sheetCount": "10",
+                 "stateDescription": "دسته چک چاپ شد "
+             },
+         ]
+	 },
+	 "status": "DONE"
+}
+````````````````
+
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **result:** آبجکتی از پاسخ سرویس شامل:
+     * **chequeDetails:** جزئیات دسته چک
+         * **accountNo:** شماره حساب جاری
+         * **branchCodeAndName:** کد و نام شعبه ثبت درخواست
+         * **branchCode:** کد شعبه
+         * **branchName:** نام شعبه
+         * **approvedDate:** تاریخ ثبت درخواست
+         * **customerName:** نام و نام خانوادگی صاحب دسته چک
+         * **customerNo:** شماره مشتری
+         * **customerType:** نوع مشتری
+         * **deliveryBranchCode:** کدشعبه دریافت دسته چک
+         * **expireDate:** تاریخ انقضای دسته چک
+         * **isABunch:** وضعیت دسته چک
+            * True: برای دسته چک های بیش از ۵۰ برگ
+            * False: برای دسته چک های کمتر از ۵۰ برگ
+         * **issuanceDate:** تاریخ ثبت درخواست
+         * **mediaType:** نوع دسته چک
+            * BANS: چک عادی
+            * CHD: چک الکترونیک (چکاد)
+            * CHS: چک موردی
+            * CHT: چک بانکی (چک های تضمین شده بین بانکی)
+         * **nationalCode:** کد ملی
+         * **serialNoFrom:** شماره سریال اولین برگ از دسته چک
+         * **serialNoTo:** شماره سریال آخرین برگ از دسته چک
+         * **serialNumbers:** مجموعه همه سریال های دسته چک
+         * **iban:** شماره شبا
+         * **sheetCount:** تعداد برگ های دسته چک
+         * **stateDescription:**
+            * وضعیت صدور دسته چک
+            * دسته چک چاپ شد
+            * تایید دریافت دسته چک توسط رئیس شعبه
+* **status: ** وضعیت فراخوانی سرویس
+     * DONE: فراخوانی موفق سرویس
+     * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

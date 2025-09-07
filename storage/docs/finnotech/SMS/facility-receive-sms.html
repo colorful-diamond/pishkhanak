@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>دریافت پیامک</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###GET  /{address}/facility/v2/clients/{clientId}/receiveSMS
+
+* **شرح:** در این سرویس، با وارد کردن سرشماره، در خروجی پیامک های ارسال شده به سرشماره مورد نظر را دریافت خواهید کرد.
+  * **توضیحات: ** 
+    * پیامک های دریافتی 48 ساعت نگهداری می شوند لذا در صورت نیاز به خواندن آن ها، حتما قبل از پاک شدن آن سرویس فراخوانی شود.
+    * بعد از هر بار فراخوانی، پیامک های خوانده شده پاک خواهند شد.
+
+  * **اسکوپ: **  ```facility:receive-sms:get```
+
+  * **رویکرد: ** ```Client-Credential```
+
+    * **<a href="ResponseCodesFacility.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+  ````````````````
+  {address}/facility/v2/clients/{clientId}/receiveSMS?trackId={trackId}&destinationNumber={destinationNumber}&limit={limit}
+  ````````````````
+  <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+      https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+  </div>
+
+  <div class="production-address production" style="float:right" style="display: block">
+      https://api.finnotech.ir <b> :address </b>
+  </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+
+#### URI Parameters
+  * **clientId:**شناسه کلاینت
+
+#### Query Parameters
+  * **trackId :** (اختیاری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+  * example:  ```20cc-48c6-b582-dee29e71676a```
+  * **destinationNumber**: سرشماره ی دریافت کننده ی پیامک. (اجباری) 
+  * example:  ```9092301202```
+  * **limit**: ماکزیمم تعداد رکورد برگردانده شده؛ بین ۱ و ۱۰۰۰ و دارای مقدار پیش‌فرض ۱۰۰۰ می‌باشد. (اختیاری)
+  * example:  ```1000```
+
+<!--   
+  * **fromDate**: تاریخ باید شمسی و با فرمت YYYYMMDD باشد. (اجباری)
+  * example:  ```14020505```
+  * **toDate**:  تاریخ باید شمسی و با فرمت YYYYMMDD باشد. (اجباری)
+  * example:  ```14020506```
+  * **fromTime**: فرمت زمان باید به صورت HHMMSS باشد. (اختیاری)
+  * example:  ```225050```
+  * **toTime**: فرمت زمان باید به صورت HHMMSS باشد. (اختیاری) 
+  * example:  ```225050``` -->
+
+
+
+#### Successful result format (status code 200)
+````````````````
+{
+    "responseCode": "FN-FYFH-20001600000",
+    "trackId": "ed980658-a437-4a28-907a-f7be859c69d9",
+    "result": {
+        "data": [
+            {
+                "sourceAddress": "989092301209",
+                "destinationAddress": "88880777",
+                "messageText": "bidari?",
+                "receiveDateTime": "2024-01-01T10:35:23.058Z"
+            },
+            {
+                "sourceAddress": "989092301209",
+                "destinationAddress": "88880777",
+                "messageText": "سلام",
+                "receiveDateTime": "2024-01-01T10:40:17.003Z"
+            }
+        ]
+    },
+    "status": "DONE"
+}
+````````````````
+  * **result:** آبجکتی از پاسخ سرویس شامل:
+    * **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود.
+    * **result: ** آبجکتی از پاسخ سرویس
+        * **data: ** آرایه‌ای از پیامک‌ها
+            * **sourceAddress: ** مبدا پیامک
+            * **destinationAddress: ** مقصد پیامک
+            * **messageText: ** متن پیامک
+            * **receiveDateTime: ** زمان دریافت پیام به فرمت UTC
+    * **status: ** وضعیت فراخوانی سرویس
+        * DONE: فراخوانی موفق سرویس
+        * FAILED: فراخوانی ناموفق سرویس
+ * **error:** جزییات خطا (در صورت بروز خطا)
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

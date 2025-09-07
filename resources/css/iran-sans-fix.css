@@ -1,0 +1,109 @@
+/* Iran Sans Font Comprehensive Fix */
+/* This file ensures Iran Sans is used throughout the entire project */
+
+/* Force Iran Sans on all elements */
+html, body, 
+input, textarea, select, button,
+h1, h2, h3, h4, h5, h6,
+p, span, div, label, a,
+.btn, .button, .form-control,
+.nav, .navbar, .sidebar,
+.modal, .dropdown,
+.table, .card, .panel,
+.alert, .badge, .tag,
+* {
+  font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+}
+
+/* Override any Tailwind or other framework fonts */
+.font-sans,
+.font-serif,
+.font-mono {
+  font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+}
+
+/* Override any hardcoded font families */
+[style*="font-family"] {
+  font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+}
+
+/* Bootstrap overrides if present */
+.form-control,
+.btn,
+.nav-link,
+.navbar-brand,
+.dropdown-item,
+.modal-title,
+.modal-body,
+.card-title,
+.card-text {
+  font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+}
+
+/* Filament specific overrides */
+.fi-body,
+.fi-sidebar,
+.fi-main,
+.fi-topbar,
+.fi-header,
+.fi-content,
+.fi-btn, 
+.fi-input,
+.fi-ta-text,
+.fi-fo-field-wrp,
+.fi-table,
+.fi-pagination,
+.fi-sidebar-nav-item-label,
+.fi-sidebar-nav-group-label,
+.fi-topbar-item,
+.fi-main-ctn,
+.fi-resource-table,
+.fi-form-section,
+.fi-fo-field-wrp-label {
+  font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+}
+
+/* Alpine.js components */
+[x-data] {
+  font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+}
+
+/* Livewire components */
+[wire\:model],
+[wire\:click],
+div[wire\:id] {
+  font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+}
+
+/* Input and form overrides */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+textarea,
+select,
+option {
+  font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+}
+
+/* Placeholder text */
+::placeholder {
+  font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+}
+
+/* Media queries for different screen sizes */
+@media (max-width: 768px) {
+  * {
+    font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  * {
+    font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif !important;
+  }
+} 

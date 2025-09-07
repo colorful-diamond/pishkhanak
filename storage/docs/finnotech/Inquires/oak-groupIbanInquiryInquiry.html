@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+  <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>دریافت فایل استعلام شبای گروهی</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /oak/v2/clients/{clientId}/groupIbanInquiry
+* **شرح: **
+این سرویس با دریافت trackId حاصل از فراخوانی سرویس استعلام شبا گروهی, فایل csv حاصل از استعلام را برمیگرداند
+
+* **اسکوپ: **  ```oak:group-iban-inquiry:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+* **<a href="ResponseCodeOak.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+````````````````
+{address}/oak/v2/clients/{clientId}/groupIbanInquiry?trackId={trackId}&inquiryTrackId={inquiryTrackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس باید از توکن CLIENT_CREDENTIAL استفاده نمایید.
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```get-iban-inquiry-029```
+* **inquiryTrackId:**  اجباری (string)  &#x202b; ترک آیدی سرویس استعلام شبای گروهی که در قبل فراخوانی شده است و می خواهید فایل خروجی آن را دریافت کنید
+  * example:  ```get-iban-inquiry-101```
+
+
+####Results Format
+##### Successful result format (status code 200)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center; vertical-align: middle;">status</th>
+      <th style="text-align: center; vertical-align: middle;">errorDescription</th>
+      <th style="text-align: center; vertical-align: middle;">depositStatus</th>
+      <th style="text-align: center; vertical-align: middle;">depositOwners</th>
+      <th style="text-align: center; vertical-align: middle;">depositComment</th>
+      <th style="text-align: center; vertical-align: middle;">depositDescription</th>
+      <th style="text-align: center; vertical-align: middle;">deposit</th>
+      <th style="text-align: center; vertical-align: middle;">bankName</th>
+      <th style="text-align: center; vertical-align: middle;">IBAN</th>
+    </tr>
+  </thead>
+  <tbody>
+    ‪<tr>
+      <td style="text-align: center; vertical-align: middle; ">200</td>
+      <td style="text-align: center; vertical-align: middle;">بدون خطا</td>
+      <td style="text-align: center; vertical-align: middle;">2</td>
+      <td style="text-align: center; vertical-align: middle;">سهراب سپهری</td>
+      <td style="text-align: center; vertical-align: middle;"></td>
+      <td style="text-align: center; vertical-align: middle;">حساب فعال است</td>
+      <td style="text-align: center; vertical-align: middle;">0302186310023</td>
+      <td style="text-align: center; vertical-align: middle;">بانک آینده</td>
+      <td style="text-align: center; vertical-align: middle;">IR360620000000302186310023</td>
+    </tr>
+  </tbody>
+  </table>
+
+
+خروجی فایل است csv با فیلدهای زیر:
+
+* **IBAN:** شماره شبا
+* **bankName:** نام بانک
+* **deposit:** شماره حساب
+* **depositStatus:** میتواند مقادیر زیر را بگیرد
+  * **‌02 :** حساب فعال است
+  * **‌03 :** حساب مسدود با قابلیت واریز
+  * **‌04 :** حساب مسدود بدون قابلیت واریز
+  * **‌05 :** حساب راکد است
+  * **‌06 :** بروز خطادر پاسخ دهی , شرح خطا در فیلد توضیحات است
+  * **‌07 :** سایر موارد
+* **depositDescription:**  شرح حساب
+* **depositComment:**
+* **depositOwners:** آرایه ای از صاحبان حساب
+  * **firstName: ** نام
+  * **lastName: ** نام خانوادگی
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

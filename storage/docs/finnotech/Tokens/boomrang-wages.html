@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>مشاهده کارمزدها</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###GET   /dev/v2/clients/{clientId}/wages
+* **شرح: ** &#x202b; این سرویس با دریافت یک بازه زمانی همه فراخوانی های انجام شده توسط کلاینت به همراه آخرین وضعیت آنها را بر میگرداند , هم چنین در صورت ارسال یک trackId خاص میتوان آخرین وضعیت آن تراکنش را استعلام کرد
+
+* **اسکوپ: ** ```boomrang:wages:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+````````````````
+{address}/dev/v2/clients/{clientId}/wages?fromDate={fromDate}&toDate={toDate}&status={status}&trackId={trackId}&limit={limit}&offset={offset}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+#### URI Parameters
+
+* **clientId :** شناسه کلاینت
+
+#### Query Parameters
+
+
+* **fromDate :** (به صورت string) رشته  ای ۸ یا ۱۴ رقمی از تاریخ و ساعت با فرمت YYYYMMDD و یا YYYYMMDDhhmmss (اختیاری)
+* **toDate :** (به صورت string) رشته ای ۸ یا ۱۴ رقمی از تاریخ و ساعت با فرمت YYYYMMDD و یا YYYYMMDDhhmmss (اختیاری)
+* **status :**  (به صورت string) &#x202b; وضعیت که میتواند یکی از موارد PENDING|FAILED|DONE|UNKNOWN باشد (اختیاری)
+* **trackId :** (به صورت string) &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. trackId تراکنش مورد نظر که میخواهید آخرین وضعیت آن را استعلام کنید.در صورت نفرستادن trackId همه تراکنش ها را برمیگرداند.
+* **limit :**  (به صورت number) حداکثر تعداد خروجی
+* **offset :**  (به صورت number) شماره شروع تراکنش ها که مقدار پیش فرض آن صفر است
+
+** درصورت وارد نکردن مقادیر fromDate و toDate، یکماه گذشته درنظر گرفته میشود**
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+* **Token :** (اجباری) توکن
+
+###Results Format
+#### Successful result format (status code 200)
+````````````````
+    {
+        "result": {
+            "wages": [
+                        {
+                            "transactionAmount": null,
+                            "tariffName": "tn",
+                            "uid": "0012345678",
+                            "serviceName": "service-get",
+                            "scopeName": "service:service-name:get",
+                            "date": "14001109150525",
+                            "trackId": "03dd433d-494c-4230-a666-3f30987073c9",
+                            "amount": 0,
+                            "deposit": "",
+                            "status": "FAILED"
+                        },
+                        ...
+                    ],
+            "total": 59
+        },
+        "status": "DONE"
+    }
+````````````````
+&#x202b; این سرویس آرایه ای از کارمزدها را برمی‌گداند
+
+* **status:** &#x202b; وضعیت که میتواند مقادیر DONE و FAILED و PENDING و UNKNOWN را داشته باشد, در صورتی که DONE نباشد کارمزد برای شما محاسبه نشده است
+* **amount:** مبلغ کارمزد
+* **transactionAmount:** مبلغ تراکنش
+* **trackId:** کد پیگیری
+* **date:** &#x202b; تاریخ که به صورت YYYYMMDDHHMMSS است
+* **tariffName:** نام تعرفه
+* **scopeName:** نام اسکوپ
+* **serviceName:** نام سرویس
+* **uid:** شماره ملی کاربر
+* **inquiry_date:** اگر سرویس انتقال وجه مالی داشته باشد این فیلد تاریخ انجام تراکنش است
+* **inquiry_time:** اگر سرویس انتقال وجه مالی داشته باشد این فیلد ساعت انجام تراکنش است
+* **inquiry_sequence:** اگر سرویس انتقال وجه مالی داشته باشد این فیلد به همراه تاریخ و ساعت برای استعلام تراکنش استفاده میشود
+* **total:** تعداد کل خروجی
+
+#### UnSuccessful result format
+ &#x202b; در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

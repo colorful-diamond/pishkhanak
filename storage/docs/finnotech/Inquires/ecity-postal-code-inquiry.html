@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام کدپستی</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /ecity/v2/clients/{clientId}/postalCode
+* **شرح: **  سرویس با دریافت کد پستی اطلاعات مربوط به آدرس پستی را برمی گرداند.
+
+* **اسکوپ: **  ```ecity:cc-postal-code-inquiry:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+* **<a href="response-code-postalcode-inquiry.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/ecity/v2/clients/{clientId}/postalCode?trackId={trackId}&postalCode={postalCode}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+</div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت  توکن Client Credential سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId:**شناسه کلاینت
+
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+* example:  ```getUserinfo876543```
+
+
+* **postalCode:** کد پستی 10 رقمی
+* example:  ```1341666958```
+
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+   {
+   "responseCode": "FN-EYVH-20001500000",
+   "trackId": "cf65bc2d-c1b3-4579-90bf-ac5ab6448741",
+   "result": {
+   "Province": "تهران",
+   "TownShip": "تهران",
+   "Zone": "مرکزی",
+   "Village": "",
+   "LocalityType": "شهر",
+   "LocalityName": "تهران",
+   "LocalityCode": 99999,
+   "SubLocality": "شریعتی",
+   "street": "کوچه حسابی",
+   "street2": "بن بست باقرزاده",
+   "HouseNumber": 16,
+   "Floor": "دوم",
+   "SideFloor": "جنوب غربی",
+   "BuilidingName": null,
+   "Description": ""
+   },
+   "status": "DONE"
+   }
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **result:** نتیجه درخواست
+<!--     * **TraceID:** کد پیگیری سرویس دهنده-->
+     * **Province:** استان
+     * **TownShip:** شهر
+     * **Zone:** ناحیه
+     * **Village:** منطقه
+     * **LocalityType:** شهر یا روستا
+     * **LocalityName:** نام شهر/روستا
+     * **SubLocality:**  محله
+     * **Street:** خیابان
+     * **Street2:** خیابان ۲
+     * **HouseNumber:** پلاک
+     * **Floor:** طبقه
+     * **SideFloor:** واحد
+     * **Description:** توضیحات
+     * **PostCode:** کد پستی
+* **status:** وضعیت درخواست
+* **error:** جزییات خطا (در صورت بروز خطا)
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

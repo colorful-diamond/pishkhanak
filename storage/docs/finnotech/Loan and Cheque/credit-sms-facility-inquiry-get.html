@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+  <title>استعلام پیامکی تسهیلات</title>
+  <body onload="checkSandbox()">
+    <xmp theme="cerulean" style="display: none;">
+
+###GET   /credit/v2/clients/{clientId}/users/{user}/sms/facilityInquiry
+* **شرح: **  تسهیلات جاری مشتری **حقیقی و حقوقی** را برمی گرداند(تسهیلات همه بانک‌ها)
+
+* **اسکوپ: **  ```credit:sms-facility-inquiry:get```
+
+* **رویکرد: ** ```AUTHORIZATION SMS```
+
+* **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/credit/v2/clients/{clientId}/users/{user}/sms/facilityInquiry?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :sandbox address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+</div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت  توکن سه طرفه پیامکی سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId :** شناسه کلاینت
+* **user :**  (اجباری) کد ملی یا شناسه ملی کاربر صاحب توکن که میخواهید اطلاعات آن را دریافت کنید، برای شناسه ملی باید کد ۱۱ رقمی و برای کد ملی باید کد ۱۰ رقمی خود را وارد کنید
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```getfacility213454```
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+  {
+    "responseCode": "FN-CTKZ-20000100000",
+    "trackId": "95d682a0-9c48-4927-moho-ecc70e134272"
+    "result": {
+        "user": "0012345678",
+        "legalId": null,
+        "name": "حسین رحمتی شادان",
+        "facilityTotalAmount": "324921522",
+        "facilityDebtTotalAmount": "101017180",
+        "facilityPastExpiredTotalAmount": "0",
+        "facilityDeferredTotalAmount": "0",
+        "facilitySuspiciousTotalAmount": "0",
+        "dishonored": "",
+        "facilityList": [
+            {
+              "bankCode": "14",
+              "branchCode": "91182",
+              "branchDescription": "بانک مسکن - مسکن - تهران  - پارک دانشجوتهران",
+              "pastExpiredAmount": "0",
+              "deferredAmount": "0",
+              "suspiciousAmount": "0",
+              "debtorTotalAmount": "101017180",
+              "type": "18",
+              "amountOrginal": "180000000",
+              "benefitAmount": "101017180",
+              "FacilityBankCode": "14",
+              "FacilityBranchCode": "02159",
+              "FacilityBranch": "بانک مسکن - شهیدنامجوی تهران",
+              "FacilityRequestNo": "0215997049192414",
+              "FacilityRequestType": "3",
+              "FacilityCurrencyCode": "IRR",
+              "FacilityPastExpiredAmount": "0",
+              "FacilityDeferredAmount": "0",
+              "FacilitySuspiciousAmount": "0",
+              "FacilityDebtorTotalAmount": "1151155953",
+              "FacilityType": "18",
+              "FacilityStatus": "جاری",
+              "FacilityAmountOrginal": "600000000",
+              "FacilityBenefitAmount": "752873056",
+              "FacilitySetDate": "13970430",
+              "FacilityEndDate": "14090430",
+              "FacilityAmountObligation": "0",
+              "FacilityGroup": "اصلي",
+              "FacilityMoratoriumDate": "0"
+            }
+        ]},
+    "status": "DONE",
+  }
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* **result:** آبجکتی از پاسخ سرویس شامل:
+    * **user:** کد ملی کاربر
+    * **legalId:** شناسه حقوقی
+    * **name:** نام و نام خانوادگی کاربر
+    * **facilityTotalAmount:**مجموع مبلغ تسهیلات
+    * **facilityDebtTotalAmount:** مجموع تسهیلات مانده
+    * **facilityPastExpiredTotalAmounmake devt:** مانده سررسیده گذشته
+    * **facilityDeferredTotalAmount:** مانده معوق
+    * **facilitySuspiciousTotalAmount:** مانده مشکوک الوصول
+    * **dishonored:** بدحسابی
+    * ** facilityList: **لیست تسهیلات مشتری
+        * FacilityBankCode: کد بانک
+        * FacilityBranchCode: کد شعبه بانک
+        * FacilityBranch: شعبه بانک
+        * FacilityRequestNo: شماره درخواست
+        * FacilityRequestType: نوع درخواست
+        * FacilityCurrencyCode: "IRR"
+        * FacilityPastExpiredAmount: مانده سررسید گذشته
+        * FacilityDeferredAmount: مانده معوقه
+        * FacilitySuspiciousAmount: مانده مشکوک الوصول
+        * FacilityDebtorTotalAmount: مانده کل بدهی
+        * FacilityType: نوع عقد قرارداد تسهيلات
+            * 10 - قرض الحسنه
+            * 11 - مشارکت مدنی
+            * 12 - مشارکت حقوقی
+            * 13 - سرمایه گذاری مستقیم
+            * 14 - مضاربه
+            * 15 - معاملات سلف
+            * 16 - فروش اقساطی مواد اولیه، لوازم یدکی و ابزار کار
+            * 17 - فروش اقساطی وسایل تولید ماشین‌آلات و تاسیسات
+            * 18 - فروش اقساطی مسکن
+            * 19 - اجاره به شرط تملیک
+            * 20 - جعاله
+            * 21 - مزارعه
+            * 22 - مساقات
+            * 23 - خرید دین
+            * 24 - معاملات قدیم
+            * 25 - استصناع
+            * 26 - مرابحه
+        * FacilityStatus: وضعیت
+        * FacilityAmountOrginal: اصل مبلغ تسهیلات
+        * FacilityBenefitAmount: سود مبلغ تسهیلات
+        * FacilitySetDate: تاریخ تنظیم قرارداد
+        * FacilityEndDate: تاریخ سررسید نهایی
+        * FacilityAmountObligation: مبلغ وجه التزام
+        * FacilityGroup: دسته بندی
+        * FacilityMoratoriumDate: تاریخ
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+    * **code:** استاتوس کد
+    * **message:** پیغام خطا
+--------
+در صورتی که مشتری تسهیلاتی نداشته باشد پیام زیر دریافت می‌شود
+````````````````
+  {
+    "status": "DONE",
+    "trackId": "95d682a0-9c48-4927-moho-ecc70e134272"
+    "result": {
+        "result": 120,
+        "user": "0012345678",
+        "legalId": null,
+        "message": "هیچ تسهیلات و تعهدی یافت نشد"
+    },
+  }
+````````````````
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+  </body>
+  <script src="strapdown.js"></script>
+  <script src="controler.js"></script>
+</html>

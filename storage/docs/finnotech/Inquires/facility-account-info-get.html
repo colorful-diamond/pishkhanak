@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>اطلاعات حساب</title>
+<style>
+  #statusTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 400px;
+    margin: auto;
+
+  }
+  
+  #statusTable td, #statusTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  #statusTable tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #statusTable tr:hover {background-color: #ddd;}
+  
+  #statusTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #04AA6D;
+    color: white;
+  }
+</style>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###GET   /facility/v2/clients/{clientId}/getAccountInfo
+* **شرح: **  این سرویس با دریافت شماره شبا و یا شماره حساب بانک آینده، اطلاعات حساب و دارنده ی حساب را در خروجی نمایش میدهد.
+
+    * **اسکوپ: **  ```facility:account-info:get```
+
+    * **رویکرد: ** ```Client-Credential```
+
+    * **<a href="ResponseCodesFacility.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+    ````````````````
+{address}/facility/v2/clients/{clientId}/getAccountInfo?trackId={trackId}&deposit={deposit}&iban={iban}&bankCode={bankCode}
+    ````````````````
+    <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+        https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+    </div>
+
+    <div class="production-address production" style="float:right" style="display: block">
+        https://api.finnotech.ir <b> :address </b>
+    </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+&#x202b;برای فراخوانی این سرویس لازم است پس از دریافت توکن اعتباری کلاینت(client Credential) سرویس را فراخوانی نمایید
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+* **deposit:**  اجباری (string)  &#x202b; شماره حساب کاربر
+* example:  ```1111111111111```
+* **iban:**  اجباری (string)  &#x202b; شماره شبای کاربر
+* example:  ```IR111111111111111111111111```
+    * **نکته:** تنها یکی از دو فیلدهای iban و deposit باید ارسال گردد.
+* **bankCode:** اجباری (string)  &#x202b; کد بانک آینده (062)
+
+###Results Format
+
+#### Successful result format (status code 200)
+فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+{
+    "trackId": "11111111-1111-1111-1111-111111111111",
+    "result": {
+        "deposit": "1111111111111",
+        "accountStatus": "02",
+        "customerFirstname": "‌علی",
+        "customerLastname": "نوروزی",
+        "idNumber": "0011111111",
+        "accountType": "030"
+        "customerType": "01"
+    },
+    "status": "DONE"
+}
+````````````````
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* **result:** آبجکتی از پاسخ سرویس می‌باشد.
+    * **deposit: ** شماره حساب کاربر می‌باشد.
+    * **accountStatus: ** وضعیت حساب کاربر را نشان می‌دهد. توضیحات آن در انتهای داکیومنت آورده شده است.
+    * **customerFirstname: ** نام صاحب حساب
+    * **customerFirstname: ** نام خانوادگی صاحب حساب
+    * **idNumber: ** کدملی یا شناسه ملی صاحب حساب
+    * **accountType: ** نوع حساب را مشخص می‌کند. توضیحات آن در انتهای داکیومنت آورده شده است.
+    * **customerType: ** نوع مشتری را مشخص می‌کند. توضیحات آن در انتهای داکیومنت آورده شده است.
+    
+* **status: **  وضعیت فراخوانی سرویس را نشان می‌دهد.
+    * DONE: فراخوانی موفق سرویس
+    * FAILED: فراخوانی ناموفق سرویس
+* ** error:** جزییات خطا (در صورت بروز خطا)
+    * **code:** استاتوس کد
+    * **message:** پیغام خطا
+
+
+
+
+<h4 dir="rtl">لیست کد وضعیت حساب (accountStatus)</h4>
+<table dir="rtl" id="statusTable">
+    <tr>
+        <th>
+            کد وضعیت
+        </th>
+        <th>
+            توضیحات
+        </th>
+    </tr>
+    <tr>
+        <td>
+            02
+        </td>
+        <td>
+            حساب فعال است.
+        </td>
+    <tr>
+    <tr>
+        <td>
+            03
+        </td>
+        <td>
+            حساب مسدود با قابلیت واریز است.   
+        </td>
+    <tr>
+    <tr>
+        <td>
+            04
+        </td>
+        <td>
+            حساب مسدود بدون قابلیت واریز است.
+        </td>
+    <tr>
+    <tr>
+        <td>
+            05
+        </td>
+        <td>
+            حساب راکد است.
+        </td>
+    <tr>
+    <tr>
+        <td>
+            06
+        </td>
+        <td>
+            بروز خطادر پاسخ دهی؛ شرح خطا در فیلد توضیحات است.
+        </td>
+    <tr>
+    <tr>
+        <td>
+            07
+        </td>
+        <td>
+            سایر موارد
+        </td>
+    <tr>
+</table>
+
+
+
+<h4 dir="rtl">لیست کد نوع حساب (accountType)</h4>
+<table dir="rtl" id="statusTable">
+    <tr>
+        <th>
+            کد
+        </th>
+        <th>
+            توضیحات
+        </th>
+    </tr>
+    <tr>
+        <td>
+            010
+        </td>
+        <td>
+            جاری 
+        </td>
+    </tr>
+    <tr>
+        <td>
+            030
+        </td>
+        <td>
+            کوتاه مدت 
+        </td>
+    </tr>
+    <tr>
+        <td>
+            040
+        </td>
+        <td>
+            قرض الحسنه 
+        </td>
+    </tr>
+    <tr>
+        <td>
+            045
+        </td>
+        <td>
+            بلند مدت 
+        </td>
+    </tr>
+    <tr>
+        <td>
+            020
+        </td>
+        <td>
+            سپرده ارزی
+        </td>
+    </tr>
+    <tr>
+        <td>
+            025
+        </td>
+        <td>
+            حساب اعلامیه 
+        </td>
+    </tr>
+    <tr>
+        <td>
+            035
+        </td>
+        <td>
+            حساب قرض الحسنه پس انداز ویژه
+        </td>
+    </tr>
+    <tr>
+        <td>
+            050
+        </td>
+        <td>
+            حساب سرمایه گذاری امانی
+        </td>
+    </tr>
+    <tr>
+        <td>
+            055
+        </td>
+        <td>
+            حساب کارت
+        </td>
+    </tr>
+    <tr>
+        <td>
+            060
+        </td>
+        <td>
+            حساب وام (تسهیلات)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            015
+        </td>
+        <td>
+            بانکها
+        </td>
+    </tr>
+</table>
+
+
+
+<h4 dir="rtl">لیست کد نوع مشتری (customerType)</h4>
+<table dir="rtl" id="statusTable">
+    <tr>
+        <th>
+            کد
+        </th>
+        <th>
+            توضیحات
+        </th>
+    </tr>
+    <tr>
+        <td>
+            01
+        </td>
+        <td>
+            حقیقی
+        </td>
+    </tr>
+    <tr>
+        <td>
+            02
+        </td>
+        <td>
+            حقوقی
+        </td>
+    </tr>
+    <tr>
+        <td>
+            24
+        </td>
+        <td>
+            مشترک
+        </td>
+    </tr>
+</table>
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

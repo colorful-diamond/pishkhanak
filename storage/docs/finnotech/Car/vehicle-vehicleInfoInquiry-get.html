@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<html>
+<title>استعلام اطلاعات خودرو و تخفیفات</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###GET /vehicle/v2/clients/{clientId}/vehicleInfoInquiry
+
+ * **شرح:** در این سرویس، با وارد کردن شماره پلاک خودرو و کدملی، در خروجی اطلاعات و تخفیفات مربوط به خودرو را دریافت خواهید کرد.
+
+ * **اسکوپ: **  ```vehicle:vehicle-info-inquiry:get```
+
+ * **رویکرد: ** ```Client-Credential```
+
+ * **<a href="responseCodeVehicle.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+    {address}/vehicle/v2/clients/{clientId}/vehicleInfoInquiry?nationalId={nationalId}&plateNumber={plateNumber}&trackId={trackId}
+
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:** شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اختیاری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+ * **nationalId:** (اجباری) کد ملی صاحب خودرو .
+ * example:  ```0057684356```
+
+ * **plateNumber:**  (اجباری)  شماره پلاک ۹ رقمی خودرو که باید طبق الگوی توضیح داده شده در [این مستند](/doc/plateNumberTable.html) وارد شود.
+ * example:  ```911716950```
+
+
+ #### Successful result format (status code 200)
+ ````````````````
+    {
+        "responseCode": "FN-VHSB-20000300000",
+        "trackId": "1c7-253f-486f-2f1b8",
+        "result": {
+            "axelNo": "2",
+            "wheelNo": "4",
+            "capacity": "جمعا 5 نفر",
+            "cylinderNo": "4",
+            "mainColor": "سفيد",
+            "secondColor": "سفيد",
+            "usageCodeByInsuranceCompany": "1",
+            "usageCodeByCentralInsurance": "8",
+            "usageNameByInsuranceCompany": "شخصي",
+            "usageNameByNaja": "سواري",
+            "modelByNaja": "1401",
+            "insuranceUniqueCode": "10443945765",
+            "insurancePrintNumber": "1001/1401/000115/1300032",
+            "insuranceCompanyTitle": "بیمه آرمان",
+            "insuranceCompanyCode": 21,
+            "discountLifeYearNumber": "0",
+            "discountPersonYearNumber": "0",
+            "discountFinancialYearNumber": "0",
+            "discountLifeYearPercent": "0",
+            "discountPersonYearPercent": "0",
+            "discountFinancialYearPercent": "0",
+            "plateInstallDate": "1401/12/21",
+            "subUsage": "سواري",
+            "vehicleTypeNameByInsuranceCompany": "سواري",
+            "vehicleTypeCodeByInsuranceCompany": "1",
+            "vehicleGroupCode": "2",
+            "systemByInsuranceCompany": "سايپا",
+            "tipByCentralInsurance": "ساينا",
+            "vehicleSystemCode": "7",
+            "systemNameByNaja": "سايپا",
+            "tipByNaja": "SAINA S MT",
+            "tipCodeByCompany": "14696",
+            "chassisNumber": "NAS851100N5000587",
+            "engineNumber": "M15/9002809",
+            "vin": "NAS800100N5700087",
+            "beginDate": "1401/12/24",
+            "endDate": "1402/12/24"
+        },
+        "status": "DONE"
+    }
+ ````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+    * **axelNo:** تعداد محور
+    * **wheelNo:** تعداد چرخ
+    * **capacity:** ظرفیت (تعداد سرنشین) وسیله نقلیه
+    * **cylinderNo:** تعداد سیلندر وسیله نقلیه
+    * **mainColor:** نام رنگ وسیله نقلیه (اصلی)
+    * **secondColor:** نام رنگ وسیله نقلیه (دوم)
+    * **usageCodeByInsuranceCompany:** كد كاربری وسیله نقلیه (شرکت بیمه)
+    * **usageCodeByCentralInsurance:** كد كاربری وسیله نقلیه (شرکت بیمه مرکزی)
+    * **usageNameByInsuranceCompany:** نام كاربری وسیله نقلیه (شرکت بیمه)
+    * **usageNameByNaja:** نام كاربری وسیله نقلیه (در ناجا)
+    * **modelByNaja:** مدل وسیله نقلیه (در ناجا)
+    * **insuranceUniqueCode:** كد یکتای بیمه نامه
+    * **insurancePrintNumber:** شماره چاپی بیمه نامه
+    * **insuranceCompanyTitle:** نام شركت بیمه
+    * **insuranceCompanyCode:** كد شركت بیمه
+    * **discountLifeYearNumber:** تعدادسال تخفیف جانی
+    * **discountPersonYearNumber:** تعداد سال تخفیف راننده
+    * **discountFinancialYearNumber:** تعداد سال تخفیف مالی
+    * **discountLifeYearPercent:** درصد تخفیف جانی
+    * **discountPersonYearPercent:** درصد تخفیف راننده
+    * **discountFinancialYearPercent:** درصد تخفیف مالی
+    * **plateInstallDate:** تاریخ نصب پلاک
+    * **subUsage:** كاربری دوم
+    * **vehicleTypeNameByInsuranceCompany:** نوع وسیله نقلیه (در شرکت بیمه)
+    * **vehicleTypeCodeByInsuranceCompany:** کد وسیله نقلیه (در شرکت بیمه)
+    * **vehicleGroupCode:** کد گروه بندی وسیله نقلیه (در شرکت بیمه)
+    * **systemByInsuranceCompany:** نام سیستم وسیله نقلیه (در شرکت بیمه)
+    * **tipByCentralInsurance:** تیپ خودرو (در شركت بیمه مرکزی)
+    * **vehicleSystemCode:** کد سیستم خودرو
+    * **systemNameByNaja:** نام سیستم وسیله نقلیه (در ناجا)
+    * **tipByNaja:** تیپ خودرو (در ناجا)
+    * **tipCodeByCompany:** کد تیپ خودرو (در شركت)
+    * **vehicleSystemCode:**
+    * **chassisNumber:** شماره شاسی
+    * **engineNumber:** شماره موتور
+    * **vin:** شماره وین
+    * **beginDate:** تاریخ شروع
+    * **endDate:** تاریخ اتمام
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+<!--در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [تبدیل شماره پلاک به کد](/doc/plateNumberTable.html)-->
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

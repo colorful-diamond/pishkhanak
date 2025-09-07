@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام نمره منفی گواهینامه</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /billing/v2/clients/{clientId}/negativeScore
+* **شرح: **  سرویس استعلام نمره منفی گواهینامه با گرفتن شماره گواهینامه و استعلام آن از سازمان مربوطه، نمره منفی گواهینامه را در خروجی نمایش میدهد.
+     
+* **اسکوپ: **  ```billing:cc-negative-score:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+* **<a href="ResponsecodesBilling.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/billing/v2/clients/{clientId}/negativeScore?trackId={trackId}&licenseNumber={licenseNumber}&nationalID={nationalID}&mobile={mobile}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت  توکن Client Credential سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId:**شناسه کلاینت
+
+
+ #### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```getUserinfo876543```
+
+
+* **licenseNumber:** شماره گواهینامه ۱۰ رقمی
+     * example:  ```9380904743```
+
+* **nationalID:** شماره ملی دارنده ی گواهینامه
+     * example:  ```6789123456```
+
+* **mobile:** شماره موبایل دارنده ی گواهینامه
+     * example: ```09998887766```
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+ {
+     "responseCode": "FN-BGFH-20000300000",
+     "trackId": "266dcf92-753c-47db-b0f9-cbbe57abffdd",
+     "result": {
+         "LicenseNumber": "9607173353",
+         "NegativeScore": "0",
+         "OffenseCount": null,
+         "Rule": "-"
+     },
+     "status": "DONE"
+ }
+````````````````
+
+     
+     
+     
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **LicenseNumber:** شماره گواهینامه
+  * **NegativeScore:** امتیاز منفی
+  * **OffenseCount:** تعداد خلافی
+  * **OffenseCount:** حکم
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

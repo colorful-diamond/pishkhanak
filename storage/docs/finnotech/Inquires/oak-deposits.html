@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>دریافت شماره حساب</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET  /oak/v2/clients/{clientId}/deposits
+
+* **شرح: ** سرویس لیست حساب‌ها, این سرویس هنگامی به کار می‌رود که شما قصد دارید شماره حساب‌های مشتریان خود را دریافت نمایید.
+
+* **اسکوپ: **  ```oak:deposits:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+* **<a href="ResponseCodeOak.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+````````````````
+{address}/oak/v2/clients/{clientId}/users/{users}/deposits?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+#### URI Parameters
+* **clientId :**  شناسه کلاینت
+* **users :**   کد ملی ۱۰ رقمی
+
+#### Query Parameters
+* **trackId :** اختیاری (string)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+  * example:  ```deposits-010```
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+  {
+     "trackId": "getDepositsTrackId",
+     "result": [
+         {
+             "accountNumber": "1234567891578",
+             "accountType": "010"
+         },
+         {
+             "accountNumber": "9856321470123",
+             "accountType": "030"
+         }
+     ],
+     "status": "DONE"
+  }
+````````````````
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **result:** آبجکتی از پاسخ سرویس شامل:
+    * accountNumber: شماره حساب مشتری
+    * accountType: نوع حساب
+        * 010: جاری
+        * 030: کوتاه مدت
+        * 040: قرض الحسنه
+        * 045: بلندمدت
+        * 020: سپرده ارزی
+        * 025: حساب اعلامیه
+        * 035: حساب قرض الحسنه پس انداز ویژه
+        * 050: حساب سرمایه گذاری امانی
+        * 055: حساب کارت
+        * 060: حساب وام (تسهیلات)
+        * 015: بانکها
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

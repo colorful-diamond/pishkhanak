@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>گرفتن توکن حقوقی با رویکرد Authorization_Code_Type_SMS</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+  <br/>
+  <div id="#authorize" style="font-size:24px;font-weight:bold;text-align:right;">درخواست احراز هویت</div>
+
+  ### GET /dev/v2/oauth2/authorize
+
+  <br>
+
+  * **شرح:** از این سرویس برای تولید توکن حقوقی با رویکرد Authorization_Code_Type_SMS استفاده کنید. سرویس‌هایی که از این نوع
+  توکن استفاده می‌کنند نیاز به منابع سایر کاربران دارند و باید اجازه‌ی دسترسی از کاربر گرفته شود.
+
+  <br>
+    ** سرویس های وابسته**:
+  * ** <a href="#verify">تایید درخواست احراز هویت</a> ** <br>
+  * ** <a href="#token">درخواست توکن</a>**
+
+
+  * اولین قدم برای استفاده از این سرویس ها درخواست احراز هویت از کاربر است به این معنی که کاربر به برنامه ی شما اجازه
+  فراخوانی سرویس ها را بدهد. به این منظور باید کاربر درخواست احراز هویت را به شماره موبایلی که این مجوز را صادر می کند
+  بفرستد. آدرس پایه سرویس به صورت زیر است:
+
+  ````````````````
+  {address}/dev/v2/oauth2/authorize?client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&scope={scope}&mobile={mobile}&state={state}&auth_type=SMS
+  ````````````````
+  <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none">
+    https://sandboxapi.finnotech.ir <b><span class="finnotech-sandbox-address-text">:sandbox address </span></b>
+  </div>
+  <div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+  </div>
+
+
+  ####Query Parameters
+
+  * **client_id:** شناسه ثبت شده برای کلاینت در سامانه فینوتک
+  * **redirect_uri:** آدرس بازگشتی کلاینت، دامنه این آدرس باید با دامنه ثبت شده به ازای آدرس بازگشتی کلاینت در فینوتک
+  برابر باشد،‌ در غیر این صورت با خطا مواجه خواهید شد. لازم به ذکر است آدرسی که در این قسمت فرستاده میشود باید با آدرس
+  بازگشتی ارسال شده در مرحله دریافت توکن برابر باشد.
+  * **scope:**اسکوپ (دسترسی)هایی که کاربر باید مجوز دسترسی به آن‌ها را بدهد به صورت جدا شونده با کاما انگلیسی (comma separated) وارد شوند . تنها اسکوپ هایی که تایپ توکن ان ها از نوع sms هست در این جا می توانید استفاده کنید.
+  لازم به ذکر است که اسکوپ های با دسته بندی متفاوت نمی توانند باهم ارسال شوند به عنوان مثال اسکوپ اعتبار سنجی و صحت سنجی که در دو دسته متفاوتند(دسته سرویس های اعتباری و دسته سرویس های تبدیلی و کمکی) نمی توانند باهم ارسال شوند.
+  * **response_type:** نوع پاسخ که باید برابر ‍code‍ باشد
+  * **mobile:** شماره موبایلی که کد احراز هویت به منظور تایید دسترسی برای سرویس مورد نظر به آن ارسال خواهد شد
+  * **state:** (اختیاری) این کد برای ردگیری درخواست توسط کلاینت استفاده می‌شود و در صورت ارسال به همراه کد به آدرس
+  بازگشتی کلاینت برگردانده می‌شود
+  * **auth_type:** نوع احراز هویت (sms)
+
+    #### Headers
+    مقادیر زیر باید در هدر قرار بگیرد
+    ````````````````
+    Content-Type : application/json
+    Authorization : Basic {AuthenticationString}
+    ````````````````
+    مقدار AuthenticationString باید برابر Base64 از اطلاعات برنامه شما به صورت ```YOURCLIENTID:YOURCLIENTSECRET``` باشد. برای مثال اگر شناسه اپلیکیشن شما برابر firstapp باشد و رمز برنامه شما که در قسمت مشخصات اپلیکیشن در کنسول قابل مشاهده است برابر 6932dddb927b76e54997 باشد، شما باید Base64 مقدار ```firstapp:6932dddb927b76e54997``` را تولید کنید. در این صورت مقدار این هدر باید برابر مقدار زیر قرار گیرد:
+
+    ````````````````
+    Basic Zmlyc3RhcHA6NjkzMmRkZGI5MjdiNzZlNTQ5OTc=
+    ````````````````
+
+  در صورتی که پارامترها به درستی مشخص شوند پیامکی برای شماره موبایل درج شده ارسال خواهد شد.
+
+####Results Format
+#####Successful result format (status code 200)
+````````````````
+  {
+      "result": {
+          "smsSent": true,
+          "trackId": "3c35adb9-0164-4b5jjj6-9259-70022cff51e9"
+      },
+      "status": "DONE"
+  }
+````````````````
+  <br/>
+  <br/>
+  <div id="verify" style="font-size:24px;font-weight:bold;text-align:right;">درخواست تایید احراز هویت</div>
+
+  ###POST /dev/v2/oauth2/verify/sms
+
+  <br/>
+  <br>
+
+  با در دست داشتن کد ارسالی و شماره ترک ایدی وارد مرحله ی دوم که مرحله ی تایید احراز هویت است می شوید.
+
+  ````````````````
+  {address}/dev/v2/oauth2/verify/sms
+  ````````````````
+  <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none">
+    https://sandboxapi.finnotech.ir <b><span class="finnotech-sandbox-address-text">:sandbox address</span></b>
+  </div>
+  <div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+  </div>
+
+
+  ####Notes
+
+  * فرستادن تمام پارامتر های Body الزامی است
+
+
+
+  #### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Content-Type : application/json
+  Authorization : Basic {AuthenticationString}
+  ````````````````
+  مقدار AuthenticationString باید برابر Base64 از اطلاعات برنامه شما به صورت ```YOURCLIENTID:YOURCLIENTSECRET``` باشد. برای مثال اگر شناسه اپلیکیشن شما برابر firstapp باشد و رمز برنامه شما که در قسمت مشخصات اپلیکیشن در کنسول قابل مشاهده است برابر 6932dddb927b76e54997 باشد، شما باید Base64 مقدار ```firstapp:6932dddb927b76e54997``` را تولید کنید. در این صورت مقدار این هدر باید برابر مقدار زیر قرار گیرد:
+
+  ````````````````
+  Basic Zmlyc3RhcHA6NjkzMmRkZGI5MjdiNzZlNTQ5OTc=
+  ````````````````
+
+
+  ####Body
+  #####Example:
+
+  ````````````````
+  {
+    "mobile": "09300000000",
+    "otp":"qMeQs",
+    "nid": "0011674144",
+    "trackId":"3c35adb9-0164-4b5jjj6-moho-70022cff51e9",
+    "legalId":"10001110010",
+  }
+  ````````````````
+* **mobile:** شماره تلفن شخصی که otp را دریافت کرده است
+* **otp:** کد دریافت شده
+* **nid:** کد ملی شخصی که otp را دریافت کرده است
+* **trackId:** شناسه پیگیری مرحله ی قبل
+* **legalId:** شناسه حقوقی
+  * **نکته:** توکن هایی که در آنها از فیلد legalId استفاده می شود، فقط قابل استفاده برای فراخوانی های حقوقی می باشند.
+
+
+  ####Results Format
+
+  #####Successful result format (status code 200)
+
+
+  ````````````````
+  {
+    "result": {
+      "code": "BOmYeUWF1Ixx8kdL"
+    },
+    "status": "DONE"
+  }
+  ````````````````
+
+  * **result:**
+    * **code:** کدی که در مرحله ی دریافت توکن استفاده میگردد
+  * **status:**
+   * DONE: فراخوانی موفق سرویس
+   * FAILED: فراخوانی ناموفق سرویس
+
+  <br/>
+  <br/>
+  <div id="token" style="font-size:24px;font-weight:bold;text-align:right;">درخواست توکن</div>
+
+
+  ###POST   /dev/v2/oauth2/token
+
+  <br>
+
+
+  پس از دریافت کد از سرویس بالا، شما باید سرویس درخواست توکن را فراخوانی کنید:
+
+
+  ````````````````
+  {address}/dev/v2/oauth2/token
+  ````````````````
+
+
+  #### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Content-Type : application/json
+  Authorization : Basic {AuthenticationString}
+  ````````````````
+  مقدار AuthenticationString باید برابر Base64 از اطلاعات برنامه شما به صورت ```YOURCLIENTID:YOURCLIENTSECRET``` باشد. برای مثال اگر شناسه اپلیکیشن شما برابر firstapp باشد و رمز برنامه شما که در قسمت مشخصات اپلیکیشن در کنسول قابل مشاهده است برابر 6932dddb927b76e54997 باشد، شما باید Base64 مقدار ```firstapp:6932dddb927b76e54997``` را تولید کنید. در این صورت مقدار این هدر باید برابر مقدار زیر قرار گیرد:
+
+  ````````````````
+  Basic Zmlyc3RhcHA6NjkzMmRkZGI5MjdiNzZlNTQ5OTc=
+  ````````````````
+
+
+  ####Notes
+
+  * فرستادن تمام پارامتر های Body الزامی است
+  * **نکته مهم:** تمامی مقادیر دریافت شده در پاسخ این سرویس را ذخیره کنید. مقدار رفرش توکن، کد ملی، اسکوپ‌ها برای فراخوانی سرویس ها،
+  تاریخ ایجاد و عمر توکن برای کنترل زمان انقضای توکن مورد نیاز هستند.
+
+
+  ####Body
+  #####Example:
+
+  ````````````````
+  {
+    "grant_type": "authorization_code",
+    "code": "qPhxlaT1nUjWQqOu",
+    "auth_type": "SMS",
+    "redirect_uri": "https://localhost/"
+  }
+  ````````````````
+
+  * **grant_type:** این مقدار باید برابر authorization_code قرار گیرد
+  * **code:** کد دریافت شده در قسمت قبل
+  * **auth_type:** نوع احراز هویت (sms)
+  * **redirect_uri:** آدرس برگشت برنامه شما
+  * **نکته‌ی مهم:** این آدرس باید با آدرس برگشتی که در سرویس authorize یا دسترسی ارسال شده برابر باشد
+
+  ####Results Format
+  #####Successful result format (status code 200)
+  ````````````````
+  {
+    "result": {
+      "tokenId": "90JP4S3l5scGZmYwrOM5C2GynyNvMOHO",
+      "clientId": "moho",
+      "scopes": [
+      "credit:sms-back-cheques:get"
+      ],
+      "lifeTime": 864000000,
+      "type": "CODE",
+      "creationDate": "14030619133657",
+      "userId": "1234567890",
+      "auth_type": "SMS",
+      "refreshToken": "wFyqHGclHCIrf6KMOHOf8qf7ea2adR19CbEtd1rtOR3FutbfEyHC8ndNK8oxt4jQst8FvAynSMkVmbBgynuCq0dOW7MrJXyxzyxWoWPCDdx3VTLNn4is782JuRhYSS9rgcDhlwCbHQLCd7P8s6CmSfpR0oBL2YDgWmhe4lj9386vwo3OXkozfoOqZlqLK6YN0aV4c6cJYkD0FBjx01vk1ty0zYa3v7AvLu2SG8zhnBZbzUHYzdRmlHLw0I677",
+      "bank": "062",
+      "legalId": "11223344550"
+      "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjoiOTBKUDRTM2w1c2NHWm1Zd3JPTTVDMkd5bnlOdjdHeUUiLCJjbGllbnRJZCI6Im1vYmluYSIsInNjb3BlcyI6WyJjcmVkaXQ6c21zLWJhY2stY2hlcXVlczpnZXQiXSwibGlmZVRpbWUiOjg2NDAwMDAwMCwidHlwZSI6IkNPREUiLCJjcmVhdGlvbkRhdGUiOiIxNDAzMDYxOTEzMzY1NyIsInVzZXJJZCI6IjaMOHOiLCJyZWZyZXNoVG9rZW4iOiJ3RnlxSEdjbEhDSXJmNks3MGFYUUlFZjhxZjdlYTJhZFIxOUNiRXRkMXJ0T1IzRnV0YmZFeUhDOG5kTks4b3h0NGpRc3Q4RnZBeW5TTWtWbWJCZ3ludUNxMGRPVzdNckpYeXh6eXhXb1dQQ0RkeDNWVExObjRpczc4Mkp1UmhZU1M5cmdjRGhsd0NiSFFMQ2Q3UDhzNkNtU2ZwUjBvQkwyWURnV21oZTRsajkzODZ2d28zT1hrb3pmb09xWmxxTEs2WU4wYVY0YzZjSllrRDBGQmp4MDF2azF0eTB6WWEzdjdBdkx1MlNHOHpobkJaYnpVSFl6ZFJtbEhMdzBJNjc3IiwiYmFuayI6IjA2MiIsImlhdCI6MTcyNTg3NjQxNywiZXhwIjoxNzI2NzQwNDE3fQ.YmOs1a4TWltKpHV_YFGeTcPkcj5eXe2KUqL8t4LgxIaLxdDixCubX1g2An5l7tTw-ovLio2AH9mJItv4pvBy6tdKp30EoEoBZqF0yin95LaRWswR2Rjdbb34Ni7js3vWa2XgA-jj38OvgzFaORoTTaQ89c7dfpXjuO_VrL3QsUl9LQBlcQahpes_5U_37_bDi_fB6Ffjnfv0AtU7uu2pxGK7FdD7Sp4wRiXqupO5BlODrbzOA-AlXneBGrWeoJv7r3hppysmgxr-Rc1PKqfzjXDZfUBFMD6mXfhfX2oKohwnEEpXGBXRg5D09VyvN9jPtWMjpmv-VTst2fEUWSf0VaMOHO"
+    },
+    "status": "DONE"
+  }
+  ````````````````
+  * **result:**
+    * **tokenId:** شناسه توکن
+    * **clientId:** نام اپلیکیشن
+    * **scopes:** آرایه ای از اسکوپ‌های مجاز توکن
+    * **lifeTime:** عمر توکن به میلی ثانیه
+    * **type:** نوع توکن (در اینجا CODE)
+    * **creationDate:** زمان ساخت توکن به صورت تاریخ شمسی YYYYMMDDHHmmss
+    * **userId:** کدملی کاربر
+    * **auth_type:** نوع احراز هویت
+    * **refreshToken:** اگر عمر توکن تمام شود با استفاده از این توکن و فراخوانی سرویس تمدید توکن قادر به ایجاد توکن جدید خواهید بود
+    * **bank:** کد بانک فرستاده شده
+    * **legalId:** شناسه حقوقی
+    * **value:** توکنی که برای فراخوانی سرویس‌های مورد نظر استفاده میشود
+  * **status:**
+    * DONE: فراخوانی موفق سرویس
+    * FAILED: فراخوانی ناموفق سرویس
+  * **error:** جزییات خطا (در صورت بروز خطا)
+
+
+  ####UnSuccessful result format
+  در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید [لیست خطاها](/doc/generic-errors.html)
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

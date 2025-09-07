@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>دریافت لیست کد محصولات پین شارژ</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /charge/v2/clients/{clientId}/pinProductsList
+* **شرح: **  با فراخوانی این سرویس، در خروجی لیست محصولات پین شارژ نمایش داده می‌شود.
+
+* **اسکوپ: **  ```charge:pin-products-list:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+
+````````````````
+{address}/charge/v2/clients/{clientId}/pinProductsList?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت  توکن Client Credential سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId:**شناسه کلاینت
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```getUserinfo781432```
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+{
+  "responseCode": "FN-PGFH-20000700000",
+  "trackId": "iam-track-id-in-uuid-format",
+  "result": [
+      {
+          "amount": 100000,
+          "productCode": 11,
+          "operator": "MTN"
+      },
+      {
+          "amount": 50000,
+          "productCode": 10,
+          "operator": "MTN"
+      },
+      {
+          "amount": 20000,
+          "productCode": 9,
+          "operator": "MTN"
+      },
+      {
+          "amount": 10000,
+          "productCode": 8,
+          "operator": "MTN"
+      }
+  ],
+  "status": "DONE"
+}
+````````````````
+* **result:** آبجکتی از پاسخ سرویس نشان‌دهنده لیستی از محصولات شارژ:
+  * **amount:** قیمت
+  * **productCode:** کد محصول
+  * **operator:** اپراتور
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

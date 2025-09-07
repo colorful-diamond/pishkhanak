@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>گرفتن توکن با رویکرد Authorization_Code_Type_SMS</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+  <br/>
+  <div id="#authorize" style="font-size:24px;font-weight:bold;text-align:right;">درخواست احراز هویت</div>
+
+  ### GET /dev/v2/oauth2/authorize
+
+  <br>
+
+  * **شرح:** ‫از این سرویس برای تولید توکن با رویکرد Authorization_Code_Type_SMS استفاده کنید. سرویس‌هایی که از این نوع
+  توکن استفاده می‌کنند نیاز به منابع سایر کاربران دارند و باید اجازه‌ی دسترسی از کاربر گرفته شود.
+
+  <br>
+    ** سرویس های وابسته**:
+  * ** <a href="#verify">تایید درخواست احراز هویت</a> ** <br>
+  * ** <a href="#token">درخواست توکن</a>**
+
+
+  * اولین قدم برای استفاده از این سرویس ها درخواست احراز هویت از کاربر است به این معنی که کاربر به برنامه ی شما اجازه
+  فراخوانی سرویس ها را بدهد. به این منظور باید کاربر درخواست احراز هویت را به شماره موبایلی که این مجوز را صادر می کند
+  بفرستد. آدرس پایه سرویس به صورت زیر است:
+
+  ````````````````
+  {address}/dev/v2/oauth2/authorize?client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&scope={scope}&mobile={mobile}&state={state}&auth_type=SMS
+  ````````````````
+  <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none">
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+  </div>
+  <div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+  </div>
+
+
+  ####Query Parameters
+
+  * **client_id:** شناسه ثبت شده برای کلاینت در سامانه فینوتک
+  * **redirect_uri:** آدرس بازگشتی کلاینت، دامنه این آدرس باید با دامنه ثبت شده به ازای آدرس بازگشتی کلاینت در فینوتک
+  برابر باشد،‌ در غیر این صورت با خطا مواجه خواهید شد. لازم به ذکر است آدرسی که در این قسمت فرستاده میشود باید با آدرس
+  بازگشتی ارسال شده در مرحله دریافت توکن برابر باشد.
+  * **scope:**اسکوپ (دسترسی)هایی که کاربر باید مجوز دسترسی به آن‌ها را بدهد به صورت جدا شونده با کاما انگلیسی (comma separated) وارد شوند . تنها اسکوپ هایی که تایپ توکن ان ها از نوع sms هست در این جا می توانید استفاده کنید.
+  لازم به ذکر است که اسکوپ های با دسته بندی متفاوت نمی توانند باهم ارسال شوند به عنوان مثال اسکوپ اعتبار سنجی و صحت سنجی که در دو دسته متفاوتند(دسته سرویس های اعتباری و دسته سرویس های تبدیلی و کمکی) نمی توانند باهم ارسال شوند.
+  * **response_type:** نوع پاسخ که باید برابر ‍code‍ باشد
+  * **mobile:** شماره موبایلی که کد احراز هویت به منظور تایید دسترسی برای سرویس مورد نظر به آن ارسال خواهد شد
+  * **state:** (اختیاری) این کد برای ردگیری درخواست توسط کلاینت استفاده می‌شود و در صورت ارسال به همراه کد به آدرس
+  بازگشتی کلاینت برگردانده می‌شود
+  * **auth_type:** نوع احراز هویت (sms)
+
+  * **برای گرفتن توکن کشاورزی مقادیر زیر الزامی است :**
+    * **nid:** کد ملی صاحب امضا حساب معرفی شده به بانک
+
+    * **deposit:**   حساب معرفی شده به بانک
+    * **bank:** کد بانک های فعال با توکن اس ام اسی
+        * **کشاورزی :**  016
+    * **در صورت استفاده از سرویس انتقال وجه مقادیر زیر الزامی است:**
+      * **limit:** حداکثر مبلغ هر تراکنش به ریال
+      * **count:** حداکثر تعداد تراکنش ماهانه به ازای یک توکن
+
+    #### Headers
+    مقادیر زیر باید در هدر قرار بگیرد
+    ````````````````
+    Content-Type : application/json
+    Authorization : Basic {AuthenticationString}
+    ````````````````
+    مقدار AuthenticationString باید برابر Base64 از اطلاعات برنامه شما به صورت ```YOURCLIENTID:YOURCLIENTSECRET``` باشد. برای مثال اگر شناسه برنامه شما برابر firstapp باشد و رمز برنامه شما که در قسمت جزییات برنامه در کنسول قابل مشاهده است برابر 6932dddb927b76e54997 باشد، شما باید Base64 مقدار ```firstapp:6932dddb927b76e54997``` را تولید کنید. در این صورت مقدار این هدر باید برابر مقدار زیر قرار گیرد:
+
+    ````````````````
+    Basic Zmlyc3RhcHA6NjkzMmRkZGI5MjdiNzZlNTQ5OTc=
+    ````````````````
+
+    * مثال برای این درخواست:
+
+  ````````````````
+  https://api.finnotech.ir/dev/v2/oauth2/authorize?client_id=smokey&response_type=code&redirect_uri=https://localhost/&scope=credit:sms-advance-reliability:get&mobile=09300000000&state=15467287&auth_type=SMS````````````````
+  در صورتی که پارامترها به درستی مشخص شوند پیامکی برای شماره موبایل درج شده با این عنوان ارسال خواهد شد :در صورت تمایل
+  به اعطای دسترسی سرویس "نمره اعتباری و گزارش اعتبارسنجی پیشرفته" به "تست عملیاتی سرویس‌ها" کد "qMeQs" را وارد نمایید در
+  اینجا کاربر با در دست داشتن کد اعلام شده در پیامک ارسالی و همچنین ترک آیدی دریافتی در مرحله اول درخواست تایید احراز
+  هویت را فراخوانی می کند .
+
+
+  ####Results Format
+
+  #####Successful result format (status code 200)
+  ````````````````
+  {
+    "result": {
+      "smsSent": true,
+      "trackId": "3c35adb9-0164-4b5jjj6-9259-70022cff51e9"
+    },
+    "status": "DONE"
+  }
+  ````````````````
+  <br/>
+  <br/>
+  <div id="verify" style="font-size:24px;font-weight:bold;text-align:right;">درخواست تایید احراز هویت</div>
+
+  ###POST /dev/v2/oauth2/verify/sms
+
+  با در دست داشتن کد ارسالی و شماره ترک ایدی وارد مرحله ی دوم که مرحله ی تایید احراز هویت است می شوید.
+
+  ````````````````
+  {address}/dev/v2/oauth2/verify/sms
+  ````````````````
+  <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none">
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+  </div>
+  <div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+  </div>
+
+
+  ####Notes
+
+  * فرستادن تمام پارامتر های Body الزامی است
+
+
+
+  #### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Content-Type : application/json
+  Authorization : Basic {AuthenticationString}
+  ````````````````
+  مقدار AuthenticationString باید برابر Base64 از اطلاعات برنامه شما به صورت ```YOURCLIENTID:YOURCLIENTSECRET``` باشد. برای مثال اگر شناسه برنامه شما برابر firstapp باشد و رمز برنامه شما که در قسمت جزییات برنامه در کنسول قابل مشاهده است برابر 6932dddb927b76e54997 باشد، شما باید Base64 مقدار ```firstapp:6932dddb927b76e54997``` را تولید کنید. در این صورت مقدار این هدر باید برابر مقدار زیر قرار گیرد:
+
+  ````````````````
+  Basic Zmlyc3RhcHA6NjkzMmRkZGI5MjdiNzZlNTQ5OTc=
+  ````````````````
+
+
+  ####Body
+  #####Example:
+
+  ````````````````
+  {
+  "mobile": "09300000000",
+  "otp":"qMeQs",
+  "nid": "0011674144",
+  "trackId":"3c35adb9-0164-4b5jjj6-9259-70022cff51e9"
+  }
+  ````````````````
+
+
+  * مثال برای این درخواست:
+
+  ````````````````
+  https://api.finnotech.ir/dev/v2/oauth2/verify/sms
+  ````````````````
+
+
+  ####Results Format
+
+  #####Unsuccessful result format (status code 400)
+
+  ````````````````
+  {
+    "status": "FAILED",
+    "error": {
+      "code": "VALIDATION_ERROR",
+      "message": "invalid otp or mobile"
+    }
+  }
+  ````````````````
+  به ازای نادرست بودن هر یک از پارامترهای ورودی خطای ذکر شده در بالا نمایش داده خواهد شد.
+
+  ````````````````
+  {
+    "status": "FAILED",
+    "error": {
+      "code": "VALIDATION_ERROR",
+      "message": "Expiration time is exceeded"
+    }
+  }
+  ````````````````
+  از زمانی که کد به موبایل پیامک می شود مدت زمان سه دقیقه فرصت دارید تا کد تاییدیه را دریافت کرده در قسمت سوم که دریافت
+  توکن است اقدام نمایید در غیر اینصورت با پیغام زیر مواجه خواهید شد :
+
+
+
+  ####Results Format
+
+  #####Successful result format (status code 200)
+
+
+  ````````````````
+  {
+    "result": {
+      "code": "BOmYeUWF1Ixx8kdL"
+    },
+    "status": "DONE"
+  }
+  ````````````````
+
+  * **result:**
+  * **code:** کد دریافتی از فراخوانی سرویس برای استفاده در قسمت که تایید درخواست احراز هویت می باشد.
+  * **status:**
+   * DONE: فراخوانی موفق سرویس
+   * FAILED: فراخوانی ناموفق سرویس
+
+  * دریافت کد
+
+  در صورتی که کاربر بر روی دکمه دسترسی دارددر صفحه authorize فینوتک کلیک کند، فینوتک کاربر را به آدرس برگشتی که در
+  درخواست دسترسی ارسال کرده‌اید به همراه یک code هدایت میکند. به عنوان نمونه:
+
+  ````````````````
+  https://api.finnotech.ir/dev/v2/oauth2/token
+  ````````````````
+  <br/>
+  <br/>
+  <div id="token" style="font-size:24px;font-weight:bold;text-align:right;">درخواست توکن</div>
+
+
+  ###POST /dev/v2/oauth2/token
+
+
+  پس از دریافت کد از سرویس بالا، سرور شما باید سرویس درخواست توکن را فراخوانی کنید:
+
+
+  ````````````````
+  {address}/dev/v2/oauth2/token
+  ````````````````
+
+
+  #### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Content-Type : application/json
+  Authorization : Basic {AuthenticationString}
+  ````````````````
+  مقدار AuthenticationString باید برابر Base64 از اطلاعات برنامه شما به صورت ```YOURCLIENTID:YOURCLIENTSECRET``` باشد. برای مثال اگر شناسه برنامه شما برابر firstapp باشد و رمز برنامه شما که در قسمت جزییات برنامه در کنسول قابل مشاهده است برابر 6932dddb927b76e54997 باشد، شما باید Base64 مقدار ```firstapp:6932dddb927b76e54997``` را تولید کنید. در این صورت مقدار این هدر باید برابر مقدار زیر قرار گیرد:
+
+  ````````````````
+  Basic Zmlyc3RhcHA6NjkzMmRkZGI5MjdiNzZlNTQ5OTc=
+  ````````````````
+
+
+  ####Notes
+
+  * فرستادن تمام پارامتر های Body الزامی است
+  * **نکته مهم:** تمامی مقادیر دریافت شده در پاسخ این سرویس را ذخیره کنید. کد ملی و اسکوپ‌ها برای فراخوانی سرویس ها و
+  تاریخ ایجاد و عمر توکن برای کنترل زمان انقضای توکن مورد نیاز هستند.
+
+
+  ####Body
+  #####Example:
+
+  ````````````````
+  { "grant_type": "authorization_code"
+  , "code": "qPhxlaT1nUjWQqOu"
+  , "auth_type": "SMS"
+  , "redirect_uri": "https://localhost/"
+  }
+  ````````````````
+
+  * **grant_type:** این مقدار باید برابر authorization_code قرار گیرد
+  * **code:** کد دریافت شده در قسمت قبل
+  * **auth_type:** نوع احراز هویت (sms)
+  * **redirect_uri:** آدرس برگشت برنامه شما
+  * **نکته‌ی مهم:** این آدرس باید با آدرس برگشتی که در سرویس authorize یا دسترسی ارسال شده برابر باشد
+  * **برای گرفتن توکن کشاورزی مقادیر زیر الزامی است :**
+    * **bank:** کد بانک مربوطه
+
+
+  ####Results Format
+  #####Successful result format (status code 200)
+  ````````````````
+  {
+    "result": {
+      "clientId": "smokey",
+      "scopes": [
+        "credit:sms-advance-reliability:get"
+      ],
+      "deposits": [],
+      "lifeTime": "864000000",
+      "bank": "",
+      "type": "CODE",
+      "creationDate": "13980412134609",
+      "userId": "0012674044",
+      "maxAmountPerTransaction": 0,
+      "monthlyCallLimitation": 0,
+      "auth_type": "SMS",
+      "refreshToken":
+      "PFCiLr12XXoWLltniE3hmppE0TjYcGcctmrgJF3Xz94xmd6C3ACs8HhZYSnbUMOd67FqD2GbAadtvw8JYEwh8iWhYSrU0GYMc12aeWbKdU06KSRiqLjqgykOgm8ZjNGicB2F1ODKErSx1qD336EA42aW9Z0FNBiIVn1JrDYhjo0HQZBj4rqCE3KiJmrl61sofvsjX92bVnexdv5JaVADQW1RcFNc2gIeIryh0CqQpKBlfQDUqcpy7uQItzkAHaqi",
+      "value":
+      "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZCI6InNtb2tleSIsInNjb3BlcyI6WyJjcmVkaXQ6c21zLWFkdmFuY2UtcmVsaWFiaWxpdHk6Z2V0Il0sImRlcG9zaXRzIjpbXSwibGlmZVRpbWUiOiI4NjQwMDAwMDAiLCJiYW5rIjoiIiwidHlwZSI6IkNPREUiLCJjcmVhdGlvbkRhdGUiOiIxMzk4MDQxMjEzNDYwOSIsInVzZXJJZCI6IjAwMTI2NzQwNDQiLCJtYXhBbW91bnRQZXJUcmFuc2FjdGlvbiI6MCwibW9udGhseUNhbGxMaW1pdGF0aW9uIjowLCJhdXRoX3R5cGUiOiJTTVMiLCJyZWZyZXNoVG9rZW4iOiJQRkNpTHIxMlhYb1dMbHRuaUUzaG1wcEUwVGpZY0djY3RtcmdKRjNYejk0eG1kNkMzQUNzOEhoWllTbmJVTU9kNjdGcUQyR2JBYWR0dnc4SllFd2g4aVdoWVNyVTBHWU1jMTJhZVdiS2RVMDZLU1JpcUxqcWd5a09nbThaak5HaWNCMkYxT0RLRXJTeDFxRDMzNkVBNDJhVzlaMEZOQmlJVm4xSnJEWWhqbzBIUVpCajRycUNFM0tpSm1ybDYxc29mdnNqWDkyYlZuZXhkdjVKYVZBRFFXMVJjRk5jMmdJZUlyeWgwQ3FRcEtCbGZRRFVxY3B5N3VRSXR6a0FIYXFpIiwiaWF0IjoxNTYyMTQ1MzY5fQ.DFmndaH2C0KrjdsXYcB--Ezxe4jYtcMq72KngJZTPfJKkZwjKlteTpuNwghHBQ21ilfnrrdZIjdAlS7MyyQv2xdVwQBSghlwwAHC4ezpNFnWBjRdaEuxX8gaHqjTXsZcwYvVF7WOWhStD2lNEc8qQAVNf1IvxaR3N6bSQA2fJuWIoQjE-znGR-PHcCU7pnKG3K2pgJ98k2KcPlxBB5gaMAb5FiksagbvWY69oKNspPJ1IONOnC2AXndQnKhoL3qZOAFaOypQab8ZKxQpjStz54D8FP90yBtDaaqPhdvyWXMfjGbe6rJi13qJpmUo9-Fe2pAkXCRKEll3HRxpOKZWmw"
+    },
+    "status": "DONE"
+  }
+  ````````````````
+  * **result:**
+  * **scopes:** آرایه ای از اسکوپ‌های مجاز توکن
+  * **monthlyCallLimitation:** حداکثر تعداد تراکنش ماهانه به ازای یک توکن(تنها برای بانک کشاورزی)
+  * **maxAmountPerTransaction:** حداکثر مبلغ هر تراکنش به ریال(تنها برای بانک کشاورزی)
+  * **userId:** کدملی کاربر
+  * **creationDate:** زمان ساخت توکن به صورت تاریخ شمسی YYYYMMDDHHmmss
+  * **type:** نوع توکن (در اینجا CODE)
+  * **bank:** کد بانک فرستاده شده
+  * **lifeTime:** عمر توکن به میلی ثانیه
+  * **deposits:** آرایه از شماره حساب های کاربر که توکن اجازه دسترسی به آن را دارد(تنها برای بانک کشاورزی)
+  * **clientId:** نام اپلیکیشن
+  * **value:** توکنی که برای فراخوانی سرویس‌ها استفاده میشود
+  * **auth_type:** نوع احراز هویت
+  * **refreshToken:** اگر عمر توکن تمام شود با استفاده از این توکن و فراخوانی سرویس تمدید توکن قادر خواهید بود توکن جدید
+  دریافت نمایید
+  * **status:**
+  * DONE: فراخوانی موفق سرویس
+  * FAILED: فراخوانی ناموفق سرویس
+  * **error:** جزییات خطا (در صورت بروز خطا)
+
+
+  ####UnSuccessful result format
+  در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید [لیست خطاها](/doc/generic-errors.html)
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

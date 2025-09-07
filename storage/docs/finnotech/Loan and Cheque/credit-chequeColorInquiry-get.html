@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>وضعیت رنگ چک</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /credit/v2/clients/{clientId}/chequeColorInquiry
+* **شرح: ** در این سرویس، با وارد کردن شناسه ملی، درخروجی کد رنگ چک نمایش داده میشود.
+
+
+* **اسکوپ: **  ```credit:cheque-color-inquiry:get```
+
+* **رویکرد: ** ```CLIENT-CREDENTIAL```
+
+* **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/credit/v2/clients/{clientId}/chequeColorInquiry?idCode={idCode}&trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir <b> :address </b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+ * برای فراخوانی این سرویس لازم است  با توکن Client Credential سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId:** شناسه کلاینت
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```chequeColorInqReq123438```
+
+* **idCode:** اجباری (string)  &#x202b; کد شناسایی . مشتری حقیقی کد ملی (اجباری)٬ مشتری حقوقی شناسه ملی شرکت(اجباری)
+  * example : ```0050000039```
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+     {
+         "responseCode": "FN-CTFH-20099900000",
+         "trackId": "1ccdb-4924-4ab4-9a61-9ed6573",
+         "result": {
+            "chequeColor": "2"
+         },
+         "status": "DONE"
+     }
+````````````````
+* **result:** آبجکتی از پاسخ سرویس شامل:
+    * **chequeColor:** کد رنگ چک
+     * 1: وضعیت سفید به این معناست که صادرکننده چک فاقد هرگونه سابقه چک برگشتی بوده یا در صورت وجود سابقه، تمامی موارد رفع سوء اثر شده است.
+     * 2: وضعیت زرد به معنای داشتن یک فقره چک برگشتی یا حداکثر مبلغ 50 میلیون ریال تعهد برگشتی است.
+     * 3: وضعیت نارنجی نشان می دهد که صادرکننده چک دارای دو الی چهار فقره چک برگشتی یا حداکثر مبلغ 200 میلیون ریال تعهد برگشتی است.
+     * 4: وضعیت قهوه ای از این حکایت دارد که صادرکننده چک دارای پنج تا ده فقره چک برگشتی یا حداکثر مبلغ 500 میلیون ریال تعهد برگشتی است.
+     * 5: وضعیت قرمز نیز حاکی از این است که صادرکننده چک دارای بیش از ده فقره چک برگشتی یا بیش از مبلغ 500 میلیون ریال تعهد برگشتی است.
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

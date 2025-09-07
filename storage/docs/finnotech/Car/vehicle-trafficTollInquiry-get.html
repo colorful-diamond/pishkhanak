@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+  <title>استعلام طرح ترافیک خودرو</title>
+  <body onload="()">
+    <xmp theme="cerulean" style="display: none;">
+
+###GET   /vehicle/v2/clients/{clientId}/trafficTollInquiry
+* **شرح: ** در این سرویس، با وارد کردن شماره پلاک خودرو، لیست عوارض آزادراهی خودرو را دریافت کنید.
+
+* **اسکوپ: **  ```vehicle:traffic-toll-inquiry:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+* **<a href="responseCodeVehicle.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/vehicle/v2/clients/{clientId}/trafficTollInquiry?trackId={trackId}&plateNumber={plateNumber}&mobile={mobile}&nationalId={nationalId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir <b> :sandbox address </b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+</div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+برای فراخوانی این سرویس لازم است پس از دریافت توکن اعتباری کلاینت(client Credential) سرویس را فراخوانی نمایید
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+* **plateNumber :**  (اجباری)  شماره پلاک ۹ رقمی خودرو که باید طبق الگوی توضیح داده شده در [این مستند](/doc/plateNumberTable.html) وارد شود.
+    * example:  ```911715950```
+* **mobile :**  (اجباری) شماره موبایل
+    * example:  ```09123456789```
+* **nationalId :**  (اجباری) کدملی
+    * example:  ```0025479630```
+
+###Results Format
+
+#### Successful result format (status code 200)
+*‌ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+    {
+        "responseCode": "FN-VHGO-20000300000",
+        "trackId": "52328-fe63-46bd-b1cc-e27f48f31016",
+        "result": {
+            "plateNumber": "ایران 40 - 123 ص 51",
+            "bills": [
+                {
+                    "amount": 887851,
+                    "fee": 0,
+                    "date": "05/14/2023 00:00:00",
+                    "paymentStatus": "Unpaid",
+                    "totalAmount": 887851,
+                    "uniqueId": "c0e803181409f98a74e808dbf9724602"
+                }
+            ]
+        },
+        "status": "DONE"
+    }
+````````````````
+
+* **plateNumber:** شماره پلاک
+* **bills:**  آرایه‌ای از عوارضی های خودرو که هرکدام از آن‌ها دارای مبلغ و تاریخ می‌باشند.
+  * **amount:** مبلغ
+  * **fee:** کارمزد
+  * **date:** تاریخ میلادی
+  * **paymentStatus:** وضعیت پرداخت
+  * **totalAmount:** مبلغ کل طرح ترافیک خودرو
+  * **uniqueId:** شناسه یکتا
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+  </body>
+  <script src="strapdown.js"></script>
+  <script src="controler.js"></script>
+</html>

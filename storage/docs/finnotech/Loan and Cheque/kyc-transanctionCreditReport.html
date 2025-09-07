@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام اعتبار معاملاتی افراد</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+<br/>
+
+**نام مراحل به شرح زیر میباشد**:
+</br>
+* ** <a href="#authorize">درخواست</a> ** <br>
+* ** <a href="#verify_and_create">صحت سنجی</a> ** <br>
+** <a href="#statusCheck">دریافت</a> ** <br>
+
+<div id="#authorize" style="font-size:24px;font-weight:bold;text-align:right;">مرحله ی اول: درخواست </div>
+
+###GET /kyc/v2/clients/{clientId}/transactionCreditInquiryRequest
+* **اسکوپ: **  ```kyc:transaction-credit-inquiry-request:get```
+* **رویکرد: **  ```Client_Credential```
+
+
+<br>
+
+* **شرح:** : در این سرویس، با وارد کردن شماره موبایل و کدملی، در خروجی رمز یکبار مصرف جهت  استعلام اعتبار معاملاتی افراد دریافت خواهید کرد.
+<br>
+<br>
+**سرویس‌های مرتبط: [صحت سنجی استعلام اعتبار معاملاتی افراد](/doc/kyc-transactionCreditInquiryVerify.html?sandbox=+sandbox/)**
+<br>
+**سرویس‌های مرتبط : [دریافت استعلام اعتبار معاملاتی افراد](/doc/kyc-transactionCreditInquiryReport.html?sandbox=+sandbox/)**
+<br>
+<br>
+* **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+````````````````
+  {address}/kyc/v2/clients/{clientId}/transactionCreditInquiryRequest?trackId={trackId}&nationalCode={nationalCode}&mobile={mobile}
+  ````````````````
+  <div class="sandboxaddress sandbox sandbox" style="float:right" style="display: none" >
+    https://sandboxapi.finnotech.ir <b> :address </b>
+  </div>
+
+  <div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+  </div>
+
+  #### URI Parameters
+  * **clientId:**شناسه کلاینت
+
+  #### Query Parameters
+  * **trackId :** (اختیاری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+  * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+  * **nationalCode :** (اجباری) کد ملی
+  * example:  ```0057684356```
+
+  * **mobile :**  (اجباری)  شماره موبایل
+  * example:  ```09192679854```
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+####Results Format
+
+#####Successful result format (status code 200)
+
+
+  ````````````````
+  {
+    "trackId": "15a7f751-75c4-41c0",
+    "result": {
+      "message": "OK"
+    },
+    "status": "DONE"
+  }
+  ````````````````
+
+
+  <br/>
+  <br/>
+  <div id="verify_and_create" style="font-size:24px;font-weight:bold;text-align:right;">مرحله ی دوم:  صحت سنجی </div>
+
+  ###POST /kyc/v2/clients/{clientId}/transactionCreditInquiryVerify
+  * **اسکوپ: **  ```kyc:transaction-credit-inquiry-verify:post```
+  * **رویکرد: **  ```Client_Credential```
+  * **شرح:**  در این سرویس، با وارد کردن کد یکبارمصرف و شناسه پیگیری سرویس درخواست اعتبار معاملاتی افراد ، در خروجی وضعیت موثر و محکومیت های مالی شخص را دریافت خواهید کرد.
+
+  ````````````````
+  {address}/kyc/v2/clients/{clientId}/transactionCreditInquiryVerify?trackId={trackId}
+  ````````````````
+  <div class="sandboxaddress sandbox sandbox" style="float:right" style="display: none" >
+    https://sandboxapi.finnotech.ir <b> :address </b>
+  </div>
+
+  <div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+  </div>
+
+  ####Notes
+
+  * فرستادن تمام پارامتر های Body الزامی است
+
+  #### URI Parameters
+  * **clientId:**شناسه کلاینت
+
+  #### Query Parameters
+  * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+  * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+####Body
+#####Example:
+
+````````````````
+{
+  "otp":"12345",
+  "nationalCode":"11111111111"
+
+  }
+````````````````
+  * **otp: **  ( اجباری) رمز یکبار مصرف
+  * **nationalCode: **  ( اجباری) کد ملی
+
+  ####Results Format
+
+
+#####Successful result format (status code 200)
+
+
+````````````````
+{
+  "responseCode": "FN-KCST-20003500000",
+  "trackId": "09f47f7c-a990-4de5-97ce-422a280872eb",
+  "result": {
+    "inquiryTrackId": "0d09f3af-9e86-4a2c-9ff6-9c0bca5ff369"
+  },
+  "status": "DONE"
+}
+````````````````
+  * **responseCode:** کد پاسخ دریافتی
+  * ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+  * ** result:** آبجکتی از پاسخ سرویس شامل:
+    * ** inquiryTrackId:** شناسه پیگیری استعلام
+  * ** status:** &#x202b; DONE/FAILED
+  * ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+
+<div id="statusCheck" style="font-size:24px;font-weight:bold;text-align:right;"> مرحله ی سوم: دریافت </div>
+
+###GET /kyc/v2/clients/{clientId}/transactionCreditInquiryReport
+  * **اسکوپ: **  ```kyc:transaction-credit-inquiry-report:get```
+  * **رویکرد: **  ```Client_Credential```
+  * **شرح:** در این سرویس، با وارد کردن کد یکبارمصرف و شناسه پیگیری سرویس درخواست اعتبار معاملاتی افراد ، در خروجی وضعیت موثر و محکومیت های مالی شخص را دریافت خواهید کرد.
+
+````````````````
+{address}/kyc/v2/clients/{clientId}/transactionCreditInquiryReport?inquiryTrackId={inquiryTrackId}&trackId={trackId}
+````````````````
+  <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none">
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+  </div>
+  <div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+  </div>
+
+
+
+  #### URI Parameters
+  * **clientId:**شناسه کلاینت
+
+  #### Query Parameters
+  * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+  * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+  * **inquiryTrackId :** (اجباری) شناسه پیگیری فراخوانی درخواست استعلام اعتبار معاملاتی افراد
+  * example:  ```INQUIRY_TRACKID```
+
+  #### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+  ####Results Format
+
+  #####Successful result format (status code 200)
+
+
+````````````````
+{
+  "responseCode": "FN-KCST-20003600000",
+  "trackId": "109c188-4167-b9c4a7821a31",
+  "result": {
+    "message": "کد ملی 001111111در قوه قضائیه احراز شده است \nدر مورد این شخص،سابقه منفی یافت نشد"
+  },
+  "status": "DONE"
+}
+````````````````
+
+
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+* **Condition:** وضعیت اعتبار معاملاتی فرد
+  * در مورد این شخص سابقه منفی یافت نشد
+  * کد ملی ... ممنوع المعامله است.
+  <br><span>&#8226;</span>  ممنوع المعامله بودن شخص.
+  <br><span>&#8226;</span>  محجور بودن شخص.
+  <br><span>&#8226;</span>   غایب مفقود الاثر بودن شخص.
+  <br><span>&#8226;</span>    متوفی فرضی بودن شخص.
+  <br><span>&#8226;</span>    متوقف بودن شخص.
+  * کد ملی ... باید به مراجع قضایی مراجعه نماید. (متهم/محکوم متواری)
+  * کد ملی ... دارای سابقه اعسار است. (معصر)
+  * کد ملی ... دارای محکومیت مالی اجرا نشده/اجرا شده است.
+  <br><span>&#8226;</span>محکومیت مالی محاکم .
+  <br><span>&#8226;</span>  محکومیت مالی اجرائیات ثبت .
+  * کد ملی ... در قوه قضائیه احراز نشده است.  (دارا نبودن کد ثنا)
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+* **code:** استاتوس کد
+* **message:** پیغام خطا
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

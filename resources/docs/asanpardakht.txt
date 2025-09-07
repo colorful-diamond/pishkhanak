@@ -1,0 +1,383 @@
+````markdown
+# Asan Pardakht Payment Gateway Integration Guide (PHP)
+
+This document provides a comprehensive guide for integrating the Asan Pardakht (آپ) Internet Payment Gateway using its RESTful API. It is tailored for PHP developers and includes all necessary endpoints, parameters, and code examples.
+
+## 1. Prerequisites
+
+Before you start, you must have the following:
+
+* [cite_start]**Merchant Configuration ID (`merchantConfigurationId`)**: A unique ID for your merchant account provided by Asan Pardakht[cite: 41, 42].
+* [cite_start]**Username (`usr`)**: Your API username[cite: 41, 43].
+* [cite_start]**Password (`pwd`)**: Your API password[cite: 41, 47].
+* [cite_start]**Whitelisted Server IP**: The public IP address of your web server must be sent to Asan Pardakht for whitelisting[cite: 38]. [cite_start]You will receive an "access denied" error with your IP in the response body if it's not whitelisted[cite: 88].
+* [cite_start]**Whitelisted Domain**: The domain of your callback page must be registered with Asan Pardakht[cite: 38].
+* [cite_start]**Open Ports**: Ensure ports `80` and `443` are open for outbound connections on your server[cite: 51].
+* [cite_start]**e-NAMAD**: You are required by Shaparak to have an "e-NAMAD" (Symbol of Electronic Trust) for your website[cite: 35].
+
+---
+
+## 2. API Environment
+
+* [cite_start]**Base URL**: `https://ipgrest.asanpardakht.ir/` [cite: 54]
+* [cite_start]**Protocol**: All API calls must be made over **HTTPS**[cite: 32].
+* [cite_start]**Case-Sensitivity**: All endpoints and parameters are case-sensitive[cite: 57].
+* [cite_start]**Content-Type**: For `POST` requests with a JSON body, the `Content-Type` header must be set to `application/json`[cite: 58, 59].
+
+---
+
+## 3. Transaction Flow
+
+The payment process follows a specific sequence of API calls.
+
+### **Step 1: Request a Payment Token**
+
+[cite_start]First, you request a unique token from Asan Pardakht to initiate a transaction[cite: 62].
+
+* [cite_start]**Method**: `POST` [cite: 94]
+* [cite_start]**Endpoint**: `/v1/Token/` [cite: 62]
+* **Headers**:
+    * [cite_start]`usr`: Your Asan Pardakht username[cite: 97].
+    * [cite_start]`pwd`: Your Asan Pardakht password[cite: 97].
+* **Request Body (JSON)**:
+
+| Field | Description | Example | Citation |
+| :--- | :--- | :--- | :--- |
+| `merchantConfigurationId` | Your unique merchant configuration ID. | [cite_start](Provided by AP) | [cite: 99] |
+| `serviceTypeId` | The service type ID. Use `1` for a standard purchase. | [cite_start]`1` | [cite: 99] |
+| `localInvoiceId` | A unique, positive integer invoice ID from your system. It must never be repeated. | [cite_start]`16899` | [cite: 102] |
+| `amountInRials` | The transaction amount in Rials, without separators. | [cite_start]`500000` | [cite: 102] |
+| `localDate` | The request date and time in `YYYYMMDD HHMMSS` format. This must be synchronized with the Asan Pardakht server time (within a 1-day difference). You can use the `/v1/Time` endpoint (`GET`) to get the server's time. | [cite_start]`20250721 143000` | [cite: 102] |
+| `callbackURL` | The URL on your website where the user will be redirected after payment. It must start with `http` or `https`. **Crucially, include your `localInvoiceId` in this URL** (e.g., in the query string) so you can retrieve it later. | [cite_start]`https://yourdomain.com/callback.php?invoice=16899` | [cite: 102] |
+| `additionalData` | Optional additional data (max 100 characters). | [cite_start]`Product purchase` | [cite: 102] |
+| `paymentId` | Government payment ID. Send `0` if not applicable for your business type. | [cite_start]`0` | [cite: 106, 107] |
+| `settlementPortions` | An array for splitting funds between different pre-registered IBANs. Leave empty (`[]`) if not used. The sum of amounts must equal `amountInRials`. | [cite_start]`[]` | [cite: 106] |
+
+* [cite_start]**Success Response**: An `HTTP 200` status with the payment token as a plain string in the response body[cite: 121].
+
+### **Step 2: Redirect User to Payment Gateway**
+
+[cite_start]After receiving the token, redirect the user to the Asan Pardakht payment page using an HTML form that is submitted via `POST`[cite: 185].
+
+* [cite_start]**Action URL**: `https://asan.shaparak.ir` [cite: 185, 193]
+* [cite_start]**Method**: `POST` [cite: 185, 191]
+* **Form Fields**:
+    * [cite_start]`RefId`: The token you received in Step 1[cite: 184].
+    * `mobileap` (Optional): The user's mobile number. This allows users with saved cards to select them for faster payment. [cite_start]This service requires prior activation from Asan Pardakht[cite: 205, 207, 208].
+
+**JavaScript Example for Redirection:**
+
+```html
+<script language="javascript" type="text/javascript">
+ function postRefId(refIdValue) {
+    var form = document.createElement("form");
+    [cite_start]form.setAttribute("method", "POST"); [cite: 191]
+    [cite_start]form.setAttribute("action", "[https://asan.shaparak.ir](https://asan.shaparak.ir)"); [cite: 192, 193]
+    [cite_start]form.setAttribute("target", "_self"); [cite: 194]
+    [cite_start]var hiddenField = document.createElement("input"); [cite: 195]
+    [cite_start]hiddenField.setAttribute("name", "RefId"); [cite: 196]
+    [cite_start]hiddenField.setAttribute("value", refIdValue); [cite: 197]
+    [cite_start]form.appendChild(hiddenField); [cite: 198]
+    [cite_start]document.body.appendChild(form); [cite: 201]
+    [cite_start]form.submit(); [cite: 201]
+    [cite_start]document.body.removeChild(form); [cite: 202]
+ }
+</script>
+````
+
+### **Step 3: Handle Callback & Query Transaction Result**
+
+[cite\_start]The user is redirected back to your `callbackURL` after the payment attempt[cite: 66]. You must then query the transaction's status.
+
+1.  [cite\_start]Extract your `localInvoiceId` from the callback URL[cite: 69].
+2.  [cite\_start]Check that you have not already processed a result for this invoice ID[cite: 69].
+3.  [cite\_start]Call the `TranResult` endpoint to get the final transaction details[cite: 71].
+
+<!-- end list -->
+
+  * [cite\_start]**Method**: `GET` [cite: 124, 129]
+  * [cite\_start]**Endpoint**: `/v1/TranResult` [cite: 71]
+  * [cite\_start]**Time Limit**: This method can be called for up to **45 minutes** after the transaction[cite: 125].
+  * **Headers**:
+      * [cite\_start]`usr`: Your Asan Pardakht username[cite: 127].
+      * [cite\_start]`pwd`: Your Asan Pardakht password[cite: 127].
+  * **Query Parameters**:
+      * [cite\_start]`merchantConfigurationId`: Your merchant ID[cite: 131].
+      * [cite\_start]`localInvoiceId`: The invoice ID you extracted from your callback URL[cite: 131].
+  * [cite\_start]**Success Response (`HTTP 200`)**: A JSON object with the transaction details[cite: 133]. [cite\_start]If no record is returned, the transaction was unsuccessful or canceled by the user[cite: 72].
+  * **Key Response Fields**:
+
+| Field | Description | Citation |
+| :--- | :--- | :--- |
+| `payGateTranID` | **The most important field**. The unique transaction ID from Asan Pardakht's switch. You need this for all subsequent actions (`Verify`, `Settle`, `Reverse`, `Cancel`). [cite\_start]| [cite: 75, 137] |
+| `amount` | The final transaction amount. [cite\_start]| [cite: 137] |
+| `rrn` | The bank's retrieval reference number. [cite\_start]| [cite: 134] |
+| `cardNumber` | The masked card number of the customer (e.g., 621986\*\*\*\*\*\*4321). [cite\_start]| [cite: 134] |
+| `refID` | The original token sent to the gateway. [cite\_start]| [cite: 137] |
+| `salesOrderID`| The `localInvoiceId` you originally sent. [cite\_start]| [cite: 137] |
+
+[cite\_start]**Security Check:** After receiving the result, you **must** compare the returned `amount` and `refID` with the values you have stored in your database for that `localInvoiceId` to prevent tampering[cite: 74].
+
+### **Step 4: Verify and Settle the Transaction**
+
+[cite\_start]To finalize the payment and ensure the funds are credited to your account, you must perform two final server-to-server calls: **Verify** and then **Settlement**[cite: 80].
+
+  * **Time Limit**: You have **30 minutes** from the time of the transaction to call `Verify`. [cite\_start]If you fail to do so, the transaction will be automatically reversed[cite: 79, 164].
+
+Both `Verify` and `Settlement` methods share the same structure:
+
+  * [cite\_start]**Method**: `POST` [cite: 141]
+  * **Endpoints**:
+      * [cite\_start]`/v1/Verify/` [cite: 80]
+      * [cite\_start]`/v1/Settlement/` [cite: 80]
+  * **Headers**:
+      * [cite\_start]`usr`: Your Asan Pardakht username[cite: 144, 145].
+      * [cite\_start]`pwd`: Your Asan Pardakht password[cite: 148, 149].
+  * **Body (JSON)**:
+      * [cite\_start]`merchantConfigurationId`: Your merchant ID[cite: 153].
+      * [cite\_start]`payGateTranId`: The unique ID received from the `TranResult` call[cite: 153].
+  * [cite\_start]**Success Response**: An `HTTP 200` status code with an empty body indicates success[cite: 155]. [cite\_start]Any other code signifies failure[cite: 142].
+
+**Important Notes**:
+
+  * [cite\_start]**Verify**: This call confirms you acknowledge the successful transaction and prevents it from being automatically reversed[cite: 162]. [cite\_start]A transaction can only be verified once[cite: 158].
+  * [cite\_start]**Settlement**: This call instructs Asan Pardakht to submit the transaction to Shaparak for deposit into your account[cite: 81]. [cite\_start]You cannot settle a transaction that has not been successfully verified first[cite: 171]. [cite\_start]If this call fails, Asan Pardakht will automatically attempt to settle it on your behalf 12 hours later[cite: 82].
+
+-----
+
+## 4\. Post-Payment Actions (Refunding)
+
+### **Reverse**
+
+Use this to refund a transaction that has **not yet been verified**. This is the appropriate action if the `Verify` call fails or if you decide not to proceed with the transaction before confirming it.
+
+  * [cite\_start]**Method**: `POST` [cite: 77]
+  * [cite\_start]**Endpoint**: `/v1/Reverse/` [cite: 77]
+  * [cite\_start]**Time Limit**: Best used within the first **30 minutes** before auto-reversal occurs[cite: 176].
+  * **Body and Headers**: Same as `Verify` and `Settlement`.
+
+### **Cancel**
+
+Use this to refund a transaction that has been **successfully verified but not yet settled**.
+
+  * [cite\_start]**Method**: `POST` [cite: 83]
+  * [cite\_start]**Endpoint**: `/v1/Cancel/` [cite: 83]
+  * [cite\_start]**Time Limit**: You have **3 hours** from the transaction time to cancel it[cite: 86].
+  * **Body and Headers**: Same as `Verify` and `Settlement`.
+
+-----
+
+## 5\. PHP Integration Example
+
+```php
+<?php
+
+class AsanPardakhtGateway {
+    private $api_base_url = '[https://ipgrest.asanpardakht.ir/v1/](https://ipgrest.asanpardakht.ir/v1/)';
+    private $username;
+    private $password;
+    private $merchant_id;
+
+    public function __construct(string $username, string $password, string $merchant_id) {
+        $this->username = $username;
+        $this->password = $password;
+        $this->merchant_id = $merchant_id;
+    }
+
+    /**
+     * Step 1: Request a payment token.
+     */
+    public function requestToken(string $localInvoiceId, int $amount, string $callbackUrl) {
+        $params = [
+            'merchantConfigurationId' => $this->merchant_id,
+            'serviceTypeId' => 1,
+            'localInvoiceId' => $localInvoiceId,
+            'amountInRials' => $amount,
+            'localDate' => date('Ymd His'),
+            'callbackURL' => $callbackUrl,
+            'paymentId' => 0,
+        ];
+        return $this->sendRequest('Token/', 'POST', $params);
+    }
+
+    /**
+     * Step 3: Query transaction result after callback.
+     */
+    public function getTransactionResult(string $localInvoiceId) {
+        $queryParams = http_build_query([
+            'merchantConfigurationId' => $this->merchant_id,
+            'localInvoiceId' => $localInvoiceId
+        ]);
+        $response = $this->sendRequest('TranResult?' . $queryParams, 'GET');
+        return $response ? json_decode($response, true) : null;
+    }
+
+    /**
+     * Step 4: Verify a successful transaction.
+     */
+    public function verifyTransaction(string $payGateTranId) {
+        $params = [
+            'merchantConfigurationId' => $this->merchant_id,
+            'payGateTranId' => $payGateTranId
+        ];
+        return $this->sendRequest('Verify/', 'POST', $params, true);
+    }
+
+    /**
+     * Step 4: Settle a verified transaction.
+     */
+    public function settleTransaction(string $payGateTranId) {
+        $params = [
+            'merchantConfigurationId' => $this->merchant_id,
+            'payGateTranId' => $payGateTranId
+        ];
+        return $this->sendRequest('Settlement/', 'POST', $params, true);
+    }
+
+    /**
+     * Reverse an unverified transaction.
+     */
+    public function reverseTransaction(string $payGateTranId) {
+        $params = [
+            'merchantConfigurationId' => $this->merchant_id,
+            'payGateTranId' => $payGateTranId
+        ];
+        return $this->sendRequest('Reverse/', 'POST', $params, true);
+    }
+    
+    /**
+     * Cancel a verified transaction.
+     */
+    public function cancelTransaction(string $payGateTranId) {
+        $params = [
+            'merchantConfigurationId' => $this->merchant_id,
+            'payGateTranId' => $payGateTranId
+        ];
+        return $this->sendRequest('Cancel/', 'POST', $params, true);
+    }
+
+    /**
+     * Helper function to send API requests via cURL.
+     */
+    private function sendRequest(string $endpoint, string $method, array $data = [], bool $isStatusCodeOnly = false) {
+        $ch = curl_init();
+        $headers = [
+            'usr: ' . $this->username,
+            'pwd: ' . $this->password,
+            'Content-Type: application/json'
+        ];
+        $url = $this->api_base_url . $endpoint;
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+
+        if ($method === 'POST' && !empty($data)) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        }
+
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($isStatusCodeOnly) {
+            return $http_code === 200;
+        }
+        
+        if ($http_code === 200) {
+            return $response;
+        }
+
+        error_log("Asan Pardakht API Error on $endpoint: HTTP $http_code - $response");
+        return false;
+    }
+}
+
+// --- USAGE EXAMPLE ---
+
+/*
+// 1. Configuration
+$username = 'YOUR_USERNAME';
+$password = 'YOUR_PASSWORD';
+$merchant_id = 'YOUR_MERCHANT_CONFIG_ID';
+$gateway = new AsanPardakhtGateway($username, $password, $merchant_id);
+
+// 2. On your checkout page (e.g., checkout.php)
+$invoiceId = "INV" . time();
+$amount = 10000; // 10,000 Rials
+$callback = "[https://yourdomain.com/callback.php?invoice=](https://yourdomain.com/callback.php?invoice=)" . $invoiceId;
+
+// Store $invoiceId and $amount in your database before redirecting
+// ...
+
+$token = $gateway->requestToken($invoiceId, $amount, $callback);
+if ($token) {
+    // Use the JavaScript function to redirect the user
+    echo "<script>postRefId('{$token}');</script>";
+} else {
+    echo "Error: Could not connect to the payment gateway.";
+}
+
+// 3. On your callback page (e.g., callback.php)
+$returnedInvoiceId = $_GET['invoice'];
+$tranResult = $gateway->getTransactionResult($returnedInvoiceId);
+
+if ($tranResult && isset($tranResult['payGateTranID'])) {
+    // Validate amount against your database
+    // ...
+
+    $payGateTranId = $tranResult['payGateTranID'];
+
+    if ($gateway->verifyTransaction($payGateTranId)) {
+        if ($gateway->settleTransaction($payGateTranId)) {
+            echo "Payment successful!";
+            // Provide service to the user
+        } else {
+            echo "Settlement failed. Please contact support.";
+            // Optionally try to cancel the transaction
+            $gateway->cancelTransaction($payGateTranId);
+        }
+    } else {
+        echo "Verification failed. The transaction was not completed.";
+    }
+} else {
+    echo "Payment failed or was canceled by the user.";
+}
+*/
+?>
+```
+
+-----
+
+## 6\. Transaction Result Codes
+
+The following table lists the financial transaction result codes returned by the banking network. [cite\_start]A code of `0` indicates a successful transaction[cite: 249].
+
+| Code | Meaning |
+| :--- | :--- |
+| **0** | [cite\_start]**Transaction approved** [cite: 249] |
+| 1 | [cite\_start]Card issuer declined the transaction[cite: 249]. |
+| 3 | [cite\_start]Invalid merchant[cite: 249]. |
+| 5 | [cite\_start]Transaction not processed[cite: 249]. |
+| 12 | [cite\_start]Invalid transaction[cite: 249]. |
+| 14 | [cite\_start]Invalid card number[cite: 249]. |
+| 15 | [cite\_start]Invalid card issuer[cite: 249]. |
+| 30 | [cite\_start]Invalid message format[cite: 249]. |
+| 33 | [cite\_start]Card has expired[cite: 249]. |
+| 38 | [cite\_start]PIN entered incorrectly too many times[cite: 249]. |
+| 51 | [cite\_start]Insufficient funds[cite: 249]. |
+| 54 | [cite\_start]Card has expired[cite: 252]. |
+| 55 | [cite\_start]Incorrect PIN[cite: 252]. |
+| 56 | [cite\_start]Invalid card[cite: 252]. |
+| 57 | [cite\_start]Transaction not permitted for this card[cite: 252]. |
+| 61 | [cite\_start]Exceeds withdrawal amount limit[cite: 252]. |
+| 62 | [cite\_start]Restricted card[cite: 252]. |
+| 65 | [cite\_start]Exceeds withdrawal frequency limit[cite: 252]. |
+| 75 | [cite\_start]PIN entered incorrectly too many times[cite: 252]. |
+| 91 | [cite\_start]Card issuer is unavailable / not responding[cite: 252]. |
+| 94 | [cite\_start]Duplicate transaction[cite: 252]. |
+| 96 | [cite\_start]System malfunction[cite: 252]. |
+
+```
+```

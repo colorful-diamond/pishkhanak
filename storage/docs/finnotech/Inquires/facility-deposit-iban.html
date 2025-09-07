@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>تبدیل حساب به شبا</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /facility/v2/clients/{clientId}/depositToIban
+* **شرح: **سرویس دریافت شماره شبا از روی شماره حساب ( شبکه بانکی )
+
+* **اسکوپ: **  ```facility:cc-deposit-iban:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+     * **<a href="ResponseCodesFacility.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/facility/v2/clients/{clientId}/depositToIban?trackId={trackId}&deposit={deposit}&bankCode={bankCode}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+&#x202b;برای فراخوانی این سرویس لازم است پس از دریافت توکن اعتباری کلاینت(client Credential) سرویس را فراخوانی نمایید
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+
+* **deposit:**  &#x202b; شماره حسابی که قصد دریافت شماره شبا آن را دارید
+* **bankCode:**  &#x202b; کد بانک صاحب حساب(لیست کد بانک ها را می توانید از [اینجا](./facility-bank-info.html) مشاهده کنید
+
+&#x202b;**نکته مهم: در تمام شماره های حساب باید از / به جای هر گونه جداکننده ای استفاده کرد.  ** 
+
+&#x202b;**نکته مهم: شماره حسابهای بانک پاسارگاد با فرمت اصلی بانک ارسال شود.  **
+
+&#x202b;**نکته مهم: برای بانک رسالت برای شماره حساب از جداکننده نقطه (.) استفاده شود.  **
+
+
+###Results Format
+
+#### Successful result format (status code 200)
+ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+		  {
+            "trackId": "f4e0457a-5f55-4d5c-8428-f8474f38b6cf",
+            "result": 
+        {
+            deposit: "1071333715508",
+            accountStatus: "02",
+            bankName: "سپه",
+            iban: "IR480150000001071333715508",
+            depositOwners: "محمد حسامی / فعال"
+        }
+   
+    "status": "DONE"
+}
+````````````````
+
+
+* **deposit:** شماره حساب
+
+* **accountStatus:** میتواند مقادیر زیر را بگیرد
+    * **‌02 :** حساب فعال است
+    * **‌03 :** حساب مسدود با قابلیت واریز
+    * **‌04 :** حساب مسدود بدون قابلیت واریز
+    * **‌05 :** حساب راکد است
+    * **‌06 :** بروز خطادر پاسخ دهی , شرح خطا در فیلد توضیحات
+
+* **bankName:** نام بانک
+* **iban:** شماره شبا محاسبه شده 
+* **depositOwners:**  آرایه ای از صاحبان حساب
+
+وضعیت فراخوانی سرویس* **status: **   
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

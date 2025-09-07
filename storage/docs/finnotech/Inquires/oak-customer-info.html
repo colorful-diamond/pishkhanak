@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>دریافت اطلاعات کاربر</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###GET   /oak/v2/clients/{clientId}/users/{nid}/customerInfo
+* **شرح: **  سرویس استعلام مشتری با گرفتن کد ملی صاحب توکن , شماره مشتری , نام و نام خانوادگی را بر میگرداند
+
+* **اسکوپ: **  ```oak:user:get```
+
+* **رویکرد: ** ```Authorization_Code```
+
+* **<a href="ResponseCodeOak.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+````````````````
+{address}/oak/v2/clients/{clientId}/users/{nid}/customerInfo?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+</div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس نیازی به افزودن حساب نمی باشد و میتوانید با توکن بدون حساب، سرویس را فراخوانی کنید
+#### URI Parameters
+    * **clientId :**شناسه کلاینت
+    * **nid :**  (اجباری) کد ملی کاربر که میخواهید اطلاعات آن را دریافت کنید و باید رشته عددی به طول ۱۰ رقم باشد یا شناسه ملی یک شرکت که باید ۱۱ رقم باشد
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+* example:  ```getUserinfo876543```
+
+###Results Format
+#### Successful result format (status code 200)
+````````````````
+{
+"trackId": "5b73d4a6-1aae-4ab2-8002-2bb82efba3af",
+"result": {
+    "cif": "0012121212",
+    "nid": "0123456789",
+    "firstname": "فریماه",
+    "lastname": "بیابانی",
+    "birthdate": "701117",
+    "mobile": "09121234567",
+    "customerSubtypeCode": "01",
+    "customerSubtypeDescription": "اشخاص عادی"
+},
+"status": "DONE"
+}
+````````````````
+
+* **cif:** شماره مشتری کاربر
+* **firstname:** نام کاربر
+* **lastname:** نام خانوادگی کاربر
+* **customerSubtypeCode:** کد نوع مشتری
+* **customerSubtypeDescription:** توضیحات نوع مشتری
+* **trackId:** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **status:** وضعیت فراخوانی سرویس
+    * **DONE:** در صورت موفق بودن عملیات رخ میدهد
+    * **FAILED:** در صورت نا موفق بودن عملیات رخ میدهد
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

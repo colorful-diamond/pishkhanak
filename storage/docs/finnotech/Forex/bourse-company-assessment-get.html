@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title> اطلاعات روزانه ارزیابی شرکتی</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###GET   /bourse/v2/clients/{clientId}/companyAssessment
+
+* **شرح:** با فراخوانی این سرویس ارزیابی و امتیاز تمام شرکت های بورسی را دریافت خواهید کرد.
+
+* **اسکوپ:**  ```bourse:company-assessment:get```
+
+* **رویکرد:** ```Client_Credential```
+
+````````````````
+{address}/bourse/v2/clients/{clientId}/companyAssessment?trackId={trackId}&companyId={companyId}&date={date}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+</div>
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+
+````````````````
+
+#### URI Parameters
+* **clientId:** شناسه کلاینت
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+    * example:  ```ef226c90-20cc-48c1676a```
+
+* **companyId :** شناسه شرکت (اجباری) ( از خروجی سرویس دریافت [لیست شناسه شرکت ها](/doc/bourse-companies-id-inquiry-get.html))
+    * example:  ```5```
+
+* **date :** تاریخ ( اختیاری) در صورت وارد نکردن، ارزیابی متعلق به همان روز را بر میگرداند.
+    * example:  ```1403/03/01```
+
+
+#### Successful result format (status code 200)
+````````````````
+{
+    "responseCode": "FN-BENN-20000200000",
+    "trackId": "efaa851f-2e77-4454-b635-4eaad38c76a6",
+    "result": [{
+        "financialIndex": 38,
+        "financialIndexName": "جريان نقدي حاصل از عمليات",
+        "financialIndexNameSubGroup1": "سودآوری",
+        "companyId": "5",
+        "companyName": "سرمایه گذاری توسعه معادن و فلزات",
+        "companySymbol": "ت-ومعادن",
+        "marketID": 1,
+        "marketTitle": "بورس",
+        "industryID": 3,
+        "industryTitle": "استخراج کانه های فلزی",
+        "groupId": 3,
+        "groupTitle": "استخراج سنگ معدن های فلزی آهنی",
+        "financialIndexNameGroup": "بنیادی",
+        "financialIndexNameSubGroup2": "سنجش سودآوري",
+        "isConsolidated": "Consolidated",
+        "indexValue": 20.02,
+        "indexValueMin": 0.63,
+        "indexValueAve": 72.66953125,
+        "indexValueMax": 230.06,
+        "indexDirection": 1,
+        "indexWeight": 1.5,
+        "indexPeerGroup": "گروه",
+        "lowestThreshold": 32.118,
+        "lowThreshold": 57.566,
+        "normalThreshold": 79.62800000000001,
+        "highTreshold": 105.75200000000001,
+        "companyScore": 2,
+        "weightStock": 0.0101689997,
+        "f1": 0.0305069991,
+        "f2": 0.01525349955,
+        "dateMiladi": "2024-06-17T17:09:30.793",
+        "dateShamsi": "1403/03/28"
+    }],
+    "status": "DONE"
+}
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** ارایه ای از پاسخ سرویس شامل:
+    * ** financialIndex ** شناسه شاخص مالی
+    * ** financialIndexName ** نام شاخص مالی
+    * ** financialIndexNameSubGroup1 **   زیرگروه شاخص مالی 1
+    * ** companyId ** شناسه شرکت
+    * ** companyName ** نام شرکت
+    * ** companySymbol ** نماد شرکت
+    * ** marketID **  شناسه بازار (بورس:1، فرابورس: 2، بازارپایه: 16)
+    * ** marketTitle ** نام بازار
+    * ** industryID ** شناسه صنعت
+    * ** industryTitle **  نام صنعت
+    * ** groupId **  شناسه گروه
+    * ** groupTitle **  نام گروه
+    * ** financialIndexNameGroup **  گروه شاخص مالی
+    * ** financialIndexNameSubGroup2 ** زیرگروه شاخص مالی 2
+    * ** isConsolidated ** اصلی یا تلفیقی
+    * ** indexValue **  مقدار شاخص
+    * ** indexValueMin **  کمترین مقدار شاخص در شرکت های مشابه
+    * ** indexValueAve ** متوسط مقدار شاخص در شرکت های مشابه
+    * ** indexValueMax ** بیشترین مقدار شاخص در شرکت های مشابه
+    * ** indexDirection **  جهت شاخص
+    * ** indexWeight ** وزن شاخص
+    * ** indexPeerGroup **  گروه مورد مقایسه شاخص
+    * ** lowThreshold **  مرز بین بسیار کم و کم
+    * ** lowestThreshold ** مرز بین کم و عادی
+    * ** normalThreshold ** مرز بین عادی و زیاد
+    * ** highTreshold ** مرز بین زیاد و بسیار زیاد
+    * ** companyScore ** امتیاز عملکرد شرکت در شاخص بین10-1
+    * ** weightStock ** وزن سهم از بازار
+    * ** f1 ** حاصلضرب وزن سهم در وزن نسبت در امتیاز عملکرد
+    * ** f2 **  حاصلضرب وزن سهم در وزن نسبت
+    * ** dateMiladi **  تاریخ میلادی
+    * ** dateShamsi ** تاریخ شمسی
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+    * **code:** استاتوس کد
+    * **message:** پیغام خطا
+
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

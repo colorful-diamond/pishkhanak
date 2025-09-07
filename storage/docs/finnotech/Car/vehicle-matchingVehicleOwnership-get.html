@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<html>
+<title>تطبیق مالکیت خودرو</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###GET /vehicle/v2/clients/{clientId}/matchingVehicleOwnership
+
+ * **شرح:** در این سرویس، با وارد کردن شماره پلاک خودرو و کدملی، در خروجی تطبیق یا عدم تطبیق مالکیت خودرو را نمایش میدهد.
+
+ * **اسکوپ: **  ```vehicle:matching-vehicle-ownership:get```
+
+ * **رویکرد: ** ```CLIENT-CREDENTIAL```
+
+ * **<a href="responseCodeVehicle.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+    {address}/vehicle/v2/clients/{clientId}/matchingVehicleOwnership?nationalId={nationalId}&plateNumber={plateNumber}&trackId={trackId}
+
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:** شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اختیاری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+ * **nationalId:** (اجباری) کد ملی صاحب خودرو .
+ * example:  ```0057684356```
+
+ * **plateNumber:**  (اجباری)  شماره پلاک ۹ رقمی خودرو که باید طبق الگوی توضیح داده شده در [این مستند](/doc/plateNumberTable.html) وارد شود.
+ * example:  ```911716950```
+
+
+ #### Successful result format (status code 200)
+ ````````````````
+    {
+        "responseCode": "FN-VHSB-20000100000",
+        "trackId": "1c78eb0c-253f-486f-2f1b8",
+        "result": {
+            "isValid": true,
+            "vehicleType": "سايپا",
+            "vehicleTip": "SAINA S MT",
+            "vehicleModel": "1401",
+        },
+        "status": "DONE"
+    }
+ ````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+  * ** isValid:** نتیجه انطباق
+  * ** vehicleType:** نوع وسیله نقلیه
+  * ** vehicleTip:** تیپ وسیله نقلیه
+  * ** vehicleModel:** سال وسیله نقلیه
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+<!--در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [تبدیل شماره پلاک به کد](/doc/plateNumberTable.html)-->
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

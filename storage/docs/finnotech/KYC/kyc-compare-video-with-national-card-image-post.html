@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>انطباق ویدئو و عکس کارت ملی</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###POST /kyc/v2/clients/{clientId}/compareVideoWithNationalCardImage
+* **شرح: ** احراز هویت با ویدیو، این سرویس ویدیوی کاربر، کدملی٬ تاریخ تولد و سریال پشت کارت ملی هوشمند (یا کد رهگیری رسید کاغذی کارت ملی هوشمند)
+را دریافت میکند و ویدیوی ارسالی را با عکس کارت ملی چک کرده و درستی و نادرستی ویدیو را تایید و رد میکند. لازم به ذکر است این سرویس از یازده شب تا هفت صبح در دسترسی نمیباشد
+
+* **اسکوپ: ** ```kyc:compare-video-with-national-card-image:post```
+
+* **رویکرد: ** ```Client_Credential```
+
+* **<a href="Responsecodes.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+  {address}/kyc/v2/clients/{clientId}/compareVideoWithNationalCardImage?trackId={trackId}
+
+````````````````
+  <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none">
+    https://sandboxapi.finnotech.ir <b> :sandbox address</b>
+  </div>
+
+  <div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+  </div>
+
+
+  #### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+  &#x202b;برای فراخوانی این سرویس باید از توکن Client Credential استفاده نمایید.
+
+  #### URI Parameters
+  * **clientId :** (اجباری) شناسه کلاینت
+
+  #### Query Parameters
+  * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+
+#### Body
+ ** توجه داشته باشید که پارامترهای ورودی در فرمت فرم دیتا ارسال شوند **
+##### Example:
+````````````````
+  --form video=@"/Users/address Video 2021-07-12 at 17.07.12.mp4"
+  --form nationalCode="0024143331"
+  --form birthDate="1371/06/18"
+  --form serialNumber="1R29366454"
+````````````````
+
+* **video: ** (اجباری)  ویدیوی کاربر به صورت فایل با حجم حداکثر پنچ مگابایت
+* **nationalCode: ** (اجباری) کد ملی
+* **birthDate: ** (اجباری) تاریخ تولد به صورت yyyy/mm/dd
+* **serialNumber: ** (اجباری) سریال پشت کارت ملی هوشمند (یا کد رهگیری رسید کاغذی کارت ملی هوشمند)
+
+#### Successful result format (status code 200)
+````````````````
+  {
+  "responseCode": "FN-BRFH-20004210000",
+  "trackId": "5ddcd262-2c28-467a-848d-7cef8de85c1c",
+  "result": {
+  "faceVerification": 95.7,
+  "trackingCode":"123456"
+  },
+  "status": "DONE"
+  }
+
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* **trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* **result:** آبجکتی از پاسخ سرویس شامل:
+    * **faceVerification:** درصد تشابه عکس کارت ملی و ویدیوی ارسالی را نشان می‌دهد. حد آستانه آن 0.9 می‌باشد. در صورتی که مقدار این فیلد بیشتر از 0.9 باشد چهره فرد در ویدیو و عکس کارت‌ملی با یکدیگر مطابقت دارند.
+    * **trackingCode:** کد پیگیری ثبت احوال
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+  #### UnSuccessful result format
+  در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

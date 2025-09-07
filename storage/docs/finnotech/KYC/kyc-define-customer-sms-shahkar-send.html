@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>تطبیق کدملی و شماره موبایل با پیامک</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###GET  /{address}/kyc/v2/clients/{clientId}/shahkar/smsSend
+
+* **شرح:**  این سرویس جهت تطبیق کد ملی و شماره موبایل  و بررسی صحت پیامک ارسالی  است. لازم به ذکر است این سرویس از یازده شب تا هفت صبح در دسترسی نمیباشد
+
+* **اسکوپ: **  ```kyc:sms-shahkar-send:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+* **<a href="Responsecodes.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+    ````````````````
+    {address}/kyc/v2/clients/{clientId}/shahkar/smsSend?trackId={trackId}&mobile={mobile}&nationalCode={nationalCode}
+
+    ````````````````
+    <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+        https://sandboxapi.finnotech.ir <b> :address </b>
+    </div>
+
+    <div class="production-address production" style="float:right" style="display: block">
+        https://api.finnotech.ir <b> :address </b>
+    </div>
+
+    <br>
+    * **سرویس‌های مرتبط :[تایید تطبیق کدملی و شماره موبایل با پیامک برای افتتاح حساب غیر حضوری](/doc/kyc-define-customer-account-verify-sms.html?sandbox=+sandbox/)**
+    <br>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+
+#### URI Parameters
+  * **clientId:**شناسه کلاینت
+
+#### Query Parameters
+  * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+  * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+  * **mobile :** (اجباری)   &#x202b; شماره موبایل
+  * **nationalCode: ** (اجباری)  &#x202b; کد ملی
+  * **version: ** (اختیاری)  &#x202b; به منظور استفاده از نسخه‌ی به روز رسانی شده‌ی سرویس٬ مقدار 2 در این فیلد وارد شود
+
+#### Successful result format (status code 200)
+  ````````````````
+    { 
+       "responseCode": "FN-BRFH-20000810000",
+       "trackId": "43d70b50-c767-4ef6-b220-202610782b05",
+       "result": {
+       "smsSent": true
+        },
+      "status": "DONE"
+    }
+  ````````````````
+ * **responseCode:** کد پاسخ دریافتی
+ * **result:** آبجکتی از پاسخ سرویس شامل:
+    برگردانده میشود.
+    * **smsSent: ** جهت تطبیق کد ملی و شماره موبایل مشتری و بررسی صحت پیامک ارسالی true  و در غیر این صورت false نمایش داده میشود .
+    * ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+    * ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+    * **code:** استاتوس کد
+    * **message:** پیغام خطا
+
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

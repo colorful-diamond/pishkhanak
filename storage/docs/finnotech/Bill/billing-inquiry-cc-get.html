@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام قبض</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /billing/v2/clients/{clientId}/billingInquiry
+* **شرح: **  سرویس استعلام قبض با جزئیات با گرفتن نوع قبض و شناسه ی مربوط به آن اطلاعات قبض به همراه جزئیات را در اختیار کاربر قرار میدهد.
+
+* **اسکوپ: **  ```billing:cc-inquiry:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+* **<a href="ResponsecodesBilling.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/billing/v2/clients/{clientId}/billingInquiry?trackId={trackId}&type={type}&parameter={parameter}&secondParameter={secondParameter}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت  توکن Client Credential سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId:**شناسه کلاینت
+
+
+ #### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```billingInquiry876543```
+
+     
+* **type:**
+     * example:  ```Tel```
+ 
+* **parameter:**   مقدار مورد استعلام
+     * example:  ```02177689361```
+
+* **secondParameter:**  پارامتر دوم، در صورتی که می خواهید استعلام قبض تلفن همراه انجام دهید و شماره همراه ارسال شده به اپراتور دیگری ترابرد شده است اپراتور را در این فیلد ارسال کنید. برای قبوض اپراتورهای ایرانسل و رایتل وارد کردن فیلد secondParameter اجباری است  (همراه اول : MCI   ، رایتل: Rightel ، ایرانسل: MTN)
+* example:  ```MCI```
+
+##### types examples
+````````````````
+         قبض آب :Water
+         قبض برق (پشتیبان) :Electricity-standard
+         قبض برق  Electricity
+         قبض گاز :Gas
+         تلفن ثابت, پایان دوره :Tel
+         تلفن ثابت, بروز :TelNow
+         تلفن همراه, پایان دوره :Mobile
+         تلفن همراه, بروز :MobileNow
+         GasByBillId:  قبض گاز با شماره قبض
+````````````````
+
+
+##### parameters values
+     
+````````````````
+         شناسه قبض: قبض آب
+         شناسه قبض: قبض برق
+         شماره اشتراک: قبض گاز
+         شماره قبض : قبض گاز با شماره قبض
+         شماره تلفن به همراه کد : تلفن ثابت
+         شماره تلفن همراه: تلفن همراه
+````````````````
+     
+
+پوشش گاز و برق سراسری است . می توانید لیست شرکتهای تحت پوشش آب را از [اینجا](./asset/SupportState.xlsx) دریافت کنید
+
+
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+     {
+     "trackId": "46d3470b-eb14-4a17-8e77-6052031527d6",
+     "result": {
+     "Amount": 50000,
+     "BillId": 931564121146,
+     "PayId": 5080129,
+     "Date": ""
+     },
+     "status": "DONE"
+     }
+````````````````
+     
+    
+<!--##### Successful result format (مخصوص سرویس قبض برق شرکت توانیر - ساپا ) (status code 200)-->
+<!--````````````````-->
+<!--{-->
+<!--  -->
+<!--    "trackId": "7505191e-54c5-4d8b-9897-97e32ef62a94",-->
+<!--    "result": {-->
+<!--        "bill_identifier": "931564121146",-->
+<!--        "total_register_debt": 0,-->
+<!--        "payment_identifier": "80449",-->
+<!--        "total_bill_debt": "678",-->
+<!--        "other_account_debt": "0",-->
+<!--        "payment_dead_line": "2019-11-26T12:00:00Z",-->
+<!--        "last_read_date": "2019-11-11T12:00:00Z",-->
+<!--        "last_gross_amt": 0,-->
+<!--        "last_sale_year": 0,-->
+<!--        "last_sale_prd": 0,-->
+<!--        "lastupdatetime": "2019-12-10T10:10:06Z"-->
+<!--    },-->
+<!--    "status": "DONE"-->
+
+<!--}-->
+<!--````````````````     -->
+     
+     
+     
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **amount:** مبلغ قبض
+  * **billId:** شناسه قبض
+  * **payId:** شناسه پرداخت
+  * **date:** مهلت پرداخت
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+     Success:   موفق
+     Bill Type is Empty: نوع قبض ارسال نشده است￼￼￼￼￼￼
+     Bill Parameter is Empty: نوع قبض ارسال نشده است￼￼￼￼￼￼
+     Wrong Parameter: مقدار ورودی نامعتبر است￼￼￼￼￼￼
+     Bill Paid: قبض پرداخت شده است￼￼￼￼￼￼
+     No Bill: قبضی یافت نشد￼￼￼￼￼￼
+     Bill Wrong Type: نوع قبض اشتباه است￼￼￼￼￼￼
+     Service Disable: سرویس استعلام فعال نمی باشد￼￼￼￼￼￼
+     Service Disable For User: سرویس مورد نظر برای شما فعال نمی باشد￼￼￼￼￼￼
+     Bill Inquiry Service Disabled: سرویس استعلام به طور کلی فعال نیست￼￼￼￼￼
+     ￼￼￼￼￼
+     ￼
+
+
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

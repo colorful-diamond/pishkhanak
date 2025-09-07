@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+	<meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>دریافت شناسه چک صیادی</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /credit/v2/clients/{clientId}/sayadIdBySerial
+* **شرح: ** در این سرویس با وارد کردن شماره سری و سریال درج شده بر روی برگ چک صیادی، میتوانید اطلاعات مربوط به برگه چک صیادی شامل شناسه صیاد، کدشعبه، تاریخ صدور و ... را در خروجی مشاهده نمایید.
+
+* **اسکوپ: **  ```credit:sayad-id-by-serial:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+* **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/credit/v2/clients/{clientId}/sayadIdBySerial?trackId={trackId}&serialNo={serialNo}&seriesNo={seriesNo}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+<!--&#x202b; در صورتی که کلاینت توکن های client-credential مختلفی بر روی حسابهای متعدد خود ساخته باشد , با استفاده از هر یک از آنها میتواند این سرویس را فراخوانی کند (شماره حساب مرتبط با توکن اهمیت ندارد)-->
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```9f412213-a02d-4d22-b0a1-536942222381```
+
+* **serialNo:** شماره سریال درج شده بر روی برگه چک (اجباری)
+  * example:  ```123456```
+
+* **seriesNo:** شماره سری درج شده بر روی برگه چک (اجباری)
+  * example:  ```1234```
+
+
+###Results Format
+
+#### Successful result format (status code 200)
+*‌ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+{
+    "responseCode": "FN-CTKZ-20003100000",
+    "trackId": "8b60188f-6d46a0-8e9b-b130dc8",
+    "result": {
+        "iban": "IR720620000000100987654003",
+        "issuedDate": "14020718",
+        "expirationDate": "14050718",
+        "serialNo": "123456",
+        "seriesNo": "1234",
+        "sayadId": "7981010198526390",
+        "mediaType": "BANS",
+        "branchCode": "6202013"
+    },
+    "status": "DONE"
+}
+````````````````
+
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **result:** آبجکتی از پاسخ سرویس شامل:
+     * **chequeDetails:** جزئیات دسته چک
+         * **iban:** شماره شبا دارنده چک
+         * **issuedDate:** تاریخ صدور چک
+         * **expirationDate:** تاریخ انقضای چک
+         * **serialNo:** شماره سریال
+         * **seriesNo:** شماره سری
+         * **sayadId:** شناسه صیاد چک
+         * **mediaType:** نوع چک
+            * BANS: چک عادی
+            * CHD: چک الکترونیک (چکاد)
+            * CHS: چک موردی
+            * CHT: چک بانکی (چک های تضمین شده بین بانکی)
+         * **branchCode:** کد شعبه تحویل دهنده
+* **status: ** وضعیت فراخوانی سرویس
+     * DONE: فراخوانی موفق سرویس
+     * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

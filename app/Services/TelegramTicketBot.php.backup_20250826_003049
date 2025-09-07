@@ -1,0 +1,1786 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\Ticket;
+use App\Models\TicketReply;
+use App\Models\TicketAttachment;
+use App\Models\User;
+use App\Models\TicketCategory;
+use App\Models\TicketStatus;
+use App\Models\TicketPriority;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
+class TelegramTicketBot
+{
+    protected $telegramService;
+    protected $botToken;
+    protected $adminChatIds = [];
+    protected $commandHandlers = [];
+    
+    // Bot states for conversation flow
+    const STATE_IDLE = 'idle';
+    const STATE_WAITING_REPLY = 'waiting_reply';
+    const STATE_WAITING_SEARCH = 'waiting_search';
+    const STATE_WAITING_ATTACHMENT = 'waiting_attachment';
+    const STATE_WAITING_STATUS = 'waiting_status';
+    const STATE_WAITING_PRIORITY = 'waiting_priority';
+    const STATE_WAITING_ASSIGN = 'waiting_assign';
+    const STATE_WAITING_CATEGORY = 'waiting_category';
+    
+    public function __construct()
+    {
+        $this->botToken = config('services.telegram.bot_token');
+        $this->telegramService = new TelegramNotificationService();
+        
+        // Load admin chat IDs from config or database
+        $adminIds = config('services.telegram.admin_chat_ids', '');
+        $this->adminChatIds = array_filter(array_map('trim', explode(',', $adminIds)));
+        
+        // Register command handlers
+        $this->registerCommands();
+    }
+    
+    /**
+     * Register all bot commands
+     */
+    protected function registerCommands()
+    {
+        $this->commandHandlers = [
+            '/start' => 'handleStart',
+            '/help' => 'handleHelp',
+            '/tickets' => 'handleListTickets',
+            '/ticket' => 'handleViewTicket',
+            '/search' => 'handleSearch',
+            '/reply' => 'handleReply',
+            '/close' => 'handleCloseTicket',
+            '/reopen' => 'handleReopenTicket',
+            '/assign' => 'handleAssignTicket',
+            '/priority' => 'handleSetPriority',
+            '/category' => 'handleSetCategory',
+            '/stats' => 'handleStatistics',
+            '/export' => 'handleExport',
+            '/notifications' => 'handleNotificationSettings',
+        ];
+    }
+    
+    /**
+     * Process incoming webhook update
+     */
+    public function processUpdate(array $update)
+    {
+        try {
+            // Handle callback queries (inline keyboard buttons)
+            if (isset($update['callback_query'])) {
+                return $this->handleCallbackQuery($update['callback_query']);
+            }
+            
+            // Handle messages
+            if (isset($update['message'])) {
+                return $this->handleMessage($update['message']);
+            }
+            
+            // Handle edited messages
+            if (isset($update['edited_message'])) {
+                return $this->handleEditedMessage($update['edited_message']);
+            }
+            
+            // Handle channel posts (for ticket updates from channels)
+            if (isset($update['channel_post'])) {
+                return $this->handleChannelPost($update['channel_post']);
+            }
+            
+        } catch (\Exception $e) {
+            Log::error('Telegram bot error', [
+                'error' => $e->getMessage(),
+                'update' => $update
+            ]);
+            
+            // Send error message to admin
+            $this->notifyAdmins("❌ Bot Error: " . $e->getMessage());
+        }
+    }
+    
+    /**
+     * Handle incoming messages
+     */
+    protected function handleMessage(array $message)
+    {
+        $chatId = $message['chat']['id'];
+        $userId = $message['from']['id'];
+        $text = $message['text'] ?? '';
+        
+        // Check if user is authorized
+        if (!$this->isAuthorized($userId)) {
+            return $this->sendMessage($chatId, "⛔ شما مجوز دسترسی به این ربات را ندارید.");
+        }
+        
+        // Get user state
+        $state = $this->getUserState($userId);
+        
+        // Handle file/photo uploads
+        if (isset($message['photo']) || isset($message['document'])) {
+            return $this->handleFileUpload($message);
+        }
+        
+        // Handle state-based conversations
+        if ($state['state'] !== self::STATE_IDLE) {
+            return $this->handleStatefulConversation($userId, $chatId, $text, $state);
+        }
+        
+        // Handle commands
+        if (strpos($text, '/') === 0) {
+            $command = explode(' ', $text)[0];
+            $args = trim(str_replace($command, '', $text));
+            
+            if (isset($this->commandHandlers[$command])) {
+                $handler = $this->commandHandlers[$command];
+                return $this->$handler($chatId, $userId, $args);
+            } else {
+                return $this->sendMessage($chatId, "❓ دستور ناشناخته. برای راهنما /help را ارسال کنید.");
+            }
+        }
+        
+        // Handle regular text as search
+        return $this->quickSearch($chatId, $text);
+    }
+    
+    /**
+     * Handle /start command
+     */
+    protected function handleStart($chatId, $userId, $args)
+    {
+        $user = User::where('telegram_chat_id', $userId)->first();
+        $welcomeMessage = "🎫 *سیستم مدیریت تیکت پیشخوانک*\n\n";
+        
+        if ($user) {
+            $welcomeMessage .= "سلام {$user->name} عزیز! 👋\n\n";
+        } else {
+            $welcomeMessage .= "به ربات مدیریت تیکت خوش آمدید! 👋\n\n";
+        }
+        
+        $welcomeMessage .= "🔹 دستورات اصلی:\n";
+        $welcomeMessage .= "/tickets - مشاهده تیکت‌ها\n";
+        $welcomeMessage .= "/search - جستجوی تیکت\n";
+        $welcomeMessage .= "/stats - آمار تیکت‌ها\n";
+        $welcomeMessage .= "/help - راهنمای کامل\n";
+        
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => '📋 تیکت‌های باز', 'callback_data' => 'tickets:open'],
+                    ['text' => '⏳ در انتظار پاسخ', 'callback_data' => 'tickets:pending']
+                ],
+                [
+                    ['text' => '📊 آمار امروز', 'callback_data' => 'stats:today'],
+                    ['text' => '🔍 جستجو', 'callback_data' => 'search:start']
+                ],
+                [
+                    ['text' => '⚙️ تنظیمات', 'callback_data' => 'settings'],
+                    ['text' => '❓ راهنما', 'callback_data' => 'help']
+                ]
+            ]
+        ];
+        
+        return $this->sendMessage($chatId, $welcomeMessage, $keyboard, 'Markdown');
+    }
+    
+    /**
+     * Handle /tickets command - List tickets with filters
+     */
+    protected function handleListTickets($chatId, $userId, $args)
+    {
+        $page = 1;
+        $status = 'all';
+        
+        // Parse arguments
+        if ($args) {
+            $parts = explode(' ', $args);
+            foreach ($parts as $part) {
+                if (is_numeric($part)) {
+                    $page = (int)$part;
+                } else {
+                    $status = $part;
+                }
+            }
+        }
+        
+        $query = Ticket::with(['user', 'assignedTo']);
+        
+        // Apply status filter
+        switch ($status) {
+            case 'open':
+                $query->whereHas('status', function($q) {
+                    $q->where('slug', 'open');
+                });
+                break;
+            case 'pending':
+                $query->whereHas('status', function($q) {
+                    $q->where('slug', 'pending');
+                });
+                break;
+            case 'resolved':
+                $query->whereHas('status', function($q) {
+                    $q->where('slug', 'resolved');
+                });
+                break;
+            case 'closed':
+                $query->whereHas('status', function($q) {
+                    $q->where('slug', 'closed');
+                });
+                break;
+        }
+        
+        $perPage = 5;
+        $tickets = $query->orderBy('created_at', 'desc')
+                        ->paginate($perPage, ['*'], 'page', $page);
+        
+        if ($tickets->isEmpty()) {
+            return $this->sendMessage($chatId, "📭 هیچ تیکتی یافت نشد.");
+        }
+        
+        $message = $this->formatTicketList($tickets, $status);
+        $keyboard = $this->createTicketListKeyboard($tickets, $status);
+        
+        return $this->sendMessage($chatId, $message, $keyboard, 'Markdown');
+    }
+    
+    /**
+     * Format ticket list for display
+     */
+    protected function formatTicketList($tickets, $status)
+    {
+        $statusEmoji = [
+            'all' => '📋',
+            'open' => '🟢',
+            'pending' => '🟡',
+            'resolved' => '🔵',
+            'closed' => '⚫'
+        ];
+        
+        $emoji = $statusEmoji[$status] ?? '📋';
+        $message = "{$emoji} *لیست تیکت‌ها* ";
+        
+        if ($status !== 'all') {
+            $message .= "(`{$status}`)\n";
+        } else {
+            $message .= "\n";
+        }
+        
+        $message .= "صفحه {$tickets->currentPage()} از {$tickets->lastPage()}\n";
+        $message .= "━━━━━━━━━━━━━━━\n\n";
+        
+        foreach ($tickets as $ticket) {
+            $priorityEmoji = $this->getPriorityEmoji($ticket->priority->slug ?? 'normal');
+            $statusEmoji = $this->getStatusEmoji($ticket->status->slug ?? 'open');
+            
+            $message .= "{$priorityEmoji} *#{$ticket->ticket_number}*\n";
+            $message .= "📝 {$ticket->subject}\n";
+            $message .= "👤 {$ticket->user->name}\n";
+            $message .= "🏷️ {$ticket->category->name}\n";
+            $message .= "{$statusEmoji} {$ticket->status->name}\n";
+            $message .= "📅 " . \Verta::instance($ticket->created_at)->format('Y/m/d H:i') . "\n";
+            
+            if ($ticket->assignedTo) {
+                $message .= "👨‍💼 اختصاص به: {$ticket->assignedTo->name}\n";
+            }
+            
+            $repliesCount = $ticket->replies()->count();
+            if ($repliesCount > 0) {
+                $message .= "💬 {$repliesCount} پاسخ\n";
+            }
+            
+            $message .= "━━━━━━━━━━━━━━━\n\n";
+        }
+        
+        return $message;
+    }
+    
+    /**
+     * Create keyboard for ticket list
+     */
+    protected function createTicketListKeyboard($tickets, $status)
+    {
+        $keyboard = ['inline_keyboard' => []];
+        
+        // Add ticket quick actions
+        foreach ($tickets as $ticket) {
+            $keyboard['inline_keyboard'][] = [
+                [
+                    'text' => "👁 #{$ticket->ticket_number}",
+                    'callback_data' => "view:{$ticket->id}"
+                ],
+                [
+                    'text' => '💬 پاسخ',
+                    'callback_data' => "reply:{$ticket->id}"
+                ],
+                [
+                    'text' => $ticket->status->slug === 'closed' ? '🔓' : '🔒',
+                    'callback_data' => $ticket->status->slug === 'closed' ? 
+                        "reopen:{$ticket->id}" : "close:{$ticket->id}"
+                ]
+            ];
+        }
+        
+        // Add pagination
+        $paginationRow = [];
+        if ($tickets->currentPage() > 1) {
+            $paginationRow[] = [
+                'text' => '⬅️ قبلی',
+                'callback_data' => "page:{$status}:" . ($tickets->currentPage() - 1)
+            ];
+        }
+        
+        $paginationRow[] = [
+            'text' => "📄 {$tickets->currentPage()}/{$tickets->lastPage()}",
+            'callback_data' => 'noop'
+        ];
+        
+        if ($tickets->hasMorePages()) {
+            $paginationRow[] = [
+                'text' => 'بعدی ➡️',
+                'callback_data' => "page:{$status}:" . ($tickets->currentPage() + 1)
+            ];
+        }
+        
+        if (!empty($paginationRow)) {
+            $keyboard['inline_keyboard'][] = $paginationRow;
+        }
+        
+        // Add filter buttons
+        $keyboard['inline_keyboard'][] = [
+            ['text' => '🟢 باز', 'callback_data' => 'tickets:open'],
+            ['text' => '🟡 منتظر', 'callback_data' => 'tickets:pending'],
+            ['text' => '⚫ بسته', 'callback_data' => 'tickets:closed']
+        ];
+        
+        // Add main menu button
+        $keyboard['inline_keyboard'][] = [
+            ['text' => '🏠 منوی اصلی', 'callback_data' => 'menu:main']
+        ];
+        
+        return $keyboard;
+    }
+    
+    /**
+     * Handle viewing a single ticket
+     */
+    protected function handleViewTicket($chatId, $userId, $ticketId)
+    {
+        if (!$ticketId) {
+            return $this->sendMessage($chatId, "❌ لطفاً شماره تیکت را وارد کنید.\nمثال: /ticket 12345");
+        }
+        
+        $ticket = Ticket::with(['user', 'assignedTo', 'messages', 'attachments'])
+                       ->where('ticket_number', $ticketId)
+                       ->orWhere('id', $ticketId)
+                       ->first();
+        
+        if (!$ticket) {
+            return $this->sendMessage($chatId, "❌ تیکت با شماره {$ticketId} یافت نشد.");
+        }
+        
+        // Send ticket details
+        $message = $this->formatTicketDetails($ticket);
+        $keyboard = $this->createTicketActionsKeyboard($ticket);
+        
+        $this->sendMessage($chatId, $message, $keyboard, 'Markdown');
+        
+        // Send attachments if any
+        if ($ticket->attachments->count() > 0) {
+            $this->sendTicketAttachments($chatId, $ticket);
+        }
+        
+        // Send recent replies
+        if ($ticket->replies->count() > 0) {
+            $this->sendTicketReplies($chatId, $ticket);
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Format ticket details for display
+     */
+    protected function formatTicketDetails($ticket)
+    {
+        $priorityEmoji = $this->getPriorityEmoji($ticket->priority->slug ?? 'normal');
+        $statusEmoji = $this->getStatusEmoji($ticket->status->slug ?? 'open');
+        
+        $message = "🎫 *جزئیات تیکت #{$ticket->ticket_number}*\n";
+        $message .= "━━━━━━━━━━━━━━━\n\n";
+        
+        $message .= "📝 *موضوع:* {$ticket->subject}\n";
+        $message .= "👤 *کاربر:* {$ticket->user->name}\n";
+        $message .= "📧 *ایمیل:* {$ticket->user->email}\n";
+        
+        if ($ticket->user->mobile) {
+            $message .= "📱 *موبایل:* {$ticket->user->mobile}\n";
+        }
+        
+        $message .= "🏷️ *دسته‌بندی:* {$ticket->category->name}\n";
+        $message .= "{$priorityEmoji} *اولویت:* {$ticket->priority->name}\n";
+        $message .= "{$statusEmoji} *وضعیت:* {$ticket->status->name}\n";
+        
+        if ($ticket->assignedTo) {
+            $message .= "👨‍💼 *اختصاص به:* {$ticket->assignedTo->name}\n";
+        }
+        
+        $message .= "📅 *تاریخ ایجاد:* " . \Verta::instance($ticket->created_at)->format('Y/m/d H:i') . "\n";
+        
+        if ($ticket->updated_at != $ticket->created_at) {
+            $message .= "🔄 *آخرین بروزرسانی:* " . \Verta::instance($ticket->updated_at)->format('Y/m/d H:i') . "\n";
+        }
+        
+        $message .= "\n━━━━━━━━━━━━━━━\n";
+        $message .= "💬 *متن تیکت:*\n\n";
+        $message .= $ticket->description;
+        
+        if ($ticket->replies->count() > 0) {
+            $message .= "\n\n━━━━━━━━━━━━━━━\n";
+            $message .= "💬 تعداد پاسخ‌ها: {$ticket->replies->count()}\n";
+        }
+        
+        if ($ticket->attachments->count() > 0) {
+            $message .= "📎 تعداد پیوست‌ها: {$ticket->attachments->count()}\n";
+        }
+        
+        return $message;
+    }
+    
+    /**
+     * Send ticket attachments
+     */
+    protected function sendTicketAttachments($chatId, $ticket)
+    {
+        $message = "📎 *پیوست‌های تیکت #{$ticket->ticket_number}*\n\n";
+        
+        foreach ($ticket->attachments as $index => $attachment) {
+            $fileUrl = Storage::url($attachment->file_path);
+            $fileName = $attachment->file_name;
+            $fileSize = $this->formatFileSize($attachment->file_size);
+            
+            // Send based on file type
+            if (in_array($attachment->file_type, ['image/jpeg', 'image/png', 'image/gif'])) {
+                // Send as photo
+                $this->sendPhoto($chatId, $fileUrl, "🖼️ {$fileName} ({$fileSize})");
+            } else {
+                // Send as document
+                $this->sendDocument($chatId, $fileUrl, "📄 {$fileName} ({$fileSize})");
+            }
+        }
+    }
+    
+    /**
+     * Send ticket replies
+     */
+    protected function sendTicketReplies($chatId, $ticket)
+    {
+        $replies = $ticket->replies()->with('user')->orderBy('created_at', 'desc')->limit(5)->get();
+        
+        $message = "💬 *آخرین پاسخ‌های تیکت #{$ticket->ticket_number}*\n";
+        $message .= "━━━━━━━━━━━━━━━\n\n";
+        
+        foreach ($replies as $reply) {
+            $isAdmin = $reply->user->hasRole('admin') ?? false;
+            $emoji = $isAdmin ? '👨‍💼' : '👤';
+            
+            $message .= "{$emoji} *{$reply->user->name}*\n";
+            $message .= "📅 " . \Verta::instance($reply->created_at)->format('Y/m/d H:i') . "\n";
+            $message .= $reply->message . "\n";
+            $message .= "━━━━━━━━━━━━━━━\n\n";
+        }
+        
+        if ($ticket->replies->count() > 5) {
+            $message .= "📜 برای مشاهده همه پاسخ‌ها از پنل استفاده کنید.";
+        }
+        
+        $this->sendMessage($chatId, $message, null, 'Markdown');
+    }
+    
+    /**
+     * Handle ticket reply
+     */
+    protected function handleReply($chatId, $userId, $args)
+    {
+        if (!$args) {
+            // Set state to waiting for ticket ID
+            $this->setUserState($userId, self::STATE_WAITING_REPLY, ['step' => 'ticket_id']);
+            return $this->sendMessage($chatId, "🎫 لطفاً شماره تیکتی که می‌خواهید پاسخ دهید را وارد کنید:");
+        }
+        
+        $parts = explode(' ', $args, 2);
+        $ticketId = $parts[0];
+        $replyText = $parts[1] ?? null;
+        
+        $ticket = Ticket::where('ticket_number', $ticketId)->orWhere('id', $ticketId)->first();
+        
+        if (!$ticket) {
+            return $this->sendMessage($chatId, "❌ تیکت با شماره {$ticketId} یافت نشد.");
+        }
+        
+        if (!$replyText) {
+            // Set state to waiting for reply text
+            $this->setUserState($userId, self::STATE_WAITING_REPLY, [
+                'ticket_id' => $ticket->id,
+                'step' => 'reply_text'
+            ]);
+            return $this->sendMessage($chatId, "💬 لطفاً پاسخ خود را برای تیکت #{$ticket->ticket_number} وارد کنید:");
+        }
+        
+        // Save reply
+        $admin = User::where('telegram_chat_id', $userId)->first();
+        
+        $reply = TicketReply::create([
+            'ticket_id' => $ticket->id,
+            'user_id' => $admin->id ?? 1,
+            'message' => $replyText,
+            'is_admin' => true
+        ]);
+        
+        // Update ticket status to answered
+        $answeredStatus = TicketStatus::where('slug', 'answered')->first();
+        if ($answeredStatus) {
+            $ticket->status_id = $answeredStatus->id;
+            $ticket->save();
+        }
+        
+        // Send confirmation
+        $message = "✅ پاسخ شما به تیکت #{$ticket->ticket_number} ثبت شد.\n\n";
+        $message .= "💬 *پاسخ ثبت شده:*\n{$replyText}";
+        
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => '👁 مشاهده تیکت', 'callback_data' => "view:{$ticket->id}"],
+                    ['text' => '📋 لیست تیکت‌ها', 'callback_data' => 'tickets:all']
+                ]
+            ]
+        ];
+        
+        $this->sendMessage($chatId, $message, $keyboard, 'Markdown');
+        
+        // Notify user about new reply
+        if ($ticket->user->telegram_chat_id) {
+            $this->notifyUserAboutReply($ticket, $reply);
+        }
+        
+        // Clear user state
+        $this->clearUserState($userId);
+        
+        return true;
+    }
+    
+    /**
+     * Handle search functionality
+     */
+    protected function handleSearch($chatId, $userId, $query)
+    {
+        if (!$query) {
+            $this->setUserState($userId, self::STATE_WAITING_SEARCH);
+            return $this->sendMessage($chatId, "🔍 لطفاً عبارت مورد نظر برای جستجو را وارد کنید:\n(می‌توانید در شماره تیکت، موضوع، متن یا نام کاربر جستجو کنید)");
+        }
+        
+        $tickets = Ticket::with(['user'])
+            ->where(function($q) use ($query) {
+                $q->where('ticket_number', 'like', "%{$query}%")
+                  ->orWhere('subject', 'like', "%{$query}%")
+                  ->orWhere('description', 'like', "%{$query}%")
+                  ->orWhereHas('user', function($q) use ($query) {
+                      $q->where('name', 'like', "%{$query}%")
+                        ->orWhere('email', 'like', "%{$query}%")
+                        ->orWhere('mobile', 'like', "%{$query}%");
+                  })
+                  ->orWhereHas('replies', function($q) use ($query) {
+                      $q->where('message', 'like', "%{$query}%");
+                  });
+            })
+            ->orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get();
+        
+        if ($tickets->isEmpty()) {
+            return $this->sendMessage($chatId, "❌ هیچ تیکتی با عبارت «{$query}» یافت نشد.");
+        }
+        
+        $message = "🔍 *نتایج جستجو برای:* `{$query}`\n";
+        $message .= "تعداد نتایج: {$tickets->count()}\n";
+        $message .= "━━━━━━━━━━━━━━━\n\n";
+        
+        $keyboard = ['inline_keyboard' => []];
+        
+        foreach ($tickets as $ticket) {
+            $statusEmoji = $this->getStatusEmoji($ticket->status->slug);
+            $message .= "{$statusEmoji} *#{$ticket->ticket_number}*\n";
+            $message .= "📝 {$ticket->subject}\n";
+            $message .= "👤 {$ticket->user->name}\n";
+            $message .= "📅 " . \Verta::instance($ticket->created_at)->format('Y/m/d') . "\n\n";
+            
+            $keyboard['inline_keyboard'][] = [
+                [
+                    'text' => "👁 #{$ticket->ticket_number}",
+                    'callback_data' => "view:{$ticket->id}"
+                ]
+            ];
+        }
+        
+        $keyboard['inline_keyboard'][] = [
+            ['text' => '🔍 جستجوی جدید', 'callback_data' => 'search:start'],
+            ['text' => '🏠 منوی اصلی', 'callback_data' => 'menu:main']
+        ];
+        
+        $this->clearUserState($userId);
+        return $this->sendMessage($chatId, $message, $keyboard, 'Markdown');
+    }
+    
+    /**
+     * Handle statistics
+     */
+    protected function handleStatistics($chatId, $userId, $period = 'today')
+    {
+        $stats = $this->calculateStatistics($period);
+        
+        $periodText = [
+            'today' => 'امروز',
+            'week' => 'این هفته',
+            'month' => 'این ماه',
+            'all' => 'کل'
+        ];
+        
+        $message = "📊 *آمار تیکت‌ها - {$periodText[$period]}*\n";
+        $message .= "━━━━━━━━━━━━━━━\n\n";
+        
+        $message .= "📋 *تعداد کل:* {$stats['total']}\n";
+        $message .= "🟢 *باز:* {$stats['open']}\n";
+        $message .= "🟡 *در انتظار:* {$stats['pending']}\n";
+        $message .= "🔵 *پاسخ داده شده:* {$stats['answered']}\n";
+        $message .= "⚫ *بسته شده:* {$stats['closed']}\n\n";
+        
+        $message .= "⏱️ *میانگین زمان پاسخ:* {$stats['avg_response_time']}\n";
+        $message .= "✅ *نرخ حل:* {$stats['resolution_rate']}%\n\n";
+        
+        $message .= "🏷️ *برترین دسته‌بندی‌ها:*\n";
+        foreach ($stats['top_categories'] as $category) {
+            $message .= "  • {$category['name']}: {$category['count']} تیکت\n";
+        }
+        
+        $message .= "\n👨‍💼 *عملکرد ادمین‌ها:*\n";
+        foreach ($stats['admin_performance'] as $admin) {
+            $message .= "  • {$admin['name']}: {$admin['resolved']} حل شده\n";
+        }
+        
+        // Create chart image (optional)
+        $chartUrl = $this->generateStatisticsChart($stats);
+        
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => '📊 امروز', 'callback_data' => 'stats:today'],
+                    ['text' => '📊 این هفته', 'callback_data' => 'stats:week']
+                ],
+                [
+                    ['text' => '📊 این ماه', 'callback_data' => 'stats:month'],
+                    ['text' => '📊 کل', 'callback_data' => 'stats:all']
+                ],
+                [
+                    ['text' => '📥 دانلود گزارش', 'callback_data' => "export:{$period}"],
+                    ['text' => '🏠 منو', 'callback_data' => 'menu:main']
+                ]
+            ]
+        ];
+        
+        if ($chartUrl) {
+            $this->sendPhoto($chatId, $chartUrl, $message, $keyboard);
+        } else {
+            $this->sendMessage($chatId, $message, $keyboard, 'Markdown');
+        }
+    }
+    
+    /**
+     * Handle callback queries (inline keyboard buttons)
+     */
+    protected function handleCallbackQuery(array $callbackQuery)
+    {
+        $chatId = $callbackQuery['message']['chat']['id'];
+        $messageId = $callbackQuery['message']['message_id'];
+        $userId = $callbackQuery['from']['id'];
+        $data = $callbackQuery['data'];
+        
+        // Answer callback to remove loading state
+        $this->answerCallbackQuery($callbackQuery['id']);
+        
+        // Parse callback data
+        $parts = explode(':', $data);
+        $action = $parts[0];
+        $params = array_slice($parts, 1);
+        
+        switch ($action) {
+            case 'view':
+                $this->handleViewTicket($chatId, $userId, $params[0]);
+                break;
+                
+            case 'tickets':
+                $this->handleListTickets($chatId, $userId, $params[0] ?? 'all');
+                break;
+                
+            case 'page':
+                $status = $params[0] ?? 'all';
+                $page = $params[1] ?? 1;
+                $this->handleListTickets($chatId, $userId, "{$status} {$page}");
+                break;
+                
+            case 'reply':
+                $this->handleReply($chatId, $userId, $params[0]);
+                break;
+                
+            case 'close':
+                $this->handleCloseTicket($chatId, $userId, $params[0]);
+                break;
+                
+            case 'reopen':
+                $this->handleReopenTicket($chatId, $userId, $params[0]);
+                break;
+                
+            case 'assign':
+                $this->handleAssignTicket($chatId, $userId, $params[0] ?? '');
+                break;
+                
+            case 'priority':
+                $ticketId = $params[0] ?? '';
+                $priority = $params[1] ?? '';
+                $this->handleSetPriority($chatId, $userId, "{$ticketId} {$priority}");
+                break;
+                
+            case 'stats':
+                $this->handleStatistics($chatId, $userId, $params[0] ?? 'today');
+                break;
+                
+            case 'search':
+                $this->handleSearch($chatId, $userId, '');
+                break;
+                
+            case 'export':
+                $this->handleExport($chatId, $userId, $params[0] ?? 'today');
+                break;
+                
+            case 'settings':
+                $this->handleSettings($chatId, $userId);
+                break;
+                
+            case 'help':
+                $this->handleHelp($chatId, $userId, '');
+                break;
+                
+            case 'menu':
+                if ($params[0] === 'main') {
+                    $this->handleStart($chatId, $userId, '');
+                }
+                break;
+        }
+    }
+    
+    /**
+     * Handle file uploads
+     */
+    protected function handleFileUpload($message)
+    {
+        $chatId = $message['chat']['id'];
+        $userId = $message['from']['id'];
+        $state = $this->getUserState($userId);
+        
+        if ($state['state'] !== self::STATE_WAITING_ATTACHMENT) {
+            return $this->sendMessage($chatId, "📎 برای افزودن پیوست، ابتدا تیکت مورد نظر را انتخاب کنید.");
+        }
+        
+        $ticketId = $state['data']['ticket_id'] ?? null;
+        if (!$ticketId) {
+            return $this->sendMessage($chatId, "❌ خطا در پیدا کردن تیکت.");
+        }
+        
+        $ticket = Ticket::find($ticketId);
+        if (!$ticket) {
+            return $this->sendMessage($chatId, "❌ تیکت یافت نشد.");
+        }
+        
+        // Download and save file
+        $fileId = null;
+        $fileName = 'attachment';
+        $fileSize = 0;
+        
+        if (isset($message['photo'])) {
+            // Get largest photo
+            $photo = end($message['photo']);
+            $fileId = $photo['file_id'];
+            $fileSize = $photo['file_size'] ?? 0;
+            $fileName = 'photo_' . time() . '.jpg';
+        } elseif (isset($message['document'])) {
+            $fileId = $message['document']['file_id'];
+            $fileName = $message['document']['file_name'] ?? 'document_' . time();
+            $fileSize = $message['document']['file_size'] ?? 0;
+        }
+        
+        if (!$fileId) {
+            return $this->sendMessage($chatId, "❌ خطا در دریافت فایل.");
+        }
+        
+        // Download file from Telegram
+        $filePath = $this->downloadTelegramFile($fileId, $fileName);
+        
+        if (!$filePath) {
+            return $this->sendMessage($chatId, "❌ خطا در دانلود فایل.");
+        }
+        
+        // Save attachment to database
+        $attachment = TicketAttachment::create([
+            'ticket_id' => $ticket->id,
+            'file_name' => $fileName,
+            'file_path' => $filePath,
+            'file_size' => $fileSize,
+            'file_type' => mime_content_type(storage_path('app/' . $filePath)),
+            'uploaded_by' => $message['from']['id']
+        ]);
+        
+        $this->clearUserState($userId);
+        
+        $message = "✅ فایل با موفقیت به تیکت #{$ticket->ticket_number} اضافه شد.\n";
+        $message .= "📎 نام فایل: {$fileName}\n";
+        $message .= "📦 حجم: " . $this->formatFileSize($fileSize);
+        
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => '📎 افزودن فایل دیگر', 'callback_data' => "attach:{$ticket->id}"],
+                    ['text' => '👁 مشاهده تیکت', 'callback_data' => "view:{$ticket->id}"]
+                ]
+            ]
+        ];
+        
+        return $this->sendMessage($chatId, $message, $keyboard);
+    }
+    
+    /**
+     * Send message via Telegram
+     */
+    public function sendMessage($chatId, $text, $keyboard = null, $parseMode = null)
+    {
+        try {
+            $params = [
+                'chat_id' => $chatId,
+                'text' => $text
+            ];
+            
+            if ($parseMode) {
+                $params['parse_mode'] = $parseMode;
+            }
+            
+            if ($keyboard) {
+                $params['reply_markup'] = json_encode($keyboard);
+            }
+            
+            return $this->sendTelegramRequest('sendMessage', $params);
+            
+        } catch (\Exception $e) {
+            Log::error('Failed to send Telegram message', [
+                'chat_id' => $chatId,
+                'error' => $e->getMessage()
+            ]);
+            return false;
+        }
+    }
+    
+    /**
+     * Send photo via Telegram
+     */
+    protected function sendPhoto($chatId, $photoUrl, $caption = null, $keyboard = null)
+    {
+        try {
+            $params = [
+                'chat_id' => $chatId,
+                'photo' => $photoUrl
+            ];
+            
+            if ($caption) {
+                $params['caption'] = $caption;
+                $params['parse_mode'] = 'Markdown';
+            }
+            
+            if ($keyboard) {
+                $params['reply_markup'] = json_encode($keyboard);
+            }
+            
+            return $this->sendTelegramRequest('sendPhoto', $params);
+            
+        } catch (\Exception $e) {
+            Log::error('Failed to send photo', [
+                'chat_id' => $chatId,
+                'error' => $e->getMessage()
+            ]);
+            return false;
+        }
+    }
+    
+    /**
+     * Send document via Telegram
+     */
+    protected function sendDocument($chatId, $documentUrl, $caption = null)
+    {
+        try {
+            $params = [
+                'chat_id' => $chatId,
+                'document' => $documentUrl
+            ];
+            
+            if ($caption) {
+                $params['caption'] = $caption;
+            }
+            
+            return $this->sendTelegramRequest('sendDocument', $params);
+            
+        } catch (\Exception $e) {
+            Log::error('Failed to send document', [
+                'chat_id' => $chatId,
+                'error' => $e->getMessage()
+            ]);
+            return false;
+        }
+    }
+    
+    /**
+     * Send request to Telegram API
+     */
+    protected function sendTelegramRequest($method, $params)
+    {
+        // Use the existing TelegramNotificationService
+        return $this->telegramService->sendRequest($method, $params);
+    }
+    
+    /**
+     * Helper methods
+     */
+    
+    protected function isAuthorized($userId)
+    {
+        // Check if user is admin
+        if (in_array($userId, $this->adminChatIds)) {
+            return true;
+        }
+        
+        // Check if user exists in database with admin role
+        $user = User::where('telegram_chat_id', $userId)->first();
+        if ($user && $user->hasRole(['admin', 'support'])) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    protected function getUserState($userId)
+    {
+        $state = Cache::get("telegram_bot_state_{$userId}", [
+            'state' => self::STATE_IDLE,
+            'data' => []
+        ]);
+        
+        return $state;
+    }
+    
+    protected function setUserState($userId, $state, $data = [])
+    {
+        Cache::put("telegram_bot_state_{$userId}", [
+            'state' => $state,
+            'data' => $data
+        ], now()->addMinutes(30));
+    }
+    
+    protected function clearUserState($userId)
+    {
+        Cache::forget("telegram_bot_state_{$userId}");
+    }
+    
+    protected function getPriorityEmoji($priority)
+    {
+        $emojis = [
+            'low' => '🟢',
+            'normal' => '🟡',
+            'high' => '🟠',
+            'urgent' => '🔴'
+        ];
+        
+        return $emojis[$priority] ?? '⚪';
+    }
+    
+    protected function getStatusEmoji($status)
+    {
+        $emojis = [
+            'open' => '🟢',
+            'pending' => '🟡',
+            'answered' => '🔵',
+            'resolved' => '✅',
+            'closed' => '⚫'
+        ];
+        
+        return $emojis[$status] ?? '⚪';
+    }
+    
+    protected function formatFileSize($bytes)
+    {
+        $units = ['B', 'KB', 'MB', 'GB'];
+        $i = 0;
+        
+        while ($bytes >= 1024 && $i < count($units) - 1) {
+            $bytes /= 1024;
+            $i++;
+        }
+        
+        return round($bytes, 2) . ' ' . $units[$i];
+    }
+    
+    protected function answerCallbackQuery($callbackQueryId, $text = null, $showAlert = false)
+    {
+        $params = ['callback_query_id' => $callbackQueryId];
+        
+        if ($text) {
+            $params['text'] = $text;
+            $params['show_alert'] = $showAlert;
+        }
+        
+        return $this->sendTelegramRequest('answerCallbackQuery', $params);
+    }
+    
+    protected function notifyAdmins($message)
+    {
+        foreach ($this->adminChatIds as $adminId) {
+            if ($adminId) {
+                $this->sendMessage($adminId, $message);
+            }
+        }
+    }
+    
+    protected function calculateStatistics($period)
+    {
+        $query = Ticket::query();
+        
+        // Apply period filter
+        switch ($period) {
+            case 'today':
+                $query->whereDate('created_at', today());
+                break;
+            case 'week':
+                $query->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                break;
+            case 'month':
+                $query->whereMonth('created_at', now()->month);
+                break;
+        }
+        
+        $total = $query->count();
+        $open = (clone $query)->whereHas('status', fn($q) => $q->where('slug', 'open'))->count();
+        $pending = (clone $query)->whereHas('status', fn($q) => $q->where('slug', 'pending'))->count();
+        $answered = (clone $query)->whereHas('status', fn($q) => $q->where('slug', 'answered'))->count();
+        $closed = (clone $query)->whereHas('status', fn($q) => $q->where('slug', 'closed'))->count();
+        
+        // Calculate average response time
+        $avgResponseTime = DB::table('tickets')
+            ->join('ticket_replies', 'tickets.id', '=', 'ticket_replies.ticket_id')
+            ->selectRaw('AVG(TIMESTAMPDIFF(HOUR, tickets.created_at, ticket_replies.created_at)) as avg_hours')
+            ->where('ticket_replies.is_admin', true)
+            ->value('avg_hours');
+        
+        $avgResponseTime = $avgResponseTime ? round($avgResponseTime, 1) . ' ساعت' : 'N/A';
+        
+        // Resolution rate
+        $resolutionRate = $total > 0 ? round(($closed / $total) * 100, 1) : 0;
+        
+        // Top categories
+        $topCategories = DB::table('tickets')
+            ->join('ticket_categories', 'tickets.category_id', '=', 'ticket_categories.id')
+            ->selectRaw('ticket_categories.name, COUNT(*) as count')
+            ->groupBy('ticket_categories.name')
+            ->orderBy('count', 'desc')
+            ->limit(3)
+            ->get()
+            ->toArray();
+        
+        // Admin performance
+        $adminPerformance = DB::table('tickets')
+            ->join('users', 'tickets.assigned_to', '=', 'users.id')
+            ->join('ticket_statuses', 'tickets.status_id', '=', 'ticket_statuses.id')
+            ->where('ticket_statuses.slug', 'closed')
+            ->selectRaw('users.name, COUNT(*) as resolved')
+            ->groupBy('users.name')
+            ->orderBy('resolved', 'desc')
+            ->limit(3)
+            ->get()
+            ->toArray();
+        
+        return [
+            'total' => $total,
+            'open' => $open,
+            'pending' => $pending,
+            'answered' => $answered,
+            'closed' => $closed,
+            'avg_response_time' => $avgResponseTime,
+            'resolution_rate' => $resolutionRate,
+            'top_categories' => $topCategories,
+            'admin_performance' => $adminPerformance
+        ];
+    }
+    
+    protected function downloadTelegramFile($fileId, $fileName)
+    {
+        try {
+            // Get file info from Telegram
+            $response = $this->sendTelegramRequest('getFile', ['file_id' => $fileId]);
+            
+            if (!$response || !isset($response['result']['file_path'])) {
+                return null;
+            }
+            
+            $filePath = $response['result']['file_path'];
+            $fileUrl = "https://api.telegram.org/file/bot{$this->botToken}/{$filePath}";
+            
+            // Download file
+            $fileContent = file_get_contents($fileUrl);
+            
+            // Save to storage
+            $storagePath = 'ticket-attachments/' . date('Y/m/d') . '/' . $fileName;
+            Storage::put($storagePath, $fileContent);
+            
+            return $storagePath;
+            
+        } catch (\Exception $e) {
+            Log::error('Failed to download Telegram file', [
+                'file_id' => $fileId,
+                'error' => $e->getMessage()
+            ]);
+            return null;
+        }
+    }
+    
+    /**
+     * Handle close ticket
+     */
+    protected function handleCloseTicket($chatId, $userId, $ticketId)
+    {
+        if (!$ticketId) {
+            return $this->sendMessage($chatId, "❌ لطفاً شماره تیکت را وارد کنید.\nمثال: /close 12345");
+        }
+        
+        $ticket = Ticket::where('ticket_number', $ticketId)->orWhere('id', $ticketId)->first();
+        
+        if (!$ticket) {
+            return $this->sendMessage($chatId, "❌ تیکت با شماره {$ticketId} یافت نشد.");
+        }
+        
+        $closedStatus = TicketStatus::where('slug', 'closed')->first();
+        if (!$closedStatus) {
+            return $this->sendMessage($chatId, "❌ وضعیت بسته شده در سیستم تعریف نشده است.");
+        }
+        
+        $ticket->status_id = $closedStatus->id;
+        $ticket->closed_at = now();
+        $ticket->closed_by = User::where('telegram_chat_id', $userId)->first()->id ?? 1;
+        $ticket->save();
+        
+        $message = "✅ تیکت #{$ticket->ticket_number} با موفقیت بسته شد.\n\n";
+        $message .= "📝 موضوع: {$ticket->subject}\n";
+        $message .= "👤 کاربر: {$ticket->user->name}\n";
+        $message .= "⏱️ مدت زمان باز بودن: " . $ticket->created_at->diffForHumans($ticket->closed_at, true);
+        
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => '🔓 بازگشایی مجدد', 'callback_data' => "reopen:{$ticket->id}"],
+                    ['text' => '📋 لیست تیکت‌ها', 'callback_data' => 'tickets:open']
+                ]
+            ]
+        ];
+        
+        $this->sendMessage($chatId, $message, $keyboard);
+        
+        // Notify user
+        if ($ticket->user->telegram_chat_id) {
+            $this->sendMessage($ticket->user->telegram_chat_id, 
+                "🔒 تیکت شما با شماره #{$ticket->ticket_number} بسته شد.\n" .
+                "در صورت نیاز می‌توانید تیکت جدیدی ایجاد کنید."
+            );
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Handle reopen ticket
+     */
+    protected function handleReopenTicket($chatId, $userId, $ticketId)
+    {
+        if (!$ticketId) {
+            return $this->sendMessage($chatId, "❌ لطفاً شماره تیکت را وارد کنید.\nمثال: /reopen 12345");
+        }
+        
+        $ticket = Ticket::where('ticket_number', $ticketId)->orWhere('id', $ticketId)->first();
+        
+        if (!$ticket) {
+            return $this->sendMessage($chatId, "❌ تیکت با شماره {$ticketId} یافت نشد.");
+        }
+        
+        $openStatus = TicketStatus::where('slug', 'open')->first();
+        if (!$openStatus) {
+            return $this->sendMessage($chatId, "❌ وضعیت باز در سیستم تعریف نشده است.");
+        }
+        
+        $ticket->status_id = $openStatus->id;
+        $ticket->closed_at = null;
+        $ticket->closed_by = null;
+        $ticket->save();
+        
+        $message = "✅ تیکت #{$ticket->ticket_number} مجدداً باز شد.\n\n";
+        $message .= "📝 موضوع: {$ticket->subject}\n";
+        $message .= "👤 کاربر: {$ticket->user->name}";
+        
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => '👁 مشاهده تیکت', 'callback_data' => "view:{$ticket->id}"],
+                    ['text' => '💬 پاسخ', 'callback_data' => "reply:{$ticket->id}"]
+                ]
+            ]
+        ];
+        
+        $this->sendMessage($chatId, $message, $keyboard);
+        
+        // Notify user
+        if ($ticket->user->telegram_chat_id) {
+            $this->sendMessage($ticket->user->telegram_chat_id, 
+                "🔓 تیکت شما با شماره #{$ticket->ticket_number} مجدداً باز شد.\n" .
+                "به زودی پاسخ دریافت خواهید کرد."
+            );
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Handle assign ticket
+     */
+    protected function handleAssignTicket($chatId, $userId, $args)
+    {
+        if (!$args) {
+            $this->setUserState($userId, self::STATE_WAITING_ASSIGN, ['step' => 'ticket_id']);
+            return $this->sendMessage($chatId, "🎫 لطفاً شماره تیکتی که می‌خواهید اختصاص دهید را وارد کنید:");
+        }
+        
+        $parts = explode(' ', $args, 2);
+        $ticketId = $parts[0];
+        $adminIdentifier = $parts[1] ?? null;
+        
+        $ticket = Ticket::where('ticket_number', $ticketId)->orWhere('id', $ticketId)->first();
+        
+        if (!$ticket) {
+            return $this->sendMessage($chatId, "❌ تیکت با شماره {$ticketId} یافت نشد.");
+        }
+        
+        if (!$adminIdentifier) {
+            // Show list of admins
+            $admins = User::role(['admin', 'support'])->get();
+            
+            $keyboard = ['inline_keyboard' => []];
+            foreach ($admins as $admin) {
+                $keyboard['inline_keyboard'][] = [
+                    ['text' => "👤 {$admin->name}", 'callback_data' => "assign:{$ticket->id}:user:{$admin->id}"]
+                ];
+            }
+            
+            $keyboard['inline_keyboard'][] = [
+                ['text' => '❌ لغو', 'callback_data' => 'menu:main']
+            ];
+            
+            return $this->sendMessage($chatId, 
+                "👥 تیکت #{$ticket->ticket_number} را به کدام ادمین اختصاص می‌دهید؟",
+                $keyboard
+            );
+        }
+        
+        // Find admin
+        $admin = User::where('id', $adminIdentifier)
+                    ->orWhere('email', $adminIdentifier)
+                    ->orWhere('name', 'like', "%{$adminIdentifier}%")
+                    ->first();
+        
+        if (!$admin) {
+            return $this->sendMessage($chatId, "❌ ادمین با مشخصات {$adminIdentifier} یافت نشد.");
+        }
+        
+        $ticket->assigned_to = $admin->id;
+        $ticket->save();
+        
+        $message = "✅ تیکت #{$ticket->ticket_number} به {$admin->name} اختصاص یافت.\n\n";
+        $message .= "📝 موضوع: {$ticket->subject}\n";
+        $message .= "👤 کاربر: {$ticket->user->name}";
+        
+        $this->sendMessage($chatId, $message);
+        
+        // Notify assigned admin
+        if ($admin->telegram_chat_id) {
+            $this->sendMessage($admin->telegram_chat_id,
+                "🎫 تیکت جدید به شما اختصاص یافت!\n\n" .
+                "📝 شماره: #{$ticket->ticket_number}\n" .
+                "موضوع: {$ticket->subject}\n" .
+                "👤 کاربر: {$ticket->user->name}\n" .
+                "🏷️ دسته: {$ticket->category->name}\n" .
+                "⚡ اولویت: {$ticket->priority->name}",
+                [
+                    'inline_keyboard' => [
+                        [
+                            ['text' => '👁 مشاهده', 'callback_data' => "view:{$ticket->id}"],
+                            ['text' => '💬 پاسخ', 'callback_data' => "reply:{$ticket->id}"]
+                        ]
+                    ]
+                ]
+            );
+        }
+        
+        $this->clearUserState($userId);
+        return true;
+    }
+    
+    /**
+     * Handle set priority
+     */
+    protected function handleSetPriority($chatId, $userId, $args)
+    {
+        $parts = explode(' ', $args, 2);
+        $ticketId = $parts[0] ?? null;
+        $prioritySlug = $parts[1] ?? null;
+        
+        if (!$ticketId) {
+            $this->setUserState($userId, self::STATE_WAITING_PRIORITY, ['step' => 'ticket_id']);
+            return $this->sendMessage($chatId, "🎫 لطفاً شماره تیکتی که می‌خواهید اولویت آن را تغییر دهید وارد کنید:");
+        }
+        
+        $ticket = Ticket::where('ticket_number', $ticketId)->orWhere('id', $ticketId)->first();
+        
+        if (!$ticket) {
+            return $this->sendMessage($chatId, "❌ تیکت با شماره {$ticketId} یافت نشد.");
+        }
+        
+        if (!$prioritySlug) {
+            // Show priority options
+            $priorities = TicketPriority::all();
+            
+            $keyboard = ['inline_keyboard' => []];
+            foreach ($priorities as $priority) {
+                $emoji = $this->getPriorityEmoji($priority->slug);
+                $keyboard['inline_keyboard'][] = [
+                    ['text' => "{$emoji} {$priority->name}", 'callback_data' => "priority:{$ticket->id}:{$priority->id}"]
+                ];
+            }
+            
+            return $this->sendMessage($chatId,
+                "⚡ اولویت تیکت #{$ticket->ticket_number} را انتخاب کنید:",
+                $keyboard
+            );
+        }
+        
+        $priority = TicketPriority::where('slug', $prioritySlug)->orWhere('id', $prioritySlug)->first();
+        
+        if (!$priority) {
+            return $this->sendMessage($chatId, "❌ اولویت نامعتبر است.");
+        }
+        
+        $oldPriority = $ticket->priority->name;
+        $ticket->priority_id = $priority->id;
+        $ticket->save();
+        
+        $emoji = $this->getPriorityEmoji($priority->slug);
+        $message = "✅ اولویت تیکت #{$ticket->ticket_number} تغییر کرد.\n\n";
+        $message .= "قبلی: {$oldPriority}\n";
+        $message .= "جدید: {$emoji} {$priority->name}";
+        
+        $this->sendMessage($chatId, $message);
+        $this->clearUserState($userId);
+        
+        return true;
+    }
+    
+    /**
+     * Handle set category
+     */
+    protected function handleSetCategory($chatId, $userId, $args)
+    {
+        $parts = explode(' ', $args, 2);
+        $ticketId = $parts[0] ?? null;
+        $categorySlug = $parts[1] ?? null;
+        
+        if (!$ticketId) {
+            $this->setUserState($userId, self::STATE_WAITING_CATEGORY, ['step' => 'ticket_id']);
+            return $this->sendMessage($chatId, "🎫 لطفاً شماره تیکتی که می‌خواهید دسته‌بندی آن را تغییر دهید وارد کنید:");
+        }
+        
+        $ticket = Ticket::where('ticket_number', $ticketId)->orWhere('id', $ticketId)->first();
+        
+        if (!$ticket) {
+            return $this->sendMessage($chatId, "❌ تیکت با شماره {$ticketId} یافت نشد.");
+        }
+        
+        if (!$categorySlug) {
+            // Show category options
+            $categories = TicketCategory::where('is_active', true)->get();
+            
+            $keyboard = ['inline_keyboard' => []];
+            foreach ($categories as $category) {
+                $keyboard['inline_keyboard'][] = [
+                    ['text' => "🏷️ {$category->name}", 'callback_data' => "category:{$ticket->id}:{$category->id}"]
+                ];
+            }
+            
+            return $this->sendMessage($chatId,
+                "🏷️ دسته‌بندی تیکت #{$ticket->ticket_number} را انتخاب کنید:",
+                $keyboard
+            );
+        }
+        
+        $category = TicketCategory::where('slug', $categorySlug)->orWhere('id', $categorySlug)->first();
+        
+        if (!$category) {
+            return $this->sendMessage($chatId, "❌ دسته‌بندی نامعتبر است.");
+        }
+        
+        $oldCategory = $ticket->category->name;
+        $ticket->category_id = $category->id;
+        $ticket->save();
+        
+        $message = "✅ دسته‌بندی تیکت #{$ticket->ticket_number} تغییر کرد.\n\n";
+        $message .= "قبلی: {$oldCategory}\n";
+        $message .= "جدید: 🏷️ {$category->name}";
+        
+        $this->sendMessage($chatId, $message);
+        $this->clearUserState($userId);
+        
+        return true;
+    }
+    
+    /**
+     * Handle export
+     */
+    protected function handleExport($chatId, $userId, $period = 'today')
+    {
+        $query = Ticket::with(['user', 'assignedTo']);
+        
+        // Apply period filter
+        switch ($period) {
+            case 'today':
+                $query->whereDate('created_at', today());
+                $periodText = 'امروز';
+                break;
+            case 'week':
+                $query->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                $periodText = 'این هفته';
+                break;
+            case 'month':
+                $query->whereMonth('created_at', now()->month);
+                $periodText = 'این ماه';
+                break;
+            default:
+                $periodText = 'کل';
+        }
+        
+        $tickets = $query->get();
+        
+        if ($tickets->isEmpty()) {
+            return $this->sendMessage($chatId, "📭 هیچ تیکتی برای دوره {$periodText} یافت نشد.");
+        }
+        
+        // Create CSV file
+        $csvContent = "شماره تیکت,موضوع,کاربر,ایمیل,دسته‌بندی,اولویت,وضعیت,اختصاص به,تاریخ ایجاد,تاریخ بروزرسانی\n";
+        
+        foreach ($tickets as $ticket) {
+            $csvContent .= implode(',', [
+                $ticket->ticket_number,
+                '"' . str_replace('"', '""', $ticket->subject) . '"',
+                $ticket->user->name,
+                $ticket->user->email,
+                $ticket->category->name,
+                $ticket->priority->name,
+                $ticket->status->name,
+                $ticket->assignedTo->name ?? '-',
+                \Verta::instance($ticket->created_at)->format('Y/m/d H:i'),
+                \Verta::instance($ticket->updated_at)->format('Y/m/d H:i')
+            ]) . "\n";
+        }
+        
+        // Save file
+        $fileName = "tickets_export_{$period}_" . date('Y-m-d_H-i-s') . '.csv';
+        $filePath = 'exports/' . $fileName;
+        Storage::put($filePath, "\xEF\xBB\xBF" . $csvContent); // Add BOM for Excel UTF-8
+        
+        $fileUrl = Storage::url($filePath);
+        
+        // Send file
+        $this->sendDocument($chatId, $fileUrl, 
+            "📊 گزارش تیکت‌های {$periodText}\n" .
+            "تعداد: {$tickets->count()} تیکت"
+        );
+        
+        return true;
+    }
+    
+    /**
+     * Handle help command
+     */
+    protected function handleHelp($chatId, $userId, $args)
+    {
+        $helpMessage = "📚 *راهنمای ربات مدیریت تیکت*\n\n";
+        
+        $helpMessage .= "*دستورات اصلی:*\n";
+        $helpMessage .= "`/start` - شروع و منوی اصلی\n";
+        $helpMessage .= "`/tickets [status]` - لیست تیکت‌ها\n";
+        $helpMessage .= "`/ticket [number]` - مشاهده تیکت\n";
+        $helpMessage .= "`/search [query]` - جستجو در تیکت‌ها\n";
+        $helpMessage .= "`/reply [ticket] [text]` - پاسخ به تیکت\n";
+        $helpMessage .= "`/close [ticket]` - بستن تیکت\n";
+        $helpMessage .= "`/reopen [ticket]` - بازگشایی تیکت\n\n";
+        
+        $helpMessage .= "*دستورات مدیریتی:*\n";
+        $helpMessage .= "`/assign [ticket] [admin]` - اختصاص تیکت\n";
+        $helpMessage .= "`/priority [ticket] [level]` - تغییر اولویت\n";
+        $helpMessage .= "`/category [ticket] [cat]` - تغییر دسته‌بندی\n";
+        $helpMessage .= "`/stats [period]` - آمار تیکت‌ها\n";
+        $helpMessage .= "`/export [period]` - خروجی Excel\n\n";
+        
+        $helpMessage .= "*نکات:*\n";
+        $helpMessage .= "• برای ارسال پیوست، ابتدا تیکت را انتخاب کنید\n";
+        $helpMessage .= "• می‌توانید عکس و فایل ارسال کنید\n";
+        $helpMessage .= "• از دکمه‌های inline برای ناوبری استفاده کنید\n";
+        $helpMessage .= "• برای جستجو کافیست متن را تایپ کنید\n\n";
+        
+        $helpMessage .= "*وضعیت‌های تیکت:*\n";
+        $helpMessage .= "🟢 باز - تیکت جدید\n";
+        $helpMessage .= "🟡 در انتظار - منتظر پاسخ\n";
+        $helpMessage .= "🔵 پاسخ داده شده\n";
+        $helpMessage .= "✅ حل شده\n";
+        $helpMessage .= "⚫ بسته شده\n\n";
+        
+        $helpMessage .= "*اولویت‌ها:*\n";
+        $helpMessage .= "🟢 کم\n";
+        $helpMessage .= "🟡 معمولی\n";
+        $helpMessage .= "🟠 زیاد\n";
+        $helpMessage .= "🔴 فوری\n";
+        
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => '🎬 شروع کار', 'callback_data' => 'menu:main'],
+                    ['text' => '📋 تیکت‌ها', 'callback_data' => 'tickets:open']
+                ]
+            ]
+        ];
+        
+        return $this->sendMessage($chatId, $helpMessage, $keyboard, 'Markdown');
+    }
+    
+    /**
+     * Handle settings
+     */
+    protected function handleSettings($chatId, $userId)
+    {
+        $user = User::where('telegram_chat_id', $userId)->first();
+        
+        $message = "⚙️ *تنظیمات ربات*\n\n";
+        
+        if ($user) {
+            $message .= "👤 *حساب متصل:*\n";
+            $message .= "نام: {$user->name}\n";
+            $message .= "ایمیل: {$user->email}\n";
+            $message .= "نقش: " . ($user->roles->first()->name ?? 'کاربر') . "\n\n";
+        }
+        
+        $message .= "🔔 *اعلان‌ها:*\n";
+        $notificationsEnabled = Cache::get("telegram_notifications_{$userId}", true);
+        $message .= $notificationsEnabled ? "✅ فعال" : "❌ غیرفعال";
+        $message .= "\n\n";
+        
+        $message .= "🤖 *اطلاعات ربات:*\n";
+        $message .= "نسخه: 1.0.0\n";
+        $message .= "آخرین بروزرسانی: " . \Verta::now()->format('Y/m/d');
+        
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => $notificationsEnabled ? '🔕 غیرفعال کردن اعلان‌ها' : '🔔 فعال کردن اعلان‌ها',
+                     'callback_data' => 'toggle_notifications']
+                ],
+                [
+                    ['text' => '🔗 اتصال حساب جدید', 'callback_data' => 'link_account'],
+                    ['text' => '🔓 قطع اتصال', 'callback_data' => 'unlink_account']
+                ],
+                [
+                    ['text' => '🏠 بازگشت', 'callback_data' => 'menu:main']
+                ]
+            ]
+        ];
+        
+        return $this->sendMessage($chatId, $message, $keyboard, 'Markdown');
+    }
+    
+    /**
+     * Handle stateful conversation
+     */
+    protected function handleStatefulConversation($userId, $chatId, $text, $state)
+    {
+        switch ($state['state']) {
+            case self::STATE_WAITING_REPLY:
+                if ($state['data']['step'] === 'ticket_id') {
+                    return $this->handleReply($chatId, $userId, $text);
+                } elseif ($state['data']['step'] === 'reply_text') {
+                    $ticketId = $state['data']['ticket_id'];
+                    return $this->handleReply($chatId, $userId, "{$ticketId} {$text}");
+                }
+                break;
+                
+            case self::STATE_WAITING_SEARCH:
+                return $this->handleSearch($chatId, $userId, $text);
+                
+            case self::STATE_WAITING_ASSIGN:
+                if ($state['data']['step'] === 'ticket_id') {
+                    $this->setUserState($userId, self::STATE_WAITING_ASSIGN, [
+                        'ticket_id' => $text,
+                        'step' => 'admin_id'
+                    ]);
+                    return $this->handleAssignTicket($chatId, $userId, $text);
+                }
+                break;
+                
+            case self::STATE_WAITING_PRIORITY:
+                if ($state['data']['step'] === 'ticket_id') {
+                    return $this->handleSetPriority($chatId, $userId, $text);
+                }
+                break;
+                
+            case self::STATE_WAITING_CATEGORY:
+                if ($state['data']['step'] === 'ticket_id') {
+                    return $this->handleSetCategory($chatId, $userId, $text);
+                }
+                break;
+        }
+        
+        $this->clearUserState($userId);
+        return $this->sendMessage($chatId, "❌ خطا در پردازش درخواست. لطفاً مجدداً تلاش کنید.");
+    }
+    
+    /**
+     * Quick search for any text input
+     */
+    protected function quickSearch($chatId, $text)
+    {
+        if (strlen($text) < 3) {
+            return $this->sendMessage($chatId, 
+                "🔍 برای جستجو حداقل 3 کاراکتر وارد کنید.\n" .
+                "یا از دستورات ربات استفاده کنید. /help"
+            );
+        }
+        
+        return $this->handleSearch($chatId, 0, $text);
+    }
+    
+    /**
+     * Create ticket actions keyboard
+     */
+    protected function createTicketActionsKeyboard($ticket)
+    {
+        $keyboard = ['inline_keyboard' => []];
+        
+        // Main actions
+        $keyboard['inline_keyboard'][] = [
+            ['text' => '💬 پاسخ', 'callback_data' => "reply:{$ticket->id}"],
+            ['text' => '📎 افزودن پیوست', 'callback_data' => "attach:{$ticket->id}"]
+        ];
+        
+        // Status actions
+        if ($ticket->status->slug !== 'closed') {
+            $keyboard['inline_keyboard'][] = [
+                ['text' => '🔒 بستن تیکت', 'callback_data' => "close:{$ticket->id}"],
+                ['text' => '👤 اختصاص', 'callback_data' => "assign:{$ticket->id}"]
+            ];
+        } else {
+            $keyboard['inline_keyboard'][] = [
+                ['text' => '🔓 بازگشایی', 'callback_data' => "reopen:{$ticket->id}"]
+            ];
+        }
+        
+        // Management actions
+        $keyboard['inline_keyboard'][] = [
+            ['text' => '⚡ تغییر اولویت', 'callback_data' => "priority:{$ticket->id}"],
+            ['text' => '🏷️ تغییر دسته', 'callback_data' => "category:{$ticket->id}"]
+        ];
+        
+        // Navigation
+        $keyboard['inline_keyboard'][] = [
+            ['text' => '📋 لیست تیکت‌ها', 'callback_data' => 'tickets:all'],
+            ['text' => '🏠 منو', 'callback_data' => 'menu:main']
+        ];
+        
+        return $keyboard;
+    }
+    
+    /**
+     * Notify user about new reply
+     */
+    protected function notifyUserAboutReply($ticket, $reply)
+    {
+        try {
+            $message = "💬 *پاسخ جدید به تیکت شما*\n\n";
+            $message .= "🎫 شماره تیکت: #{$ticket->ticket_number}\n";
+            $message .= "📝 موضوع: {$ticket->subject}\n\n";
+            $message .= "*پاسخ:*\n{$reply->message}";
+            
+            $this->sendMessage($ticket->user->telegram_chat_id, $message, null, 'Markdown');
+            
+        } catch (\Exception $e) {
+            Log::error('Failed to notify user about reply', [
+                'ticket_id' => $ticket->id,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+    
+    /**
+     * Generate statistics chart (placeholder - implement with chart library)
+     */
+    protected function generateStatisticsChart($stats)
+    {
+        // This would generate an actual chart image
+        // For now, return null
+        return null;
+    }
+    
+    /**
+     * Handle edited message
+     */
+    protected function handleEditedMessage($message)
+    {
+        // Ignore edited messages for now
+        return true;
+    }
+    
+    /**
+     * Handle channel post
+     */
+    protected function handleChannelPost($post)
+    {
+        // Could be used for monitoring ticket channels
+        return true;
+    }
+    
+    /**
+     * Handle notification settings
+     */
+    protected function handleNotificationSettings($chatId, $userId, $args)
+    {
+        return $this->handleSettings($chatId, $userId);
+    }
+}

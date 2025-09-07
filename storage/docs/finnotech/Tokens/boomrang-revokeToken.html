@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>حذف توکن</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###DELETE   /dev/v2/clients/{clientId}/token
+* **شرح: ** &#x202b; ابطال توکن صادر شده
+* **رویکرد: ** ```Client_Credential```
+
+````````````````
+{address}/dev/v2/clients/{clientId}/token
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### URI Parameters
+* **clientId: ** شناسه کلاینت
+
+#### Headers
+ مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+Content-Type : application/json
+````````````````
+
+#### Body
+##### Example:
+نمونه کد مربوط به ابطال توکن سه طرفه(CODE)
+````````````````
+{
+     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjoiYVI3yhZEeXhNc05MZkdCM2dDV0RMdXBKR3l5NzB1TWEiLCJzY29wZXMiOlsib2FrOnN0YXRlbWVudDpnZXQiXSwibW9udGhseUNhbGxMaW1pdGF0aW9uIjpudWxsLCJtYXhBbW91bnRQZXJUcmFuc2FjdGlvbiI6bnVsbCwidXNlcklkIjoiMDAxNTE0NzE2OSIsImNyZWF0aW9uRGF0ZSI6IjEzOTcwNzI12dG1MzUITiwidHlwZSI6IkNPREUiLCJiYW5rIjoiMDYyIiwibGlmZVRpbWUiOjg2NDAwMDAwMCwiZGVwb3NpdHMiOlsiMDIwMjg3OTc4NDAdesJdLCJjbGllbnRJZCI6InNtb2tleSIsInJhbmRvbVVLSUQiOiI3MDJFVTVaVVJtdzROZVdWIiwiaWF0IjoxNTM5NzcxODE0fQ.2oZIycxOxDRC5RNQvgtj4B3ZT9-Zyh_tMmCiTBUpWbY",
+     "token_type": "CODE",
+     "bank": "062"
+}
+````````````````
+##### Example:
+نمونه کد مربوط به ابطال توکن دو طرفه (CLIENT-CREDENTIAL)
+````````````````
+{
+     "token": "xyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjoiYVI3yhZEeXhNc05MZkdCM2dDV0RMdXBKR3l5NzB1TWEiLCJzY29wZXMiOlsib2FrOnN0YXRlbWVudDpnZXQiXSwibW9udGhseUNhbGxMaW1pdGF0aW9uIjpudWxsLCJtYXhBbW91bnRQZXJUcmFuc2FjdGlvbiI6bnVsbCwidXNlcklkIjoiMDAxNTE0NzE2OSIsImNyZWF0aW9uRGF0ZSI6IjEzOTcwNzI12dG1MzUITiwidHlwZSI6IkNPREUiLCJiYW5rIjoiMDYyIiwibGlmZVRpbWUiOjg2NDAwMDAwMCwiZGVwb3NpdHMiOlsiMDIwMjg3OTc4NDAdesJdLCJjbGllbnRJZCI6InNtb2tleSIsInJhbmRvbVVLSUQiOiI3MDJFVTVaVVJtdzROZVdWIiwiaWF0IjoxNTM5NzcxODE0fQ.2oZIycxOxDRC5RNQvgtj4B3ZT9-Zyh_tMmCiTBUphjj",
+     "token_type": "CLIENT-CREDENTIAL"
+}
+````````````````
+##### Example:
+نمونه کد مربوط به ابطال توکن سه طرفه(CODE) احراز هویت با SMS
+````````````````
+{
+     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjoiYVI3yhZEeXhNc05MZkdCM2dDV0RMdXBKR3l5NzB1TWEiLCJzY29wZXMiOlsib2FrOnN0YXRlbWVudDpnZXQiXSwibW9udGhseUNhbGxMaW1pdGF0aW9uIjpudWxsLCJtYXhBbW91bnRQZXJUcmFuc2FjdGlvbiI6bnVsbCwidXNlcklkIjoiMDAxNTE0NzE2OSIsImNyZWF0aW9uRGF0ZSI6IjEzOTcwNzI12dG1MzUITiwidHlwZSI6IkNPREUiLCJiYW5rIjoiMDYyIiwibGlmZVRpbWUiOjg2NDAwMDAwMCwiZGVwb3NpdHMiOlsiMDIwMjg3OTc4NDAdesJdLCJjbGllbnRJZCI6InNtb2tleSIsInJhbmRvbVVLSUQiOiI3MDJFVTVaVVJtdzROZVdWIiwiaWF0IjoxNTM5NzcxODE0fQ.2oZIycxOxDRC5RNQvgtj4B3ZT9-Zyh_tMmCiTBUpWbY",
+     "token_type": "CODE",
+     "auth_type": "SMS"
+}
+````````````````
+* **token:** &#x202b; توکنی که میخواهید آن را باطل کنید
+* **token_type:** نوع توکن (CLIENT-CREDENTIAL یا CODE)
+* **bank:** کد بانک مقصد
+* **auth_type:** برای توکن‌هایی که به روش اس‌ام‌اسی احراز هویت شده‌آند فرستادن این مقدار ضروری است و باید با `SMS` مقدار دهی شود.
+
+ <table>
+   <thead>
+     <tr>
+       <th style="text-align: center; vertical-align: middle;">بانک</th>
+       <th style="text-align: center; vertical-align: middle;">کد</th>
+     </tr>
+   </thead>
+   <tbody>
+     ‪<tr>
+       <td style="text-align: center; vertical-align: middle; ">آینده</td>
+       <td style="text-align: center; vertical-align: middle;">062</td>
+     </tr>
+     <tr>
+       <td style="text-align: center; vertical-align: middle;">دی</td>
+       <td style="text-align: center; vertical-align: middle;">066</td>
+     </tr>
+     <tr>
+       <td style="text-align: center; vertical-align: middle;">ایران زمین</td>
+       <td style="text-align: center; vertical-align: middle;">069</td>
+     </tr>
+     <tr>
+       <td style="text-align: center; vertical-align: middle;">اقتصاد نوین</td>
+       <td style="text-align: center; vertical-align: middle;">055</td>
+     </tr>
+     <tr>
+       <td style="text-align: center; vertical-align: middle;">انصار</td>
+       <td style="text-align: center; vertical-align: middle;">063</td>
+     </tr>
+     <tr>
+         <td style="text-align: center; vertical-align: middle;">پاسارگاد</td>
+         <td style="text-align: center; vertical-align: middle;">057</td>
+     </tr>
+   </tbody>
+ </table>
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+  {
+    "status": "DONE",
+    "trackId": "f1bb6ac45cf5"
+  }
+````````````````
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+* **trackId: ** کد پیگیری، رشته‌ای که تولید و به شما برگردانده می‌شود
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

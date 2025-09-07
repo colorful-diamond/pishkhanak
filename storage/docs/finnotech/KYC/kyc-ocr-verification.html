@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>خواندن اطلاعات کارت ملی</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###POST /kyc/v2/clients/{clientId}/ocr
+
+ * **شرح:** این سرویس برای دریافت اطلاعات رو و پشت کارت ملی است.
+
+ * **اسکوپ: **  ``` kyc:ocr-verification:post```
+
+ * **رویکرد: ** ``` CLIENT-CREDENTIAL```
+
+ * **<a href="fn-responseCodeKYc.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+    {address}/kyc/v2/clients/{clientId}/ocr?trackId={trackId}
+
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:**شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+
+#### Body
+##### Example:
+````````````````
+    uploadCardFront مدل ورودی برای تایپ
+        "{
+        --form cardImage=cardfront.jpg \
+
+        --form type=uploadCardFront
+    }"
+
+
+    uploadCardBack مدل ورودی برای تایپ
+    "{
+        --form cardImage=cardBack.jpg \
+
+        --form type=uploadCardBack
+    }"
+
+````````````````
+
+* **cardImage: ** تصویر رو یا پشت کارت ملی ( فرمت این فایل حتما بایستی jpg باشد)
+
+* **type: **  نوع درخواست ، که در یکی از دو مقدار ذکر شده در مثال بدنه‌ی درخواست میباشد
+
+
+ #### Successful result format (status code 200)
+ ````````````````
+    در صورتی تایپ ورودی شما عکس روی کارت ملی باشد خروجی سرویس به شکل زیر است:
+    {
+    "responseCode": "FN-BRFH-20001300000" ,
+    "trackId": "3e35adb9-0164-4d5jjj6-9259-70024eff51c9",
+    "result":{
+    "nationalCode": "0000000000",
+    "firstName":"سیمون",
+    "lastName":"دوبوار",
+    "fatherName": "عباس",
+    "birthDate": "1398/11/02",
+    "expirationDate": "1405/11/04"
+    "docType":"national-card-front"
+    },
+    "status": "DONE"
+    }
+
+    در صورتی تایپ ورودی شما پشت کارت ملی باشد خروجی سرویس به شکل زیر است:
+    {
+    "responseCode": "FN-BRFH-20001300000",
+    "trackId": "3e35adb9-0164-4d5jjj6-9259-70024eff51c9",
+    "result" :{
+    "serial": "0G15555555"
+    "docType":"national-card-back"
+    },
+    "status": "DONE"
+    }
+
+    ````````````````
+ * **responseCode:** کد پاسخ دریافتی
+ * ** result:** آبجکتی از پاسخ سرویس شامل:
+  * ** DONE:** فراخوانی موفق سرویس
+  * ** FAILED:** فراخوانی ناموفق سرویس
+  * ** nationalCode:** کدملی دارنده ی حساب
+  * ** firstname:** نام
+  * ** lastname:** نام خانوادگی
+  * ** fatherName:** نام پدر
+  * ** birthDate:** تاریخ تولد
+  * ** serial:** سریال پشت کارت ملی
+  * ** docType:** نوع مدرک
+  * ** status:** وضعیت فراخوانی سرویس
+ * ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+ * ** status:** &#x202b; DONE/FAILED
+ * ** error:** جزییات خطا (در صورت بروز خطا)
+    * **code:** استاتوس کد
+    * **message:** پیغام خطا
+
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

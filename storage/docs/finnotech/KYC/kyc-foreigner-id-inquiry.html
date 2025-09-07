@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+	<meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام اتباع خارجی</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /kyc/v2/clients/{clientId}/foreignerIdInquiry
+* **شرح: ** عملکرد این سرویس به این صورت است که با وارد کردن شناسه تبعه و تاریخ تولد، اطلاعات هویتی فرد را در خروجی نمایش میدهد.
+
+* **اسکوپ: **  ```kyc:foreigner-id-inquiry:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+* **<a href="Responsecodes.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+
+````````````````
+{address}/kyc/v2/clients/{clientId}/foreignerIdInquiry?trackId={trackId}&foreignerId={foreignerId}&birthDate={birthDate}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```foreignerId-inq-trckId```
+
+* **foreignerId:**  شناسه تبعه (اجباری)
+* **birthDate:**  تاریخ تولد (اجباری)
+
+
+###Results Format
+
+
+#### Successful result format (status code 200)
+*‌ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+{
+	"responseCode": "FN-KCVH-20004300000",
+	"trackId": "foreignerId-inq-trckId",
+	"result": {
+		"firstName": "اسدالله",
+		"lastName": "سامانی",
+		"fullName": "سیداحمد",
+		"fatherName": "سیدرجب",
+		"ancestorName": "حسین",
+		"gender": "مرد",
+		"nationality": "Afghanistan",
+		"identificationDocumentTypeTitle": "کارت آمایش",
+		"identificationDocumentNumber": "9975248674"
+	},
+	"status": "DONE"
+}
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+	* **firstName:** نام
+	* **lastName:** نام خانوادگی
+	* **fullName:** نام کامل
+	* **fatherName:** نام پدر
+	* **ancestorName:** نام پدربزرگ (جد)
+	* **gender:** جنسیت (مرد/زن)
+	* **nationality:** ملیت
+	* **identificationDocumentTypeTitle:** عنوان سند شناسایی
+	* **identificationDocumentNumber:** شماره سند شناسایی
+
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+	* **code:** استاتوس کد
+	* **message:** پیغام خطا وضعیت فراخوانی که میتواند یکی از موارد DONE|FAILED باشد
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

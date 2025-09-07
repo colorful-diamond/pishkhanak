@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<html>
+<title>لیست پلاک های فعال</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###GET /vehicle/v2/clients/{clientId}/activePlateNumbers
+
+ * **شرح:** در این سرویس، با وارد کردن کدملی و شماره موبایل، در خروجی لیست پلاک های فعال فرد نمایش داده میشود.
+
+* **اسکوپ: **  ```vehicle:active-plate-numbers:get```
+
+* **رویکرد: ** ```CLIENT-CREDENTIAL```
+
+* **<a href="responseCodeVehicle.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+    {address}/vehicle/v2/clients/{clientId}/activePlateNumbers?nationalId={nationalId}&mobile={mobile}&trackId={trackId}
+
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:** شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اختیاری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+ * **nationalId:** (اجباری) کد ملی صاحب خودرو .
+ * example:  ```0057684356```
+
+ * **mobile:**  (اجباری) شماره موبایل.
+ * example:  ```09123456789```
+
+
+ #### Successful result format (status code 200)
+ ````````````````
+    {
+        "responseCode": "FN-CRGO-20000100000",
+        "trackId": "410a3431-526e-4a7f-92fd-af9bcdabf70f",
+        "result": {
+            "plateNumbers": [
+                {
+                    "nationalId": "-",
+                    "plateNumber": "ایران ۹۹ - ۲۸۳ ن  ۸۰",
+                    "revoked": true,
+                    "revokedDateTime": "12/26/2018 13:23:40",
+                    "revokedDescription": "شماره گذاري بوکان",
+                    "serialNumber": "1010029296607"
+                },
+                {
+                    "nationalId": "-",
+                    "plateNumber": "ایران ۵۰ - ۱۵۹ ص  ۸۰",
+                    "revoked": false,
+                    "revokedDateTime": null,
+                    "revokedDescription": null,
+                    "serialNumber": "10100448779921"
+                }
+            ]
+        },
+        "status": "DONE"
+    }
+ ````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+  * ** plateNumbers:** شماره پلاک های فرد
+      * ** nationalId:** کدملی دارنده ی پلاک
+      * ** plateNumber:** شماره پلاک خودرو
+      * ** revoked:** پلاک فک شده (false/true)
+      * ** revokedDateTime:** تاریخ فک پلاک
+      * ** revokedDescription:** توضیحات فک پلاک
+      * ** serialNumber:** شماره سریال
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+<!--در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [تبدیل شماره پلاک به کد](/doc/plateNumberTable.html)-->
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

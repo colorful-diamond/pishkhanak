@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام قبوض با جزئیات</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /billing/v2/clients/{clientId}/detailBillingInquiry
+* **شرح: **  سرویس استعلام قبض با جزئیات با گرفتن نوع قبض و شناسه ی مربوط به آن اطلاعات قبض به همراه جزئیات را در اختیار کاربر قرار میدهد.
+
+* **اسکوپ: **  ```billing:cc-inquiry-detail:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+* **<a href="ResponsecodesBilling.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+
+````````````````
+{address}/billing/v2/clients/{clientId}/detailBillingInquiry?trackId={trackId}&parameter={parameter}&type={type}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت  توکن Client Credential سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId:**شناسه کلاینت
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```getUserinfo876543```
+
+     
+* **mobile:**  
+     
+     * example:  ```Electricity```
+     
+##### types examples
+````````````````
+         قبض آب :Water
+         قبض برق :Electricity
+         قبض برق (پشتیبان) :Electricity-support
+         قبض گاز :Gas
+         
+````````````````
+
+
+
+
+* **parameter*:*   مقدار مورد استعلام
+     * example:  ```9105936904121```
+
+
+##### parameters values
+````````````````
+         شناسه قبض: قبض آب
+         شناسه قبض: قبض برق
+         شماره اشتراک: قبض گاز
+         
+````````````````
+پوشش گاز و برق سراسری است .
+می توانید لیست شرکتهای تحت پوشش آب را از [اینجا](./asset/SupportState.xlsx) دریافت کنید
+
+
+     
+
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+{
+     "trackId": "561e5d7a-af5a-4e99-8a32-ce0d9be94019",
+     "result": {
+         "Amount": "590000",
+         "BillId": "9030635704127",
+         "PayId": "59010572",
+         "Date": "1401/07/03",
+         "Info": {
+             "CompanyName": "توزيع نيروی برق تهران بزرگ",
+             "CustomerName": "سيدمحمدرضا گلزار",
+             "CustomerFamily": "",
+             "CustomerType": "حقیقی",
+             "Address": "خواجه عبداله انصاري ابوذرغفاري شمالي",
+             "PostalCode": "1236598127",
+             "FileNumber": "656379",
+             "ComputerPassword": "23569741",
+             "IdentificationNumber": "30226984",
+             "TariffType": "خانگی",
+             "Phase": "1",
+             "Amper": "15",
+             "VoltageType": "ثانویه",
+             "ContractDemand": "3",
+             "Year": "",
+             "Period": "",
+             "PreviousReadingDate": "",
+             "CurrentReadingDate": "",
+             "BillExportationDate": "",
+             "RejectDate": "",
+             "NormalConsumption": "",
+             "PeakConsumption": "",
+             "LowConsumption": "",
+             "FridayConsumption": "",
+             "ReactiveConsumption": "",
+             "DemandRead": "",
+             "AverageConsumption": "",
+             "BillPayableAmount": "",
+             "PeriodAmount": "",
+             "InsuranceAmount": "",
+             "TaxAmount": "",
+             "PaytollAmount": "",
+             "ElectricityTaxAmount": "",
+             "PreviousDebt": "",
+             "EnergyAmount": "",
+             "ReactiveAmount": "",
+             "DemandAmount": "",
+             "SubscriptionAmount": "",
+             "SeasonAmount": "",
+             "FreeAmount": "",
+             "GasDiscountAmount": "",
+             "DiscountAmount": "",
+             "WarmDaysCount": "",
+             "ColdDaysCount": "",
+             "TotalDaysCount": "",
+             "ConsumptionDebtAmount": "0",
+             "OtherDebtAmount": "0",
+             "BranchDebtAmount": "0"
+         }
+     },
+     "status": "DONE"
+}
+````````````````
+     
+ می توانید کلید خروجی های سرویس را به تفکیک نوع سرویس از [اینجا](./asset/InfoKey.xlsx) دریافت کنید
+
+     
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **amount:** مبلغ قبض
+  * **billId:** شناسه قبض
+  * **payId:** شناسه پرداخت
+  * **date:** مهلت پرداخت
+  * **Info:** جزئیات قبض ( در صورت وجود اطلاعات )
+     * **CompanyName : ** نام شرکت توزیع
+     * **CustomerName : ** نام مشترک
+     * **CustomerFamily : ** نام خانوادگی مشترک
+     * **CustomerType : ** نوع مشترک
+     * **Address : ** آدرس
+     * **PostalCode : ** کدپستی
+     * **FileNumber : ** شماره پرونده
+     * **ComputerPassword : ** رمز رایانه
+     * **IdentificationNumber : ** شماره شناسایی
+     * **TariffType : ** نوع تعرفه
+     * **Phase : ** فاز
+     * **Amper : ** آمپراژ
+     * **VoltageType : ** نوع ولتاژ
+     * **ContractDemand : ** قدرت
+     * **Year : ** سال
+     * **Period : ** دوره
+     * **PreviousReadingDate : ** تاریخ قرائت قبلی
+     * **CurrentReadingDate : ** تاریخ قرائت فعلی
+     * **BillExportationDate : ** تاریخ صدور
+     * **RejectDate : ** تاریخ عدم قبول
+     * **NormalConsumption : ** مصرف میان باری
+     * **PeakConsumption : ** مصرف اوج بار
+     * **LowConsumption : ** مصرف کم باری
+     * **FridayConsumption : ** مصرف روز جمعه
+     * **ReactiveConsumption : ** مصرف راکتیو
+     * **DemandRead : ** تقاضای قرائت
+     * **AverageConsumption : ** میانگین مصرف
+     * **BillPayableAmount : ** مبلغ قابل پرداخت
+     * **PeriodAmount : ** مبلغ دوره
+     * **InsuranceAmount : ** مبلغ بیمه
+     * **TaxAmount : ** مبلغ مالیات
+     * **PaytollAmount : ** مبلغ عوارض
+     * **ElectricityTaxAmount : ** مبلغ عوارض برق
+     * **PreviousDebt : ** بدهی پیشین
+     * **EnergyAmount : ** مبلغ انرژی
+     * **ReactiveAmount : ** مبلغ راکتیو
+     * **DemandAmount : ** مبلغ تقاضا
+     * **SubscriptionAmount : ** آبونمان
+     * **SeasonAmount : ** مبلغ فصل
+     * **FreeAmount : ** مبلغ رایگان
+     * **GasDiscountAmount : ** مبلغ تخفیف گاز
+     * **DiscountAmount : ** مبلغ تخفیف
+     * **WarmDaysCount : ** تعداد روز گرم
+     * **ColdDaysCount : ** تعداد روز سرد
+     * **TotalDaysCount : ** تعداد روز
+     * **ConsumptionDebtAmount : ** مبلغ بدهی مصرف
+     * **OtherDebtAmount : ** مبلغ بدهی سایر خدمات
+     * **BranchDebtAmount : ** مبلغ بدهی انشعاب
+
+* **status: ** وضعیت فراخوانی سرویس
+     * DONE: فراخوانی موفق سرویس
+     * FAILED: فراخوانی ناموفق سرویس
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+     Success:   موفق
+     Bill Type is Empty: نوع قبض ارسال نشده است￼￼￼￼￼￼
+     Bill Parameter is Empty: نوع قبض ارسال نشده است￼￼￼￼￼￼
+     Wrong Parameter: مقدار ورودی نامعتبر است￼￼￼￼￼￼
+     Bill Paid: قبض پرداخت شده است￼￼￼￼￼￼
+     No Bill: قبضی یافت نشد￼￼￼￼￼￼
+     Bill Wrong Type: نوع قبض اشتباه است￼￼￼￼￼￼
+     Service Disable: سرویس استعلام فعال نمی باشد￼￼￼￼￼￼
+     Service Disable For User: سرویس مورد نظر برای شما فعال نمی باشد￼￼￼￼￼￼
+     Bill Inquiry Service Disabled: سرویس استعلام به طور کلی فعال نیست￼￼￼￼￼
+     ￼￼￼￼￼
+     ￼
+
+
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

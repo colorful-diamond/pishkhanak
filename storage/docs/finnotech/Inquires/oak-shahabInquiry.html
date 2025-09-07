@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+	<meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام شماره شهاب</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /oak/v2/clients/{clientId}/users/{nid}/shahabInquiry
+* **شرح: **  استعلام کد شهاب، این سرویس کد ملی و تاریخ تولد و شماره شماسنامه (در صورتی که متولد سال‌های قبل از ۶۸ هستید) دریافت میکند و کد شهاب را  برمیگرداند .
+
+* **اسکوپ: **  ```oak:shahab-inquiry:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+* **<a href="ResponseCodeOak.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+````````````````
+{address}/oak/v2/clients/{clientId}/users/{nid}/shahabInquiry?trackId={trackId}&identityNo={identityNo}&birthDate={birthDate}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+&#x202b; در صورتی که کلاینت توکن های client-credential مختلفی بر روی حسابهای متعدد خود ساخته باشد , با استفاده از هر یک از آنها میتواند این سرویس را فراخوانی کند (شماره حساب مرتبط با توکن اهمیت ندارد)
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+* **nid :**  (اجباری) کد ملی
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```9f412213-a02d-4d22-b0a1-536942222381```
+* **identityNo:**  اگر متولد سال‌های قبل از ۶۸ هستید این فیلد اجباری است در غیر این صورت نیازی به ارسالش ندارید
+* **birthDate:**  &#x202b; تاریخ تولد صاحب این کد ملی که اجباری است، به صورت yyyymmdd
+
+
+###Results Format
+
+#### Successful result format (status code 200)
+*‌ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+	 {
+	 "trackId": "9f412213-a02d-4d22-b0a1-536942222381",
+	 "result": {
+	 "nid": "0013873427",
+	 "birthDate": "13710607",
+	 "shahabCode": "1000000024571433",
+	 "identityNo": "0",
+	 "lastName": "فرهادی",
+	 "gender": "F",
+	 "fatherName": "قلی",
+	 "firstName": "گلی",
+	 "isConfirmed": "Y",
+	 },
+	 "status": "DONE"
+	 }
+````````````````
+
+
+* **nationalId:** کد ملی که صاحب کد شهاب
+* **birthDate:** &#x202b; تاریخ تولد به صورت yyyymmdd
+* **shahabCode:** کد شهاب مربوط به کد ملی
+* **lastName:** نام خانوادگی صاحب کد ملی
+* **firstName:** نام  کد ملی
+* **fatherName:** نام پدر صاحب کد ملی
+* **identityNo:** شماره شناسنامه (اگر متولد بعد از ۶۸ باشید این فیلد صفر است)
+* **gender:** جنسیت صاحب کد ملی
+* **isConfirmed:** نشان دهنده تایید شده یا نشده بودن کد شهاب است
+* **trackId:** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **status:**  &#x202b; وضعیت فراخوانی که میتواند یکی از موارد DONE|FAILED باشد
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

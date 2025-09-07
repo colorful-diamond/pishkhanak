@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>سرویس آمار معاملات حین بازار</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###GET   /bourse/v2/clients/{clientId}/realTimeTrades
+
+* **شرح:**  با فراخوانی این سرویس، اطلاعات نهایی معاملات حین بازار ارائه می گردد.
+
+* **اسکوپ:**  ```bourse:realTime-trades:get```
+
+* **رویکرد:** ```Client_Credential```
+
+````````````````
+{address}/bourse/v2/clients/{clientId}/realTimeTrades?trackId={trackId}&companyId={companyId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+<div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+</div>
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+#### URI Parameters
+* **clientId:** شناسه کلاینت
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+    * example:  ```ef226c90-20cc-48c1676a```
+
+* **companyId :** شناسه شرکت (اختیاری) ( از خروجی سرویس دریافت [لیست شناسه شرکت ها](/doc/bourse-companies-id-inquiry-get.html))
+    * example:  ```5```
+
+
+#### Successful result format (status code 200)
+````````````````
+{
+    "responseCode": "FN-BENN-20000600000",
+    "trackId": "efaa851f-2e77-4454-b635-4eaad38c76a6",
+    "result": {
+        "companyId": 4,
+        "precedencyRight": false,
+        "companySymbol": "کگل",
+        "fullTitle": "معدنی و صنعتی گل گهر",
+        "tseSymbolCode": "IRO1GOLG0001",
+        "gregorianDate": "2019-12-08T00:00:00",
+        "jalaaliDate": "1398/09/17",
+        "maxPrice": 0000,
+        "minPrice": 0000,
+        "openingPrice": 0000,
+        "closingPrice": 0000,
+        "tradeVolume": 0000,
+        "tradeValue": 0000,
+        "tradeQty": 10000,
+        "previousClosingPrice": 0000,
+        "lastPrice": 7010,
+        "closingPriceChange": 241,
+        "closingPriceChangePercent": 3.57,
+        "sharedCount": 48000000000,
+        "marketValue": 335952000000000
+    },
+    "status": "DONE"
+}
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+    * ** companyId ** شناسه شرکت
+    * ** precedencyRight ** نشانگر حق تقدم (سهم=True و حق تقدم= False)
+    * ** companySymbol ** نماد شرکت
+    * ** fullTitle ** عنوان
+    * ** tseSymbolCode ** کد 12 رقمی نماد
+    * ** gregorianDate ** تاریخ میلادی
+    * ** jalaaliDate ** تاریخ شمسی
+    * ** maxPrice ** بیشترین قیمت معاملات
+    * ** minPrice ** کمترین قیمت معاملات
+    * ** openingPrice **  اولین قیمت معاملات
+    * ** closingPrice ** قیمت پایانی معاملات
+    * ** tradeVolume ** حجم معاملات
+    * ** tradeValue ** ارزش معاملات
+    * ** tradeQty ** تعداد معاملات
+    * ** previousClosingPrice **  ارزش معاملات
+    * ** lastPrice ** قیمت آخرین معامله
+    * ** closingPriceChange ** تغییر قیمت پایانی
+    * ** closingPriceChangePercent ** درصد تغییر قیمت پایانی
+    * ** sharedCount ** تعداد سهم
+    * ** marketValue ** ارزش بازار
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+    * **code:** استاتوس کد
+    * **message:** پیغام خطا
+
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

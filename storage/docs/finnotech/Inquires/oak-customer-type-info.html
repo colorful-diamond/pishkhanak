@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام نوع مشتری</title>
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #04AA6D;
+  color: white;
+}
+
+
+</style>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###GET   /oak/v2/clients/{clientId}/users/{nid}/customerType
+* **شرح: **  سرویس استعلام نوع مشتری با گرفتن کد ملی صاحب توکن  , نام و نام خانوادگی و نوع مشتری را بر میگرداند
+
+* **اسکوپ: **  ```oak:user-type:get```
+
+* **رویکرد: ** ```Authorization_Code```
+
+* **<a href="ResponseCodeOak.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+````````````````
+{address}/oak/v2/clients/{clientId}/users/{nid}/customerType?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+</div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس نیازی به افزودن حساب نمی باشد و میتوانید با توکن بدون حساب، سرویس را فراخوانی کنید
+#### URI Parameters
+    * **clientId :**شناسه کلاینت
+    * **nid :**  (اجباری) کد ملی کاربر که میخواهید اطلاعات آن را دریافت کنید و باید رشته عددی به طول ۱۰ رقم باشد
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+* example:  ```getUserinfo876543```
+
+###Results Format
+#### Successful result format (status code 200)
+````````````````
+{
+"trackId": "5b73d4a6-1aae-4ab2-8002-2bb82efba3af",
+"result": {
+    "nid": "0123456789",
+    "firstname": "فریماه",
+    "lastname": "بیابانی",
+    "customerSubtypeCode": "01",
+},
+"status": "DONE"
+}
+````````````````
+
+* **firstname:** نام کاربر
+* **lastname:** نام خانوادگی کاربر
+* **customerSubtypeCode:** کد نوع مشتری
+* **trackId:** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **status:** وضعیت تراکنش را مشخص می کند
+    * **DONE:** در صورت موفق بودن عملیات رخ میدهد
+    * **FAILED:** در صورت نا موفق بودن عملیات رخ میدهد
+
+
+<h4 dir="rtl">
+    کد نوع مشتری:
+</h4>
+<div>
+    <table id="customers">
+        <tr>
+            <th>شماره سطر</th>
+            <th>نوع مشتری</th>
+            <th>کد نوع مشتری</th>
+        </tr>
+        <tr>
+            <td>۰۱</td>
+            <td>اشخاص عادي</td>
+            <td>01</td>
+        </tr>
+        <tr>
+            <td>۰۲</td>
+            <td>حقوق‌بگير بانك</td>
+            <td>02</td>
+        </tr>
+        <tr>
+            <td>۰۳</td>
+            <td>حقوق‌بگير دولت </td>
+            <td>03</td>
+        </tr>
+        <tr>
+            <td>۰۴</td>
+            <td>حقوق‌بگير بخش خصوصي</td>
+            <td>04</td>
+        </tr>
+        <tr>
+            <td>۰۵</td>
+            <td>حقوق‌بگير بازنشسته</td>
+            <td>05</td>
+        </tr>
+        <tr>
+            <td>۰۶</td>
+            <td>حقوق‌بگير مستمري‌بگير</td>
+            <td>06</td>
+        </tr>
+        <tr>
+            <td>۰۷</td>
+            <td>دانشگاه‌ها</td>
+            <td>07</td>
+        </tr>
+        <tr>
+            <td>۰۸</td>
+            <td>نهاد‌ها</td>
+            <td>08</td>
+        </tr>
+        <tr>
+            <td>۰۹</td>
+            <td>شركت‌ها</td>
+            <td>09</td>
+        </tr>
+        <tr>
+            <td>۱۰</td>
+            <td>موسسات و انجمن‌ها</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>۱۱</td>
+            <td>بنگاه‌ها</td>
+            <td>11</td>
+        </tr>
+        <tr>
+            <td>۱۲</td>
+            <td>سازمان‌های دولتي</td>
+            <td>12</td>
+        </tr>
+        <tr>
+            <td>۱۳</td>
+            <td>بانك‌ها</td>
+            <td>13</td>
+        </tr>
+        <tr>
+            <td>۱۴</td>
+            <td>دانش‌آموز - مدارس</td>
+            <td>14</td>
+        </tr>
+        <tr>
+            <td>۱۵</td>
+            <td>حقوق‌بگير بازنشسته سازمان بازنشستگي</td>
+            <td>15</td>
+        </tr>
+        <tr>
+            <td>۱۶</td>
+            <td>حقوق‌بگير مستمري‌بگير سازمان بازنشستگی</td>
+            <td>16</td>
+        </tr>
+        <tr>
+            <td>۱۷</td>
+            <td>ساير حقوق‌بگيران</td>
+            <td>17</td>
+        </tr>
+        <tr>
+            <td>۱۸</td>
+            <td>مؤسسات اعتباري</td>
+            <td>18</td>
+        </tr>
+        <tr>
+            <td>۱۹</td>
+            <td>شركت در شرف تاسيس</td>
+            <td>19</td>
+        </tr>
+        <tr>
+            <td>۲۰</td>
+            <td>شهرداري</td>
+            <td>20</td>
+        </tr>
+        <tr>
+            <td>۲۱</td>
+            <td>خزانه</td>
+            <td>21</td>
+        </tr>
+        <tr>
+            <td>۲۲</td>
+            <td>سازمان برنامه و بودجه</td>
+            <td>22</td>
+        </tr>
+        <tr>
+            <td>۲۳</td>
+            <td>(موسسات  نهادها  ...) دولتي</td>
+            <td>23</td>
+        </tr>
+        <tr>
+            <td>۲۴</td>
+            <td>بانك‌هاي تجاري</td>
+            <td>24</td>
+        </tr>
+        <tr>
+            <td>۲۵</td>
+            <td>بانك‌هاي تخصصي</td>
+            <td>25</td>
+        </tr>
+        <tr>
+            <td>۲۶</td>
+            <td>بانك كارگشايي</td>
+            <td>26</td>
+        </tr>
+        <tr>
+            <td>۲۷</td>
+            <td>مشترك</td>
+            <td>27</td>
+        </tr>
+        <tr>
+            <td>۲۸</td>
+            <td>وزارتخانه‌ها</td>
+            <td>28</td>
+        </tr>
+        <tr>
+            <td>۲۹</td>
+            <td>مشتري گذري </td>
+            <td>29</td>
+        </tr>
+        <tr>
+            <td>۳۰</td>
+            <td>ساير</td>
+            <td>30</td>
+        </tr>
+        <tr>
+            <td>۳۱</td>
+            <td>ايجابي</td>
+            <td>31</td>
+        </tr>
+        <tr>
+            <td>۳۲</td>
+            <td>اشخاص سياسي</td>
+            <td>32</td>
+        </tr>
+        <tr>
+            <td>۳۳</td>
+            <td>مساجد</td>
+            <td>35</td>
+        </tr>
+        <tr>
+            <td>۳۴</td>
+            <td>نشريات</td>
+            <td>36</td>
+        </tr>
+        <tr>
+            <td>۳۵</td>
+            <td>ساير با مجوز خاص</td>
+            <td>37</td>
+        </tr>
+        <tr>
+            <td>۳۶</td>
+            <td>حساب‌هاي داخلي</td>
+            <td>38</td>
+        </tr>
+        <tr>
+            <td>۳۷</td>
+            <td>مشتريان خاص</td>
+            <td>40</td>
+        </tr>
+        <tr>
+            <td>۳۸</td>
+            <td>محجور- زير 18 سال</td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td>۳۹</td>
+            <td>مشتري حقيقي SME</td>
+            <td>51</td>
+        </tr>
+        <tr>
+            <td>۴۰</td>
+            <td>مشتري حقوقي SME</td>
+            <td>52</td>
+        </tr>
+        <tr>
+            <td>۴۱</td>
+            <td>شركت</td>
+            <td>61</td>
+        </tr>
+        <tr>
+            <td>۴۲</td>
+            <td>سياسي - سفارت</td>
+            <td>62</td>
+        </tr>
+        <tr>
+            <td>۴۳</td>
+            <td>سياسي - كنسولگري</td>
+            <td>63</td>
+        </tr>
+        <tr>
+            <td>۴۴</td>
+            <td>سازمان بين المللي</td>
+            <td>64</td>
+        </tr>
+        <tr>
+            <td>۴۵</td>
+            <td>سازمان مردم نهاد</td>
+            <td>65</td>
+        </tr>
+        <tr>
+            <td>۴۶</td>
+            <td>ساير</td>
+            <td>66</td>
+        </tr>
+        <tr>
+            <td>۴۷</td>
+            <td>فعالان بازار سرمايه</td>
+            <td>67</td>
+        </tr>
+        <tr>
+            <td>۴۸</td>
+            <td>محجور-با حكم مراجع قضايي</td>
+            <td>73</td>
+        </tr>
+        <tr>
+            <td>۴۹</td>
+            <td>نامشخص</td>
+            <td>90</td>
+        </tr>
+        
+    </table>
+</div>
+          
+        
+
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

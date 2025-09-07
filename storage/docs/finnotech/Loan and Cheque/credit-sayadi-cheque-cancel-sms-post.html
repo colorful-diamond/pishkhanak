@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>لغو پیامکی چک صیاد</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###POST   /credit/v2/clients/{clientId}/users/{user}/sms/sayadCancelCheque
+* **شرح: **  این سرویس با دریافت شماره چک صیاد و اطلاعات دریافت کننده ی چک ،امکان لغو چک را فراهم می نماید.
+
+* **اسکوپ: **  ```credit:sms-sayad-cancel-cheque:post```
+
+* **رویکرد: ** ```AUTHORIZATION_SMS```
+
+* **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/credit/v2/clients/{clientId}/users/{user}/sms/sayadCancelCheque?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir <b> :address </b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت اجازه ی دسترسی از کاربر،  با توکن Authorization SMS سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId:**شناسه کلاینت
+* **user :**  (اجباری) کد ملی کاربر که باید رشته عددی به طول ۱۰ رقم باشد
+
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```getUserinfo876543```
+
+ #### Body
+ ##### Example:
+ ````````````````
+     {
+     "sayadId": "6230008888888575",
+     "cancelDescription": "رد",
+     "canceller": {
+     "idCode": "1111111111",
+     "shahabId": "2000014000000000",
+     "idType": "2"
+     },
+     "cancellerAgent": {
+     "idCode": "0055555866",
+     "shahabId": "2000014000000000",
+     "idType": "1"
+     }
+     }
+ ````````````````
+
+ * **sayadId:** (اجباری) شناسه صیاد چک ,
+ * **cancelDescription:** (اجباری) شرح لغو که این فیلد فقط میتواند شامل حروف فارسی باشد ,
+ * **canceller:**  اطلاعات مشتری لغو کننده چک. این مشتری می تواند حقیقی یا حقوقی باشد و باید چک به نام او کشیده شده یا انتقال داده شده باشد,
+   * **idCode:** (اجباری) کد شناسایی . مشتری حقیقی کدملی (اختیاری) ، مشتری حقوقی شناسه ملی شرکت
+   * **shahabId:** (اجباری) کد شهاب   ,
+   * **idType:** (اجباری)  نوع کد شناسایی با ملاحضات: مشتری حقیقی 1 ،مشتری حقوقی 2
+ * **cancellerAgent:** در صورتیکه لغو کننده، نماینده شخص حقوقی یا وکیل شخص گیرنده چک باشد این داده اجباری خواهدبود ,
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+       {
+       "trackId": "7113b244-3c01-44f1-b395-e3ab464cfeaa",
+       "result": {
+            "message" :"لغو چک با موفقیت انجام شد",
+            "referenceId" : "11111111111111"
+       },
+       "status": "DONE"
+       }
+````````````````
+* **result:** آبجکتی از پاسخ سرویس شامل:
+	* **message:** پیغام مبنی بر لغو چک
+    * **referenceId:** کد رهگیری
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

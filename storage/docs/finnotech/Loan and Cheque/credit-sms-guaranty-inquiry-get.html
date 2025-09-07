@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+  <title>استعلام ضمانت های فرد</title>
+  <body onload="checkSandbox()">
+    <xmp theme="cerulean" style="display: none;">
+
+###GET /credit/v2/clients/{clientId}/users/{nid}/sms/guarantyInquiry
+* **شرح: **  این سرویس با وارد کردن کدملی و یا شناسه ملی، اطلاعات وام هایی که مشتری های **حقیقی و حقوقی** ضامن آن‌ها بوده اند را نمایش میدهد.
+
+* **اسکوپ: **  ```credit:sms-guaranty-inquiry:get```
+
+* **رویکرد: ** ```Authorization_SMS```
+
+* **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/credit/v2/clients/{clientId}/users/{nid}/sms/guarantyInquiry?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :sandbox address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت  توکن Authorization_SMS سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId :** شناسه کلاینت
+* **nid :**  (اجباری) کد ملی کاربر یا شناسه ملی که میخواهید اطلاعات آن را دریافت کنید، باید رشته عددی به طول ۱۰ رقم برای اشخاص حقیقی و ۱۱ رقم برای اشخاص حقوقی باشد
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```getGuaranty1234```
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+{
+  "responseCode": "FN-CTKZ-20002300000",
+  "trackId": "0705ae6c-ac95-4574-moho-0e85d149d9bf",
+  "result": {
+    "guarantyFirstName": "امیرمحمد",
+    "guarantyLastName": "اسد",
+    "guarantyNationalCode": "1234567890",
+    "guarantyLegalId": null,
+    "inquiryResultId": "12345678",
+    "debtorList": [
+        {
+            "debtorFirstName": "اکبر",
+            "debtorLastName": "اکبری",
+            "totalAmount": "97488736",
+            "benefitAmount": "90445871",
+            "obligationAmount": "0",
+            "suspiciousAmount": "0",
+            "deferredAmount": "0",
+            "orginalAmount": "300000000",
+            "pastExpiredAmount": "0",
+            "bankCode": "13",
+            "setDate": "13980521",
+            "endDate": "14010621",
+            "guarantyPercent": "100",
+            "requestNumber": "2222222222222222",
+            "requestType": "3",
+            "branchCode": "00144",
+            "branchDescription": "بانک صادرات - شعبه شهید نامجو",
+            "guarantyIdNumber": "0123456789",
+            "guarantyLegalId": "0",
+            "defunctAmount": null,
+            "commitmentBalanceAmount": "0",
+            "latePenaltyAmount": "0"
+        },
+    ]
+  },
+  "status": "DONE"
+}
+````````````````
+* **responseCode: ** ریسپانس‌ کد مربوط به این فراخوانی
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **result:** آبجکتی از پاسخ سرویس شامل:
+    * **guarantyFirstName:** نام ضامن
+    * **guarantyLastName:** نام خانوادگی ضامن
+    * **guarantyNationalCode:** کد ملی ضامن
+    * **guarantyLegalId:** شناسه حقوقی
+    * **inquiryResultId:** شناسه پاسخ استعلام
+    * ** debtorList: **لیست وام‌هایی که فرد ضامن آن‌ها بوده است.
+        * debtorFirstName: نام وام‌گیرنده
+        * debtorLastName: نام خانوادگی وام‌گیرنده
+        * totalAmount: مانده کلی بدهی
+        * benefitAmount: ‫سود‬ ‫مبلغ‬
+        * obligationAmount: مبلغ وجه التزام
+        * suspiciousAmount: مانده مشکوک الوصول
+        * deferredAmount: مانده معوقه
+        * orginalAmount: اصل مبلغ تسهیلات
+        * pastExpiredAmount: مانده سررسید گذشته
+        * bankCode: کد بانک
+        * setDate: تاریخ تنظیم قرارداد
+        * endDate: تاریخ سررسید نهایی
+        * guarantyPercent: درصد ضمانت ضامن در این وام
+        * requestNumber: شماره درخواست
+        * requestType: نوع درخواست
+        * branchCode: کد شعبه بانک
+        * branchDescription: نام و شعبه بانک صادر کننده تسهیلات
+        * guarantyIdNumber: شماره ملي اشخاص حقيقي ضمانت شده
+        * guarantyLegalId: شناسه حقوقی گارانتی
+        * defunctAmount: مانده سوخت شده
+        * commitmentBalanceAmount: مانده تعهد
+        * latePenaltyAmount: جریمه دیرکرد
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+--------
+در صورتی که مشتری ضامن کسی نباشد پاسخ زیر به کاربر نمایش داده می‌شود:
+````````````````
+{
+    "responseCode": "FN-CTKZ-20002300000",
+    "trackId": "0705ae6c-ac95-4574-moho-0e85d149d9bf",
+    "result": {
+        "guarantyNationalCode": "1234567890",
+        "guarantyLegalId": null,
+        "result": 110,
+        "message": "هیچ ضمانتی یافت نشد"
+    },
+    "status": "DONE"
+}
+````````````````
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+  </body>
+  <script src="strapdown.js"></script>
+  <script src="controler.js"></script>
+</html>

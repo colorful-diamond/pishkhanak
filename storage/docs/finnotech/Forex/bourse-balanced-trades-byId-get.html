@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>آمارمعاملات بازار(تعدیل شده و تعدیل نشده)-به روز رسانی تعدیل ها</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###GET   /bourse/v2/clients/{clientId}/balancedTradesById
+
+* **شرح:** با فراخوانی این سرویس، اطلاعات معاملات و قیمتهای تعدیل شده ارائه می گردد.
+
+* **اسکوپ:**  ```bourse:balanced-trades-byId:get```
+
+* **رویکرد:** ```Client_Credential```
+
+````````````````
+{address}/bourse/v2/clients/{clientId}/balancedTradesById?trackId={trackId}&companyId={companyId}&type={type}&comCType={comCType}&fromdate={fromdate}&todate={todate}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :sandbox address </span></b>
+</div>
+<div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+</div>
+
+<br>
+<br>
+ **سرویس‌های مرتبط :[آمارمعاملات بازار(تعدیل شده و تعدیل نشده)](/doc/bourse-balanced-trades-get.html)**
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+#### URI Parameters
+* **clientId:** شناسه کلاینت
+
+#### Query Parameters
+* **trackId :** (اختیاری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+    * example:  ```ef226c90-20cc-48c1676a```
+
+* **companyId :** شناسه شرکت (اجباری) ( از خروجی سرویس دریافت [لیست شناسه شرکت ها](/doc/bourse-companies-id-inquiry-get.html))
+    * example:  ```5```
+
+* **fromdate :** تاریخ ( اختیاری) در صورت وارد نکردن، ارزیابی متعلق به همان روز را بر میگرداند.
+    * example:  ```1403/03/01```
+
+* **todate :** تاریخ ( اختیاری) در صورت وارد نکردن، ارزیابی متعلق به همان روز را بر میگرداند.
+    * example:  ```1403/04/01```
+
+* **type :** نوع تعدیل (اختیاری)  در صورت وارد نکردن، مقدار پیشفرض 1 در نظر گرفته می شود.
+
+    1= افزایش سرمایه و تقسیم سود
+
+    2= افزایش سرمایه
+
+    3= تقسیم سود
+
+* **comCType :** دوره زمانی کندل (اختیاری)  در صورت وارد نکردن، مقدار پیشفرض 1 در نظر گرفته می شود.
+
+    1: روزانه
+
+    2: هفتگی
+
+    3: ماهانه
+
+    4: فصلی
+
+#### Successful result format (status code 200)
+````````````````
+{
+    "responseCode": "FN-BENN-20000500000",
+    "trackId": "efaa851f-2e77-4454-b635-4eaad38c76a6",
+    "result": {
+        "companyId": 1,
+        "precedencyRight": false,
+        "tseSymbolCode": "IRO1MAGS0001",
+        "gregorianDate": "2024-07-07T00:00:00",
+        "jalaaliDate": "1403/04/17",
+        "openingPrice": 35590,
+        "maxPrice": 38980,
+        "minPrice": 35590,
+        "closingPrice": 36950,
+        "lastPrice": 37460,
+        "previousClosingPrice": 36890,
+        "tradeVolume": 55611,
+        "tradeValue": 2075686630,
+        "tradeQty": 44,
+        "closingPriceChange": 0,
+        "closingPriceChangePercent": null,
+        "sharedCount": 300000000,
+        "marketValue": 11085000000000,
+        "baseVolume": 414022,
+        "type": 3,
+        "comCType": 1,
+        "openingTypePrice": 35590,
+        "maxTypePrice": 38980,
+        "minTypePrice": 35590,
+        "lastTypePrice": 37230,
+        "closingTypePrice": 36950,
+        "previousTypeClosingPrice": 36890
+    },
+    "status": "DONE"
+}
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+    * **companyId:** شناسه شرکت
+    * **precedencyRight:** نشانگر حق تقدم (سهم=True و حق تقدم= False)
+    * **tseSymbolCode:** کد 12 رقمی نماد
+    * **gregorianDate:** تاریخ میلادی
+    * **jalaaliDate:** تاریخ شمسی
+    * **openingPrice:**  اولین قیمت معاملات
+    * **maxPrice:** بیشترین قیمت معاملات
+    * **minPrice:** کمترین قیمت معاملات
+    * **closingPrice:** قیمت پایانی معاملات
+    * **lastPrice:**  قیمت آخرین معامله
+    * **previousClosingPrice:**  ارزش معاملات
+    * **tradeVolume:**  حجم معاملات
+    * **tradeValue:** ارزش معاملات
+    * **tradeQty:** تعداد معاملات
+    * **closingPriceChange:** تغییر قیمت پایانی
+    * **closingPriceChangePercent:** درصد تغییر قیمت پایانی
+    * **sharedCount:** تعداد سهم
+    * **marketValue:** ارزش بازار
+    * **baseVolume:** حجم مبنا
+    * **type:** نوع تعدیل
+    * **comCType:** دوره زمانی کندل که یک عدد یک رقمی است  :
+        1: روزانه
+        2: هفتگی
+        3: ماهانه
+        4: فصلی
+        5: سالیانه
+    * **openingTypePrice:** اولین قیمت تعدیل
+    * **maxTypePrice:** بیشترین قیمت تعدیل
+    * **minTypePrice:** کمترین قیمت تعدیل
+    * **lastTypePrice:** آخرین قیمت تعدیل
+    * **closingTypePrice:** قیمت پایانی تعدیل
+    * **previousTypeClosingPrice:** ارزش قیمت پایانی تعدیل
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+    * **code:** استاتوس کد
+    * **message:** پیغام خطا
+
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

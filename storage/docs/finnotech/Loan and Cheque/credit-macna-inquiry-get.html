@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+	<meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام مکنا</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /credit/v2/clients/{clientId}/macnaInquiry
+* **شرح: **  این سرویس برای استعلام مکنا است.
+
+* **اسکوپ: **  ```credit:macna-inquiry:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+	 * **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/credit/v2/clients/{clientId}/macnaInquiry?trackId={trackId}&nationalCode={nationalCode}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+<!--&#x202b; در صورتی که کلاینت توکن های client-credential مختلفی بر روی حسابهای متعدد خود ساخته باشد , با استفاده از هر یک از آنها میتواند این سرویس را فراخوانی کند (شماره حساب مرتبط با توکن اهمیت ندارد)-->
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```9f412213-a02d-4d22-b0a1-536942222381```
+
+* **nationalCode:**  کد ملی 10 رقمی
+  * example:  ```0026547823```
+
+
+
+###Results Format
+
+#### Successful result format (status code 200)
+*‌ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+{
+	 "trackId": "feba236a-d4b5-4f93-97e9-0b0f8e993d2a",
+	 "result": [
+		 {
+			 "trace": 14645,
+			 "firstName": "محمد",
+			 "lastName": "قریشی",
+			 "nationalCode": "2132131323",
+			 "remain": {
+				 "iran": 100000000,
+				 "bank": 2000000000
+		 	 },
+		 	"history": [
+				 {
+					 "macnaCode": "1113810072693",
+					 "issueDate": "2011-08-17",
+					 "updated": "2015-08-23",
+					 "cardType": 2,
+					 "pan": "636214******0256",
+					 "bankCode": 62,
+					 "bankName": "بانک تات",
+					 "stateCode": 3,
+					 "stateDescription": "باطل",
+					 "messageCode": 14,
+					 "messageDescription": "درخواست المثنی"
+				 }
+	 	 	]
+	 	 }
+	 ],
+	 "status": "DONE"
+}
+````````````````
+
+
+* **trace:**
+* **firstName:** نام
+* **lastName:** نام خانوادگی
+* **nationalCode:** کدملی
+* **remain:**
+* **iran:**
+* **bank:**
+* **history:** مشخصات
+* **macnaCode:** کد مکنا
+* **issueDate:** تاریخ ایجاد
+* **updated:** تاریخ ویرایش
+* **cardType:** نوع کارت
+* **pan:** شماره کارت
+* **bankCode:** کد بانک
+* **bankName:** نام بانک
+* **stateCode:** کد وضعیت
+* **stateDescription:** شرح وضعیت
+* **messageCode:** کد پیام
+* **messageDescription:** متن پیام
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

@@ -1,0 +1,1 @@
+<!-- Header navigation content will be handled by sidebar2.blade.php -->

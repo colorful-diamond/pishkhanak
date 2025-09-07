@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>ارسال پیامک کد تایید</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###POST  /{address}/facility/v2/clients/{clientId}/finnotextOtp
+
+* **شرح:**  این سرویس هنگامی به کار می‌رود که شما قصد دارید با سر شماره مشخص، پیامک کدتایید ارسال نمایید.
+
+  * **اسکوپ: **  ```facility:finnotext-otp:post```
+
+  * **رویکرد: ** ```Client-Credential```
+
+      * **<a href="ResponseCodesFacility.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+    ````````````````
+    {address}/facility/v2/clients/{clientId}/finnotextOtp?trackId={trackId}
+    ````````````````
+    <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+        https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+    </div>
+
+    <div class="production-address production" style="float:right" style="display: block">
+        https://api.finnotech.ir <b> :address </b>
+    </div>
+
+  <br>
+  <br>
+**سرویس‌های مرتبط :[استعلام فینوتکست](/doc/facility-finnotext-inquiry.html?sandbox=+sandbox/)**
+  <br>
+
+
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+
+#### URI Parameters
+  * **clientId:**شناسه کلاینت
+
+#### Query Parameters
+  * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+  * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+#### Body
+##### Example:
+````````````````
+    {
+        "from": "200000",
+        "to": "+9891********",
+        "message": "متن پیام",
+        "templateId": "61dd3f6d49ec892aa628e0f1"
+    }
+    ````````````````
+
+* **from:** یکی از سرشماره هایی که به کلاینت شما اختصاص داده شده است,
+* **to:** شماره ای که قصد ارسال پیامک به آن را دارید,
+* **message:** متن پیامی که قصد ارسال آن را به شماره مشخص شده در فیلد قبلی دارید,
+* **templateId:** (اختیاری) شناسه قالب موردنظر,
+
+#### Successful result format (status code 200)
+  ````````````````
+    {
+       "responseCode":"FN-FYJR-20001500000"
+       "trackId": "43d70b50-c767-4ef6-b220-202610782b05",
+       "result": {
+          "numberOfRecords": 1,
+          "numberOfParts": 1,
+       },
+      "status": "DONE"
+    }
+  ````````````````
+  * **responseCode:** کد پاسخ دریافتی
+  * **trackId:** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و
+  برگردانده میشود
+  * **result:** آبجکتی از پاسخ سرویس شامل:
+      * **numberOfRecords: ** تعداد شماره هایی که برای آنها پیامک ارسال شده است
+      * **numberOfParts: ** مجموع تعداد پیامکهایی که ارسال شده است.    
+
+
+#### UnSuccessful result format
+```````````````
+{
+      "trackId": "ee0fc8f4-959b-4c5c-b4e5-daaaaa7",
+      "status": "FAILED",
+      "error": {
+          "code": "VALIDATION_ERROR",
+          "message": "سایز تعداد شماره های مقصد و تعداد پیام ها یکسان نیست"
+      }
+}
+{
+    "trackId": "22f44e10-aba9-4873-8922-aaadddddf",
+    "status": "FAILED",
+    "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "پارامتر مقصد ارسال نامعتبر است"
+    }
+}
+{
+  "trackId": "abbd6700-6e45-43fe-8cd5-aaaaa90ac",
+  "status": "FAILED",
+  "error": {
+      "code": "VALIDATION_ERROR",
+      "message": "پارامتر مبدا ارسال نامعتبر است"
+  }
+}
+{
+  "trackId": "abbd6700-6e45-43fe-8cd5-aaaaa90ac",
+  "status": "FAILED",
+  "error": {
+      "code": "VALIDATION_ERROR",
+      "message": "سرشماره برای کلاینت ثبت نشده است"
+  }
+}
+{
+  "trackId": "abbd6700-6e45-43fe-8cd5-aaaaa90ac",
+  "status": "FAILED",
+  "error": {
+      "code": "VALIDATION_ERROR",
+      "message": "پارامتر ارسالی بیشتر از حد مجاز است"
+  }
+}
+```````````````
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

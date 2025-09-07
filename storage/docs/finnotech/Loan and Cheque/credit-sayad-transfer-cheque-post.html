@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>انتقال چک صیادی</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###POST   /credit/v2/clients/{clientId}/ac/sayadTransferCheque
+* **شرح: ** این سرویس جهت انتقال چک توسط دارنده در وجه گیرنده چک، میباشد.
+
+
+* **اسکوپ: **  ```credit:ac-sayad-transfer-cheque:post```
+
+* **رویکرد: ** ```Authorization_Code```
+
+* **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/credit/v2/clients/{clientId}/ac/sayadTransferCheque?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir <b> :address </b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+#### URI Parameters
+* **clientId:** شناسه کلاینت
+
+#### Query Parameters
+* **trackId:** اجباری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```getSayadSerInq234453```
+
+
+ #### Body
+ ##### Example:
+ ````````````````
+ {
+     "holder": {
+         "name": "ساره بیات",
+         "idCode": "0011200013",
+         "shahabId": "1000000010000618",
+         "idType": "1"
+     },
+     "receivers": [
+         {
+             "name": "خشایار کامرانی",
+             "idCode": "0077000061",
+             "shahabId": "1000000070000361",
+             "idType": "1"
+         }
+     ],
+     "signers": [
+         {
+             "signer": {
+                 "name": "ساره بیات",
+                 "idCode": "0015405613",
+                 "shahabId": "1000000015000618",
+                 "idType": "1"
+             },
+             "legalStamp": "0"
+         }
+     ],
+     "sayadId": "3720000100764013",
+     "acceptTransfer": "1",
+     "toIban": "IR760620000000203236980008",
+     "transferDate": "14001203300500",
+     "description": "تست",
+     "reason": "POSA",
+     "giveBack": "0"
+ }
+ ````````````````
+
+ * **holder:** (اجباری) مشخصات صاحب چک (دارنده فعلی)
+     * **name:** (اجباری) نام
+     * **idCode:** (اجباری) کد شناسایی . مشتری حقیقی کدملی (اختیاری) ، مشتری حقوقی شناسه ملی شرکت
+     * **shahabId:** (اجباری) کد شهاب
+     * **idType:** (اجباری) نوع کد شناسایی با ملاحضات: مشتری حقیقی 1 ،مشتری حقوقی 2
+ * **receivers:** (اجباری) لیست دریافت کنندگان چک
+     * **name:** (اجباری) نام
+     * **idCode:** (اجباری) کد شناسایی . مشتری حقیقی کدملی (اختیاری) ، مشتری حقوقی شناسه ملی شرکت
+     * **shahabId:** (اجباری) کد شهاب
+     * **idType:** (اجباری) نوع کد شناسایی با ملاحضات: مشتری حقیقی 1 ،مشتری حقوقی 2
+ * **signers:** (اجباری) لیست امضاکنندگان چک
+     * **signer:**
+         * **name:** (اجباری) نام
+         * **idCode:** (اجباری) کد شناسایی . مشتری حقیقی کدملی (اختیاری) ، مشتری حقوقی شناسه ملی شرکت
+         * **shahabId:** (اجباری) کد شهاب
+         * **idType:** (اجباری) نوع کد شناسایی با ملاحضات: مشتری حقیقی 1 ،مشتری حقوقی 2
+     * **legalStamp:** امضا به منزله مهر حقوقی 1:میباشد 0:نمیباشد
+ * **sayadId:** (اجباری) شناسه صیاد
+ * **toIban:** (اختیاری) شماره شبا مقصد
+ * **transferDate:** (اجباری) تاریخ انتقال چک
+ * **description:** (اجباری) شرح انتقال چک
+ * **giveBack:** (اجباری) شاخصه‌ی مشخص کننده بین عودت یا انتقال چک. انتقال جهت عودت 1 و در حالت غیر 0 ارسال شود.
+ * **reason:**   بابت (اجباری) : [اطلاعات بیشتر](/doc/oak-reasonDescription.html?sandbox=+sandbox)
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+     {
+       "trackId": "7b244-3c01-44f1-b395-e3aeaa",
+       "result": {
+            "message": "ثبت چک با موفقیت انجام شد",
+            "referenceId": "6546542684564",
+            "resultCode": "1"
+       },
+       "status": "DONE"
+     }
+````````````````
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **result:** آبجکتی از پاسخ سرویس شامل:
+    * **message:** پیغام مبتنی بر ثبت چک
+    * **referenceId:** کد رهگیری
+    * **resultCode:** کد رهگیری
+        * **1:** انتقال انجام شد.
+        * **2:** انتقال ثبت شد. انجام انتقال نیاز به تائید سایرین دارد.
+        * **3:** تائید ثبت شد. با ثبت تائید سایرین انتقال انجام خواهد شد.
+        * **4:** با تائید همه ذینفعان انتقال انجام شد.
+        * **5:** انتقال با موفقیت لغو شد. انتقال جدید نیاز به تائید همه خواهد داشت.
+* **status: ** وضعیت فراخوانی سرویس
+ * **DONE:** فراخوانی موفق سرویس
+ * **FAILED:** فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

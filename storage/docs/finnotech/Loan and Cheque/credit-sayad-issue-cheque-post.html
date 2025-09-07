@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>ثبت چک صیادی</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###POST   /credit/v2/clients/{clientId}/ac/sayadIssueCheque
+* **شرح: ** این سرویس جهت ثبت چک توسط صادرکننده در وجه گیرنده چک میباشد.
+
+
+* **اسکوپ: **  ```credit:ac-sayad-issue-cheque:post```
+
+* **رویکرد: ** ```Authorization_Code```
+
+* **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/credit/v2/clients/{clientId}/ac/sayadIssueCheque?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir <b> :address </b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+#### URI Parameters
+* **clientId:** شناسه کلاینت
+
+#### Query Parameters
+* **trackId:** اجباری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```getSayadSerInq234453```
+
+
+ #### Body
+ ##### Example:
+ ````````````````
+ {
+     "accountOwners": [
+         {
+             "name": "کامران نظری",
+             "idCode": "0010300950",
+             "shahabId": "1000000010352657",
+             "idType": "1"
+         }
+     ],
+     "receivers": [
+         {
+             "name": "نگین عطوفتی",
+             "idCode": "0077695161",
+             "shahabId": "1000000010002361",
+             "idType": "1"
+         }
+     ],
+     "signers": [
+         {
+             "signer": {
+                 "name": "کامران نظری",
+                 "idCode": "0010344950",
+                 "shahabId": "100000001000957",
+                 "idType": "1"
+             },
+             "legalStamp": "0"
+         }
+     ],
+     "sayadId": "9727000174850598",
+     "seriesNo": "1017",
+     "serialNo": "029973",
+     "fromIban": "IR810620000000101000007007",
+     "amount": "100000",
+     "description": "تست",
+     "dueDate": "14001027",
+     "toIban": "IR760620000000400037910008",
+     "bankCode": "62",
+     "branchCode": "6202976",
+     "chequeType": "1",
+     "chequeMedia": "1",
+     "reason": "1"
+ }
+ ````````````````
+
+ * **accountOwners:** (اجباری) لیست صاحبان حساب
+     * **name:** (اجباری) نام
+     * **idCode:** (اجباری) کد شناسایی . مشتری حقیقی کدملی (اختیاری) ، مشتری حقوقی شناسه ملی شرکت
+     * **shahabId:** (اجباری) کد شهاب
+     * **idType:** (اجباری) نوع کد شناسایی با ملاحضات: مشتری حقیقی 1 ،مشتری حقوقی 2
+ * **receivers:** (اجباری) لیست دریافت کنندگان چک
+     * **name:** (اجباری) نام
+     * **idCode:** (اجباری) کد شناسایی . مشتری حقیقی کدملی (اختیاری) ، مشتری حقوقی شناسه ملی شرکت
+     * **shahabId:** (اجباری) کد شهاب
+     * **idType:** (اجباری) نوع کد شناسایی با ملاحضات: مشتری حقیقی 1 ،مشتری حقوقی 2
+ * **signers:** (اجباری) لیست امضاکنندگان چک
+     * **signer:**
+         * **name:** (اجباری) نام
+         * **idCode:** (اجباری) کد شناسایی . مشتری حقیقی کدملی (اختیاری) ، مشتری حقوقی شناسه ملی شرکت
+         * **shahabId:** (اجباری) کد شهاب
+         * **idType:** (اجباری) نوع کد شناسایی با ملاحضات: مشتری حقیقی 1 ،مشتری حقوقی 2
+     * **legalStamp:** امضا به منزله مهر حقوقی 1:میباشد 0:نمیباشد
+ * **sayadId:** (اجباری) شناسه صیاد
+ * **seriesNo:** (اجباری) شماره سری
+ * **serialNo:**(اجباری) شماره سریال
+ * **fromIban:** (اجباری) شماره شبا دارنده چک
+ * **amount:** (اجباری) مبلغ
+ * **description:** (اجباری) شرح ثبت چک
+ * **dueDate:** (اجباری) تاریخ سررسید چک
+ * **toIban:** (اختیاری) شماره شبا مقصد
+ * **bankCode:** (اجباری) کد بانک مبدا
+ * **branchCode:** (اجباری)کد شعبه مبدا
+ * **chequeType:** (اجباری) نوع چک
+ * **chequeMedia:** (اختیاری) چک کاغذی1 چک دیجیتال2
+ * **reason:**   بابت (اجباری) : [اطلاعات بیشتر](/doc/oak-reasonDescription.html?sandbox=+sandbox)
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+     {
+       "trackId": "7b244-3c01-44f1-b395-e3aeaa",
+       "result": {
+            "message": "ثبت چک با موفقیت انجام شد",
+            "referenceId": "6546542684564"
+       },
+       "status": "DONE"
+     }
+````````````````
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **result:** آبجکتی از پاسخ سرویس شامل:
+    * **message:** پیغام مبتنی بر ثبت چک
+    * **referenceId:** کد رهگیری
+* **status: ** وضعیت فراخوانی سرویس
+ * **DONE:** فراخوانی موفق سرویس
+ * **FAILED:** فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>فینوتکست</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###POST  /{address}/facility/v2/clients/{clientId}/finnotext
+
+* **شرح:** سرویس ارسال پیامک, این سرویس هنگامی به کار می‌رود که شما قصد دارید با سر شماره یکسان پیامک گروهی ارسال نمایید. این سرویس از دسته تبدیلی کمکی می‌باشد.
+
+  * **اسکوپ: **  ```facility:finnotext:post```
+
+  * **رویکرد: ** ```Client-Credential```
+
+      * **<a href="ResponseCodesFacility.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+    ````````````````
+    {address}/facility/v2/clients/{clientId}/finnotext?trackId={trackId}
+    ````````````````
+    <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+        https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+    </div>
+
+    <div class="production-address production" style="float:right" style="display: block">
+        https://api.finnotech.ir <b> :address </b>
+    </div>
+
+  <br>
+  <br>
+**سرویس‌های مرتبط :[استعلام فینوتکست](/doc/facility-finnotext-inquiry.html?sandbox=+sandbox/)**
+  <br> 
+  
+
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+
+#### URI Parameters
+  * **clientId:**شناسه کلاینت
+
+#### Query Parameters
+  * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+  * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+#### Body
+##### Example:
+````````````````
+    {
+        "from": "200000",
+        "to": ["+9891********", "091********"],
+        "message": ["پیام دوم با فرض اینکه در دو بخش فرستاده شده است", "پیام اول که یک بخشی است"],
+        "templateId": "61dd3f6d49ec892aa628e0f1"
+    }
+    ````````````````
+
+* **from:** یکی از سرشماره هایی که به کلاینت شما اختصاص داده شده است,
+* **to:** لیستی از شماره هایی که قصد ارسال پیامک به آنها را دارید ,
+* **message:** لیستی از متن پیامهایی که قصد ارسال آنها را شماره های مشخص شده در فیلد قبلی دارید.
+* **نکته مهم:** لیست شماره ها و لیست پیام ها تناظر یک به یک دارند و از نظر طول لیست باید برابر باشند
+* **نکته مهم:** شماره های غیر معتبر حذف می شوند
+<!-- * **نکته مهم:** حداکثر تعداد شماره های قابل پذیرش در هر فراخوانی سرویس دویست عدد می باشد -->
+* **templateId:** (اختیاری) شناسه قالب موردنظر,
+#### Successful result format (status code 200)
+  ````````````````
+    {
+       "trackId": "43d70b50-c767-4ef6-b220-202610782b05",
+       "result": {
+            "numberOfRecords": "2",
+            "numberOfParts": "3"
+        },
+       "status": "DONE"
+    }
+  ````````````````
+  * **result:** آبجکتی از پاسخ سرویس شامل:
+    * **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و
+    برگردانده میشود.
+    * **numberOfRecords: ** تعداد شماره هایی که برای آنها پیامک ارسال شده است
+    * **numberOfParts: ** مجموع تعداد پیامکهایی که ارسال شده است.    
+
+
+#### UnSuccessful result format
+```````````````
+{
+      "trackId": "ee0fc8f4-959b-4c5c-b4e5-daaaaa7",
+      "status": "FAILED",
+      "error": {
+          "code": "VALIDATION_ERROR",
+          "message": "سایز تعداد شماره های مقصد و تعداد پیام ها یکسان نیست"
+      }
+}
+{
+    "trackId": "22f44e10-aba9-4873-8922-aaadddddf",
+    "status": "FAILED",
+    "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "پارامتر مقصد ارسال نامعتبر است"
+    }
+}
+{
+  "trackId": "abbd6700-6e45-43fe-8cd5-aaaaa90ac",
+  "status": "FAILED",
+  "error": {
+      "code": "VALIDATION_ERROR",
+      "message": "پارامتر مبدا ارسال نامعتبر است"
+  }
+}
+{
+  "trackId": "abbd6700-6e45-43fe-8cd5-aaaaa90ac",
+  "status": "FAILED",
+  "error": {
+      "code": "VALIDATION_ERROR",
+      "message": "سرشماره برای کلاینت ثبت نشده است"
+  }
+}
+{
+  "trackId": "abbd6700-6e45-43fe-8cd5-aaaaa90ac",
+  "status": "FAILED",
+  "error": {
+      "code": "VALIDATION_ERROR",
+      "message": "پارامتر ارسالی بیشتر از حد مجاز است"
+  }
+}
+```````````````
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

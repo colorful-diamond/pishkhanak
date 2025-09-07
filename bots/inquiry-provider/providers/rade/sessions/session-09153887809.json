@@ -1,0 +1,268 @@
+{
+  "cookies": [
+    {
+      "name": "analytics_token",
+      "value": "c2270dc0-2116-879d-14d7-8116d8964f8c",
+      "domain": "my.rade.ir",
+      "path": "/",
+      "expires": 1784809647,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "yektanet_session_last_activity",
+      "value": "7/23/2025",
+      "domain": "my.rade.ir",
+      "path": "/",
+      "expires": 1753360048,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_yngt_iframe",
+      "value": "1",
+      "domain": "my.rade.ir",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "analytics_global_token",
+      "value": "01K0V2XJ24WRJQJQADN6CM1SZ9",
+      "domain": ".yektanet.com",
+      "path": "/",
+      "expires": 1787833648.138068,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "gearbox_ad_token",
+      "value": "01K0V2XJ24WRJQJQADN6CM1SZ9",
+      "domain": ".yektanet.com",
+      "path": "/",
+      "expires": 1787833648.138158,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_yngt",
+      "value": "01K0V2XJ24WRJQJQADN6CM1SZ9",
+      "domain": ".yektanet.com",
+      "path": "/",
+      "expires": 1787833648.138209,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_yngt",
+      "value": "01K0V2XJ24WRJQJQADN6CM1SZ9",
+      "domain": "my.rade.ir",
+      "path": "/",
+      "expires": 1755847692,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CLID",
+      "value": "fc37c00f0e834b8491f784faae72c248.20250723.20260723",
+      "domain": "www.clarity.ms",
+      "path": "/",
+      "expires": 1784791692.849877,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.679643526.1753255693",
+      "domain": ".rade.ir",
+      "path": "/",
+      "expires": 1787833648.049542,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_clck",
+      "value": "hmet1m%7C2%7Cfxu%7C0%7C2030",
+      "domain": ".rade.ir",
+      "path": "/",
+      "expires": 1784791693,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "MUID",
+      "value": "1A8579966B64682605936FA46A1169D9",
+      "domain": ".bing.com",
+      "path": "/",
+      "expires": 1786951693.839913,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1753860493.840028,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SRM_B",
+      "value": "1A8579966B64682605936FA46A1169D9",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1786951693.840083,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SM",
+      "value": "C",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MUID",
+      "value": "1A8579966B64682605936FA46A1169D9",
+      "domain": ".clarity.ms",
+      "path": "/",
+      "expires": 1786951694.964565,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": 1753860494.964665,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "jwt",
+      "value": "eyJpdiI6ImZVUnN1S3gzQ2E2WWlTK29HakNoaVE9PSIsInZhbHVlIjoiWC9sdzhoTTgvcTg4c3ZrRmtGQ3lYN05PcVNuNEYzYnY1MnhLS2tXZUVkaVZoeTE5RTQrUzE5NmJvR20yU2ptMlRiQVUyUlBVaHA1Z0Q2ODIzVlJNMGh6NEhYd2JoM0l4ajdIalFTb1QzMnI1Qitwd3prK3ZhRWExWVlCWUJFbnBVSjJiMldLOXl6Yk1qOUc2cjNrNWYrajNaS1ZqSUFEcUVvYXpWZzFYNHhVT0RSNHVneFNxMTJ6VWt0S2tmZWlTM2pETHJPSDZNL3RGelZSSG1lem1FNDZCckU5S3BFbnNQY2dZTlZGUUI5aXIzeVJzbEVNZnE4Qk43NzhQTjVjdllYaWM4ZUhSV1RhSGtBZXlxNHN6UkVieWVCRGtTQWt4bFVxYVgwaGVOdVI2TTBIZW5uekcweTlKTmdSRG1UcUpjbXNlYVVFYnNhRXhQVDFBUVBYL2V1aWNESWk2NUNwYjkzcytpeXZoYlREczNRbThhRkZkTXVwU1Z0QUxZb3doZGt3dm4xNlRUdXhpcmVlUkhGcmU3cTlidTl4aTdCTzBsL1FaOVFVWjRqSGV1NHhLRzBUYzV5MFBSRkhCd0NmMzdaWWhzcnpielV4ejNtM1NiQ1VTWk4zNlRrWGN0VEs3cFRmenJJejVHNXhnRWFCSGs2STJTQTlPZFFRcWMwRTF4cE9PNFM2aFFrZGVrVkZxekFYZHVFbmpWMXdUMTB4dU1Vd1lEZlIzaVBBZ0Q2YzJxRXVhTklNcVRtdXBuZmVsc1U4VmZYT1lHNWZYSXpzOVVlbU1BR1ROMTJLbzM0VERtTWtHZEdSNHhpMEQ4dGZxem5yUSs3MjNaNmlsWHcxV3hUYzEvZUliNUI1bC91UGl5SVNOZzZzS3RRNDUrZ2dadTlLOHBtVXdQcFlUdnJJU3c0dXNSWFFMU291bXl2MzBsT0FZaUxzVnJJVHFEL0YrYmhvUkVjU1FMbXdFS09SV0FGa0FTZGxXQjJiOWZ0QU9YdDEvL2tTdmVkbnkvbkZnbVdnUm8rZEJRNThDNWZSTXMzNkpNOCtNWTROVXBCano5WCtnV0VSM0FBdzVHU29pZ3MxckNZbjR2d3pESHR2UGwyZHNHVlY0V29HeS9uTWNHOHBtT3NteHZXbmtlTHQwZFc2VlBLSjcvcGxvMVk1OFZ2TlVnRldLQzgwaWNERTk2U1FNbVIyNVk2U2JNdHN5dW9IZlRUdjZXbzFoWVNSdU9vTE9yYkR4YU5iZTF0bHZmR1VPeldPU0RjN2o4NlNuWFB3cmN4SHNzSHYrMXZ0Z1dPTW9JdjgzQXVzRnpqT0NqVUxwQUMrNG9SNHZOVGtOMlRXMjlLbkFKK1d2NXRvWVI5R3dNN2Z0THVrR3NSRkI2cFlPQ050U3h6YnRGbW9CTnRqWEhsVGR5ME9aWDRqZEMyTnlLaUhHQnFBdVBuRjJhVWNhd0tXQ3UwcURoN3dDWEZpbXQ1UVdRT1RobVNaOEtJMzg1NlVGWFlSZFpNcHBjUVhwSFdyOW11WVZtVTdrSVVicGszYnB0UVZSZDhSaGRJMUFYQTlLU1lyOVNQV2lPQzFFOW1SUmJRclFXcUZkbVZFVWRvd0xweGo4SGVZOWt0U2M0QWJWeTk5WnBEa015dk80b3J5QVRUbko0UFE4YmJ3WHZqZWJ2eGUxYTduVVBvdk1yMlBkVDRZNUZ5WEZIbGVIQnJJb01oTTdWNFBVWEN2b2hhSEtyaytWRHB4QS9Qd1JOVUJTN1FBY0RhRWVjK002cnhLTi9WTW9kbDA0aStORHRkNitNSVd2YU42RGdwT2E3T0xBWkI1d2NiY0FybXZScUQyTG0zVkNQaWU4N3FFVC91SjlHTlJkRnY3ai9zaGxqN082NUt6NDdMMDk3ZHlIckxhS2tvSVN1TWpPR2J2VjM0bE9PRUtUQTlNdUE2VkNhTXl1OCtVdmpnL08iLCJtYWMiOiIwMGEzMTZhOWEyMTQ0NzBlNWFlODEyMTlmMDU0MmUwOThmNThhYjVjZDdjYTE5ZjUzN2IwYjdlODkxMzA3ZTY3IiwidGFnIjoiIn0%3D",
+      "domain": ".api.rade.ir",
+      "path": "/",
+      "expires": 1784791700.241328,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_clsk",
+      "value": "1epgi47%7C1753255701008%7C2%7C1%7Cl.clarity.ms%2Fcollect",
+      "domain": ".rade.ir",
+      "path": "/",
+      "expires": 1753342101,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "analytics_session_token",
+      "value": "97d8b3be-a5da-4a6f-3280-e85208ac2878",
+      "domain": "my.rade.ir",
+      "path": "/",
+      "expires": 1753275448,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_DKSZC0TSVS",
+      "value": "GS2.1.s1753273630$o5$g1$t1753273648$j42$l1$h2135153805",
+      "domain": ".rade.ir",
+      "path": "/",
+      "expires": 1787833648.110665,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "XSRF-TOKEN",
+      "value": "eyJpdiI6ImNwYnVBRE1kZ2NkYWVLWGpOOFBTSFE9PSIsInZhbHVlIjoiVXFRbkg3bllaN090N2ZuZHk1bWhTR1p4ejZjaFhscXJvVHVwTnB4MVhyK2x6Y1JvN1ZNM0FrQUdHTXBTcFZJOGZXS2hIUVlmU2JqSmpobTdFMDNwZmx5YzlQa1JmNlNvYkYrQkRYdmY5eSt4RWJpUnA4a1kyU0IzejdFN3h6alciLCJtYWMiOiIxNTNmMWY3Njg3MmZkYTdlMWNiZjhiYzRiNzI3OTI1ODc5ZTI2ZTY3MGUzMjM5Njk5MjA5YTJlODc5NWRjNjYzIiwidGFnIjoiIn0%3D",
+      "domain": ".api.rade.ir",
+      "path": "/",
+      "expires": 1784809648.170356,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "rade_session",
+      "value": "eyJpdiI6IjFkc1FSaFhyV2tnSVJEYnY4RHIydGc9PSIsInZhbHVlIjoiMkJWWmFDazhEaXY4NmlFZXlTRjZUVkl4VEdXaFBvOVpMU1diVDdBL2ZSalA4TDZKRlFBN2RlaWNmUzloUXdkMzh4TWpTdHIra1ZTMXVCU3AvOGVSN0N6Zmdoc0Fud2hwb0JLTERORWxMM2dPRjVmTXJjVlBrenFGY1ZtTXhRQnkiLCJtYWMiOiIzOWZlYzZiOWMzNmJhNGZiNDI3NjIyNWU2NGM1NzNmZGFlNDViODg3ZjE0ZGQ3ZjMyM2Q2ZDFiYjA0MGUzZDQ2IiwidGFnIjoiIn0%3D",
+      "domain": ".api.rade.ir",
+      "path": "/",
+      "expires": 1784809648.170458,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://my.rade.ir",
+      "localStorage": [
+        {
+          "name": "user-id",
+          "value": "1105242"
+        },
+        {
+          "name": "_yngt",
+          "value": "01K0V2XJ24WRJQJQADN6CM1SZ9"
+        },
+        {
+          "name": "yk_usridsmap",
+          "value": "[\"df1003cf-8d22-47c3-af7c-ec5357c4769c\",\"a208b78a-24cf-4749-aa45-fa19b348285f\",\"14c14543-51db-4217-9a49-517aef266f4a\"]"
+        },
+        {
+          "name": "logged_in",
+          "value": "\"1753255700244\""
+        },
+        {
+          "name": "yk_sstidsmap",
+          "value": "{\"df1003cf-8d22-47c3-af7c-ec5357c4769c\":\"97d8b3be-a5da-4a6f-3280-e85208ac2878\",\"a208b78a-24cf-4749-aa45-fa19b348285f\":\"97d8b3be-a5da-4a6f-3280-e85208ac2878\",\"14c14543-51db-4217-9a49-517aef266f4a\":\"97d8b3be-a5da-4a6f-3280-e85208ac2878\"}"
+        },
+        {
+          "name": "analytics_token",
+          "value": "c2270dc0-2116-879d-14d7-8116d8964f8c"
+        },
+        {
+          "name": "applicant",
+          "value": "{\"platform\":\"web\"}"
+        }
+      ]
+    },
+    {
+      "origin": "https://ua.yektanet.com",
+      "localStorage": [
+        {
+          "name": "_yngt",
+          "value": "01K0V2XJ24WRJQJQADN6CM1SZ9"
+        }
+      ]
+    }
+  ]
+}

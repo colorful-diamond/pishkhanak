@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>دریافت لیست شناسه شرکت ها</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###GET  /bourse/v2/clients/{clientId}/companiesIdInquiry
+
+* **شرح:** با فراخوانی این سرویس لیست شناسه تمام شرکت های بورسی را دریافت خواهید کرد.
+
+* **اسکوپ:**  ```bourse:companies-id-inquiry:get```
+
+* **رویکرد:** ```Client_Credential```
+
+````````````````
+{address}/bourse/v2/clients/{clientId}/companiesIdInquiry?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+</div>
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+
+````````````````
+
+#### URI Parameters
+  * **clientId:** شناسه کلاینت
+
+#### Query Parameters
+* **trackId :** (اختیاری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+    * example:  ```ef226c90-20cc-48c1676a```
+
+
+#### Successful result format (status code 200)
+````````````````
+{
+    "responseCode": "FN-PSKZ-20000100000",
+    "trackId": "526e-4a7f-32jd-af6f59f",
+    "result": [{
+        "companyId": 13226,
+        "companyCode": "0113601",
+        "companyName": "کشت و صنعت آبشیرین",
+        "companyEnglishName": "Ab Shirin Agroindustrial Co.",
+        "companySymbol": "آبین",
+        "companyEnglishSymbol": "ABYP",
+        "floorID": 10186,
+        "floorTitle": "تولید میوه جات، خشکبار، ادویه جات و محصولات زراعی مربوط به فرآورده های آشامیدنی",
+        "industryID": 1,
+        "industryTitle": "کشاورزی، دامپروری و خدمات وابسته به آن",
+        "tseCode": "9987529074833218",
+        "tseCIsinCode": "IRO7ABYP0004",
+        "tseSIsinCode": "IRO7ABYP0001",
+        "marketID": 16,
+        "marketTitle": "پایه",
+        "precedencyRight": 0,
+        "acceptionDate": "1395/04/19",
+        "acceptionDateGre": "2016-07-09T00:00:00",
+        "enlistedDate": "1395/04/19",
+        "enlistedDateGre": "2016-07-09T00:00:00",
+        "ipoDate": "1395/11/26",
+        "ipoDateGre": "2017-02-14T00:00:00",
+        "fundTypeID": null,
+        "fundTypeTitle": null,
+        "coSymbolPinglish": "ABIN",
+        "nationalCode": "10260200698"
+    }],
+    "status": "DONE"
+}
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** ارایه ای از پاسخ سرویس شامل:
+    * ** companyId ** شناسه شرکت
+    * ** companyCode ** کد شرکت
+    * ** companyName ** نام شرکت
+    * ** companyEnglishName ** نام لاتین شرکت
+    * ** companySymbol ** سمبل شرکت
+    * ** companyEnglishSymbol ** سمبل لاتین شرکت
+    * ** floorID ** شناسه گروه
+    * ** floorTitle ** گروه
+    * ** industryID ** شناسه صنعت
+    * ** industryTitle **  نام صنعت
+    * ** tseCode ** کد 12 رقمی نماد
+    * ** tseCIsinCode **  کد Isin
+    * ** tseSIsinCode **  کد داخلی نماد در TSETMC
+    * ** marketID ** شناسه بازار
+    * ** marketTitle **  نام بازار
+    * ** precedencyRight ** نشانگر حق تقدم (سهم=True و حق تقدم= False)
+    * ** acceptionDate **  تاریخ پذیرش در بازار
+    * ** acceptionDateGre ** تاریخ میلادی پذیرش در بازار
+    * ** enlistedDate ** تاریخ درج در بازار
+    * ** enlistedDateGre **  تاریخ میلادی درج در بازار
+    * ** ipoDate ** تاریخ عرضه اولیه در بازار
+    * ** ipoDateGre ** تاریخ میلادی عرضه اولیه در بازار
+    * ** fundTypeID ** شناسه نوع صندوق (برای صندوق ها)
+    * ** fundTypeTitle ** نوع صندوق (برای صندوق ها)
+    * ** coSymbolPinglish ** نماد با کاراکترهای انگلیسی
+    * ** nationalCode ** کدملی
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+    * **code:** استاتوس کد
+    * **message:** پیغام خطا
+
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+<!--در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [تبدیل شماره پلاک به کد](/doc/plateNumberTable.html)-->
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

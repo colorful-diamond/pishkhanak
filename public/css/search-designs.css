@@ -1,0 +1,251 @@
+/* Search Designs Additional Styling */
+
+/* Smooth transitions for all search elements */
+.search-design-1 input,
+.search-design-2 input,
+.search-design-3 input,
+.search-design-4 input,
+.search-design-5 input,
+.search-design-6 input,
+.search-design-7 input,
+.search-design-8 input,
+.search-design-9 input,
+.search-design-10 input {
+    transition: all 0.3s ease;
+}
+
+/* Floating label animation */
+.search-design-4 label {
+    pointer-events: none;
+    transform-origin: right top;
+}
+
+/* Tab active state */
+.search-tab.active {
+    background-color: rgb(224 242 254) !important;
+    color: rgb(14 116 144) !important;
+}
+
+/* Voice search button animation */
+.voice-search-btn {
+    transition: all 0.3s ease;
+}
+
+.voice-search-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Quick action animations */
+.quick-action {
+    transition: all 0.2s ease;
+}
+
+.quick-action:hover {
+    transform: translateY(-2px);
+}
+
+/* Search suggestions animations */
+[class*="search-suggestions-"] {
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Search suggestion hover effects */
+.search-suggestion {
+    transition: all 0.2s ease;
+}
+
+.search-suggestion:hover {
+    transform: translateX(-2px);
+}
+
+/* Auto-typing animation */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Pulse animation for focused inputs */
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .5;
+    }
+}
+
+/* Scale animation for quick actions */
+.scale-95 {
+    transform: scale(0.95);
+}
+
+/* Ring animation for selected tags */
+.ring-2 {
+    box-shadow: 0 0 0 2px currentColor;
+}
+
+.ring-yellow-400 {
+    color: rgb(250 204 21);
+}
+
+/* Notification animations */
+.notification-enter {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.notification-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.notification-exit {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.notification-exit-active {
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    [class*="search-suggestions-"] {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .search-design-8 .grid-cols-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    .search-design-7 .flex.items-center.space-x-2 {
+        flex-direction: column;
+        space-x: 0;
+        gap: 0.5rem;
+    }
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+    .search-design-1 input,
+    .search-design-2 input,
+    .search-design-3 input,
+    .search-design-4 input,
+    .search-design-5 input,
+    .search-design-6 input,
+    .search-design-7 input,
+    .search-design-8 input,
+    .search-design-9 input,
+    .search-design-10 input {
+        background-color: rgb(30 41 59);
+        color: rgb(248 250 252);
+        border-color: rgb(51 65 85);
+    }
+    
+    [class*="search-suggestions-"] {
+        background-color: rgb(30 41 59);
+        border-color: rgb(51 65 85);
+    }
+}
+
+/* Focus states for accessibility */
+.search-design-1 input:focus,
+.search-design-2 input:focus,
+.search-design-3 input:focus,
+.search-design-4 input:focus,
+.search-design-5 input:focus,
+.search-design-6 input:focus,
+.search-design-7 input:focus,
+.search-design-8 input:focus,
+.search-design-9 input:focus,
+.search-design-10 input:focus {
+    outline: 2px solid rgb(59 130 246);
+    outline-offset: 2px;
+}
+
+/* Button focus states */
+button:focus {
+    outline: 2px solid rgb(59 130 246);
+    outline-offset: 2px;
+}
+
+/* Loading states */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Smooth scrolling for mobile */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for suggestions */
+[class*="search-suggestions-"] {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(203 213 225) rgb(248 250 252);
+}
+
+[class*="search-suggestions-"]::-webkit-scrollbar {
+    width: 6px;
+}
+
+[class*="search-suggestions-"]::-webkit-scrollbar-track {
+    background: rgb(248 250 252);
+    border-radius: 3px;
+}
+
+[class*="search-suggestions-"]::-webkit-scrollbar-thumb {
+    background: rgb(203 213 225);
+    border-radius: 3px;
+}
+
+[class*="search-suggestions-"]::-webkit-scrollbar-thumb:hover {
+    background: rgb(148 163 184);
+} 

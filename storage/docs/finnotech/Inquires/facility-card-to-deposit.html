@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+  <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>تبدیل شماره کارت به شماره حساب</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET  /facility/v2/clients/{client}/cardToDeposit
+* **شرح: ** دریافت شماره حساب از شماره کارت
+
+* **اسکوپ: **  ```facility:card-to-deposit:get```
+
+* **رویکرد: ** ``` Client_Credential```
+
+    * **<a href="ResponseCodesFacility.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/facility/v2/clients/{client}/cardToDeposit?trackId={trackId}&card={card}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+#### Notes
+
+* اسامی بانک‌هایی که این سرویس برای آن‌ها قابل انجام است:
+
+  * بانک آینده
+  * بانک اقتصاد نوین
+  * بانک سامان
+  * بانک سرمایه
+  * بانک صادرات
+  * بانک رسالت
+  * بانک دی
+  * بانک انصار
+  * بانک شهر
+  * بانک تجارت
+  * بانک ایران زمین
+  * بانک سینا
+  * بانک سرمایه
+  * بانک صنعت و معدن
+  * بانک رفاه
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+Content-Type : application/json
+````````````````
+* برای فراخوانی این سرویس نیازی به افزودن حساب نمی باشد و میتوانید با توکن بدون حساب، سرویس را فراخوانی کنید
+
+#### URI Parameters
+* **clientId:** (اجباری)  شناسه کلاینت
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```cardToIban-029```
+* **card:**  شماره کارت
+  * example:  ```6362141081734437```
+
+###Results Format
+### Successful result format (status code 200)
+````````````````
+  {
+    "result": {
+       "destCard": "6362-14xx-xxxx-4437",
+       "name": "نام صاحب کارت",
+       "result": "0",
+       "description": "موفق",
+       "doTime": "1397/05/07 08:29:38",
+       "deposit": "0327711000004"
+    },
+    "status": "DONE",
+    "trackId": "get-card-deposit-01"
+  }
+````````````````
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **destCard** شماره کارت وارد شده
+  * **name** نام صاحب حساب
+  * **deposit: **‌ شماره حساب مربوط به شماره کارت وارد شده
+  * **result:** نتیجه فراخوانی سرویس، برای اطلاع از مقادیر این فیلد به [اینجا](/doc/card-codes.html) مراجعه کنید
+  * **description:** توضیحات تکمیلی در مورد نتیجه
+  * **doTime:** زمان انجام تراکنش
+* **trackId:** کد پیگیری است که با استفاده از آن میتوانید از سرویس‌های فینوتکی کارمزد را استعلام کنید.
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

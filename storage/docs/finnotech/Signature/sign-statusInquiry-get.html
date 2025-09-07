@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<html>
+<title>استعلام وضعیت امضا کاربر نهایی</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###GET /sign/v2/clients/{clientId}/statusInquiry
+
+* **شرح:** در این سرویس با وارد کردن شناسه پیگیری درخواست امضا، میتوانید نتیجه ی وضعیت امضا کاربر نهایی را دریافت نمایید.
+
+* **اسکوپ: **  ```sign:status-inquiry:get```
+
+* **رویکرد: ** ```CLIENT-CREDENTIAL```
+
+* **<a href="ResponsecodePromissory.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+    {address}/sign/v2/clients/{clientId}/statusInquiry?trackId={trackId}&registrationId={registrationId}
+
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :sandbox address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:** شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+ * **registrationId: ** (اجباری) ترک آیدی سرویس درخواست صدور سفته الکترونیک و یا سرویس ثبت درخواست امضا دیجیتال بر روی سند که در قبل فراخوانی شده است و می خواهید توسط کاربر نهایی امضا شود
+ * example:  ```ef226c90-20cc-48c76a```
+
+
+#### Successful result format (status code 200)
+````````````````
+{
+    "responseCode": "FN-SNPK-20000200000",
+    "trackId": "526e-4a7f-92fd-af9f70f",
+    "result": {
+        "signingStatus": 0,
+    },
+    "status": "DONE"
+}
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+    * **signingStatus: **
+        * 0: نامشخص Unknown
+        * 1: وجود ندارد Not exist
+        * 2: هنوز امضا نشده Not signed yet
+        * 3: منقضی شده Expired
+        * 4: امضا شده Signed
+        * 5: تحویل داده شده Delivered
+        * 6: رد شده Rejected
+    * ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+<!--در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [تبدیل شماره پلاک به کد](/doc/plateNumberTable.html)-->
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

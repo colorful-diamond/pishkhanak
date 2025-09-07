@@ -1,0 +1,282 @@
+# Jibit Inquiry Services API Documentation
+
+[cite_start]This document provides technical details for Jibit's inquiry and identity verification web services[cite: 19].
+
+## General Information
+
+- [cite_start]**Base URL**: All API endpoints described in this document use the following base URL: `https://napi.jibit.ir/ide`[cite: 29].
+- [cite_start]**Request Tracking**: You can send a unique tracking ID in the `X-TRACK-ID` header for every request[cite: 604]. [cite_start]The same value will be returned in the response header, which can be used for support purposes[cite: 604, 605]. [cite_start]The maximum length is 50 characters[cite: 604].
+- [cite_start]**Fees**: Fees are only charged for successful requests[cite: 26]. [cite_start]No fee is charged if an error is returned in the response[cite: 26].
+- [cite_start]**IP Whitelisting**: To use the services, you must provide your server IP(s) to Jibit support for whitelisting[cite: 24].
+
+---
+
+## 1. Authentication
+
+### 1.1. Get Access Token
+
+[cite_start]Generates a new access token[cite: 53]. [cite_start]Each token is valid for 24 hours[cite: 56].
+
+- [cite_start]**Method**: `POST` [cite: 51]
+- [cite_start]**Endpoint**: `/v1/tokens/generate` [cite: 55]
+
+[cite_start]**Request Body**: `application/json` [cite: 59]
+- [cite_start]`apiKey` (string): Your API key obtained from the Jibit user panel[cite: 61].
+- [cite_start]`secretKey` (string): Your secret key obtained from the Jibit user panel[cite: 61].
+
+**Successful Response Body**:
+- [cite_start]`accessToken` (string): The Bearer access token, valid for 24 hours[cite: 63].
+- [cite_start]`refreshToken` (string): The refresh token, valid for 48 hours[cite: 63].
+
+**Possible Errors**:
+- [cite_start]`apiKey.is_required`: API key is mandatory[cite: 66].
+- [cite_start]`secretKey.is_required`: Secret key is mandatory[cite: 66].
+- [cite_start]`invalid.credentials`: The provided credentials are invalid[cite: 66].
+- [cite_start]`server.error`: Internal server error[cite: 66].
+
+### 1.2. Refresh Access Token
+
+[cite_start]Refreshes an expired access token using a refresh token[cite: 73].
+
+- [cite_start]**Method**: `POST` [cite: 74]
+- [cite_start]**Endpoint**: `/v1/tokens/refresh` [cite: 75]
+
+[cite_start]**Request Body**: `application/json` [cite: 77]
+- [cite_start]`accessToken` (string): The expired access token[cite: 79].
+- [cite_start]`refreshToken` (string): The valid refresh token, valid for 48 hours[cite: 79].
+
+**Successful Response Body**:
+- [cite_start]`accessToken` (string): A new Bearer access token, valid for 24 hours[cite: 81].
+- [cite_start]`refreshToken` (string): A new refresh token, valid for 48 hours[cite: 81].
+
+**Possible Errors**:
+- [cite_start]`accessToken.is_required`: Access token is mandatory[cite: 87].
+- [cite_start]`refreshToken.is_required`: Refresh token is mandatory[cite: 87].
+- [cite_start]`refreshToken.not_valid`: The refresh token is not valid[cite: 87].
+- [cite_start]`invalid.tokens_pair`: The token pair is invalid[cite: 87].
+- [cite_start]`client.not_found`: The client was not found[cite: 87].
+
+---
+
+## 2. Card & IBAN Services
+
+[cite_start]All endpoints in this section require an `Authorization: Bearer {accessToken}` header[cite: 96, 134, 161, 183, 231].
+
+### 2.1. Card Inquiry
+
+[cite_start]Retrieves information about a bank card[cite: 93].
+
+- [cite_start]**Method**: `GET` [cite: 90]
+- [cite_start]**Endpoint**: `/v1/cards?number={cardNumber}` [cite: 94]
+
+**Query Parameters**:
+- [cite_start]`number` (string): The 16-digit card number[cite: 98].
+
+**Successful Response Body**:
+- [cite_start]`number` (string): The card number you sent[cite: 100].
+- [cite_start]`cardInfo` (object): Information related to the card[cite: 100].
+    - [cite_start]`bank` (string): The bank identifier[cite: 118].
+    - [cite_start]`type` (string): Card type (e.g., DEBIT, CREDIT, GIFT_CARD)[cite: 120, 121, 122, 123, 124].
+    - [cite_start]`ownerName` (string): The name of the cardholder[cite: 125].
+    - [cite_start]`depositNumber` (string): The account number linked to the card[cite: 126].
+
+### 2.2. IBAN Inquiry
+
+[cite_start]Retrieves information for a given IBAN[cite: 131].
+
+- [cite_start]**Method**: `GET` [cite: 129]
+- [cite_start]**Endpoint**: `/v1/ibans?value={iban}` [cite: 132]
+
+**Query Parameters**:
+- [cite_start]`value` (string): The IBAN to be checked[cite: 136].
+
+**Successful Response Body**:
+- [cite_start]`value` (string): The IBAN you sent[cite: 138].
+- [cite_start]`ibanInfo` (object): Information related to the IBAN[cite: 138].
+    - [cite_start]`bank` (string): The bank identifier[cite: 144].
+    - [cite_start]`depositNumber` (string): The account number[cite: 144].
+    - [cite_start]`status` (string): IBAN status (e.g., ACTIVE, BLOCKED)[cite: 144].
+    - [cite_start]`owners` (array): An array of owner objects[cite: 144].
+        - [cite_start]`firstName` (string)[cite: 146].
+        - [cite_start]`lastName` (string)[cite: 146].
+
+### 2.3. Card to Account Conversion
+
+[cite_start]Converts a card number to its corresponding bank account number[cite: 158].
+
+- [cite_start]**Method**: `GET` [cite: 155]
+- [cite_start]**Endpoint**: `/v1/cards?number={cardNumber}&deposit=true` [cite: 159]
+
+**Query Parameters**:
+- [cite_start]`number` (string): The 16-digit card number[cite: 163].
+- [cite_start]`deposit` (boolean): Must be set to `true`[cite: 163].
+
+### 2.4. Card to IBAN Conversion
+
+[cite_start]Converts a debit card number to its corresponding IBAN[cite: 178].
+
+- [cite_start]**Method**: `GET` [cite: 180]
+- [cite_start]**Endpoint**: `/v1/cards?number={cardNumber}&iban=true` [cite: 181]
+
+**Query Parameters**:
+- [cite_start]`number` (string): The 16-digit card number[cite: 185].
+- [cite_start]`iban` (boolean): Must be set to `true`[cite: 185].
+
+### 2.5. Account to IBAN Conversion
+
+[cite_start]Converts a bank account number to an IBAN[cite: 227].
+
+- [cite_start]**Method**: `GET` [cite: 228]
+- [cite_start]**Endpoint**: `/v1/deposits?bank={BANK_ID}&number={accountNumber}&iban=true` [cite: 229]
+
+**Query Parameters**:
+- [cite_start]`bank` (string): The bank identifier (e.g., MELLI)[cite: 233].
+- [cite_start]`number` (string): The valid account number[cite: 233].
+- [cite_start]`iban` (boolean): Must be set to `true`[cite: 233].
+
+### 2.6. Check Card to IBAN Service Availability
+
+[cite_start]Checks if the Card-to-IBAN service is available for different banks[cite: 206].
+
+- [cite_start]**Method**: `GET` [cite: 208]
+- [cite_start]**Endpoint**: `/v1/services/availability?cardToIBAN=true` [cite: 209]
+
+**Successful Response Body**:
+- [cite_start]`availabilityReport` (object): A key-value object where keys are bank identifiers and values are the status (e.g., `AVAILABLE`, `NOT_AVAILABLE`)[cite: 215].
+
+---
+
+## 3. Matching & Verification Services
+
+[cite_start]All endpoints in this section require an `Authorization: Bearer {accessToken}` header[cite: 261, 281, 302, 321, 340, 359, 378].
+
+### 3.1. Match Card with National Code & Birth Date
+
+[cite_start]Verifies that a card number, national code, and birth date belong to the same person[cite: 256].
+
+- [cite_start]**Method**: `GET` [cite: 258]
+- [cite_start]**Endpoint**: `/v1/services/matching?cardNumber={...}&nationalCode={...}&birthDate={...}` [cite: 259]
+
+**Query Parameters**:
+- [cite_start]`cardNumber` (string): The 16-digit card number[cite: 263].
+- [cite_start]`nationalCode` (string): The 10-digit national code[cite: 263].
+- [cite_start]`birthDate` (string): Birth date in `YYYYMMDD` format[cite: 263].
+
+**Successful Response Body**:
+- [cite_start]`matched` (boolean): `true` if they match, `false` otherwise[cite: 265].
+
+### 3.2. Match IBAN with National Code & Birth Date
+
+[cite_start]Verifies that an IBAN, national code, and birth date belong to the same person[cite: 297, 298].
+
+- [cite_start]**Method**: `GET` [cite: 299]
+- [cite_start]**Endpoint**: `/v1/services/matching?iban={...}&nationalCode={...}&birthDate={...}` [cite: 300]
+
+**Query Parameters**:
+- [cite_start]`iban` (string): The IBAN[cite: 304].
+- [cite_start]`nationalCode` (string): The 10-digit national code[cite: 304].
+- [cite_start]`birthDate` (string): Birth date in `YYYYMMDD` format[cite: 304].
+
+**Successful Response Body**:
+- [cite_start]`matched` (boolean): `true` if they match, `false` otherwise[cite: 306].
+
+### 3.3. Match National Code with Mobile Number (Shahkar)
+
+[cite_start]Verifies the ownership match between a SIM card and a national code[cite: 374].
+
+- [cite_start]**Method**: `GET` [cite: 375]
+- [cite_start]**Endpoint**: `/v1/services/matching?nationalCode={...}&mobileNumber={...}` [cite: 376]
+
+**Query Parameters**:
+- [cite_start]`nationalCode` (string): The 10-digit national code[cite: 380].
+- [cite_start]`mobileNumber` (string): The mobile number[cite: 380].
+
+**Successful Response Body**:
+- [cite_start]`matched` (boolean): `true` if the mobile number belongs to the national code holder[cite: 382].
+
+---
+
+## 4. Identity & Information Services
+
+[cite_start]All endpoints in this section require an `Authorization: Bearer {accessToken}` header[cite: 397, 526, 547].
+
+### 4.1. Postal Code Inquiry
+
+[cite_start]Retrieves the full address for a given postal code[cite: 393].
+
+- [cite_start]**Method**: `GET` [cite: 394]
+- [cite_start]**Endpoint**: `/v1/services/postal?code={postalCode}` [cite: 395]
+
+**Query Parameters**:
+- [cite_start]`code` (string): The 10-digit postal code[cite: 399].
+
+**Successful Response Body**:
+- `addressInfo` (object):
+    - [cite_start]`address` (string): The full address[cite: 407].
+    - [cite_start]`province` (string): Province[cite: 407].
+    - [cite_start]`district` (string): City/Town[cite: 407].
+
+### 4.2. Military Service Inquiry
+
+[cite_start]Checks an individual's military service status[cite: 520]. [cite_start]The service returns `true` for females[cite: 521]. [cite_start]It also returns `true` for individuals with exemptions or a completion card, and `false` for those who are absent without leave[cite: 521, 522].
+
+- [cite_start]**Method**: `GET` [cite: 523]
+- [cite_start]**Endpoint**: `/v1/services/social/msq?nationalCode={nationalCode}` [cite: 524]
+
+**Query Parameters**:
+- [cite_start]`nationalCode` (string): The 10-digit national code[cite: 528].
+
+**Successful Response Body**:
+- [cite_start]`militaryServiceQualificationInfo` (object)[cite: 530]:
+    - [cite_start]`qualified` (boolean): `true` if the status is without issue, `false` otherwise[cite: 536].
+
+### 4.3. SANA Code Inquiry
+
+[cite_start]Checks if a SANA code has been issued for an individual based on their national code and mobile number[cite: 542]. [cite_start]The service will fail if the national code and mobile number do not match[cite: 543].
+
+- [cite_start]**Method**: `GET` [cite: 544]
+- [cite_start]**Endpoint**: `/v1/services/social/sana?nationalCode={...}&mobileNumber={...}` [cite: 546]
+
+**Query Parameters**:
+- [cite_start]`nationalCode` (string): The 10-digit national code[cite: 549].
+- [cite_start]`mobileNumber` (string): The mobile number[cite: 549].
+
+**Successful Response Body**:
+- [cite_start]`registered` (boolean): `true` if a SANA code has been issued for the person[cite: 554].
+- [cite_start]`matched` (boolean): Confirms the match between the national code and mobile number[cite: 554].
+
+---
+
+## 5. Account & Reporting
+
+[cite_start]All endpoints in this section require an `Authorization: Bearer {accessToken}` header[cite: 566, 585].
+
+### 5.1. Get Account Balance
+
+[cite_start]Retrieves the current balance of your wallets[cite: 561].
+
+- [cite_start]**Method**: `GET` [cite: 563]
+- [cite_start]**Endpoint**: `/v1/balances` [cite: 564]
+
+**Successful Response Body**:
+- [cite_start]`balances` (array): An array of balance objects[cite: 568].
+    - [cite_start]`balanceType` (string): Wallet type, `PRF` for prepaid or `POF` for postpaid[cite: 562, 570].
+    - [cite_start]`currency` (string): Currency unit[cite: 570].
+    - [cite_start]`amount` (long): The amount of credit[cite: 570].
+
+### 5.2. Get Daily Consumption Report
+
+[cite_start]Retrieves a daily usage report for each service[cite: 581].
+
+- [cite_start]**Method**: `GET` [cite: 582]
+- [cite_start]**Endpoint**: `/v1/reports/daily?yearMonthDay={yyMMdd}` [cite: 583]
+
+**Query Parameters**:
+- [cite_start]`yearMonthDay` (string): The desired date in `yyMMdd` format (e.g., `000708` for the 8th of Mehr, 1400)[cite: 587].
+
+**Successful Response Body**:
+- [cite_start]`report` (array): An array of report objects[cite: 589].
+    - [cite_start]`services` (array): List of services called during the day[cite: 591].
+        - [cite_start]`service` (string): The service name[cite: 596].
+        - [cite_start]`persianName` (string): The Persian name of the service[cite: 596].
+        - [cite_start]`count` (integer): The number of times the service was used[cite: 596].

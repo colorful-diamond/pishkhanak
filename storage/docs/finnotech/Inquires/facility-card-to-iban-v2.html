@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+  <title>تبدیل کارت به شبا ورژن دو</title>
+  <body onload="checkSandbox()">
+    <xmp theme="cerulean" style="display: none">
+
+###GET   /facility/v2/clients/{clientId}/cardToIban
+* **شرح: **  این سرویس با دریافت شماره کارت ، اطلاعات شماره شبا را نمایش میدهد
+
+* **اسکوپ: **  ```facility:card-to-iban:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+    * **<a href="ResponseCodesFacility.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/facility/v2/clients/{clientId}/cardToIban?version=2&trackId={trackId}&card={card}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+<br>
+**در صورتی که هنوز از نسخه اول سرویس استفاده میکنید را [اینجا](/doc/facility-card-to-iban.html?sandbox=+sandbox/) کیلیک کنید **
+<br>
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس باید از توکن CLIENT_CREDENTIAL استفاده نمایید.
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```cardToIban-029```
+* **card:**  شماره کارت
+  * example:  ```6362141081734437```
+* **version:**  ورژن API که باید برابر عدد دو باشد
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+  {
+     "trackId": "cardToIban-029",
+     "result": {
+      "IBAN": "IR910800005000115426432001"
+    , "bankName": "قرض الحسنه رسالت"
+    , "deposit": "10.6423499.1"
+    , "card" : "6362141081734437"
+    , "depositStatus": "02"
+    , "depositOwners": "شیما کیانی"
+  },
+  , "status": "DONE"
+  }
+````````````````
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **IBAN:** شماره شبا
+  * **bankName:** نام بانک
+  * **deposit:** شماره حساب
+  * **card:** شماره کارت
+  * **depositStatus:** میتواند مقادیر زیر را بگیرد
+    * **‌02 :** حساب فعال است
+    * **‌03 :** حساب مسدود با قابلیت واریز
+    * **‌04 :** حساب مسدود بدون قابلیت واریز
+    * **‌05 :** حساب راکد است
+    * **‌06 :** بروز خطادر پاسخ دهی , شرح خطا در فیلد توضیحات است
+    * **‌07 :** سایر موارد
+  * **depositOwners:**  صاحبان حساب
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+* **trackId: **‌ کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+  </body>
+  <script src="strapdown.js"></script>
+  <script src="controler.js"></script>
+</html>

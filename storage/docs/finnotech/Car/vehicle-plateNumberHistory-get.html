@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<html>
+<title>تاریخچه پلاک</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###GET /vehicle/v2/clients/{clientId}/plateNumberHistory
+
+ * **شرح:** عملکرد این سرویس به این صورت است که با وارد کردن شماره پلاک و کدملی، اطلاعات مربوط به نصب پلاک بر روی خودروها را نمایش میدهد.
+
+ * **اسکوپ: **  ```vehicle:plate-number-history:get```
+
+ * **رویکرد: ** ```Client-Credential```
+
+ * **<a href="PlateNumberHistory.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+    {address}/vehicle/v2/clients/{clientId}/plateNumberHistory?nationalId={nationalId}&plateNumber={plateNumber}&trackId={trackId}
+
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :sandbox address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:** شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اختیاری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+ * **nationalId:** (اجباری) کد ملی صاحب خودرو .
+ * example:  ```0057684356```
+
+ * **plateNumber:**  (اجباری)  شماره پلاک ۹ رقمی خودرو که باید طبق الگوی توضیح داده شده در [این مستند](/doc/plateNumberTable.html) وارد شود.
+ * example:  ```911716950```
+
+
+ #### Successful result format (status code 200)
+ ````````````````
+    {
+        "responseCode": "FN-VHPD-20000500000",
+        "trackId": "dece6d37-297f-429f-moho-f6eb106ff6ee",
+        "result": {
+        "plateHistory": [
+            {
+                "vehicleSystem": "پژو",
+                "vehicleType": "206",
+                "installDate": "1378/02/05",
+                "detachDate": "1400/01/11",
+                "vehicleModel": "1377"
+            },
+        ],
+            "plateStatus": "داراي مالک - نصب برروي وسيله",
+            "tracePlate": "10100100101001"
+        },
+        "status": "DONE"
+    }
+ ````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+    * **plateHistory:** لیست تاریخچه پلاک
+        * **vehicleSystem:** سیستم خودرو
+        * **vehicleType:** نوع وسیله نقلیه
+        * **installDate:** تاریخ نصب
+        * **detachDate:** تاریخ جدا کردن پلاک
+        * **vehicleModel:** سال وسیله نقلیه
+    * **plateStatus:** وضعیت پلاک
+    * **tracePlate:** کدرهگیری پلاک
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+<!--در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [تبدیل شماره پلاک به کد](/doc/plateNumberTable.html)-->
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

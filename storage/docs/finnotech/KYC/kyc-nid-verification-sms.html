@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>صحت سنجی پیامکی اطلاعات کد ملی</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+  ###GET /kyc/v2/clients/{clientId}/users/{nid}/sms/nidVerification
+  * **شرح: ** احراز هویت با کد ملی. این سرویس کد ملی، تارخ تولد و نام را دریافت میکند و شباهت نام ارسال شده را با نام واقعی
+  صاحب کد ملی برمیگرداند. نام را هم به صورت یک فیلد و هم به صورت نام و نام خانوادگی جدا میتوانید بفرستید. <strong>این سرویس در تمامی ساعات شبانه‌روز فعال می‌باشد.</strong>
+
+  * **اسکوپ: ** ```kyc:sms-nid-verification:get```
+
+  * **رویکرد: ** ```Authorization_SMS```
+  * **<a href="Responsecodes.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+  ````````````````
+  {address}/kyc/v2/clients/{clientId}/users/{nid}/sms/nidVerification?trackId={trackId}&birthDate={birthDate}&gender={gender}&fullName={fullName}&firstName={firstName}&lastName={lastName}&fatherName={fatherName}
+  ````````````````
+  <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none">
+    https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+  </div>
+
+  <div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+  </div>
+
+
+  #### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+  &#x202b;برای فراخوانی این سرویس باید از توکن AUTHORIZATION SMS استفاده نمایید.
+
+  #### URI Parameters
+  * **clientId :** (اجباری) شناسه کلاینت
+
+  * **nid :** کد ملی که میخواهید صحت آن را بررسی کنید و اجباری است
+
+
+  #### Query Parameters
+  * **trackId:** اختیاری (string) &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت
+  ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته
+  نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ
+  فراخوانی برگردانده میشود.
+
+  * example: ```nid-inq-9602281200```
+  * **birthDate:** &#x202b; تاریخ تولد صاحب این کد ملی که اجباری است، به صورت yyyy/mm/dd
+  * **fullName:** &#x202b; نام و نام خانوادگی که میخواهید صحت آن را بررسی کنید (یکی از فیلدهای نام یا نام خانوادگی و یا
+  نام کامل اجباری است)
+  * نام کامل را به صورت نام و یک فاصله و نام خانوادگی بفرستید
+  * **firstName:** &#x202b; نام کوچک صاحب کد ملی (یکی از فیلدهای نام یا نام خانوادگی و یا نام کامل اجباری است)
+  * **lastName:** &#x202b; نام خانوادگی صاحب کد ملی (یکی از فیلدهای نام یا نام خانوادگی و یا نام کامل اجباری است)
+  * **fatherName:** &#x202b; نام پدر صاحب کد ملی (اختیاری است)
+  * **gender:** &#x202b; جنسیت صاحب کد ملی که یکی از دو مقدار زن یا مرد است (اختیاری است)
+
+
+  ###Results Format
+
+  * حداقل یکی از فیلدهای نام، نام خانوادگی، نام کامل را برای مشاهده شباهت ارسال کنید در صورتیکه هیچکدام از این فیلد ها
+  ارسال نکنید پاسخ زیر را دریافت می کنید.
+
+  #### Validation error format (status code 400)
+  نمونه کد خطا:
+  ``````````
+  {
+    "responseCode": "FN-KCFH-40002730151",
+    "trackId": "nid-verification-9602281200",
+    "status": "FAILED",
+    "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "حداقل یکی از فیلدهای firstName یا lastName یا fullName و یا gender اجباری است"
+    }
+  }
+  ``````````
+
+  #### Successful result format (status code 200)
+  *‌ براساس اینکه چه فیلدهایی را به سرویس ارسال کردید فیلدهای زیر را در پاسخ مشاهده میکنید. میزان شباهت هر یک از فیلد ها
+  حداقل صفر و حداکثر ۱۰۰ خواهد بود، نمونه زیر حالت کامل پاسخ سرویس است.
+  ````````````````
+  {
+    "responseCode": "FN-KCKZ-20002700000",
+    "trackId": "nid-verification-9602281200",
+    "result": {
+      "nationalCode": "0067408595",
+      "birthDate": "1365/11/25",
+      "status": "DONE",
+      "fullName": "علی اسد",
+      "fullNameSimilarity": 100,
+      "firstName": "علی",
+      "firstNameSimilarity": 100,
+      "lastName": "اسد",
+      "lastNameSimilarity": 100,
+      "fatherName": "محمد",
+      "fatherNameSimilarity": 100,
+      "deathStatus": "زنده",
+      "gender": "مرد",
+      "genderSimilarity": 100,
+      "description":"",
+      "trackingCode":"123456"
+    },
+    "status": "DONE"
+  }
+  ````````````````
+  * **responseCode:** کد پاسخ دریافتی
+  * **trackId:** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و
+  برگردانده میشود
+  * **result:** آبجکتی از پاسخ سرویس شامل:
+  * **nationalCode:** کد ملی فردی که میخواهید نام او را استعلام کنید
+  * **birthDate:** &#x202b; تاریخ تولد به صورت yyyy/mm/dd
+  * **fullName:** نام و نام خانوادگی که میخواهید صحت آن را استعلام کنید
+  * **fullNameSimilarity:** میزان شباهت نام کامل ارسال شده با نام صاحب کد ملی، مقدار عددی بین ۰ تا ۱۰۰ است
+  * **firstName:** نام صاحب کد ملی که میخواهید صحت آن را استعلام کنید
+  * **firstNameSimilarity:** نام صاحب کدملی که میخواهید صحت آن را استعلام کنید، مقدار عددی بین ۰ تا ۱۰۰ است
+  * **lastName:** نام خانوادگی صاحب کد ملی که میخواهید صحت آن را استعلام کنید
+  * **lastNameSimilarity:** میزان شباهت نام خانوادگی صاحب کد ملی با نام خانوادگی ارسال شده، مقدار عددی بین ۰ تا ۱۰۰ است
+  * **fatherName:** نام و نام خانوادگی که میخواهید صحت آن را استعلام کنید
+  * **fatherNameSimilarity:** میزان شباهت نام پدر صاحب کد ملی با نام پدر ارسال شده، مقدار عددی بین ۰ تا ۱۰۰ است
+  * **deathStatus:** &#x202b; وضعیت حیات که یکی از مقادیر زنده|مرده را دارد
+  * **description:** &#x202b;این فیلد در صورت لزوم توضیحی در رابطه با درخواست فرستاده شده و ریسپانس داده شده مطرح میکند
+  * **gender:** جنسیتی که استعلام شده
+  * **genderSimilarity:** میزان شباهت جنسیت صاحب کد ملی با جنسیت ارسال شده، مقدار عددی  ۰ یا ۱۰۰ است
+  * **trackingCode:** کد پیگیری ثبت احوال
+
+  * **status:** &#x202b; وضعیت فراخوانی که میتواند یکی از موارد DONE|FAILED باشد
+
+  #### UnSuccessful result format
+  در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

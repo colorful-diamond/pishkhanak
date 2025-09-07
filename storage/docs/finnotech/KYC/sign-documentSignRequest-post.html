@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<html>
+<title>ثبت درخواست امضا دیجیتال بر روی سند</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###POST /sign/v2/clients/{clientId}/documentSignRequest
+
+* **شرح:** این سرویس جهت ارسال درخواست امضای دیجیتال کاربر نهایی بر روی سند میباشد.
+
+* **اسکوپ: **  ```sign:document-sign-request:post```
+
+* **رویکرد: ** ```CLIENT-CREDENTIAL```
+
+* **<a href="ResponsecodePromissory.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/sign/v2/clients/{clientId}/documentSignRequest?trackId={trackId}
+````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :sandbox address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+#### URI Parameters
+  * **clientId:** شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+#### Body
+##### Example:
+````````````````
+{
+    "application": "01",
+    "unSignedPdf": "unSignedPdf",
+    "callbackUrl": "https://www.google.com",
+    "letSignerDownload": true,
+    "idCode": "1220036530",
+    "hint": "hint",
+    "title": "title",
+    "state": "12543",
+    "validityDuration": 1440
+}
+````````````````
+| نام فیلد | توضیحات | اپلیکیشن آینده ساین | اپلیکیشن امضامی |
+|-|-|-|-|
+| **application** | کد اپلیکیشن مورد نظر برای ارسال درخواست امضا دیجیتال (درصورت وارد نکردن این فیلد، به صورت پیش‌فرض درخواست امضا برای اپلیکیشن آینده ساین ارسال خواهد شد). <br/> ** 01: آینده ساین ** <br/>** 02: امضامی ** | اختیاری | اختیاری |
+| **unSignedPdf** | سند امضا نشده با فرمت base64 | اجباری | اجباری |
+| **idCode** | کدملی فرد امضا کننده | اجباری | اجباری |
+| **fileName** | نام فایل | - | اجباری |
+| **callbackUrl** | آدرس برگشت داده (باید با http یا https شروع شود) | اجباری | - |
+| **letSignerDownload** | امکان دانلود سند توسط کاربر : true/false | اجباری | - |
+| **hint** | هشدار | اجباری | - |
+| **title** | عنوان | اجباری | اجباری |
+| **state** | این کد برای رهگیری درخواست توسط کلاینت استفاده می‌شود | اختیاری | - |
+| **validityDuration** | مدت زمان اعتبار درخواست به دقیقه (درصورت وارد نکرد مقدار ۱۴۴۰ دقیقه درنظر گرفته میشود) | اختیاری | - |
+
+#### Successful result format (status code 200)
+````````````````
+{
+    "responseCode": "FN-SNGC-20000400000",
+    "trackId": "51d7b65f-5265-4397-8232-f86725bc3572",
+    "result": {
+        "signingTrackId": "6667ea3fd2e477b70d39873a",
+        "signerName": "جعفر جعفری",
+        "nationalCode": "0123456789",
+        "title": "تست",
+        "notificationResponse": {
+            "result": null,
+            "status": 1,
+            "success": true
+        }
+    },
+    "status": "DONE"
+}
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+    * **signingTrackId: ** شناسه پیگیری درخواست امضا
+    * **signerName: ** نام شخص امضا کننده
+    * **nationalCode: ** کدملی شخص امضا کننده
+    * **title: ** عنوان فایل ارسالی
+    * **notificationResponse: **
+        * **result: ** نتیجه ی اعلان
+        * **status: **
+            * 0: آماده ارسال
+            * 1: ارسال شده
+            * 2: دریافت شده
+            * 3: ناموفق
+        * **success: ** موفق بودن ارسال اعلان true/false
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+    * **code:** استاتوس کد
+    * **message:** پیغام خطا
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+<!--در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [تبدیل شماره پلاک به کد](/doc/plateNumberTable.html)-->
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

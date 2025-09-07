@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>گرفتن توکن با رویکرد Authorization_Code</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+### /dev/v2/oauth2/token
+
+* **شرح:** ‫از این سرویس  برای تولید توکن با رویکرد Authorization_Code استفاده کنید. سرویس‌هایی که از این نوع توکن استفاده می‌کنند نیاز به منابع سایر کاربران دارند و باید اجازه‌ی دسترسی از کاربر گرفته شود.
+
+* برای فراخوانی این سرویس باید مراحل زیر را طی کنید:
+  * درخواست دسترسی
+  * دریافت کد
+  * درخواست توکن
+
+
+ * اولین قدم برای استفاده از این سرویس ها درخواست دسترسی از کاربر است. به این معنی که کاربر به برنامه ی شما اجازه فراخوانی سرویس ها را بدهد. به این منظور باید کاربر را به صفحه authorize فینوتک هدایت کنید. آدرس پایه سرویس authorize به صورت زیر است:
+
+````````````````
+{address}/dev/v2/oauth2/authorize?client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&scope={scope}&limit={limit}&count={count}&bank={bank}&state={state}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+#### Query Parameters
+
+* **client_id:** شناسه ثبت شده برای کلاینت در سامانه فینوتک
+* **redirect_uri:** آدرس بازگشتی کلاینت، دامنه این آدرس باید با دامنه ثبت شده به ازای آدرس بازگشتی کلاینت در فینوتک برابر باشد،‌ در غیر این صورت با خطا مواجه خواهید شد. لازم به ذکر است آدرسی که در این قسمت فرستاده میشود باید با آدرس بازگشتی ارسال شده در مرحله دریافت توکن برابر باشد.
+* **scope:** اسکوپ (دسترسی)هایی که کاربر باید مجوز دسترسی به آن‌ها را بدهد به صورت جدا شونده با کاما انگلیسی (comma separated). در صورتی که اسکوپ درخواستی شامل اسکوپ برداشت مستقیم (oak:withdrawal-from:execute) یا مسدودی و رفع مسدودی (oak:block:*) باشد فیلد های ‍‍‍‍‍```limit```و ```count```  باید ارسال شوند. ** نکته مهم: **  مقدار فیلد اسکوپ باید‌ شامل اسکوپ‌های پایه بانک و یا شامل اسکوپ های سامانه‌های جنبی (مانند کیلید) باشد،‌ به عبارت دیگر نباید اسکوپ‌های پایه و اسکوپ‌های کیلید با هم ارسال شوند. در صورتی که نیاز به هر دو گروه اسکوپ هست باید اجازه دسترسی آن‌ها جداگانه از کاربر اخذ شود. درباره جزییات سرویس‌هایی که در هر دسته (پایه و سامانه‌های جنب) قابل فراخوانی هستند در بخش فراخوانی سرویس توضیح داده شده است.
+* **response_type:** نوع پاسخ که باید برابر ‍code‍ باشد
+* **bank:** کد بانک مقصد کاربر که قصد دسترسی به حساب آن را دارید. برای ارسال کد بانک می‌توانید از جدول زیر استفاده نمایید:
+  <table>
+  <thead>
+    <tr>
+      <th style="text-align: center; vertical-align: middle;">بانک</th>
+      <th style="text-align: center; vertical-align: middle;">کد</th>
+    </tr>
+  </thead>
+  <tbody>
+    ‪<tr>
+      <td style="text-align: center; vertical-align: middle; ">آینده</td>
+      <td style="text-align: center; vertical-align: middle;">062</td>
+    </tr>
+    <!-- <tr>
+      <td style="text-align: center; vertical-align: middle;">کشاورزی</td>
+      <td style="text-align: center; vertical-align: middle;">016</td>
+    </tr> -->
+    <!-- <tr>
+      <td style="text-align: center; vertical-align: middle;">ایران زمین</td>
+      <td style="text-align: center; vertical-align: middle;">069</td>
+    </tr> -->
+    <tr>
+      <td style="text-align: center; vertical-align: middle;">پارسیان</td>
+      <td style="text-align: center; vertical-align: middle;">054</td>
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle;">پاسارگاد</td>
+      <td style="text-align: center; vertical-align: middle;">057</td>
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle;">خاورمیانه</td>
+      <td style="text-align: center; vertical-align: middle;">078</td>
+    </tr>
+  </tbody>
+  </table>
+
+* **limit:** رشته عددی مشخص کننده حداکثر مبلغ انتقال وجه، این فیلد در صورتی لازم است که اسکوپ های درخواستی شامل اسکوپ برداشت مستقیم یا مسدودی باشد. مقدار این فیلد باید کمتر یا مساوی مقدار حداکثر ثبت شده برای کلاینت در هنگام ثبت نام اولیه کلاینت باشد.
+* **count:** رشته عددی مشخص کننده تعداد درخواست های انتقال وجه، این فیلد در صورتی لازم است که اسکوپ های درخواستی شامل اسکوپ برداشت مستقیم یا مسدودی باشد. مقدار این فیلد باید کمتر یا مساوی مقدار حداکثر ثبت شده برای کلاینت در هنگام ثبت نام اولیه کلاینت باشد.
+* **state:** (اختیاری)  این کد برای  ردگیری درخواست توسط کلاینت استفاده می‌شود و  در صورت ارسال به همراه کد به آدرس بازگشتی کلاینت برگردانده می‌شود
+* **نکته مهم** برای اسکوپ برداشت مستقیم بانک پارسیان نیاز به ارسال سه مورد زیر میباشد و ارسال دو پارامتر limit و count بی تاثیر میباشد
+  * **maxAmountPerDay:** رشته عددی با حداکثر مقدار ۱۰۰۰۰۰۰۰ ریال که حداکثر مبلغ برداشت از حساب کاربر را در روز مشخص میکند
+  * **maxAmountPerMonth:** رشته عددی با حداکثر مقدار ۱۰۰۰۰۰۰۰۰ ریال که حداکثر میزان برداشت از حساب کاربر در یک ماه را مشخص میکند
+  * **expireMonth:** رشته عددی که تعداد ماه های دسترسی به حساب کاربر برای برداشت وجه را مشخص میکند که میتواند مقادیر ۱,۳,۶و ۹ باشد
+
+* مثال برای این درخواست:
+
+````````````````
+https://api.finnotech.ir/dev/v2/oauth2/authorize?client_id=drops&response_type=code&redirect_uri=https://www.drops.com/return&scope=oak:statement:get,oak:transfer-to:execute&limit=350000&count=5&bank=062&state=123456
+````````````````
+در صورتی که پارامتر ها به درستی مشخص شوند کاربر به صفحه‌ی دسترسی هدایت خواهد شد. برای مثال در نمونه زیر کاربر به صفحه
+دسترسی هدایت شده تا اجازه دسترسی به اسکوپ دریافت حساب ها را برای کلاینت **اسموکی اپ** اعطا کند.
+
+
+<p align="center">
+   <img  src="png/authorize.png">
+</p>
+
+<div class="sandbox-alert sandbox" id="sandbox" style="display: none">
+
+<h6> Sandbox </h6>
+کاربر برای اعطای دسترسی با اطلاعات تستی (کدملی و رمز یکسان 1111111111 تا 9999999999) میتواند لاگین کند و روی حساب‌(ها) و اسکوپ درخواستی دسترسی بدهد.
+
+</div>
+
+* دریافت کد
+
+در صورتی که کاربر بر روی دکمه دسترسی دارددر صفحه authorize فینوتک کلیک کند، فینوتک کاربر را به آدرس برگشتی که در درخواست دسترسی ارسال کرده‌اید به همراه یک code هدایت میکند. به عنوان نمونه:
+
+````````````````
+https://www.yourapplication.com/return?code=C49w1bza5brPU6ed
+````````````````
+
+و در صورتی که کاربر بر روی دکمه‌ دسترسی نمی دهم کلیک کند فینوتک کاربر را به آدرس برگشتی با پارامتر error برمیگرداند. به عنوان نمونه:
+
+
+````````````````
+https://www.yourapplication.com/return?error=access_denied
+````````````````
+
+* دریافت توکن
+
+  پس از دریافت کد از سرویس بالا، سرور شما باید سرویس درخواست توکن را فراخوانی کنید:
+
+
+### POST /dev/v2/oauth2/token
+
+````````````````
+{address}/dev/v2/oauth2/token
+````````````````
+
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+#### Notes
+
+* فرستادن تمام پارامتر های Body الزامی است
+* **نکته مهم:** تمامی مقادیر دریافت شده در پاسخ این سرویس را ذخیره کنید. کد ملی و اسکوپ‌ها برای فراخوانی سرویس ها و تاریخ ایجاد و عمر توکن برای کنترل زمان انقضای توکن مورد نیاز هستند.
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Content-Type : application/json
+Authorization : Basic {AuthenticationString}
+````````````````
+مقدار AuthenticationString باید برابر Base64 از اطلاعات برنامه شما به صورت ```YOURCLIENTID:YOURCLIENTSECRET``` باشد. برای مثال اگر شناسه برنامه شما برابر firstapp باشد و رمز برنامه شما که در قسمت جزییات برنامه در کنسول قابل مشاهده است برابر 6932dddb927b76e54997 باشد، شما باید Base64 مقدار ```firstapp:6932dddb927b76e54997``` را تولید کنید. در این صورت مقدار این هدر باید برابر مقدار زیر قرار گیرد:
+
+````````````````
+Basic Zmlyc3RhcHA6NjkzMmRkZGI5MjdiNzZlNTQ5OTc=
+````````````````
+
+#### Body
+##### Example:
+````````````````
+{ "grant_type": "authorization_code"
+, "code": "C49w1bza5brPU6ed"
+, "bank": "062"
+, "redirect_uri": "https://www.drops.com/return"
+}
+````````````````
+* **grant_type:** این مقدار باید برابر authorization_code قرار گیرد
+* **code:** کد دریافت شده در قسمت قبل
+* **bank:** کد بانک مقصد (جدول مربوطه در توضیحات بخش اول همین مستند موجود است.)
+* **redirect_uri:** آدرس برگشت برنامه شما
+* **نکته‌ی مهم:** این آدرس باید با آدرس برگشتی که در سرویس authorize یا دسترسی ارسال شده برابر باشد
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+  {
+    "result": {
+        "scopes": [
+          "oak:statement:get"
+        , "oak:balance:get"
+      ]
+      , "monthlyCallLimitation": 10
+      , "maxAmountPerTransaction": 350000
+      , "userId": "0012345678"
+      , "creationDate": "13970725135334"
+      , "type": "CODE"
+      , "bank": "062"
+      , "lifeTime": 864000000
+      , "deposits": [
+          "0302876214008"
+        ]
+      , "clientId": "drops"
+      , "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjoiYVI3yhZEeXhNc05MZkdCM2dDV0RMdXBKR3l5NzB1TWEiLCJzY29wZXMiOlsib2FrOnN0YXRlbWVudDpnZXQiXSwibW9udGhseUNhbGxMaW1pdGF0aW9uIjpudWxsLCJtYXhBbW95bnRQZXJUcmFuc2FjdGlvbiI6bnVsbCwidXNlcklkIjoiMDAxNTE0NzE2OSIsImNyZWF0aW9uRGF0ZSI6IjEzOTcwNzI12dG1MzUITiwidHlwZSI6IkNPREUiLCJiYW5rIjoiMDYyIiwibGlmZVRpbWUiOjg2NDAwMDAwMCwiZGVwb3NpdHMiOlsiMDIwMjg3OTc4NDAdesJdLCJjbGllbnRJZCI6InNtb2tleSIsInJhbmRvbVVLSUQiOiI3MDJFVTVaVVJtdzROZVdWIiwiaWF0IjoxNTM5NzcxODE0fQ.2oZIycxOxDRC5RNQvgtj4B3ZT9-Zyh_tMmCiTBUpWbY"
+      , "refreshToken": "sI2t91Bm7zwuORlHDIcdVAw4Ewal7Pz86xpT0w3URx9KQIk3NyWcYxkkzpiLemDWqsGihsc2wIuFvimjHHFXna33KDquF7SJYO8s7OorI5awCFoLu4crJuhqLyIviTje38AuN9TxQKFrzcf2v1yJgtstDTe4QJhRtTq3wzvPGEq8buwE5M1fWSw0Ekenf15h280Rm68oFG9G7qS8A0VUlfplcqwgwvpCD7jCQkTjNF6ZrItGt1KYuv5cS5DsPCwIPGmVxcUxW"
+  }
+  , "status": "DONE"
+  }
+````````````````
+* **result:**
+  * **scopes:** آرایه ای از اسکوپ‌های مجاز توکن
+  * **monthlyCallLimitation:** حداکثر تعداد تراکنش ماهانه به ازای یک توکن
+  * **maxAmountPerTransaction:** حداکثر مبلغ هر تراکنش به ریال
+  * **userId:** کدملی کاربر
+  * **creationDate:** زمان ساخت توکن به صورت تاریخ شمسی YYYYMMDDHHmmss
+  * **type:** نوع توکن (در اینجا CODE)
+  * **bank:** کد بانک فرستاده شده
+  * **lifeTime:** عمر توکن به میلی ثانیه
+  * **deposits:** آرایه از شماره حساب های کاربر که توکن اجازه دسترسی به آن را دارد
+  * **clientId:** نام اپلیکیشن
+  * **value:** توکنی که برای فراخوانی سرویس‌ها استفاده میشود
+  * **refreshToken:** اگر عمر توکن تمام شود با استفاده از این توکن و فراخوانی سرویس تمدید توکن قادر خواهید بود توکن جدید دریافت نمایید
+* **status:**
+    * DONE: فراخوانی موفق سرویس
+    * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید [لیست خطاها](/doc/generic-errors.html)
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

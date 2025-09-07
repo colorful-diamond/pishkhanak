@@ -1,0 +1,259 @@
+/* Import Iran Sans comprehensive fix */
+@import './iran-sans-fix.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb.woff2') format('woff2'),
+         url('../fonts/IRANSansWeb.woff') format('woff'),
+         url('../fonts/IRANSansWeb.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb_Light.woff2') format('woff2'),
+         url('../fonts/IRANSansWeb_Light.woff') format('woff'),
+         url('../fonts/IRANSansWeb_Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb_Medium.woff2') format('woff2'),
+         url('../fonts/IRANSansWeb_Medium.woff') format('woff'),
+         url('../fonts/IRANSansWeb_Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb_Bold.woff2') format('woff2'),
+         url('../fonts/IRANSansWeb_Bold.woff') format('woff'),
+         url('../fonts/IRANSansWeb_Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb_Black.woff2') format('woff2'),
+         url('../fonts/IRANSansWeb_Black.woff') format('woff'),
+         url('../fonts/IRANSansWeb_Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  /* Apply Iran Sans font globally */
+  html {
+    font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif;
+    direction: rtl;
+  }
+  
+  body {
+    font-family: 'IRANSansWebFaNum', 'IRANSans', system-ui, sans-serif;
+    direction: rtl;
+  }
+  
+  * {
+    font-family: inherit;
+  }
+
+  /* Remove focus outlines and apply RTL direction */
+  *:focus-visible, 
+  [type=text]:focus, [type=email]:focus, [type=url]:focus, [type=password]:focus, 
+  [type=number]:focus, [type=date]:focus, [type=datetime-local]:focus, 
+  [type=month]:focus, [type=search]:focus, [type=tel]:focus, 
+  [type=time]:focus, [type=week]:focus, [multiple]:focus, 
+  textarea:focus, select:focus {
+  outline: none !important;
+}
+  
+  * {
+  direction: rtl;
+  align-content: center;
+}
+
+.services-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 50;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+  }
+
+  .services-dropdown.active {
+    display: block;
+    opacity: 1;
+  }
+
+  #overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Mobile Services Menu */
+  #mobileServicesMenu {
+    max-width: 300px;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .service-category button:focus {
+    outline: none;
+  }
+
+  .service-category button:hover svg {
+    color: #4A5568;
+  }
+
+  /* Overlay */
+  #overlay {
+    backdrop-filter: blur(4px);
+  }
+
+  /* Header and Footer animations */
+  header, #footerNav {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Service category animations */
+  .service-category button svg:first-child {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .service-category button:hover svg:first-child {
+    transform: scale(1.1);
+  }
+
+  /* Add these styles at the end of the file */
+
+#aiSearchFloatBtn {
+    transition: transform 0.3s ease-in-out;
+}
+
+#aiSearchFloatBtn:hover {
+    transform: scale(1.1);
+}
+
+#aiSearchTimerDot {
+    transition: opacity 0.5s ease-in-out;
+}
+
+#aiSearchTimerDot.animate-pulse {
+    animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Service Form Loading Overlay */
+.service-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-family: 'IRANSans', sans-serif;
+}
+
+.service-loading-overlay.show {
+    display: flex;
+}
+
+.loading-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1;
+}
+
+.loading-content {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    text-align: center;
+    max-width: 320px;
+    width: 90%;
+    position: relative;
+    z-index: 2;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid #e0f2fe;
+    border-top: 4px solid #0369a1;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e40af;
+    margin-bottom: 8px;
+}
+
+.loading-subtext {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* Form blur effect when loading */
+.form-blur {
+    filter: blur(2px);
+    pointer-events: none;
+    transition: filter 0.3s ease;
+}

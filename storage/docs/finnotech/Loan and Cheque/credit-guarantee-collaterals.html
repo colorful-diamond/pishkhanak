@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>وثایق و تضامین ضمانت نامه</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /credit/v2/clients/{clientId}/guaranteeCollaterals
+* **شرح: **  لیست وثایق و تضامین
+* **اسکوپ: **  ```credit:guarantee-collaterals:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+     * **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/credit/v2/clients/{clientId}/guaranteeCollaterals?trackId={trackId}&guaranteeId={guaranteeId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس باید از توکن CLIENT_CREDENTIAL استفاده نمایید.
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```get-guarantee-collaterals-029```
+* **guranteeId:(اجباری) **  شماره ی ضمانت نامه
+  * example:  ```6000034390000```
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+  {
+    "trackId": "get-guarantee-collaterals-029" ,
+    "retCodeDescription": null,
+    "guaranteeId": "6000034390000",
+    "collaterals": [
+        {
+            "collateralId": "6545645646",
+            "collateralTypeCode":"01",
+            "centralBankCollateralTypeCode": "02",
+            "collateralTypeDescription":"شرح",
+            "evaluatedAmount": "10000",
+            "debtAmount":"10000",
+            "interestRate": "000.21",
+            "receiveDate":"14000101",
+            "issueDate": "13991202",
+            "assignDate":"14000203"
+        }
+    ],
+    "alertCode": "00000",
+    "messageOut": null
+  },
+   "status": "DONE"
+   }
+````````````````
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **retCodeDescription:** توضیح کد بازگشتی از سرویس زیرساختی
+  * **collaterals:** لیست وثایق
+  * **guaranteeId:** شناسه ضمانت نامه
+  * **collateralId:** شماره وثیقه
+  * **collateralTypeCode:** کد نوع وثیقه
+  * **centralBankCollateralTypeCode:** کد وثیفه در بانک مرکزی
+  * **collateralTypeDescription:** شرح نوع وثیقه
+  * **evaluatedAmount:** مبلغ ارزیابی وثیقه
+  * **debtAmount:** مبلغ ترهینی وثیقه
+  * **interestRate:** درصد سود وثیقه
+  * **receiveDate:** تاریخ دریافت وثیقه
+  * **issueDate:** تاریخ ثبت وثیقه
+  * **assignDate:** تاریخ تخصیص وثیقه
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+* **trackId: **‌ کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

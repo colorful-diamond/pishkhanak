@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام وضعیت گواهینامه</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###POST /kyc/v2/clients/{clientId}/licenseCheckInquiry
+* **شرح:** : در این سرویس، با وارد کردن شماره موبایل، کدملی و شماره گواهینامه می‌توانید وضعیت گواهینامه را استعلام بگیرید.
+
+* **اسکوپ: **  ```kyc:cc-license-check-inquiry:post```
+
+* **رویکرد: **  ```Client_Credential```
+
+* **<a href="ResponsecodesBilling.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/kyc/v2/clients/{clientId}/licenseCheckInquiry?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox sandbox" style="float:right" style="display: none" >
+  https://sandboxapi.finnotech.ir <b> :sandbox address </b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+  https://api.finnotech.ir <b> :address </b>
+</div>
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+#### URI Parameters
+* **clientId:**شناسه کلاینت
+
+#### Query Parameters
+* **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+* example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+#### Body
+##### Example:
+````````````````
+{ 
+  "nationalID": "0057684356",
+  "mobile": "09192679854"
+}
+````````````````
+
+* **nationalID: ** (اجباری) کدملی
+* **mobile: ** (اجباری) شماره موبایل
+
+####Results Format
+
+##### Successful result format (status code 200)
+
+
+````````````````
+{
+"responseCode": "FN-KCGO-20099900000",
+"trackId": "2ed30b25-85fc-4022-bad9-9c9a7beec475",
+"result": {
+  "licenses": [
+    {
+      "barCode": "00692767417000000000",
+      "issueDate": "06/13/2050 00:00:00",
+      "firstname": "کریم",
+      "lastname": "کریمی",
+      "nationalCode": "000000000",
+      "licenseNumber": "0000000000",
+      "licenseStatus": "اسکن شده ناجي پاس",
+      "licenseType": "پايه سوم",
+      "licenseValidityPeriod": "10"
+    },
+    {
+      "barCode": "00692767417000000000",
+      "issueDate": "06/13/2050 00:00:00",
+      "firstname": "کریم",
+      "lastname": "کریمی",
+      "nationalCode": "000000000",
+      "licenseNumber": "0000000000",
+      "licenseStatus": "اسکن شده ناجي پاس",
+      "licenseType": "موتورسيكلت",
+      "licenseValidityPeriod": "10"
+    }
+  ],
+  "licenseStatus": {
+    "code": "G00000",
+    "description": "درخواست با موفقیت انجام شد."
+  }
+},
+"status": "DONE"
+}
+````````````````
+
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **licenses:** اطلاعات گواهینامه‌ها شامل:
+    * **barCode** بارکد
+    * **issueDate** تاریخ صدور
+    * **firstname** نام
+    * **lastname** نام خانوادگی
+    * **nationalCode** کد ملی
+    * **licenseNumber** شماره گواهینامه
+    * **licenseStatus** وضعیت گواهینامه
+    * **licenseType** نوع گواهینامه
+    * **licenseValidityPeriod** دوره اعتبار گواهینامه
+  * **licenseStatus:** وضعیت استعلام گواهینامه شامل:
+    * **code** کد برگشتی از سرویس دهنده
+    * **description** توضیحات برگشتی از سرویس دهنده
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

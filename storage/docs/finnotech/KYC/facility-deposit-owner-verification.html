@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>انطباق کد ملی و شماره حساب</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET  /facility/v2/clients/{clientId}/depositOwnerVerification
+
+* **شرح: **انطباق کد ملی وشماره حساب, این سرویس جهت تطبیق کدملی با امضادار شماره حساب ورودی به کار می رود
+
+* **اسکوپ: **  ```facility:deposit-owner-verification:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+    * **<a href="ResponseCodesFacility.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/facility/v2/clients/{clientId}/depositOwnerVerification?trackId={trackId}&deposit={deposit}&bank={bank}&nationalCode={nid}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس باید از توکن CLIENT_CREDENTIAL استفاده نمایید.
+
+#### URI Parameters
+* **clientId :**  شناسه کلاینت
+
+
+#### Query Parameters
+* **trackId :** اختیاری (string)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+  * example:  ```deposits-010```
+* **nationalCode :**   کد ملی کاربر که می خواهید اطلاعات آن را دریافت کنید و باید رشته عددی به طول ۱۰ یا ۱۱ رقم باشد
+* **deposit :**  شماره حساب در بانک مورد نظر
+* **bank :** کد سه رقمی بانک مورد نظر
+     * آینده 062
+     * کشاورزی 016
+     * دی 066
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+  {
+    "trackId": "get-IBAN-statsus-010",
+
+   "result":{
+         "nid": "0780414862",
+         "deposit": "0202102329007",
+         "isOwner": true
+     }
+
+  , "status": "DONE"
+  }
+````````````````
+* **result:** آبجکتی از پاسخ سرویس شامل:
+    * nid: کد ملی کاربر صاحب حساب
+    * deposit: شماره حساب
+    * isOwner: نتیجه استعلام
+
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+
+
+
+### Error Code description
+
+<table>
+ <thead>
+ <tr>
+     <th>کد نتایج</th>
+     <th>توضیحات</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr><td>BANK_NOT_SUPPORTER</td><td>بانک مورد نظر پشتیبانی نمی شود</td></tr>
+ <tr><td>REQUIRED_NATIONAL_CODE</td><td>کد ملی الزامی است</td></tr>
+ <tr><td>REQUIRED_BANK</td><td>کد بانک الزامی است</td></tr>
+ <tr><td>REQUIRED_DEPOSIT</td><td>حساب الزامی است</td></tr>
+ <tr><td>INVALID_BANK</td><td>کد بانک نامعتبر،‌کد بانک باید سه رقمی باشد</td></tr>
+ <tr><td>INVALID_DEPOSIT</td><td>اطلاعات حساب یافت نشد</td></tr>
+ <tr><td>INVALID_NATIONAL_CODE</td><td>کد ملی  نامعتبر است</td></tr>
+
+
+ </tbody>
+</table>
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

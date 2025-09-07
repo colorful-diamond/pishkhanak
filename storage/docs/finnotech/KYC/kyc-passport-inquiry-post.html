@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام وضعیت گذرنامه</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###POST /kyc/v2/clients/{clientId}/passportInquiry
+
+ * **شرح:**  با وارد کردن شماره موبایل و کد ملی میتوانید اطلاعات مربوط به گذرنامه فرد از جمله وضعیت گذرنامه، تاریخ صدور و تاریخ اتمام اعتبار آن را در خروجی مشاهده کنید.
+
+
+ * **اسکوپ: **  ``` kyc:passport-inquiry:post```
+
+ * **رویکرد: ** ``` CLIENT-CREDENTIAL```
+
+ * **<a href="Responsecodes.pdf">دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+    {address}/kyc/v2/clients/{clientid}/passportInquiry?&trackId={trackId}
+
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :sandbox address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:**شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+
+#### Body
+##### Example:
+````````````````
+{
+    "nationalCode": "1123581321",
+    "mobile": "09210001122",
+}
+````````````````
+* **nationalCode: ** (اجباری) کد ملی
+* **mobile: ** (اجباری) شماره موبایل
+
+#### Successful result format (status code 200)
+````````````````
+{
+    "responseCode": "FN-KCPD-20004100000",
+    "trackId": "00f4b012-0a59-40d0-8a6d-af66fefb11117",
+    "result": {
+        "passportRequest": true,
+        "requestDescription": "روند رسيدگي درخواست تکميل شده است",
+        "requestDate": "1401/01/01",
+        "passportSerial": "28490000011111111111",
+        "hasPassport": true,
+        "passportNumber": "E88888888",
+        "issueDate": "1401/01/01",
+        "validityDate": "1401/01/01",
+        "passportStatus": "معتبر"
+    },
+    "status": "DONE"
+}
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+  * ** passportRequest:** درخواست گذرنامه
+  * ** requestDescription:** توضیحات درخواست گذرنامه
+  * ** requestDate:** تاریخ درخواست گذرنامه
+  * ** passportSerial:** سریال گذرنامه
+  * ** hasPassport:** وجود گذرنامه true/false
+  * ** passportNumber:** شماره گذرنامه
+  * ** issueDate:** تاریخ صدور گذرنامه
+  * ** validityDate:** تاریخ اعتبار گذرنامه
+  * ** passportStatus:** وضعیت گذرنامه
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>لیست سیاه</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET /oak/v2/clients/{clientId}/blacklistInquiry
+* **شرح: ** با استفاده از این سرویس میتوان استعلام کدملی ورودی را در لیست سیاه بانک مرکزی گرفت
+
+* **اسکوپ: **  ```oak:blacklist-inquiry:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+* **<a href="ResponseCodeOak.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+````````````````
+{address}/oak/v2/clients/{clientId}/blacklistInquiry?trackId={trackId}&nid={nid}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Content-Type: application/json
+Authorization : Bearer {Token}
+````````````````
+
+#### URI Parameters
+* **clientId :**  شناسه کلاینت
+
+#### Query Parameters
+* **trackId:** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+  * example:  ```block-jh238dfkjbh238sdfge```
+* **nid:** (اجباری)  &#x202b; کد ملی معتبر که باید به صورت ده رقمی باشد
+  * example:  ```0123456789```
+
+
+
+###Results Format
+#### Successful result format (status code 200)
+````````````````
+     {
+         "trackId": "8edc10e6-1a0b-4f6c-843c-b0397a6c7f9e",
+         "result": {
+             "isBlocked": false,
+             "nid": "0123456789",
+             "message": "کاربری با کدملی موردنظر یافت نشد."
+         },
+         "status": "DONE"
+     }
+````````````````
+* **result: ** شرح مسدودی
+* **isBlocked: ** فلگ مبنی بر بلاک بودن یا نبودن کاربر
+* **message: ** پیغام یافتن کاربر
+* **nid: ** کد ملی
+* **trackId:** کد پیگیری است که با استفاده از آن میتوانید با استفاده از سرویس های فینوتکی کارمزد را استعلام کنید
+* **status: **
+   * DONE: فراخوانی موفق سرویس
+   * FAILED: فراخوانی ناموفق سرویس
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

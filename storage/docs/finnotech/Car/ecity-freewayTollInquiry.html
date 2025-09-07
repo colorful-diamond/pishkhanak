@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+  <title>استعلام عوارض آزادراهی</title>
+  <body onload="()">
+    <xmp theme="cerulean" style="display: none;">
+
+###GET   /ecity/v2/clients/{clientId}/freewayTollInquiry
+* **شرح: ** در این سرویس، با وارد کردن شماره پلاک خودرو، لیست عوارض آزادراهی خودرو را دریافت کنید.
+
+* **اسکوپ: **  ```ecity:freeway-toll-inquiry:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+````````````````
+{address}/ecity/v2/clients/{clientId}/freewayTollInquiry?trackId={trackId}&plateNumber={plateNumber}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir <b> :sandbox address </b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+</div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+برای فراخوانی این سرویس لازم است پس از دریافت توکن اعتباری کلاینت(client Credential) سرویس را فراخوانی نمایید
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+* **plateNumber :**  (اجباری)  شماره پلاک ۹ رقمی خودرو که باید طبق الگوی توضیح داده شده در [این مستند](/doc/plateNumberTable.html) وارد شود.
+    * example:  ```911715950```
+
+###Results Format
+
+#### Validation error format (status code 400)
+		{
+            "trackId": "5b1e7a69-7708-474d-90eb-49ed206717d9",
+            "status": "FAILED",
+            "error": {
+                "code": "VALIDATION_ERROR",
+                "message": ""
+            }
+        }
+#### Successful result format (status code 200)
+*‌ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+{
+  "trackId": "12b52a3de-4ac19f637d08",
+  "result": {
+    "bills": [
+        {
+            "paymentId": "9529451",
+            "date": "2023-07-21 09:46:23",
+            "price": 12000,
+            "gateway": null,
+            "freeway": "21"
+        }
+    ],
+    "totalAmount": 12000
+  },
+  "status": "DONE"
+}
+````````````````
+
+
+* **bills:**  آرایه‌ای از عوارضی های خودرو که هرکدام از آن‌ها دارای مبلغ، شناسه‌ پرداخت و تاریخ می‌باشند.
+  * **paymentId:** شناسه پرداخت
+  * **date:** تاریخ میلادی
+  * **price:** مبلغ عوارض
+  * **gateway:** کد عوارضی آزادراه
+  * **freeway:** کد آزادراه
+* **totalAmount:** مبلغ کل عوارض
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+  </body>
+  <script src="strapdown.js"></script>
+  <script src="controler.js"></script>
+</html>

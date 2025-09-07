@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام فینوتکست</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###GET  /{address}/facility/v2/clients/{clientId}/finnotextInquiry
+
+* **شرح:** سرویس استعلام پیامک به این صورت است که با استفاده از آن میتوان وضعیت ارسال پیامک های ارسالی را استعلام کرد. برای انجام این کار شماره پیگیری ای که هنگام فراخوانی سرویس فینوتکست استفاده شده است را به عنوان ورودی به این سرویس  داده می شود و این سرویس لیستی از وضعیت های هر یک از پیامک هایی که به شماره های مختلف ارسال شده است را برمیگرداند.
+
+  * **اسکوپ: **  ```facility:finnotext-inquiry:get```
+
+  * **رویکرد: ** ```Client-Credential```
+
+    * **<a href="ResponseCodesFacility.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+    ````````````````
+    {address}/facility/v2/clients/{clientId}/finnotextInquiry?trackId={trackId}&inquiryTrackId={inquiryTrackId}
+    ````````````````
+    <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+        https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+    </div>
+
+    <div class="production-address production" style="float:right" style="display: block">
+        https://api.finnotech.ir <b> :address </b>
+    </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+
+#### URI Parameters
+  * **clientId:**شناسه کلاینت
+
+#### Query Parameters
+  * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+  * example:  ```20cc-48c6-b582-dee29e71676a```
+  * **inquiryTrackId**: رشته ای که به عنوان trackId موقع فراخوانی سرویس فینوتکست مورد استفاده قرار گرفته است و قرار است استعلام آن گرفته شود
+  * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+
+#### Successful result format (status code 200)
+  ````````````````
+    {
+       "trackId": "43d70b50-c767-4ef6-b220-202610782b05",
+       "result": {
+        "messages_status": [
+        {
+            "to_number": "+9891********",
+            "status": 24
+        },
+        {
+            "to_number": "+091********",
+            "status": 10
+        }
+    ]
+        },
+      "status": "DONE"
+    }
+  ````````````````
+  * **result:** آبجکتی از پاسخ سرویس شامل:
+    * **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و
+    برگردانده میشود.
+    * **messages_status: ** گزارشی از وضعیت پیامکهایی که دریافت شده است که در ادامه لیستی از وضعیت از هر یک از کدهای ممکن آورده شده است
+    * **status: ** وضعیت فراخوانی سرویس
+        * DONE: فراخوانی موفق سرویس
+        * FAILED: فراخوانی ناموفق سرویس
+ * **error:** جزییات خطا (در صورت بروز خطا)
+
+ 
+    [
+        {
+            "status_id": -1,
+            "status_name": "پیامک دارای خطا میباشد"
+        },
+        {
+            "status_id": 0,
+            "status_name": "منتظر ارسال"
+        },
+        {
+            "status_id": 1,
+            "status_name": "ارسال شده"
+        },
+        {
+            "status_id": 2,
+            "status_name": "تایید نشده توسط کاربر"
+        },
+        {
+            "status_id": 5,
+            "status_name": "در مسیر ارسال به مخابرات"
+        },
+        {
+            "status_id": 6,
+            "status_name": "کلاینت آی دی تکراری است"
+        },
+        {
+            "status_id": 10,
+            "status_name": "ارسال با خطا مواجه شده است"
+        },
+        {
+            "status_id": 11,
+            "status_name": "ارسال شده به مخابرات ولی تعیین وضعیت نشده"
+        },
+        {
+            "status_id": 19,
+            "status_name": "ارسال شده و گزارش ارسال در دسترس نیست"
+        },
+        {
+            "status_id": 20,
+            "status_name": "ارسال شده و گزارش ارسال در دسترس نیست"
+        },
+        {
+            "status_id": 21,
+            "status_name": "ارسال شده و آماده تحویل به پیام رسان شده"
+        },
+        {
+            "status_id": 22,
+            "status_name": "ارسال شده و مخابرات می باشد"
+        },
+        {
+            "status_id": 23,
+            "status_name": "ارسال شده ولی قادر به ارسال پیام نمیباشد- لیست سیاه"
+        },
+        {
+            "status_id": 24,
+            "status_name": "ارسال شده و به دست مشترک رسیده است"
+        },
+        {
+            "status_id": 25,
+            "status_name": "ارسال پیام در پیام رسان متوقف شده است"
+        },
+        {
+            "status_id": 26,
+            "status_name": "شماره اختصاصی نامعتبر"
+        },
+        {
+            "status_id": 100,
+            "status_name": "ارسال شده و امکان گزارش گیری نیست"
+        }
+    ]
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

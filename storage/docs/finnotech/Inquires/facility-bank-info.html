@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>اطلاعات بانکها</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /facility/v2/clients/{clientId}/banksInfo
+* **شرح: ** در این سرویس کدهای بانک و  4 رقم ابتدای شماره کارت هر بانک ارائه میشود. 
+
+* **اسکوپ: **  ```facility:cc-bank-info:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+    * **<a href="ResponseCodesFacility.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/facility/v2/clients/{clientId}/banksInfo?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+&#x202b;برای فراخوانی این سرویس لازم است پس از دریافت توکن اعتباری کلاینت(client Credential) سرویس را فراخوانی نمایید
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+###Results Format
+
+#### Successful result format (status code 200)
+*‌ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+{
+            "trackId": "f4e0457a-5f55-4d5c-8428-f8474f38b6cf",
+            "result":
+            [
+                 {
+                     "cardPrefix": 636214,
+                     "code": "062",
+                     "name": "بانک آینده",
+                     "extra": {
+                         "ac_token": true,
+                         "message": ""
+                     },
+                     "active": true
+                 },
+                 {
+                     "cardPrefix": 502806,
+                     "code": "061",
+                     "name": "بانک شهر",
+                     "active": false
+                 },
+
+            ],
+    "status": "DONE"
+}
+````````````````
+
+* **name:** نام بانک
+* **code:** کد بانک
+* **cardPrefix:** چهار رقم ابتدای شماره کارت بانک
+* **active:** این فیلد اگر true باشد به معنی این است که میتوانیم توکن AC از بانک دریافت کنیم
+* **ac_token:** مقدار این فیلد boolean میباشد و نشان دهنده دسترسی گرفتن توکن AC میباشد
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

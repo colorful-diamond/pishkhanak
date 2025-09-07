@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام کارت</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /mpg/v2/clients/{clientId}/cards/{card}
+
+* **شرح:**  برای استعلام شماره کارت های عضو شتاب از این سرویس استفاده کنید.
+
+* **اسکوپ:**  ```card:information:get```
+
+* **رویکرد:** ```Client_Credential```
+* **<a href="ResponsecodesMpgV2.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+
+````````````````
+{address}/mpg/v2/clients/{clientId}/cards/{card}?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+
+#### URI Parameters
+* **clientId: ** شناسه کلاینت
+* **card: ** شماره کارت ۱۶ رقمی
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+#### Query Parameters
+* **trackId:** کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```get-cardInfo-0232```
+
+###Results Format
+#### Successful result format (status code 200)
+````````````````
+  {
+    "result": {
+        "destCard":"xxxx-xxxx-xxxx-3899"
+      , "name":"علی آقایی"
+      , "result":"0"
+      , "description":"موفق"
+      , "doTime":"1396/06/15 12:32:04"
+      , "bankName": "بانک تجارت"
+      }
+  , "status": "DONE"
+  , "trackId": "get-cardInfo-0232"
+  }
+````````````````
+* **result:** آبجکتی از پاسخ سرویس شامل:
+	* **destCard:** شماره کارت به صورت xxxx-xxxx-xxxx-{چهار رقم آخر شماره کارت}
+	* **name:** نام صاحب کارت
+	* **result:** نتیجه فراخوانی سرویس، برای اطلاع از مقادیر این فیلد به [اینجا](/v2/card-codes.html) مراجعه کنید
+	* **description:** توضیحات تکمیلی در مورد نتیجه
+	* **doTime:** زمان انجام تراکنش
+	* **bankName:** نام بانک
+* **status: ** وضعیت فراخوانی سرویس
+  * DONE: فراخوانی موفق سرویس
+  * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

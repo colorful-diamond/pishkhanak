@@ -1,0 +1,990 @@
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-07-03 13:28:04 App\Events\CustomUserEvent  2025-07-03 13:28:04 App\Events\CustomUserEvent ..................... ..................... RUNNING
+ RUNNING
+  2025-07-03 13:28:04 App\Events\CustomUserEvent  2025-07-03 13:28:04 App\Events\CustomUserEvent ................ ................ 55.62ms DONE
+ 55.64ms DONE
+  2025-07-03 13:39:38 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:39:38 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:39:38 App\Events\CustomUserEvent ................ 56.98ms DONE
+  2025-07-03 13:39:38 App\Events\CustomUserEvent ................ 54.51ms DONE
+  2025-07-03 13:39:56 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:39:56 App\Events\CustomUserEvent ................. 5.56ms DONE
+  2025-07-03 13:40:32 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+  2025-07-03 13:40:32 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:40:32 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+  2025-07-03 13:40:32 App\Jobs\GenerateSectionContentJob  2025-07-03 13:40:32 App\Jobs\GenerateSectionContentJob ............. ............. RUNNING
+ RUNNING
+  2025-07-03 13:40:32 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+  2025-07-03 13:40:32 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+  2025-07-03 13:40:36 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:40:36 App\Events\CustomUserEvent ................ 55.97ms DONE
+  2025-07-03 13:40:39 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:40:39 App\Events\CustomUserEvent ................. 4.61ms DONE
+  2025-07-03 13:40:42 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:40:42 App\Events\CustomUserEvent ................. 4.45ms DONE
+  2025-07-03 13:40:45 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:40:45 App\Events\CustomUserEvent ................. 4.75ms DONE
+  2025-07-03 13:40:48 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:40:48 App\Events\CustomUserEvent ................. 4.26ms DONE
+  2025-07-03 13:40:51 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:40:51 App\Events\CustomUserEvent ................. 4.48ms DONE
+  2025-07-03 13:40:52 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه FAIL
+  2025-07-03 13:40:52 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:40:54 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-03 13:40:54 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:40:55 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-03 13:40:55 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:41:01 App\Jobs\GenerateSectionContentJob ....... 28 ثانیه FAIL
+  2025-07-03 13:41:01 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:41:02 App\Jobs\GenerateSectionContentJob ....... 29 ثانیه FAIL
+  2025-07-03 13:41:02 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:41:11 App\Jobs\GenerateSectionContentJob ....... 39 ثانیه FAIL
+  2025-07-03 13:41:11 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:41:18 App\Jobs\GenerateSectionContentJob ....... 26 ثانیه FAIL
+  2025-07-03 13:41:18 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:41:36 App\Jobs\GenerateSectionContentJob ....... 41 ثانیه FAIL
+  2025-07-03 13:41:36 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:41:37 App\Jobs\GenerateSectionContentJob ....... 42 ثانیه FAIL
+  2025-07-03 13:41:37 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:41:42 App\Jobs\GenerateSectionContentJob ....... 40 ثانیه FAIL
+  2025-07-03 13:41:42 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:41:42 App\Jobs\GenerateSectionContentJob ....... 41 ثانیه FAIL
+  2025-07-03 13:41:42 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:41:57 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه FAIL
+  2025-07-03 13:42:02 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+  2025-07-03 13:42:04 App\Jobs\GenerateSectionContentJob ....... 26 ثانیه FAIL
+  2025-07-03 13:42:05 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه FAIL
+  2025-07-03 13:42:28 App\Jobs\GenerateSectionContentJob ....... 26 ثانیه FAIL
+  2025-07-03 13:42:28 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:42:30 App\Jobs\GenerateSectionContentJob ....... 48 ثانیه FAIL
+  2025-07-03 13:42:41 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:42:48 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:42:48 App\Jobs\GenerateSectionContentJob ......... 5.53ms FAIL
+  2025-07-03 13:42:52 App\Jobs\GenerateSectionContentJob  1 دقیقه 33 ثانیه FAIL
+  2025-07-03 13:42:54 App\Jobs\GenerateSectionContentJob ....... 26 ثانیه FAIL
+  2025-07-03 13:43:54 App\Jobs\GenerateSectionContentJob  1 دقیقه 12 ثانیه FAIL
+  2025-07-03 13:53:09 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:53:09 App\Events\CustomUserEvent ................. 5.03ms DONE
+  2025-07-03 13:53:09 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:53:09 App\Events\CustomUserEvent ................. 4.08ms DONE
+  2025-07-03 13:53:39 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:53:39 App\Events\CustomUserEvent ................ 36.86ms DONE
+  2025-07-03 13:53:39 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:53:39 App\Events\CustomUserEvent ................ 19.46ms DONE
+  2025-07-03 13:53:39 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:53:39 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+  2025-07-03 13:53:40 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:53:40 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:53:40 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:53:41 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 388
+  2025-07-03 13:53:41 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:53:45 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:53:45 App\Events\CustomUserEvent ................. 3.88ms DONE
+  2025-07-03 13:53:48 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:53:48 App\Events\CustomUserEvent ................. 4.52ms DONE
+  2025-07-03 13:53:51 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:53:51 App\Events\CustomUserEvent ................. 4.36ms DONE
+  2025-07-03 13:53:54 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:53:54 App\Events\CustomUserEvent ................. 4.26ms DONE
+  2025-07-03 13:53:57 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:53:57 App\Events\CustomUserEvent ................. 4.23ms DONE
+  2025-07-03 13:54:00 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:54:00 App\Events\CustomUserEvent ................. 4.28ms DONE
+  2025-07-03 13:54:03 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه FAIL
+  2025-07-03 13:54:03 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:05 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه FAIL
+  2025-07-03 13:54:05 App\Jobs\GenerateSectionContentJob ....... 25 ثانیه FAIL
+  2025-07-03 13:54:05 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:05 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:08 App\Jobs\GenerateSectionContentJob ....... 26 ثانیه FAIL
+  2025-07-03 13:54:08 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:11 App\Jobs\GenerateSectionContentJob ....... 29 ثانیه FAIL
+  2025-07-03 13:54:11 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:54:11 App\Events\CustomUserEvent ................. 9.62ms DONE
+  2025-07-03 13:54:11 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:11 App\Jobs\GenerateSectionContentJob ....... 31 ثانیه FAIL
+  2025-07-03 13:54:11 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:13 App\Jobs\GenerateSectionContentJob ....... 33 ثانیه FAIL
+  2025-07-03 13:54:13 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:54:13 App\Events\CustomUserEvent ................. 5.26ms DONE
+  2025-07-03 13:54:13 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:19 App\Jobs\GenerateSectionContentJob .......  2025-07-03 13:54:19 App\Jobs\GenerateSectionContentJob 13 ثانیه FAIL
+ ....... 15 ثانیه FAIL
+  2025-07-03 13:54:19 App\Jobs\GenerateSectionContentJob  2025-07-03 13:54:19 App\Events\CustomUserEvent ..................... RUNNING
+ ............. RUNNING
+  2025-07-03 13:54:19 App\Events\CustomUserEvent ................. 4.73ms DONE
+  2025-07-03 13:54:19 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:19 App\Jobs\GenerateSectionContentJob ....... 10 ثانیه FAIL
+  2025-07-03 13:54:19 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:28 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-03 13:54:28 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-03 13:54:28 App\Events\CustomUserEvent ................ 11.58ms DONE
+  2025-07-03 13:54:28 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:51 App\Jobs\GenerateSectionContentJob ....... 39 ثانیه FAIL
+  2025-07-03 13:54:51 App\Jobs\GenerateSectionContentJob ....... 32 ثانیه FAIL
+  2025-07-03 13:54:51 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:51 App\Jobs\GenerateSectionContentJob .......  2025-07-03 13:54:51 App\Jobs\GenerateSectionContentJob 32 ثانیه FAIL
+ ....... 38 ثانیه FAIL
+  2025-07-03 13:54:51 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:52 App\Jobs\GenerateSectionContentJob ....... 40 ثانیه FAIL
+  2025-07-03 13:54:52 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-03 13:54:52 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه FAIL
+  2025-07-03 13:55:12 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه FAIL
+  2025-07-03 13:55:16 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه FAIL
+  2025-07-03 13:55:16 App\Jobs\GenerateSectionContentJob ....... 25 ثانیه FAIL
+  2025-07-03 13:55:19 App\Jobs\GenerateSectionContentJob ........ 1 دقیقه FAIL
+  2025-07-05 04:10:33 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:10:34 App\Events\CustomUserEvent ................ 56.42ms DONE
+  2025-07-05 04:10:34 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:10:34 App\Events\CustomUserEvent ................. 3.68ms DONE
+  2025-07-05 04:10:34 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:10:34 App\Events\CustomUserEvent ................ 53.99ms DONE
+  2025-07-05 04:10:45 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:10:45 App\Events\CustomUserEvent ................ 55.73ms DONE
+  2025-07-05 04:10:45 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:10:45 App\Events\CustomUserEvent ................. 3.76ms DONE
+  2025-07-05 04:10:46 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:10:46 App\Events\CustomUserEvent ................. 4.51ms DONE
+  2025-07-05 04:10:46 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:10:46 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:10:46 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:10:46 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:10:47 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:10:47 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:10:48 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:10:48 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:05 App\Jobs\GenerateSectionContentJob ....... 17 ثانیه FAIL
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ................. 4.88ms DONE
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ................. 3.99ms DONE
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ................. 4.09ms DONE
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ................. 4.00ms DONE
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ................. 3.99ms DONE
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:05 App\Events\CustomUserEvent ................. 4.01ms DONE
+  2025-07-05 04:11:05 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:06 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه FAIL
+  2025-07-05 04:11:06 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:08 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه FAIL
+  2025-07-05 04:11:08 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:08 App\Events\CustomUserEvent ................. 9.68ms DONE
+  2025-07-05 04:11:08 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:09 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-05 04:11:09 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-05 04:11:09 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:09 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:09 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه FAIL
+  2025-07-05 04:11:09 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:10 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه FAIL
+  2025-07-05 04:11:10 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:11 App\Events\CustomUserEvent ................. 4.69ms DONE
+  2025-07-05 04:11:11 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:12 App\Jobs\GenerateSectionContentJob ....... 25 ثانیه FAIL
+  2025-07-05 04:11:12 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:17 App\Jobs\GenerateSectionContentJob ........ 8 ثانیه FAIL
+  2025-07-05 04:11:17 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:17 App\Events\CustomUserEvent ................. 3.77ms DONE
+  2025-07-05 04:11:17 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:17 App\Events\CustomUserEvent ................. 2.88ms DONE
+  2025-07-05 04:11:17 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:18 App\Jobs\GenerateSectionContentJob ........ 8 ثانیه FAIL
+  2025-07-05 04:11:18 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:18 App\Jobs\GenerateSectionContentJob ........ 9 ثانیه FAIL
+  2025-07-05 04:11:18 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:18 App\Jobs\GenerateSectionContentJob ........ 9 ثانیه FAIL
+  2025-07-05 04:11:18 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:19 App\Jobs\GenerateSectionContentJob ........ 8 ثانیه FAIL
+  2025-07-05 04:11:19 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:19 App\Events\CustomUserEvent ................. 4.86ms DONE
+  2025-07-05 04:11:19 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:21 App\Jobs\GenerateSectionContentJob ........ 9 ثانیه FAIL
+  2025-07-05 04:11:21 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:22 App\Jobs\GenerateSectionContentJob ....... 16 ثانیه FAIL
+  2025-07-05 04:11:22 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:22 App\Events\CustomUserEvent ................ 11.64ms DONE
+  2025-07-05 04:11:22 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:25 App\Jobs\GenerateSectionContentJob ........ 8 ثانیه FAIL
+  2025-07-05 04:11:26 App\Jobs\GenerateSectionContentJob ........ 8 ثانیه FAIL
+  2025-07-05 04:11:26 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:26 App\Events\CustomUserEvent ................. 4.76ms DONE
+  2025-07-05 04:11:27 App\Jobs\GenerateSectionContentJob ........ 8 ثانیه FAIL
+  2025-07-05 04:11:27 App\Jobs\GenerateSectionContentJob ........ 7 ثانیه FAIL
+  2025-07-05 04:11:27 App\Jobs\GenerateSectionContentJob ........ 9 ثانیه FAIL
+  2025-07-05 04:11:29 App\Jobs\GenerateSectionContentJob ........ 7 ثانیه FAIL
+  2025-07-05 04:11:29 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:29 App\Events\CustomUserEvent ................ 11.14ms DONE
+  2025-07-05 04:11:30 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه FAIL
+  2025-07-05 04:11:30 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:11:32 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:32 App\Events\CustomUserEvent ................. 5.13ms DONE
+  2025-07-05 04:11:32 App\Jobs\GenerateSectionContentJob ........ 9 ثانیه FAIL
+  2025-07-05 04:11:35 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:35 App\Events\CustomUserEvent ................. 4.72ms DONE
+  2025-07-05 04:11:38 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:38 App\Events\CustomUserEvent ................. 5.34ms DONE
+  2025-07-05 04:11:41 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:41 App\Events\CustomUserEvent ................. 4.23ms DONE
+  2025-07-05 04:11:44 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:44 App\Events\CustomUserEvent ................. 4.21ms DONE
+  2025-07-05 04:11:47 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:47 App\Events\CustomUserEvent ................. 4.12ms DONE
+  2025-07-05 04:11:50 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:11:50 App\Events\CustomUserEvent ................. 5.06ms DONE
+  2025-07-05 04:12:02 App\Jobs\GenerateSectionContentJob ....... 31 ثانیه FAIL
+  2025-07-05 04:15:57 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:15:57 App\Events\CustomUserEvent ................. 5.01ms DONE
+  2025-07-05 04:15:57 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:15:57 App\Events\CustomUserEvent ................. 4.06ms DONE
+  2025-07-05 04:16:12 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:12 App\Events\CustomUserEvent ................ 11.62ms DONE
+  2025-07-05 04:16:12 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:12 App\Events\CustomUserEvent ................. 3.72ms DONE
+  2025-07-05 04:16:12 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:12 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:13 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:14 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:14 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:14 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:15 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:15 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:32 App\Jobs\GenerateSectionContentJob ....... 18 ثانیه FAIL
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ................. 4.82ms DONE
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ................. 4.08ms DONE
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ................. 4.08ms DONE
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ................. 4.03ms DONE
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ................. 4.09ms DONE
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:32 App\Events\CustomUserEvent ................. 4.08ms DONE
+  2025-07-05 04:16:32 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:33 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه FAIL
+  2025-07-05 04:16:33 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:34 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه FAIL
+  2025-07-05 04:16:34 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:34 App\Events\CustomUserEvent ................. 4.98ms DONE
+  2025-07-05 04:16:34 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:34 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه FAIL
+  2025-07-05 04:16:34 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:35 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه FAIL
+  2025-07-05 04:16:35 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:37 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-05 04:16:37 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:37 App\Events\CustomUserEvent ................. 4.83ms DONE
+  2025-07-05 04:16:37 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:37 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه FAIL
+  2025-07-05 04:16:37 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:38 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-05 04:16:38 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:48 App\Jobs\GenerateSectionContentJob ....... 15 ثانیه FAIL
+  2025-07-05 04:16:48 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:48 App\Events\CustomUserEvent ................. 4.95ms DONE
+  2025-07-05 04:16:48 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:48 App\Events\CustomUserEvent ................. 4.10ms DONE
+  2025-07-05 04:16:48 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:48 App\Events\CustomUserEvent ................. 4.14ms DONE
+  2025-07-05 04:16:48 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:51 App\Jobs\GenerateSectionContentJob ....... 16 ثانیه FAIL
+  2025-07-05 04:16:51 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:51 App\Events\CustomUserEvent ................. 4.62ms DONE
+  2025-07-05 04:16:51 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:52 App\Jobs\GenerateSectionContentJob ....... 19 ثانیه FAIL
+  2025-07-05 04:16:52 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:52 App\Events\CustomUserEvent ................ 12.09ms DONE
+  2025-07-05 04:16:52 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:56 App\Jobs\GenerateSectionContentJob ....... 19 ثانیه FAIL
+  2025-07-05 04:16:56 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:16:56 App\Events\CustomUserEvent ................. 4.71ms DONE
+  2025-07-05 04:16:56 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:56 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه FAIL
+  2025-07-05 04:16:56 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:56 App\Jobs\GenerateSectionContentJob ....... 19 ثانیه FAIL
+  2025-07-05 04:16:56 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:16:57 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه FAIL
+  2025-07-05 04:16:57 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:17:01 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-05 04:17:01 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:17:01 App\Events\CustomUserEvent ................. 4.87ms DONE
+  2025-07-05 04:17:01 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:17:05 App\Jobs\GenerateSectionContentJob ........ 8 ثانیه FAIL
+  2025-07-05 04:17:05 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:17:05 App\Events\CustomUserEvent ................. 4.75ms DONE
+  2025-07-05 04:17:05 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:17:05 App\Events\CustomUserEvent ................. 4.09ms DONE
+  2025-07-05 04:17:07 App\Jobs\GenerateSectionContentJob ........ 9 ثانیه FAIL
+  2025-07-05 04:17:07 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:17:07 App\Events\CustomUserEvent ................. 4.55ms DONE
+  2025-07-05 04:17:08 App\Jobs\GenerateSectionContentJob ........ 7 ثانیه FAIL
+  2025-07-05 04:17:09 App\Jobs\GenerateSectionContentJob ....... 18 ثانیه FAIL
+  2025-07-05 04:17:10 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-05 04:17:10 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:17:10 App\Events\CustomUserEvent ................. 5.76ms DONE
+  2025-07-05 04:17:11 App\Jobs\GenerateSectionContentJob ....... 19 ثانیه FAIL
+  2025-07-05 04:17:13 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:17:13 App\Events\CustomUserEvent ................. 4.85ms DONE
+  2025-07-05 04:17:13 App\Jobs\GenerateSectionContentJob ....... 17 ثانیه FAIL
+  2025-07-05 04:17:16 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:17:16 App\Events\CustomUserEvent ................. 5.44ms DONE
+  2025-07-05 04:17:18 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-05 04:23:21 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:23:21 App\Events\CustomUserEvent ................. 5.13ms DONE
+  2025-07-05 04:23:21 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:23:21 App\Events\CustomUserEvent ................. 4.11ms DONE
+  2025-07-05 04:23:34 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:23:34 App\Events\CustomUserEvent ................. 5.10ms DONE
+  2025-07-05 04:23:34 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:23:34 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:23:34 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:23:35 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:23:35 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:23:55 App\Jobs\GenerateSectionContentJob ....... 19 ثانیه FAIL
+  2025-07-05 04:23:55 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:23:58 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه FAIL
+  2025-07-05 04:23:58 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:23:59 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه FAIL
+  2025-07-05 04:23:59 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:24:19 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه FAIL
+  2025-07-05 04:24:19 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:24:21 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه FAIL
+  2025-07-05 04:24:21 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:24:21 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه FAIL
+  2025-07-05 04:24:21 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:24:24 App\Jobs\GenerateSectionContentJob ....... 48 ثانیه FAIL
+  2025-07-05 04:24:24 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:24:24 App\Jobs\GenerateSectionContentJob ....... 49 ثانیه FAIL
+  2025-07-05 04:24:24 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:24:29 App\Jobs\GenerateSectionContentJob ........ 8 ثانیه FAIL
+  2025-07-05 04:24:30 App\Jobs\GenerateSectionContentJob ........ 8 ثانیه FAIL
+  2025-07-05 04:24:33 App\Jobs\GenerateSectionContentJob ........ 8 ثانیه FAIL
+  2025-07-05 04:24:33 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:24:34 App\Jobs\GenerateSectionContentJob ........ 9 ثانیه FAIL
+  2025-07-05 04:24:34 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:24:41 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-05 04:24:55 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه FAIL
+  2025-07-05 04:25:02 App\Jobs\GenerateSectionContentJob ....... 29 ثانیه FAIL
+  2025-07-05 04:28:24 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:28:24 App\Events\CustomUserEvent ................. 3.00ms DONE
+  2025-07-05 04:28:24 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:28:24 App\Events\CustomUserEvent ................. 2.12ms DONE
+  2025-07-05 04:29:13 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:29:13 App\Events\CustomUserEvent ................. 5.05ms DONE
+  2025-07-05 04:29:13 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:29:13 App\Events\CustomUserEvent ................. 4.10ms DONE
+  2025-07-05 04:33:28 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:33:28 App\Events\CustomUserEvent ................. 3.14ms DONE
+  2025-07-05 04:33:28 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:33:28 App\Events\CustomUserEvent ................. 2.12ms DONE
+  2025-07-05 04:33:46 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:33:46 App\Events\CustomUserEvent ................ 54.03ms DONE
+  2025-07-05 04:33:46 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:33:46 App\Events\CustomUserEvent ................. 3.65ms DONE
+  2025-07-05 04:39:01 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:39:01 App\Events\CustomUserEvent ................. 5.09ms DONE
+  2025-07-05 04:39:01 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:39:01 App\Events\CustomUserEvent ................. 4.02ms DONE
+  2025-07-05 04:44:25 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:44:25 App\Events\CustomUserEvent ................ 53.40ms DONE
+  2025-07-05 04:44:25 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:44:25 App\Events\CustomUserEvent ................. 3.97ms DONE
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-07-05 04:48:33 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:48:33 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:48:34 App\Events\CustomUserEvent ............... 104.82ms DONE
+  2025-07-05 04:48:34 App\Events\CustomUserEvent ............... 102.82ms DONE
+  2025-07-05 04:50:19 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 04:50:19 App\Events\CustomUserEvent ................ 54.38ms DONE
+  2025-07-05 04:50:22 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:50:22 App\Jobs\GenerateSectionContentJob  2025-07-05 04:50:22 App\Jobs\GenerateSectionContentJob ............. .............PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 488
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 488
+ RUNNING
+ RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 488
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 488
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 488
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 488
+  2025-07-05 04:50:22 App\Jobs\GenerateSectionContentJob  2025-07-05 04:50:22 App\Jobs\GenerateSectionContentJob ............. ............. RUNNING
+ RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 488
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 488
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 488
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 488
+  2025-07-05 04:50:39 App\Jobs\GenerateSectionContentJob ....... 17 ثانیه FAIL
+  2025-07-05 04:50:39 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:50:42 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه FAIL
+  2025-07-05 04:50:42 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:50:43 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه FAIL
+  2025-07-05 04:50:43 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:50:45 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه FAIL
+  2025-07-05 04:50:45 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:50:45 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه FAIL
+  2025-07-05 04:50:45 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:50:57 App\Jobs\GenerateSectionContentJob ....... 18 ثانیه FAIL
+  2025-07-05 04:50:57 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:51:05 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه FAIL
+  2025-07-05 04:51:05 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:51:06 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه FAIL
+  2025-07-05 04:51:06 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:51:06 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه FAIL
+  2025-07-05 04:51:06 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:51:08 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-05 04:51:08 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 04:51:20 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+  2025-07-05 04:51:23 App\Jobs\GenerateSectionContentJob ....... 16 ثانیه FAIL
+  2025-07-05 04:51:24 App\Jobs\GenerateSectionContentJob ....... 18 ثانیه FAIL
+  2025-07-05 04:51:26 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه FAIL
+  2025-07-05 04:51:31 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه FAIL
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-07-05 05:11:08 App\Events\CustomUserEvent  2025-07-05 05:11:08 App\Events\CustomUserEvent ..................... RUNNING
+ ..................... RUNNING
+  2025-07-05 05:11:08 App\Events\CustomUserEvent ............... 104.89ms DONE
+  2025-07-05 05:11:08 App\Events\CustomUserEvent ............... 105.14ms DONE
+  2025-07-05 05:11:29 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 05:11:29 App\Events\CustomUserEvent ................ 54.10ms DONE
+  2025-07-05 05:11:32 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:11:32 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:11:32 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:11:32 App\Jobs\GenerateSectionContentJobPHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+ .............  2025-07-05 05:11:32 App\Jobs\GenerateSectionContentJob RUNNING
+ ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+  2025-07-05 05:11:52 App\Jobs\GenerateSectionContentJob ....... 19 ثانیه DONE
+  2025-07-05 05:11:52 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه DONE
+  2025-07-05 05:11:55 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه DONE
+  2025-07-05 05:12:23 App\Jobs\GenerateSectionContentJob ....... 50 ثانیه DONE
+  2025-07-05 05:12:24 App\Jobs\GenerateSectionContentJob ....... 51 ثانیه DONE
+  2025-07-05 05:23:03 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 05:23:03 App\Events\CustomUserEvent ................. 7.35ms DONE
+  2025-07-05 05:23:03 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 05:23:03 App\Events\CustomUserEvent ................. 4.13ms DONE
+  2025-07-05 05:23:18 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 05:23:18 App\Events\CustomUserEvent ................. 4.96ms DONE
+  2025-07-05 05:23:19 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:23:19 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:23:19 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:23:20 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:23:20 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:23:40 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه DONE
+  2025-07-05 05:23:42 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه DONE
+  2025-07-05 05:23:43 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه DONE
+  2025-07-05 05:23:43 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه DONE
+  2025-07-05 05:23:46 App\Jobs\GenerateSectionContentJob ....... 26 ثانیه DONE
+  2025-07-05 05:23:53 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:24:15 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه DONE
+  2025-07-05 05:25:21 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+  2025-07-05 05:25:43 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه DONE
+  2025-07-05 05:25:54 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 491
+  2025-07-05 05:26:14 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه DONE
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-07-05 05:33:10 App\Events\CustomUserEvent  2025-07-05 05:33:10 App\Events\CustomUserEvent ..................... RUNNING
+ ..................... RUNNING
+  2025-07-05 05:33:10 App\Events\CustomUserEvent ............... 103.03ms DONE
+  2025-07-05 05:33:10 App\Events\CustomUserEvent ............... 103.42ms DONE
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-07-05 05:39:41 App\Events\CustomUserEvent  2025-07-05 05:39:41 App\Events\CustomUserEvent ..................... ..................... RUNNING
+ RUNNING
+  2025-07-05 05:39:41 App\Events\CustomUserEvent  2025-07-05 05:39:41 App\Events\CustomUserEvent ............... ............... 105.36ms DONE
+ 105.42ms DONE
+  2025-07-05 05:40:17 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 05:40:17 App\Events\CustomUserEvent ................ 26.64ms DONE
+  2025-07-05 05:40:20 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+  2025-07-05 05:40:20 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+  2025-07-05 05:40:20 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:40:20 App\Jobs\GenerateSectionContentJobPHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+ ............. RUNNING
+  2025-07-05 05:40:20 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+  2025-07-05 05:40:38 App\Jobs\GenerateSectionContentJob ....... 18 ثانیه DONE
+  2025-07-05 05:40:45 App\Jobs\GenerateSectionContentJob ....... 25 ثانیه DONE
+  2025-07-05 05:40:47 App\Jobs\GenerateSectionContentJob ....... 26 ثانیه DONE
+  2025-07-05 05:40:52 App\Jobs\GenerateSectionContentJob ....... 32 ثانیه DONE
+  2025-07-05 05:40:53 App\Jobs\GenerateSectionContentJob ....... 33 ثانیه DONE
+  2025-07-05 05:41:50 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:41:50 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:42:15 App\Jobs\GenerateSectionContentJob ....... 25 ثانیه DONE
+  2025-07-05 05:42:31 App\Jobs\GenerateSectionContentJob ....... 41 ثانیه DONE
+  2025-07-05 05:43:22 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:43:23 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 493
+  2025-07-05 05:43:50 App\Jobs\GenerateSectionContentJob ....... 27 ثانیه DONE
+  2025-07-05 05:44:04 App\Jobs\GenerateSectionContentJob ....... 41 ثانیه DONE
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-07-05 05:45:17 App\Events\CustomUserEvent  2025-07-05 05:45:17 App\Events\CustomUserEvent ..................... ..................... RUNNING
+ RUNNING
+  2025-07-05 05:45:17 App\Events\CustomUserEvent  2025-07-05 05:45:17 App\Events\CustomUserEvent ................ 64.47ms DONE
+ ................ 64.51ms DONE
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-07-05 05:48:39 App\Events\CustomUserEvent  2025-07-05 05:48:39 App\Events\CustomUserEvent ..................... ..................... RUNNING
+ RUNNING
+  2025-07-05 05:48:39 App\Events\CustomUserEvent ............... 105.84ms  2025-07-05 05:48:39 App\Events\CustomUserEvent ............... DONE
+ 105.90ms DONE
+  2025-07-05 05:49:21 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 05:49:21 App\Events\CustomUserEvent ................ 54.05ms DONE
+  2025-07-05 05:49:24 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 05:49:24 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:49:24 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:49:24 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 05:49:24 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 05:49:48 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه DONE
+  2025-07-05 05:49:48 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه DONE
+  2025-07-05 05:49:48 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه DONE
+  2025-07-05 05:49:50 App\Jobs\GenerateSectionContentJob ....... 26 ثانیه DONE
+  2025-07-05 05:49:55 App\Jobs\GenerateSectionContentJob ....... 30 ثانیه DONE
+  2025-07-05 05:50:50 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:50:51 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:50:51 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:51:15 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه DONE
+  2025-07-05 05:51:19 App\Jobs\GenerateSectionContentJob ....... 28 ثانیه DONE
+  2025-07-05 05:51:24 App\Jobs\GenerateSectionContentJob ....... 33 ثانیه DONE
+  2025-07-05 05:52:21 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:52:21 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 05:52:52 App\Jobs\GenerateSectionContentJob ....... 31 ثانیه DONE
+  2025-07-05 05:52:53 App\Jobs\GenerateSectionContentJob ....... 32 ثانیه DONE
+  2025-07-05 05:53:54 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 05:53:54 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 05:54:23 App\Jobs\GenerateSectionContentJob ....... 28 ثانیه DONE
+  2025-07-05 05:54:27 App\Jobs\GenerateSectionContentJob ....... 33 ثانیه DONE
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-07-05 05:55:23 App\Events\CustomUserEvent .....................  2025-07-05 05:55:23 App\Events\CustomUserEvent ..................... RUNNING
+ RUNNING
+  2025-07-05 05:55:23 App\Events\CustomUserEvent ............... 111.98ms DONE
+  2025-07-05 05:55:23 App\Events\CustomUserEvent ............... 108.07ms DONE
+  2025-07-05 06:03:02 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:03:02 App\Events\CustomUserEvent ................ 54.90ms DONE
+  2025-07-05 06:03:05 App\Jobs\GenerateSectionContentJob  2025-07-05 06:03:05 App\Jobs\GenerateSectionContentJob  2025-07-05 06:03:05 App\Jobs\GenerateSectionContentJob ............. ............. ............. RUNNING
+ RUNNING
+ RUNNING
+  2025-07-05 06:03:05 App\Jobs\GenerateSectionContentJob  2025-07-05 06:03:05 App\Jobs\GenerateSectionContentJob ............. ............. RUNNING
+ RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:03:29 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه DONE
+  2025-07-05 06:03:37 App\Jobs\GenerateSectionContentJob ....... 31 ثانیه DONE
+  2025-07-05 06:03:39 App\Jobs\GenerateSectionContentJob ....... 33 ثانیه DONE
+  2025-07-05 06:03:40 App\Jobs\GenerateSectionContentJob ....... 34 ثانیه DONE
+  2025-07-05 06:03:44 App\Jobs\GenerateSectionContentJob ....... 38 ثانیه DONE
+  2025-07-05 06:04:32 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:05:02 App\Jobs\GenerateSectionContentJob ....... 30 ثانیه DONE
+  2025-07-05 06:06:02 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:06:31 App\Jobs\GenerateSectionContentJob ....... 28 ثانیه DONE
+  2025-07-05 06:07:34 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:08:25 App\Jobs\GenerateSectionContentJob ....... 50 ثانیه DONE
+  2025-07-05 06:15:53 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:15:53 App\Events\CustomUserEvent ................ 28.04ms DONE
+  2025-07-05 06:15:53 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:15:53 App\Events\CustomUserEvent ................. 4.12ms DONE
+  2025-07-05 06:16:16 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:16:16 App\Events\CustomUserEvent ................ 30.20ms DONE
+  2025-07-05 06:16:17 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:16:18 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:16:18 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:16:18 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:16:18 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:16:38 App\Jobs\GenerateSectionContentJob ....... 19 ثانیه DONE
+  2025-07-05 06:16:40 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه DONE
+  2025-07-05 06:16:44 App\Jobs\GenerateSectionContentJob ....... 25 ثانیه DONE
+  2025-07-05 06:16:47 App\Jobs\GenerateSectionContentJob ....... 28 ثانیه DONE
+  2025-07-05 06:16:47 App\Jobs\GenerateSectionContentJob ....... 29 ثانیه DONE
+  2025-07-05 06:17:46 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:18:19 App\Jobs\GenerateSectionContentJob ....... 32 ثانیه DONE
+  2025-07-05 06:19:19 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:19:48 App\Jobs\GenerateSectionContentJob ....... 29 ثانیه DONE
+  2025-07-05 06:20:49 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:21:16 App\Jobs\GenerateSectionContentJob ....... 26 ثانیه DONE
+  2025-07-05 06:24:46 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:24:46 App\Events\CustomUserEvent ................. 5.03ms DONE
+  2025-07-05 06:24:46 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:24:46 App\Events\CustomUserEvent ................. 4.41ms DONE
+  2025-07-05 06:25:32 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:25:32 App\Events\CustomUserEvent ................. 2.84ms DONE
+  2025-07-05 06:25:32 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:25:32 App\Events\CustomUserEvent ................. 1.85ms DONE
+  2025-07-05 06:25:49 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:25:50 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:25:50 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:25:50 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:25:50 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:25:51 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:25:52 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:25:52 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:26:11 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه DONE
+  2025-07-05 06:26:11 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:26:12 App\Jobs\GenerateSectionContentJob ....... 20 ثانیه DONE
+  2025-07-05 06:26:12 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:26:18 App\Jobs\GenerateSectionContentJob ....... 28 ثانیه DONE
+  2025-07-05 06:26:20 App\Jobs\GenerateSectionContentJob ....... 30 ثانیه DONE
+  2025-07-05 06:26:22 App\Jobs\GenerateSectionContentJob ....... 31 ثانیه DONE
+  2025-07-05 06:26:24 App\Jobs\GenerateSectionContentJob ....... 32 ثانیه DONE
+  2025-07-05 06:26:25 App\Jobs\GenerateSectionContentJob ....... 34 ثانیه DONE
+  2025-07-05 06:26:30 App\Jobs\GenerateSectionContentJob ....... 40 ثانیه DONE
+  2025-07-05 06:26:34 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه DONE
+  2025-07-05 06:26:37 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه DONE
+  2025-07-05 06:27:03 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:27:38 App\Jobs\GenerateSectionContentJob ....... 34 ثانیه DONE
+  2025-07-05 06:28:34 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:29:01 App\Jobs\GenerateSectionContentJob ....... 27 ثانیه DONE
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-07-05 06:29:29 App\Events\CustomUserEvent  2025-07-05 06:29:29 App\Events\CustomUserEvent ..................... ..................... RUNNING
+ RUNNING
+  2025-07-05 06:29:29 App\Events\CustomUserEvent ............... 104.19ms DONE
+  2025-07-05 06:29:29 App\Events\CustomUserEvent ............... 105.23ms DONE
+  2025-07-05 06:29:56 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:29:56 App\Events\CustomUserEvent ................ 55.02ms DONE
+  2025-07-05 06:29:59 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:29:59 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:29:59 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:29:59 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:29:59 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:30:24 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه DONE
+  2025-07-05 06:30:28 App\Jobs\GenerateSectionContentJob ....... 29 ثانیه DONE
+  2025-07-05 06:30:29 App\Jobs\GenerateSectionContentJob ....... 29 ثانیه DONE
+  2025-07-05 06:30:29 App\Jobs\GenerateSectionContentJob ....... 29 ثانیه DONE
+  2025-07-05 06:30:35 App\Jobs\GenerateSectionContentJob ....... 36 ثانیه DONE
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-07-05 06:33:52 App\Events\CustomUserEvent  2025-07-05 06:33:52 App\Events\CustomUserEvent ..................... ..................... RUNNING
+ RUNNING
+  2025-07-05 06:33:52 App\Events\CustomUserEvent ...............  2025-07-05 06:33:52 App\Events\CustomUserEvent ............... 105.39ms DONE
+ 105.36ms DONE
+  2025-07-05 06:36:01 App\Events\CustomUserEvent  2025-07-05 06:36:01 App\Events\CustomUserEvent ..................... ..................... RUNNING
+ RUNNING
+  2025-07-05 06:36:01 App\Events\CustomUserEvent  2025-07-05 06:36:01 App\Events\CustomUserEvent ................ ................ 54.92ms DONE
+ 54.87ms DONE
+  2025-07-05 06:36:43 App\Events\CustomUserEvent  2025-07-05 06:36:43 App\Events\CustomUserEvent ..................... ..................... RUNNING
+ RUNNING
+  2025-07-05 06:36:43 App\Events\CustomUserEvent  2025-07-05 06:36:43 App\Events\CustomUserEvent ................ ................ 54.73ms 54.72ms DONE
+ DONE
+  2025-07-05 06:37:34 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:37:34 App\Events\CustomUserEvent ................ 53.78ms DONE
+  2025-07-05 06:37:37 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:37:37 App\Jobs\GenerateSectionContentJob  2025-07-05 06:37:37 App\Jobs\GenerateSectionContentJob ............. RUNNING
+ ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:37:37 App\Jobs\GenerateSectionContentJob .............  2025-07-05 06:37:37 App\Jobs\GenerateSectionContentJob ............. RUNNING
+ RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:37:59 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه DONE
+  2025-07-05 06:37:59 App\Jobs\GenerateSectionContentJob ....... 21 ثانیه DONE
+  2025-07-05 06:38:01 App\Jobs\GenerateSectionContentJob ....... 23 ثانیه DONE
+  2025-07-05 06:38:02 App\Jobs\GenerateSectionContentJob ....... 24 ثانیه DONE
+  2025-07-05 06:38:08 App\Jobs\GenerateSectionContentJob ....... 31 ثانیه DONE
+  2025-07-05 06:41:35 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:41:35 App\Events\CustomUserEvent ................. 3.25ms DONE
+  2025-07-05 06:41:35 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:41:35 App\Events\CustomUserEvent ................. 1.86ms DONE
+  2025-07-05 06:42:34 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:42:34 App\Events\CustomUserEvent ................. 5.39ms DONE
+  2025-07-05 06:42:35 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:42:35 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:42:35 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-05 06:42:35 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:42:36 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:42:54 App\Jobs\GenerateSectionContentJob ....... 19 ثانیه DONE
+  2025-07-05 06:43:07 App\Jobs\GenerateSectionContentJob ....... 32 ثانیه DONE
+  2025-07-05 06:43:08 App\Jobs\GenerateSectionContentJob ....... 32 ثانیه DONE
+  2025-07-05 06:43:09 App\Jobs\GenerateSectionContentJob ....... 34 ثانیه DONE
+  2025-07-05 06:43:13 App\Jobs\GenerateSectionContentJob ....... 37 ثانیه DONE
+  2025-07-05 06:46:24 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:46:24 App\Events\CustomUserEvent ................ 28.74ms DONE
+  2025-07-05 06:47:02 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:47:02 App\Events\CustomUserEvent ................. 4.53ms DONE
+  2025-07-05 06:56:05 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:56:05 App\Events\CustomUserEvent ................. 4.96ms DONE
+  2025-07-05 06:56:05 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:56:05 App\Events\CustomUserEvent ................. 4.07ms DONE
+  2025-07-05 06:57:47 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:57:47 App\Events\CustomUserEvent ................. 3.24ms DONE
+  2025-07-05 06:57:47 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:57:47 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:57:48 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:57:48 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:57:49 App\Jobs\GenerateSectionContentJob ............. RUNNING
+  2025-07-05 06:58:20 App\Jobs\GenerateSectionContentJob ....... 32 ثانیه DONE
+  2025-07-05 06:58:30 App\Jobs\GenerateSectionContentJob ....... 41 ثانیه DONE
+  2025-07-05 06:58:30 App\Jobs\GenerateSectionContentJob ....... 42 ثانیه DONE
+  2025-07-05 06:58:34 App\Jobs\GenerateSectionContentJob ....... 45 ثانیه DONE
+  2025-07-05 06:58:34 App\Jobs\GenerateSectionContentJob ....... 46 ثانیه DONE
+  2025-07-05 06:58:37 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:58:37 App\Events\CustomUserEvent ................. 3.81ms DONE
+  2025-07-05 06:59:25 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:59:25 App\Events\CustomUserEvent ................. 6.08ms DONE
+  2025-07-05 06:59:50 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-05 06:59:50 App\Events\CustomUserEvent ................. 4.96ms DONE
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+
+   Predis\Connection\ConnectionException 
+
+  Error while reading line from the server. [tcp://127.0.0.1:6379]
+
+  at /home/pishkhanak/htdocs/pishkhanak.com/vendor/predis/predis/src/Connection/AbstractConnection.php:144
+    140▕      */
+    141▕     protected function onConnectionError($message, $code = 0)
+    142▕     {
+    143▕         CommunicationException::handle(
+  ➜ 144▕             new ConnectionException($this, "$message [{$this->getParameters()}]", $code)
+    145▕         );
+    146▕     }
+    147▕ 
+    148▕     /**
+
+      [2m+29 vendor frames [22m
+
+  30  /home/pishkhanak/htdocs/pishkhanak.com/artisan:13
+      Illuminate\Foundation\Application::handleCommand()
+
+
+   Predis\Connection\ConnectionException 
+
+  Error while reading line from the server. [tcp://127.0.0.1:6379]
+
+  at /home/pishkhanak/htdocs/pishkhanak.com/vendor/predis/predis/src/Connection/AbstractConnection.php:144
+    140▕      */
+    141▕     protected function onConnectionError($message, $code = 0)
+    142▕     {
+    143▕         CommunicationException::handle(
+  ➜ 144▕             new ConnectionException($this, "$message [{$this->getParameters()}]", $code)
+    145▕         );
+    146▕     }
+    147▕ 
+    148▕     /**
+
+      [2m+28 vendor frames [22m
+
+  29  /home/pishkhanak/htdocs/pishkhanak.com/artisan:13
+      Illuminate\Foundation\Application::handleCommand()
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+
+
+   Predis\Connection\ConnectionException 
+
+  Error while reading line from the server. [tcp://127.0.0.1:6379]
+   Predis\Connection\ConnectionException 
+
+  Error while reading line from the server. [tcp://127.0.0.1:6379]
+
+  at /home/pishkhanak/htdocs/pishkhanak.com/vendor/predis/predis/src/Connection/AbstractConnection.php:144
+
+  at /home/pishkhanak/htdocs/pishkhanak.com/vendor/predis/predis/src/Connection/AbstractConnection.php:144
+    140▕      */
+    141▕     protected function onConnectionError($message, $code = 0)
+    142▕     {
+    143▕         CommunicationException::handle(
+  ➜ 144▕             new ConnectionException($this, "$message [{$this->getParameters()}]", $code)
+    145▕         );
+    146▕     }
+    147▕ 
+    148▕     /**
+
+    140▕      */
+    141▕     protected function onConnectionError($message, $code = 0)
+    142▕     {
+    143▕         CommunicationException::handle(
+  ➜ 144▕             new ConnectionException($this, "$message [{$this->getParameters()}]", $code)
+    145▕         );
+    146▕     }
+    147▕ 
+    148▕     /**
+
+      [2m+28 vendor frames [22m
+
+  29  /home/pishkhanak/htdocs/pishkhanak.com/artisan:13
+      [2m+28 vendor frames [22m
+
+  29  /home/pishkhanak/htdocs/pishkhanak.com/artisan:13
+      Illuminate\Foundation\Application::handleCommand()
+
+      Illuminate\Foundation\Application::handleCommand()
+
+   INFO  Gracefully terminating connections.  
+
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-07-07 03:57:11 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-07 03:57:11 App\Events\CustomUserEvent ................ 90.40ms DONE
+  2025-07-08 18:54:46 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-08 18:54:46 App\Events\CustomUserEvent ................ 54.37ms DONE
+  2025-07-08 18:57:38 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-08 18:57:38 App\Events\CustomUserEvent ................ 53.73ms DONE
+  2025-07-08 18:57:44 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-08 18:57:44 App\Events\CustomUserEvent ................. 4.92ms DONE
+  2025-07-08 18:58:20 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-08 18:58:20 App\Events\CustomUserEvent ................ 27.00ms DONE
+  2025-07-08 19:00:32 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-08 19:00:32 App\Events\CustomUserEvent ................. 4.91ms DONE
+  2025-07-08 19:00:32 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-08 19:00:32 App\Events\CustomUserEvent ................. 4.11ms DONE
+  2025-07-08 19:01:06 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-08 19:01:06 App\Events\CustomUserEvent ................ 54.40ms DONE
+  2025-07-08 19:01:08 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-08 19:01:08 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-08 19:01:08 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-08 19:01:08 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-08 19:01:09 App\Jobs\GenerateSectionContentJob ............. RUNNING
+PHP Deprecated:  Optional parameter $language declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+PHP Deprecated:  Optional parameter $model_type declared before required parameter $count is implicitly treated as a required parameter in /home/pishkhanak/htdocs/pishkhanak.com/app/Services/AiService.php on line 498
+  2025-07-08 19:01:30 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه DONE
+  2025-07-08 19:01:31 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه DONE
+  2025-07-08 19:01:31 App\Jobs\GenerateSectionContentJob ....... 22 ثانیه DONE
+  2025-07-08 19:01:34 App\Jobs\GenerateSectionContentJob ....... 26 ثانیه DONE
+  2025-07-08 19:01:37 App\Jobs\GenerateSectionContentJob ....... 28 ثانیه DONE
+  2025-07-08 19:02:12 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-08 19:02:12 App\Events\CustomUserEvent ................. 4.95ms DONE
+  2025-07-08 19:03:09 App\Events\CustomUserEvent ..................... RUNNING
+  2025-07-08 19:03:09 App\Events\CustomUserEvent ................ 53.74ms DONE

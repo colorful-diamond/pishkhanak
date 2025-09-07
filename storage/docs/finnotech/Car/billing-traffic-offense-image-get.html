@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>دریافت تصویر تخلفات رانندگی</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /billing/v2/clients/{clientId}/trafficOffenseImage
+* **شرح: **  این سرویس با دریافت شناسه تخلف، تصویر ثبت شده ی خودرو و پلاک را برمیگرداند.
+
+* **اسکوپ: **  ```billing:traffic-offense-image:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+* **<a href="ResponsecodesBilling.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/billing/v2/clients/{clientId}/trafficOffenseImage?trackId={trackId}&offenseId={offenseId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت  توکن Client Credential سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId:**شناسه کلاینت
+
+
+ #### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```getUserinfo876543```
+
+
+* **offenseId:**  شناسه تخلف(اجباری)
+     * example:  ```47691362```
+     * example:  ```12851362```
+
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+     {
+     "trackId": "46d3470b-eb14-4a17-8e77-6052031527d6",
+     "result": {
+        "OffenseId": "47691362",
+        "PlateImageUrl": "https://najaservices.payment.ayantech.ir/pages/files.aspx?id=37CBC84868E842FD813C123564B9A7ED",
+        "VehicleImageUrl": "https://najaservices.payment.ayantech.ir/pages/files.aspx?id=2E1EC5139E364E4090637FF3D7E3BAC6"
+     },
+     "status": "DONE"
+     }
+````````````````
+
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **OffenseId:** شناسه تخلف
+  * **PlateImageUrl:** آدرس عکس پلاک
+  * **VehicleImageUrl:** آدرس عکس وسیله نقلیه
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<html>
+<title>استعلام سوابق بیمه نامه شخص ثالث</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###GET /kyc/v2/clients/{clientId}/thirdPartyInsuranceInquiry
+
+ * **شرح:**   این سرویس با وارد کردن کدملی و شماره پلاک، اطلاعات سوابق بیمه نامه شخص ثالث مربوط به خودرو را در خروجی نمایش میدهد.
+
+ * **اسکوپ: **  ``` kyc:thirdParty-insurance-inquiry:get```
+
+ * **رویکرد: ** ``` CLIENT-CREDENTIAL```
+
+ * **<a href="Responsecodes.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+    {address}/kyc/v2/clients/{clientId}/thirdPartyInsuranceInquiry?nationalCode={nationalCode}&plateNumber={plateNumber}&trackId={trackId}
+
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :sandbox address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:**شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اختیاری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+ * **nationalCode :** (اجباری) کد ملی صاحب خودرو .
+ * example:  ```0057684356```
+
+ * **plateNumber :**  (اجباری)  شماره پلاک ۹ رقمی خودرو که باید طبق الگوی توضیح داده شده در [این مستند](/doc/plateNumberTable.html) وارد شود.
+ * example:  ```911715950```
+
+
+ #### Successful result format (status code 200)
+ ````````````````
+    {
+        "responseCode": "FN-KCSY-20003000000",
+        "trackId": "identification_inquiry_trackId",
+        "result":{
+            "cuntLossAmont": 0,
+            "prntPlcyCmpDocNo": "1001/1401/000115/1395232",
+            "mapTypNam": "ساينا",
+            "mtrNum": "M159974809",
+            "shsNum": "NAS750400N5767587",
+            "disFnYrNum": "0",
+            "disLfYrNum": "0",
+            "disPrsnYrNum": "0",
+            "disPrsnYrPrcnt": "0",
+            "disFnYrPrcnt": "0",
+            "disLfYrPrcnt": "0",
+            "vin": "NAS750400N5767587",
+            "mapVehicleSystemName": "سايپا",
+            "lfCvrCptl": 0,
+            "fnCvrCptl": 0,
+            "prsnCvrCptl": 0,
+            "vehicleSystemCode": 7,
+            "edrsJson": "[{\"id\":1,\"Dsc\":\" الحاقيه توضيحات ندارد\",\"nam\":\"محمدعلي کامرانی\"}]",
+            "personCvrCptl": 6000000000,
+            "lifeCvrCptl": 8000000000,
+            "financialCvrCptl": 200000000,
+            "carGroupCode": 2,
+            "cylCnt": 4,
+            "lastCompanyDocumentNumber": null,
+            "usageCode": 8,
+            "mapUsageCode": 1,
+            "mapUsageName": "شخصي",
+            "plk1": 91,
+            "plk2": 7,
+            "plk3": 159,
+            "plkSrl": 50,
+            "printEndorsCompanyDocumentNumber": "بيمه نامه الحاقيه ندارد.",
+            "endorseDate": null,
+            "insuranceFullName": null,
+            "systemField": "سايپا",
+            "typeField": "SAINA S MT",
+            "usageField": "سواري",
+            "mainColorField": "سفيد",
+            "secondColorField": "سفيد",
+            "modelField": "1401",
+            "capacityField": "جمعا 5 نفر",
+            "cylinderNumberField": "4",
+            "engineNumberField": "M15/9842809",
+            "chassisNumberField": "NAS750400N5767587",
+            "vinNumberField": "NAS750400N5767587",
+            "installDateField": "1401/12/21",
+            "axelNumberField": "2",
+            "wheelNumberField": "4",
+            "companyName": "بيمه آرمان",
+            "companyCode": "21",
+            "issueDate": "1401/12/26",
+            "startDate": "1401/12/24",
+            "endDate": "1402/12/24",
+            "thrname": "",
+            "endorseText": null,
+            "policyHealthLossCount": 0,
+            "policyFinancialLossCount": 0,
+            "policyPersonLossCount": 0,
+            "tonage": 0,
+            "thirdPolicyCode": 10485205765,
+            "discountPersonPercent": 0,
+            "discountThirdPercent": 0,
+            "systemCodeCii": 11,
+            "systemNameCii": "سايپا",
+            "typeCodeCii": 14696,
+            "typeNameCii": "ساينا",
+            "usageNameCii": "سواري",
+            "usageCodeCii": 1,
+            "modelCii": 1401,
+            "damageTypes": [],
+            "statusTypeCode": 1
+        }
+        "status": "DONE"
+    }
+    ````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+  * ** cuntLossAmont:**  تعداد خسارات
+  * ** prntPlcyCmpDocNo:** شماره چاپی بیمه‌نامه
+  * ** mapTypNam:** عنوان نوع وسیله
+  * ** mtrNum:** شماره موتور خودرو
+  * ** shsNum:** شماره شاسی
+  * ** disFnYrNum:** تعداد سال عدم خسارت مالی
+  * ** disLfYrNum:** تعداد سال عدم خسارت جانی
+  * ** disPrsnYrNum:** تعداد سال عدم خسارت جانی
+  * ** disPrsnYrPrcnt:** درصد تخفیف یا افزایش نهایی اعمال شده در بیمه‌نامه جاری بابت عدم یا وجود خسارت حوادث راننده
+  * ** disFnYrPrcnt:** درصد تخفیف عدم خسارت مالی بیمه‌نامه
+  * ** disLfYrPrcnt:**  درصد تخفیف عدم خسارت جانی بیمه‌نامه
+  * ** vin:** شماره VIN (در بیمه‌نامه)
+  * ** mapVehicleSystemName:** نام گروه خودرویی
+  * ** lfCvrCptl:** مبلغ تعهد جانی به ریال
+  * ** fnCvrCptl:** مبلغ تعهد مالی به ریال
+  * ** prsnCvrCptl:** مبلغ تعهد حوادث به راننده
+  * ** vehicleSystemCode:** کد سیستم خودرو در بیمه مرکزی
+  * ** edrsJson:** وجود الحاقیه
+  * ** personCvrCptl:** مبلغ تعهد حوادث راننده
+  * ** lifeCvrCptl:** مبلغ تعهد جانی به ریال
+  * ** financialCvrCptl:** مبلغ تعهد مالی به ریال
+  * ** carGroupCode:** کد کاربری خودرو در بیمه مرکزی
+  * ** cylCnt:** تعداد سیلندر
+  * ** lastCompanyDocumentNumber:** شماره بیمه‌نامه قبلی
+  * ** usageCode:** کد نوع کاربری
+  * ** mapUsageCode:** کد کاربری در شرکت بیمه
+  * ** mapUsageName:** نام کاربری در شرکت بیمه
+  * ** plk1:** دو رقم سمت چپ پلاک
+  * ** plk2:** حرف وسط پلاک
+  * ** plk3:** سه رقم سمت راست پلاک
+  * ** plkSrl:** سریال پلاک
+  * ** printEndorsCompanyDocumentNumber:** شماره چاپی الحاقیه
+  * ** endorseDate:** تاریخ الحاقیه
+  * ** insuranceFullName:** نام و نام خانوادگی
+  * ** systemField:** نام وسیله نقلیه
+  * ** typeField:** تیپ خودرو
+  * ** usageField:** کاربری وسیله نقلیه
+  * ** mainColorField:** نام رنگ وسیله نقلیه (اصلی)
+  * ** secondColorField:** نام رنگ وسیله نقلیه (دوم)
+  * ** modelField:** سال تولید
+  * ** capacityField:** ظرفیت وسیله نقلیه
+  * ** cylinderNumberField:** تعداد سیلندر وسیله نقلیه
+  * ** engineNumberField:** شماره موتور
+  * ** chassisNumberField:** شماره شاسی
+  * ** vinNumberField:** شماره VIN
+  * ** installDateField:** تاریخ نصب پلاک
+  * ** axelNumberField:** تعداد محور
+  * ** wheelNumberField:** تعداد چرخ
+  * ** companyName:** نام شرکت بیمه
+  * ** companyCode:** کد شرکت بیمه
+  * ** issueDate:** تاریخ صدور بیمه نامه
+  * ** startDate:** تاریخ شروع بیمه نامه
+  * ** endDate:** تاریخ پایان بیمه نامه
+  * ** thrname:** خروجی تجمیعی برخی از فیلد ها از نوع جیسون مانند شماره چاپی و...
+  * ** endorseText:** الحاقیه
+  * ** policyHealthLossCount:** تعداد خسارت جانی بیمه‌نامه
+  * ** policyFinancialLossCount:** تعداد خسارت مالی بیمه‌نامه
+  * ** policyPersonLossCount:** تعداد خسارت راننده
+  * ** tonage:** توناژ
+  * ** thirdPolicyCode:** کد بیمه‌نامه شخص ثالث
+  * ** discountPersonPercent:** درصد تخفیف راننده
+  * ** discountThirdPercent:** درصد تخفیف شخص ثالث
+  * ** systemCodeCii:** کد سیستم وسیله نقلیه (در شرکت بیمه)
+  * ** systemNameCii:** نام سیستم وسیله نقلیه (ثبت شده در بیمه مرکزی)
+  * ** typeCodeCii:** کد تیپ خودرو (در شرکت بیمه)
+  * ** typeNameCii:** تیپ خودرو (ثبت شده در بیمه مرکزی)
+  * ** usageNameCii:** کاربری خودرو (ثبت شده در بیمه مرکزی)
+  * ** usageCodeCii:** کد کاربری خودرو (در شرکت بیمه)
+  * ** modelCii:** سال ساخت خودرو (ثبت شده در بیمه مرکزی)
+  * ** damageTypes:** نوع خسارت
+  * ** statusTypeCode:** وضعیت پاسخ‌دهی
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+<!--در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [تبدیل شماره پلاک به کد](/doc/plateNumberTable.html)-->
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

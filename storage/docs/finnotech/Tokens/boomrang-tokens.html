@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>مشاهده توکن‌ها</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /dev/v2/clients/{clientId}/tokens
+* **شرح: **  &#x202b;این سرویس جز سرویس هایی که مجاز است تنها با توکن client credential فراخوانی شود
+
+* **اسکوپ: ** ```boomrang:tokens:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+````````````````
+{address}/dev/v2/clients/{clientId}/tokens?bank={bank}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b> :address </b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+#### URI Parameters
+
+* **clientId :**  شناسه کلاینت(اجباری)
+
+#### Query Parameters
+* **bank :**  (اختیاری) کد بانک. برای گرفتن توکن‌های سه طرفه فرستادن کد بانک اجباری است در صورت استفاده از کد بانک توکن های مربوط به آن بانک بر میگردد و در صورت ارسال نشدن کد بانک لیست توکن های دو طرفه و اس ام اسی برمیگردد.
+   * ** 015 : ** سپه
+   * ** 016 : ** کشاورزی
+   * ** 062 : ** آینده
+   * ** 069 : ** ایران زمین
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+###Results Format
+#### Successful result format with bank code(status code 200)
+````````````````
+{
+    "result": {
+        "authorizationCode": [
+            {
+                "id": "5e092e44e32e280e63fd0494",
+                "clientId": "docClient",
+                "deposits": [ "0301599894000" ],
+                "lifeTime": 864000000,
+                "type": "CODE",
+                "creationDate": "13981204111820",
+                "userId": "0087600621",
+                "scopes": [ "oak:withdrawal-from:execute" ]
+            }
+        ]
+    },
+    "status": "DONE",
+    "trackId": "86321a80-d590-4e08-b41e-195a9610c63f"
+}
+
+````````````````
+#### Successful result format without bank code(status code 200)
+````````````````
+{
+    "result": {
+        "clientCredentials": [
+            {
+                "scopes": [ "oak:nid-verification:get" ],
+                "lifeTime": 864000000,
+                "clientId": "smokey",
+                "creationDate": "13980825104744",
+                "userId": "0651888999",
+                "type": "CLIENT-CREDENTIAL",
+                "id": "5ccecee58e8488431e702f7a"
+            }
+        ],
+        "sms": [
+            {
+                "scopes": [ "credit:user-info:get,credit:reliability:get" ],
+                "clientId": "smokey",
+                "lifeTime": 864000000,
+                "type": "CODE",
+                "creationDate": "13980312144046",
+                "userId": "0063232383",
+                "id": "5cf3a0a623a750284c9b2eae"
+            }
+        ]
+    },
+    "status": "DONE"
+    "trackId: "sftr542376132hjgdf"
+}
+````````````````
+
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **sms:**  توکن‌های اس ام اسی
+  * **clientCredentials:**  توکن‌های دوطرفه
+  * **authorizationCode:**  توکن‌های سه طرفه
+    * **lifeTime:**  عمر توکن
+    * **clientId:**  شناسه کلاینت
+    * **userId:**   کد ملی
+    * **active:** &#x202b; اگر توکن فعال باشد مقدار این فیلد true در غیر این صورت false است
+    * **type:** نوع رویکرد
+    * **deposits:** آرایه ای از سورس حسابهایی که برای این توکن ثبت شده
+    * **scopes:** آرایه ای از اسکوپ ها
+* **status: ** وضعیت فراخوانی سرویس
+  * DONE: فراخوانی موفق سرویس
+  * FAILED: فراخوانی ناموفق سرویس
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+   * **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

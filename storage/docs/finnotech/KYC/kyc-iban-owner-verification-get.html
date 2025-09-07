@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+	<meta name="robots" content="noindex"/>
+</head>
+<html>
+<title> تطبیق شماره شبا و کدملی</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /kyc/v2/clients/{clientId}/ibanOwnerVerification
+* **شرح: **  این سرویس با وارد کردن شماره شبا، کدملی و تاریخ تولد، تطبیق یا عدم تطبیق اطلاعات را در خروجی نمایش میدهد.
+* **اسکوپ: **  ```kyc:iban-owner-verification:get```
+* **رویکرد: ** ```Client-Credential```
+* **<a href="fn-responseCodeKYc.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/kyc/v2/clients/{clientId}/ibanOwnerVerification?trackId={trackId}&birthDate={birthDate}&nid={nid}&iban={iban}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+* **birthDate:**  اجباری (string)  &#x202b; تاریخ تولد شمسی صاحب حساب به فرمت YYYY/MM/DD
+  * example:  ```1380/01/01```
+* **nid:**  اجباری (string)  &#x202b; کد ملی صاحب حساب
+  * example:  ```6661111111```
+* **iban:**  اجباری (string)  &#x202b; شماره شبا
+  * example:  ```IR111111111111111111111111```
+
+###Results Format
+
+#### Validation error format (status code 400)
+````````````````
+{
+  "responseCode": "FN-KCFH-40002830033",
+  "trackId": "iovTrackId",
+  "status": "FAILED",
+  "error": {
+      "code": "VALIDATION_ERROR",
+      "message": " تاریخ تولد نامعتبر است"
+  }
+}
+````````````````
+
+#### Successful result format (status code 200)
+*‌ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+{
+    "responseCode": "FN-KCFH-20002800000",
+    "trackId": "iovTrackId",
+    "result": {
+        "isValid": "yes"
+    },
+    "status": "DONE"
+}
+````````````````
+
+* **responseCode:** کد پاسخ دریافتی
+* **result:** پاسخ سرویس شامل:
+  * **isValid:** وضعیت تطابق شماره شبا و کد ملی را نشان می‌دهد. دارای مقادیر "yes"، "no" است.
+* **trackId:** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **status:**  &#x202b; وضعیت فراخوانی که میتواند یکی از موارد DONE|FAILED باشد
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

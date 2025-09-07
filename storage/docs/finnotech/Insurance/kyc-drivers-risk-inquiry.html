@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<html>
+<title>استعلام ریسک رانندگان</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###GET /kyc/v2/clients/{clientId}/driversRiskInquiry
+
+ * **شرح:**   این سرویس با وارد کردن کد ملی و تاریخ تولد راننده میزان ریسک فرد را در خروجی نمایش میدهد.
+
+
+ * **اسکوپ: **  ``` kyc:drivers-risk-inquiry:get```
+
+ * **رویکرد: ** ``` CLIENT-CREDENTIAL```
+
+ * **<a href="Responsecodes.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+    {address}/kyc/v2/clients/{clientId}/driversRiskInquiry?nationalCode={nationalCodes}&birthDate={birthDate}&persionType={persionType}&trackId={trackId}
+
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:**شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اختیاری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+ * **nationalCode :** (اجباری)  &#x202b;کد ملی راننده
+ * example:  ```0057684356```
+
+ * **birthDate :**  (اجباری)  &#x202b;تاریخ تولد راننده (فرمت: YYYY/MM/DD)
+ * example:  ```1356/02/23```
+
+ * **personType :** (اختیاری)  &#x202b;نوع شخص که حقیقی۱ و یا حقوقی۲ میتواند باشد. پیشفرض کد یک درنظر گرفته میشود
+ * example:  ```1```
+
+ * **agentCode :** (اختیاری)  &#x202b;کد نمایندگی
+ * example:  ```1```
+
+
+ #### Successful result format (status code 200)
+ ````````````````
+    {
+        "responseCode": "FN-BRFH-20000810000",
+        "trackId": "1234fg3",
+        "result":{
+            "score": 8.8
+        }
+        "status": "DONE"
+    }
+    ````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+  * ** score:** ریسک راننده
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

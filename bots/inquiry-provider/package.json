@@ -1,0 +1,48 @@
+{
+  "name": "pishkhanak-inquiry-provider",
+  "version": "1.0.0",
+  "description": "Local API server for handling inquiry services",
+  "main": "localApiServer.js",
+  "type": "module",
+  "scripts": {
+    "start": "node localApiServer.js",
+    "dev": "nodemon localApiServer.js",
+    "check-proxy": "node checkProxy.js",
+    "test": "node testRequestLocks.js",
+    "test-conversion": "node testServiceMapping.js",
+    "test-paths": "node testProviderPaths.js",
+    "test-traceid": "node testTraceIdExtraction.js"
+  },
+  "keywords": [
+    "api",
+    "inquiry",
+    "services",
+    "local"
+  ],
+  "author": "Pishkhanak Team",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "^0.23.0",
+    "compression": "^1.7.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.2",
+    "helmet": "^8.0.0",
+    "ioredis": "^5.3.2",
+    "node-fetch": "^3.3.2",
+    "playwright": "^1.48.0",
+    "socks-proxy-agent": "^8.0.4",
+    "jimp": "^0.22.12",
+    "puppeteer": "^23.5.0",
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0",
+    "tesseract.js": "^5.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+  <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>تمدید توکن</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###POST /dev/v2/oauth2/token
+
+* **شرح:** ‫قبل از منقضی شدن توکن با ارسال رفرش توکن، می‌توانید توکن جدید دریافت کنید.
+
+
+````````````````
+{address}/dev/v2/oauth2/token
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+#### Notes
+
+* فرستادن تمام پارامتر های Body الزامی است
+برای توکن‌های تایپ CODE اگر از نوع احراز هویت با otp و از طریق sms  باشد، فرستادن auth_type اجباری است و نیازی به فرستادن bank نیست. در غیر این صورت فرستادن bank‌ اجباری و نیازی به فرستادن auth_type نیست.
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Content-Type : application/json
+Authorization : Basic {AuthenticationString}
+````````````````
+مقدار AuthenticationString باید برابر Base64 از اطلاعات برنامه شما به صورت ```YOURCLIENTID:YOURCLIENTSECRET``` باشد. برای مثال اگر شناسه برنامه شما برابر firstapp باشد و رمز برنامه شما که در قسمت جزییات برنامه در کنسول قابل مشاهده است برابر 6932dddb927b76e54997 باشد، شما باید Base64 مقدار ```firstapp:6932dddb927b76e54997``` را تولید کنید. در این صورت مقدار این هدر باید برابر مقدار زیر قرار گیرد:
+
+````````````````
+Basic Zmlyc3RhcHA6NjkzMmRkZGI5MjdiNzZlNTQ5OTc=
+````````````````
+
+#### Body
+##### Example:
+````````````````
+{ "grant_type": "refresh_token"
+, "token_type": "CODE"
+, "bank": "062"
+, "refresh_token": "sI2t91Bm7zwuORlHDIcdVAw4Ewal7Pz86xpT0w3URx9KQIk3NyWcYxkkzpiLemDWqsGihsc2wIuFvimjHHFXna33KDquF7SJYO8s7OorI5awCFoLu4crJuhqLyIviTje38AuN9TxQKFrzcf2v1yJgtstDTe4QJhRtTq3wzvPGEq8buwE5M1fWSw0Ekenf15h280Rm68oFG9G7qS8A0VUlfplcqwgwvpCD7jCQkTjNF6ZrItGt1KYuv5cS5DsPCwIPGmVxcUxW"
+, "auth_type": "SMS"
+}
+````````````````
+* **grant_type:** این مقدار باید برابر refresh_token قرار گیرد
+* **token_type:** نوع توکن (CLIENT-CREDENTIAL یا CODE)
+* **auth_type:** درصورتی‌که توکن نوع SMS را رفرش می‌کنید فرستادن این فیلد با مقدار SMS اجباری است.
+* **deposit:** درصورتی که توکن بانک کشاورزی را رفرش میکنید فرستادن این فیلد اجباری است.
+* **bank:** کد بانک مقصد. در صورتی که توکن از نوع SMS یا CLIENT_CREDENTIAL بدون حساب باشد نیازی به فرستادن این پارامتر نیست.
+  ( درصورتی که توکن بانک کشاورزی را رفرش میکنید فرستادن فیلد bank اجباری است) برای ارسال کد بانک می‌توانید از جدول زیر استفاده نمایید:
+
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: center; vertical-align: middle;">بانک</th>
+        <th style="text-align: center; vertical-align: middle;">کد</th>
+      </tr>
+    </thead>
+    <tbody>
+      ‪<tr>
+        <td style="text-align: center; vertical-align: middle; ">آینده</td>
+        <td style="text-align: center; vertical-align: middle;">062</td>
+      </tr>
+<!--      <tr>-->
+<!--        <td style="text-align: center; vertical-align: middle;">سپه</td>-->
+<!--        <td style="text-align: center; vertical-align: middle;">015</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td style="text-align: center; vertical-align: middle;">دی</td>-->
+<!--        <td style="text-align: center; vertical-align: middle;">066</td>-->
+<!--      </tr>-->
+      <!-- <tr>
+        <td style="text-align: center; vertical-align: middle;">ایران زمین</td>
+        <td style="text-align: center; vertical-align: middle;">069</td>
+      </tr> -->
+<!--      <tr>-->
+<!--        <td style="text-align: center; vertical-align: middle;">اقتصاد نوین</td>-->
+<!--        <td style="text-align: center; vertical-align: middle;">055</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td style="text-align: center; vertical-align: middle;">انصار</td>-->
+<!--        <td style="text-align: center; vertical-align: middle;">063</td>-->
+<!--      </tr>-->
+      <tr>
+        <td style="text-align: center; vertical-align: middle;">کشاورزی</td>
+        <td style="text-align: center; vertical-align: middle;">016</td>
+      </tr>
+      <tr>
+        <td style="text-align: center; vertical-align: middle;">پارسیان</td>
+        <td style="text-align: center; vertical-align: middle;">054</td>
+      </tr>
+      <tr>
+        <td style="text-align: center; vertical-align: middle;">پاسارگاد</td>
+        <td style="text-align: center; vertical-align: middle;">057</td>
+      </tr>
+      <tr>
+        <td style="text-align: center; vertical-align: middle;">خاورمیانه</td>
+        <td style="text-align: center; vertical-align: middle;">078</td>
+      </tr>
+    </tbody>
+  </table>
+
+* **refresh_token:** رفرش توکن
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+  {
+    "result": {
+        "scopes": [
+          "oak:statement:get"
+      ]
+      , "monthlyCallLimitation": 10
+      , "maxAmountPerTransaction": 350000
+      , "userId": "0012345678",
+      , "creationDate": "13970725135334"
+      , "type": "CODE"
+      , "bank": "062"
+      , "lifeTime": 864000000
+      , "deposits": [
+          "0302876214008"
+        ]
+      , "clientId": "drops"
+      , "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjoiYVI3yhZEeXhNc05MZkdCM2dDV0RMdXBKR3l5NzB1TWEiLCJzY29wZXMiOlsib2FrOnN0YXRlbWVudDpnZXQiXSwibW9udGhseUNhbGxMaW1pdGF0aW9uIjpudWxsLCJtYXhBbW91bnRQZXJUcmFuc2FjdGlvbiI6bnVsbCwidXNlcklkIjoiMDAxNTE0NzE2OSIsImNyZWF0aW9uRGF0ZSI6IjEzOTcwNzI12dG1MzUITiwidHlwZSI6IkNPREUiLCJiYW5rIjoiMDYyIiwibGlmZVRpbWUiOjg2NDAwMDAwMCwiZGVwb3NpdHMiOlsiMDIwMjg3OTc4NDAdesJdLCJjbGllbnRJZCI6InNtb2tleSIsInJhbmRvbVVLSUQiOiI3MDJFVTVaVVJtdzROZVdWIiwiaWF0IjoxNTM5NzcxODE0fQ.2oZIycxOxDRC5RNQvgtj4B3ZT9-Zyh_tMmCiTBUpWbY"
+      , "refreshToken": "sI2t91Bm7zwuORlHDIcdVAw4Ewal7Pz86xpT0w3URx9KQIk3NyWcYxkkzpiLemDWqsGihsc2wIuFvimjHHFXna33KDquF7SJYO8s7OorI5awCFoLu4crJuhqLyIviTje38AuN9TxQKFrzcf2v1yJgtstDTe4QJhRtTq3wzvPGEq8buwE5M1fWSw0Ekenf15h280Rm68oFG9G7qS8A0VUlfplcqwgwvpCD7jCQkTjNF6ZrItGt1KYuv5cS5DsPCwIPGmVxcUxW"
+  }
+  , "status": "DONE"
+  }
+````````````````
+* **response:**
+  * **scopes:** آرایه ای از اسکوپ‌های مجاز توکن
+  * **monthlyCallLimitation:** حداکثر تعداد تراکنش ماهانه به ازای یک توکن(تنها برای بانک کشاورزی)
+  * **maxAmountPerTransaction:** حداکثر مبلغ هر تراکنش به ریال(تنها برای بانک کشاورزی)
+  * **userId:** کدملی کاربر
+  * **creationDate:** زمان ساخت توکن به صورت تاریخ شمسی YYYYMMDDHHmmss
+  * **type:** نوع توکن
+  * **bank:** کد بانک فرستاده شده
+  * **lifeTime:** عمر توکن به میلی ثانیه
+  * **deposits:** آرایه از شماره حساب های کاربر که توکن اجازه دسترسی به آن را دارد(تنها برای بانک کشاورزی)
+  * **clientId:** نام اپلیکیشن
+  * **value:** توکنی که برای فراخوانی سرویس‌ها استفاده میشود
+  * **refreshToken:** اگر عمر توکن تمام شود با استفاده از این توکن و فراخوانی سرویس توکن قادر خواهید بود توکن جدید دریافت نمایید
+* **status:**
+    * DONE: فراخوانی موفق سرویس
+    * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید [لیست خطاها](/doc/generic-errors.html)
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

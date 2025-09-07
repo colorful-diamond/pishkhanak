@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>انطباق عکس با عکس کارت ملی</title>
+<body onload="checkSandbox()">
+<xmp theme="cerulean" style="display:none;">
+
+###POST /kyc/v2/clients/{clientId}/compareLiveImageWithNationalCard
+* **شرح: ** احراز هویت با عکس، این سرویس عکس لایو کاربر، کدملی٬ تاریخ تولد و سریال پشت کارت ملی هوشمند (یا کد رهگیری رسید کاغذی کارت ملی هوشمند)
+را دریافت میکند و عکس ارسالی را با عکس کارت ملی چک کرده و درستی و نادرستی عکس را تایید و رد میکند. لازم به ذکر است این سرویس از یازده شب تا هفت صبح در دسترسی نمیباشد
+
+* **اسکوپ: ** ```kyc:compare-live-image-with-national-card-image:post```
+
+* **رویکرد: ** ```Client_Credential```
+
+* **<a href="Responsecodes.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+  {address}/kyc/v2/clients/{clientId}/compareLiveImageWithNationalCard?trackId={trackId}
+
+````````````````
+  <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none">
+    https://sandboxapi.finnotech.ir <b> :address </b>
+  </div>
+
+  <div class="production-address production" style="float:right" style="display: block">
+    https://api.finnotech.ir <b> :address </b>
+  </div>
+
+
+  #### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+  &#x202b;برای فراخوانی این سرویس باید از توکن Client Credential استفاده نمایید.
+
+  #### URI Parameters
+  * **clientId :** (اجباری) شناسه کلاینت
+
+  #### Query Parameters
+  * **trackId:** اجباری (string) &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت
+  ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته
+  نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ
+  فراخوانی برگردانده میشود.
+  ### Body Parameter
+   توجه داشته باشید که پارامترهای ورودی در فرمت فرم دیتا ارسال شوند* **
+  * **liveImage:(اجباری)  ** عکس کاربر به صورت فایل
+  * **nationalCode:(اجباری)  ** کد ملی
+  * **birthDate:(اجباری) **  تاریخ تولد اجباری است، به صورت yyyy/mm/dd
+  * **serialNumber:  (اجباری) ** سریال پشت کارت ملی هوشمند (یا کد رهگیری رسید کاغذی کارت ملی هوشمند)
+  * **threshold:(اختیاری)  ** میزان حساس بودن تطبیق
+
+
+  ### Body Parameter Example
+````````````````
+  --form liveImage=@"/Users/address Img 2021-07-12 at 17.07.12.jpeg"
+  --form nationalCode="0024143331"
+  --form birthDate="1371/06/18"
+  --form serialNumber="1R29366454"'
+  --form threshold="80"
+
+
+  ````````````````
+###Results Format
+#### Successful result format (status code 200)
+````````````````
+  {
+  "responseCode": "FN-KCFH-20000800000",
+  "trackId": "2869d165-d261-4a9a-b807-51646c8a783d",
+  "result": {
+  "message": "عدم تطبیق تصویر چهره ورودی و تصویر مرجع!",
+  "verificationScore": 0,
+  "verificationThreshold": 80,
+  "isVerified": false,
+  "trackingCode": "4373bbb6-5b57-47a1-aee5-b8aea4c89822"
+  },
+  "status": "DONE"
+  }
+
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* **trackId:** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و
+  برگردانده میشود
+  * **result:** آبجکتی از پاسخ سرویس شامل:
+    * **trackingCode:** کد پیگیری ثبت احوال
+    * **message:** پیغام نتیجه
+    * **verificationScore:** میزان تطبیق
+    * **verificationThreshold:** آستانه ی تطبیق
+    * **isVerified:** تایید تطبیق
+    * **status:** &#x202b; وضعیت فراخوانی که میتواند یکی از موارد DONE|FAILED باشد
+
+  #### UnSuccessful result format
+  در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

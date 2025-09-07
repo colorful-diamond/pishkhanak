@@ -1,0 +1,34 @@
+{
+  "storageState": {
+    "cookies": [
+      {
+        "name": "cookiesession1",
+        "value": "678B28820FCFD9E4AD7590A87671EB55",
+        "domain": "etebarito.nics24.ir",
+        "path": "/",
+        "expires": 1785792809.471563,
+        "httpOnly": true,
+        "secure": true,
+        "sameSite": "Lax"
+      }
+    ],
+    "origins": [
+      {
+        "origin": "https://etebarito.nics24.ir",
+        "localStorage": [
+          {
+            "name": "user_data",
+            "value": "{\"reset\":false}"
+          },
+          {
+            "name": "serverAddressLocalStroage",
+            "value": "https://etebarito.Nics24.ir"
+          }
+        ]
+      }
+    ]
+  },
+  "createdAt": "2025-08-03T21:33:57.465Z",
+  "user": "your_nics24_username",
+  "provider": "nics24"
+}

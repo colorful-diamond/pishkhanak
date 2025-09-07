@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+	<meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام وضعیت نظام وظیفه</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /kyc/v2/clients/{clientId}/militaryInquiry
+* **شرح: ** با وارد کردن کدملی وضعیت نظام وظیفه ی افراد مشخص میشود . برای افرادی که کارت پایان خدمت و یا معافیت دارند و یا خانم هستند مجاز نمایش میدهد و برای افرادی که کارت پایان خدمت و یا معافیت ندارند و یا کارت آنها هوشمند نیست غیرمجاز نمایش داده میشود.
+
+* **اسکوپ: **  ```kyc:military-inquiry:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+* **<a href="Responsecodes.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+
+````````````````
+{address}/kyc/v2/clients/{clientId}/militaryInquiry?trackId={trackId}&nationalCode={nationalCode}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```nid-inq-9602281200```
+* **nationalCode:**  کد ملی که میخواهید وضعیت نظام وظیفه ی آن را استعلام کنید و اجباری است
+
+
+###Results Format
+
+
+#### Successful result format (status code 200)
+*‌ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+		  {
+
+	 		"trackId": "nid-inq-9602281200",
+	        "responseCode": "FN-KCFH-20002400000",
+    		"result": {
+		        "conversationId": "162763836",
+		        "type": "ORDINARY",
+		        "condition": "ALLOWED",
+		        "conditionDescription": "مشمول نیست",
+		        "isAllowed": true
+		    },
+	 		"status": "DONE"
+
+
+		  }
+````````````````
+
+
+* **nationalCode:** کد ملی
+* **conversationId:** &#x202b; کد پیگیری
+* **type:**  نوع
+	* *EXCEPTION*: موارد استثنا
+	* *ORDINARY*: معمولی
+* **condition:** وضعیت
+	* *NOT_ALLOWED*
+	* *ALLOWED*
+* **conditionDescription:** شرح وضعیت
+* **isAllowed:** &#x202b;مجاز بودن true/false
+* **trackId:** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **status:**  &#x202b; وضعیت فراخوانی که میتواند یکی از موارد DONE|FAILED باشد
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

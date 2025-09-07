@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<html>
+<title>درخواست ضمانت سفته الکترونیک</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###POST /promissory/v2/clients/{clientId}/promissoryGuaranteeRequest
+
+* ** .شرح:** در این سرویس با وارد کردن اطلاعات فرد ضامن میتوانید بر روی سفته ی نهایی شده ، ضمانت ثبت کنید .
+
+
+* **اسکوپ: **  ```promissory:guarantee-request:post```
+
+* **رویکرد: ** ```CLIENT-CREDENTIAL```
+
+* **<a href="ResponsecodePromissory.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+    {address}/promissory/v2/clients/{clientId}/promissoryGuaranteeRequest?trackId={trackId}
+
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:** شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+#### Body
+##### Example:
+````````````````
+{
+    "guarantorName": "تست",
+    "guarantorIdCode": "01234567890",
+    "guarantorIdType": "1",
+    "guarantorMobile": "09123456789",
+    "guarantorAddress": "تهران",
+    "guarantorIban": "IR000000000000000000000000",
+    "description": "تست",
+    "paymentPlace": "تهران",
+    "promissoryId": "2787834498288481",
+    "issuerIdCode": "01234567891"
+}
+````````````````
+* **guarantorName: **  نام ضامن سفته (اجباری)
+* **guarantorIdCode: ** کدملی ضامن سفته (اجباری)
+* **guarantorIdType: ** نوع کد شناسایی ضامن سفته : مشتری حقیقی 1 ،مشتری حقوقی 2 (اجباری)
+* **guarantorMobile: **  شماره موبایل ضامن سفته (اجباری)
+* **guarantorAddress: ** آدرس ضامن سفته (اجباری)
+* **guarantorIban: ** شماره شبا بانک آینده ضامن سفته (اجباری)
+* **description: ** توضیحات (اختیاری)
+* **paymentPlace: ** محل پرداخت (اجباری)
+* **promissoryId: **  شناسه سفته (اجباری) 
+* **issuerIdCode: ** کدملی صادرکننده (اجباری)
+
+ #### Successful result format (status code 200)
+````````````````
+{
+    "responseCode": "FN-PSKZ-20000100000",
+    "trackId": "526e-4a7f-92fd-af9f70f",
+    "result": {
+        "requestId" : "8007893409632",
+        "unSignedPdf" : "base64PDF",
+    },
+    "status": "DONE"
+}
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+  * **requestId:**شناسه درخواست
+  * **unSignedPdf:** سفته ی امضا نشده با فرمت base64
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+<!--در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [تبدیل شماره پلاک به کد](/doc/plateNumberTable.html)-->
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

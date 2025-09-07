@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>تطبیق شناسه شرکت با اعضا</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###Get /kyb/v2/clients/{clientId}/matchLegalIdWithMembers
+
+ * **شرح:**  عملکرد این سرویس به این صورت است که با وارد کردن شناسه حقوقی و کدملی، اطلاعاتی از جمله سمت فرد در شرکت و مشخصات روزنامه رسمی را در خروجی نمایش میدهد.
+
+
+ * **اسکوپ: **  ``` kyb:match-legal-id-with-members:get```
+
+ * **رویکرد: ** ``` CLIENT-CREDENTIAL```
+
+ * **<a href="responsecodeKYB.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+    {address}/kyb/v2/clients/{clientid}/matchLegalIdWithMembers?trackId={trackId}&nationalId={nationalId}&legalId={legalId}
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :sandbox address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:**شناسه کلاینت
+
+#### Query Parameters
+
+* **trackId :** (اختیاری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+    * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+* **nationalId :** (اجباری) کد ملی
+    * example:  ```1960904176```
+
+* **legalId :** (اجباری) شناسه حقوقی
+    * example:  ```25118762226```
+
+
+ #### Successful result format (status code 200)
+ ````````````````
+{
+    "responseCode": "FN-KBIE-20000000000",
+    "trackId": "2c122a95-1d3e-4595-moho-62b52e7b87d9",
+    "result": {
+        "isMatched": true,
+        "positions": [
+            {
+                "positionName": "CEO",
+                "issueTrackingNo": "000921256803000",
+                "rrkNewsPaperDate": "1400/01/01",
+                "rrkNewsPaperNumber": "00900",
+                "rrkPageNumber": "50"
+            },
+        ]
+    },
+    "status": "DONE"
+}
+    ````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+  * **isMatched:** نتیجه انطباق شناسه شرکت با اعضا  true/false
+  * **positions:** سمت های فرد
+      * **positionName:** سمت فرد در شرکت
+      * **issueTrackingNo:** شماره پیگیری روزنامه رسمی
+      * **rrkNewsPaperDate:** تاریخ روزنامه رسمی
+      * **rrkNewsPaperNumber:** شماره روزنامه رسمی
+      * **rrkPageNumber:** شماره صفحه روزنامه رسمی
+* ** status:**&#x202b;  DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+    * **code:** استاتوس کد
+    * **message:** پیغام خطا
+
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html/)
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+

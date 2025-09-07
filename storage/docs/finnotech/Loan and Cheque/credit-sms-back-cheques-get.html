@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex" />
+</head>
+<html>
+  <title>استعلام پیامکی چک برگشتی</title>
+  <body onload="checkSandbox()">
+    <xmp theme="cerulean" style="display: none">
+
+###GET   /credit/v2/clients/{clientId}/users/{user}/sms/backCheques
+* **شرح: **  چک‌های برگشتی (همه بانک‌ها) مشتری **حقیقی و حقوقی** را برمی‌گرداند.
+
+* **اسکوپ: **  ```credit:sms-back-cheques:get```
+
+* **رویکرد: ** ```AUTHORIZATION SMS```
+
+* **<a href="ResponsecodesCredit.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/credit/v2/clients/{clientId}/users/{user}/sms/backCheques?trackId={trackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت توکن سه طرفه پیامکی  سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId:** شناسه کلاینت
+* **user :**  (اجباری) کد ملی یا شناسه ملی کاربر صاحب توکن که میخواهید اطلاعات آن را دریافت کنید برای شناسه ملی باید کد ۱۱ رقمی و برای کد ملی باید کد ۱۰ رقمی خود را وارد کنید
+
+#### Query Parameters
+   * **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+   * example:  ```getBackCheques12312```
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+{
+    "responseCode": "FN-CTKZ-20000500000",
+    "trackId": "ae2ecba2-0d62-486f-moho-deec782f1f55"
+    "result": {
+    "nid": "0012345678",
+    "legalId": null,
+    "name": "سپهر صبور",
+    "chequeList": [
+      {
+        "accountNumber": "000000000013152586",
+        "amount": 900000000,
+        "backDate": "13960310",
+        "bankCode": 18,
+        "branchCode": "00167",
+        "branchDescription": "بانک تجارت - فخررازي",
+        "date": "13960310",
+        "id": "090922111",
+        "number": "0000887329"
+      }
+    ]
+  },
+  "status": "DONE",
+}
+
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **nid:** کد ملی کاربر
+  * **legalId:** شناسه حقوقی کاربر
+  * **name:** نام و نام خانوادگی کاربر
+  * **chequeList:** لیست چک های برگشتی کاربر
+       * accountNumber: شماره حساب مربوط به چک
+       * amount: مبلغ چک برگشتی
+       * backDate: تاریخ برگشت چک
+       * backCode: کد بانک صادر کننده چک
+       * branchCode: کد شعبه صادر کننده چک
+       * branchDescription: نام و شعبه بانک صادر کننده چک
+       * date: تاریخ وصول چک
+       * id: شناسه چک
+       * number: شماره چک
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+---------
+
+در صورتی که کاربر چکی نداشته باشد پاسخ زیر دریافت می‌شود:
+````````````````
+  {
+    "responseCode": "FN-CTKZ-20000500000",
+    "trackId": "ae2ecba2-0d62-486f-moho-deec782f1f55"
+    "result": {
+        "result": 110,
+        "nid": "0012345678",
+        "legalId": null,
+        "message": "هیچ چکی پیدا نشد"
+    },
+    "status": "DONE",
+  }
+````````````````
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+  </body>
+  <script src="strapdown.js"></script>
+  <script src="controler.js"></script>
+</html>

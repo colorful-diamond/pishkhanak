@@ -1,0 +1,125 @@
+<?php
+
+namespace App\Filament\Resources\BlogPipelineResource\Actions;
+
+use App\Models\BlogContentPipeline;
+use App\Models\AiContent;
+use App\Services\AiService;
+use Filament\Forms;
+use Filament\Notifications\Notification;
+use Filament\Tables\Actions\Action;
+use Illuminate\Support\Facades\Log;
+
+class GenerateAiContentEnhancedAction extends Action
+{
+    public static function make(?string $name = null): static
+    {
+        return parent::make($name ?? 'generate_content_enhanced')
+            ->label('PERSIAN_TEXT_5fcce2ff')
+            ->icon('heroicon-o-sparkles')
+            ->color('success')
+            ->requiresConfirmation()
+            ->modalHeading('PERSIAN_TEXT_ee424271')
+            ->modalDescription('PERSIAN_TEXT_6f756e21')
+            ->modalSubmitActionLabel('PERSIAN_TEXT_ec387463')
+            ->form([
+                Forms\Components\Section::make('PERSIAN_TEXT_eaa739c3')
+                    ->schema([
+                        Forms\Components\Radio::make('processing_mode')
+                            ->label('PERSIAN_TEXT_116ea2e2')
+                            ->options([
+                                'enhance' => 'PERSIAN_TEXT_7a223786',
+                                'generate' => 'PERSIAN_TEXT_78f57e37',
+                                'hybrid' => 'PERSIAN_TEXT_c9c14543',
+                            ])
+                            ->default('enhance')
+                            ->helperText('PERSIAN_TEXT_3f1833e0'),
+                        
+                        Forms\Components\Select::make('model_type')
+                            ->label('PERSIAN_TEXT_43e909ac')
+                            ->options([
+                                'fast' => 'PERSIAN_TEXT_f934b518',
+                                'advanced' => 'PERSIAN_TEXT_a8e64e1e',
+                            ])
+                            ->default('advanced')
+                            ->helperText('PERSIAN_TEXT_5af5cd1c'),
+                        
+                        Forms\Components\Toggle::make('preserve_structure')
+                            ->label('PERSIAN_TEXT_8b1d59a8')
+                            ->default(true)
+                            ->helperText('PERSIAN_TEXT_8a095e3b')
+                            ->visible(fn (Forms\Get $get) => $get('processing_mode') === 'enhance'),
+                    ]),
+                
+                Forms\Components\Section::make('PERSIAN_TEXT_21117e2e')
+                    ->schema([
+                        Forms\Components\TextInput::make('min_sections')
+                            ->label('PERSIAN_TEXT_5655fc0d')
+                            ->numeric()
+                            ->default(8)
+                            ->minValue(6)
+                            ->maxValue(15)
+                            ->helperText('PERSIAN_TEXT_20c570e6'),
+                        
+                        Forms\Components\TextInput::make('subsections_per_section')
+                            ->label('PERSIAN_TEXT_5ab399ac')
+                            ->numeric()
+                            ->default(5)
+                            ->minValue(3)
+                            ->maxValue(6)
+                            ->helperText('PERSIAN_TEXT_11bb7f17'),
+                        
+                        Forms\Components\TextInput::make('words_per_section')
+                            ->label('PERSIAN_TEXT_b881801d')
+                            ->numeric()
+                            ->default(800)
+                            ->minValue(600)
+                            ->maxValue(1500)
+                            ->helperText('PERSIAN_TEXT_46a09529'),
+                    ]),
+                
+                Forms\Components\Section::make('PERSIAN_TEXT_4913c90f')
+                    ->schema([
+                        Forms\Components\Toggle::make('parallel_generation')
+                            ->label('PERSIAN_TEXT_e037ecce')
+                            ->helperText('PERSIAN_TEXT_561ce49c')
+                            ->default(false)
+                            ->reactive()
+                            ->afterStateUpdated(function ($state, $set) {
+                                if ($state) {
+                                    $set('generation_mode_info', 'PERSIAN_TEXT_5a852253');
+                                } else {
+                                    $set('generation_mode_info', 'PERSIAN_TEXT_fbf7e1d5');
+                                }
+                            }),
+                        Forms\Components\Placeholder::make('generation_mode_info')
+                            ->label('')
+                            ->content(function ($get) {
+                                if ($get('parallel_generation')) {
+                                    return new \Illuminate\Support\HtmlString('
+                                        <div style="background-color: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); padding: 12px; border-radius: 8px;"PERSIAN_TEXT_bf0954b9"background-color: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); padding: 12px; border-radius: 8px;"PERSIAN_TEXT_4787a733"Blog Pipeline Content Enhancement\n";
+                    $description .= "Original Source: " . ($record->source ?? 'Unknown') . "\n";
+                    if (!empty($data['additional_context'])) {
+                        $description .= "\nAdditional Context: "PERSIAN_TEXT_c7e05536"' . $record->title . 'PERSIAN_TEXT_5a6c0ff5')
+                        ->persistent()
+                        ->send();
+                    
+                } catch (\Exception $e) {
+                    Log::error('Failed to dispatch enhanced content job', [
+                        'pipeline_id' => $record->id,
+                        'error' => $e->getMessage()
+                    ]);
+                    
+                    Notification::make()
+                        ->danger()
+                        ->title('PERSIAN_TEXT_566b227c')
+                        ->body('PERSIAN_TEXT_05f6ce76' . $e->getMessage())
+                        ->persistent()
+                        ->send();
+                }
+            })
+            ->visible(fn (BlogContentPipeline $record): bool => 
+                !empty($record->original_content) || !empty($record->content)
+            );
+    }
+}

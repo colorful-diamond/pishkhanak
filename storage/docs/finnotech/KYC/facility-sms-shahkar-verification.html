@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>تایید تطبیق کدملی و شماره موبایل با پیامک</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###GET  /facility/v2/clients/{clientId}/shahkar/smsVerify
+
+ * **شرح:** بررسی صحت پیامک ارسالی به مشتری است.
+
+ * **اسکوپ: **  ```facility:sms-shahkar-verification:get```
+
+ * **رویکرد: ** ```Client-Credential```
+
+    * **<a href="ResponseCodesFacility.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+ ````````````````
+ {address}/facility/v2/clients/{clientId}/shahkar/smsVerify?trackId={trackId}&otpTrackId={otpTrackId}&otp={otp}
+ ````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+  ````````````````
+  Authorization : Bearer {Token}
+  ````````````````
+#### URI Parameters
+  * **clientId:**شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+ * **otpTrackId :** (اجباری)   &#x202b; شناسه تولید شده در سرویس تطبیق
+ * **otp: ** (اجباری)  &#x202b; رمز یکبار مصرف ارسال شده
+
+ #### Successful result format (status code 200)
+ ````````````````
+    {
+      "trackId": "2a0f92bf-3b22-4b57-9882-f64a2cc94fd1",
+      "result": {
+      "isValid": true
+       },
+    "status": "DONE"
+    }
+ ````````````````
+ * **result:** آبجکتی از پاسخ سرویس شامل:
+ * **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و
+ برگردانده میشود.
+ * **isValid: ** تایید صحت اطلاعات ورودی
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

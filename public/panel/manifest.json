@@ -1,0 +1,61 @@
+{
+  "resources/css/filament/access/theme.css": {
+    "file": "assets/theme-BIMSOfSI.css",
+    "src": "resources/css/filament/access/theme.css",
+    "isEntry": true
+  },
+  "resources/fonts/IRANSansWeb.ttf": {
+    "file": "assets/IRANSansWeb-ByQHhy79.ttf",
+    "src": "resources/fonts/IRANSansWeb.ttf"
+  },
+  "resources/fonts/IRANSansWeb.woff": {
+    "file": "assets/IRANSansWeb-DZbYsg-i.woff",
+    "src": "resources/fonts/IRANSansWeb.woff"
+  },
+  "resources/fonts/IRANSansWeb.woff2": {
+    "file": "assets/IRANSansWeb-D_IZIiTX.woff2",
+    "src": "resources/fonts/IRANSansWeb.woff2"
+  },
+  "resources/fonts/IRANSansWeb_Bold.ttf": {
+    "file": "assets/IRANSansWeb_Bold-ryuS5WTD.ttf",
+    "src": "resources/fonts/IRANSansWeb_Bold.ttf"
+  },
+  "resources/fonts/IRANSansWeb_Bold.woff": {
+    "file": "assets/IRANSansWeb_Bold-BB87ilqY.woff",
+    "src": "resources/fonts/IRANSansWeb_Bold.woff"
+  },
+  "resources/fonts/IRANSansWeb_Bold.woff2": {
+    "file": "assets/IRANSansWeb_Bold-D2f2Ur2u.woff2",
+    "src": "resources/fonts/IRANSansWeb_Bold.woff2"
+  },
+  "resources/fonts/IRANSansWeb_Light.ttf": {
+    "file": "assets/IRANSansWeb_Light-Mk4m8OX2.ttf",
+    "src": "resources/fonts/IRANSansWeb_Light.ttf"
+  },
+  "resources/fonts/IRANSansWeb_Light.woff": {
+    "file": "assets/IRANSansWeb_Light-BeEdEqHb.woff",
+    "src": "resources/fonts/IRANSansWeb_Light.woff"
+  },
+  "resources/fonts/IRANSansWeb_Light.woff2": {
+    "file": "assets/IRANSansWeb_Light-BXkykddH.woff2",
+    "src": "resources/fonts/IRANSansWeb_Light.woff2"
+  },
+  "resources/fonts/IRANSansWeb_Medium.ttf": {
+    "file": "assets/IRANSansWeb_Medium-Bn0xEgKf.ttf",
+    "src": "resources/fonts/IRANSansWeb_Medium.ttf"
+  },
+  "resources/fonts/IRANSansWeb_Medium.woff": {
+    "file": "assets/IRANSansWeb_Medium-DcsLEMOU.woff",
+    "src": "resources/fonts/IRANSansWeb_Medium.woff"
+  },
+  "resources/fonts/IRANSansWeb_Medium.woff2": {
+    "file": "assets/IRANSansWeb_Medium-h6-TNnyd.woff2",
+    "src": "resources/fonts/IRANSansWeb_Medium.woff2"
+  },
+  "resources/js/filament/access/app.js": {
+    "file": "assets/app-DSKJAB0o.js",
+    "name": "app",
+    "src": "resources/js/filament/access/app.js",
+    "isEntry": true
+  }
+}

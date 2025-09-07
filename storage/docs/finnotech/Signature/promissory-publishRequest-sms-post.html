@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<html>
+<title>درخواست پیامکی صدور سفته الکترونیک</title>
+<body onload="checkSandbox()"  >
+<xmp theme="cerulean" style="display:none;">
+
+###POST /promissory/v2/clients/{clientId}/sms/promissoryPublishRequest
+
+* **شرح:** در این سرویس با وارد کردن اطلاعات صادرکننده و دریافت‌کننده سفته، در خروجی سفته ی اولیه را دریافت خواهید کرد.
+
+* **اسکوپ: **  ```promissory:sms-publish-request:post```
+
+* **رویکرد: ** ```Authorization_SMS```
+
+* **<a href="ResponsecodePromissory.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/promissory/v2/clients/{clientId}/sms/promissoryPublishRequest?trackId={trackId}
+````````````````
+ <div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+     https://sandboxapi.finnotech.ir <b> :address </b>
+ </div>
+
+ <div class="production-address production" style="float:right" style="display: block">
+     https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+  مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+#### URI Parameters
+  * **clientId:** شناسه کلاینت
+#### Query Parameters
+ * **trackId :** (اجباری)  &#x202b; رشته ای با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. پیشنهاد 2ما برای trackId تولید کردن UUID است. در صورت نیاز به نتیجه یک فراخوانی میتوانید با trackId آن را فیلتر کنید. در گزارش فراخوانی سرویس فراخوانی مورد نظر را با همین کد پیگیری پیدا میکنید.
+ * example:  ```ef226c90-20cc-48c6-b582-dee29e71676a```
+
+#### Body
+##### Example:
+````````````````
+{
+    "issuerName": "نام صادرکننده",
+    "issuerIdCode": "0069987007",
+    "issuerIban": "IR070620000000311165320003",
+    "issuerIdType": "1",
+    "issuerPostalCode": "1398547754",
+    "issuerAddress": "تهرانسر",
+    "issuerMobile": "09123456789",
+    "receiverName": "نام دریافت کننده",
+    "receiverIdCode": "0365287007",
+    "receiverIdType": "1",
+    "receiverMobile": "09123456789",
+    "paymentPlace": "زعفرانیه",
+    "amount": "2000",
+    "duDate": "14051011",
+    "description": "پس توضیحات",
+    "transferable": true
+}
+````````````````
+* **issuerName: ** (اجباری) نام صادر کننده سفته
+* **issuerIdCode: ** (اجباری) کدملی صادر کننده سفته این کد ملی باید با کد ملی دارنده‌ی توکن یکسان باشد
+* **issuerIban: ** (اجباری) شماره شبا صادر کننده سفته
+* **issuerIdType: ** (اجباری) نوع کد شناسایی صادر کننده سفته: مشتری حقیقی 1
+* **issuerPostalCode: ** (اجباری) کدپستی صادر کننده سفته
+* **issuerAddress: ** (اجباری) آدرس صادر کننده سفته
+* **issuerMobile: ** (اجباری) شماره موبایل صادر کننده سفته
+* **receiverName: ** (اجباری) نام دریافت کننده سفته
+* **receiverIdCode: ** (اجباری) کدملی دریافت کننده سفته
+* **receiverIdType: ** (اجباری) نوع کد ملی یا شناسه ملی دریافت کننده سفته: مشتری حقیقی 1 و مشتری حقوقی 2
+* **receiverMobile: ** (اجباری) شماره موبایل دریافت کننده سفته
+* **paymentPlace: ** (اجباری) محل پرداخت
+* **amount: ** (اجباری) مبلغ تعهد
+* **duDate: ** (اختیاری) تاریخ سررسید فرمت: YYYYMMDD
+* **description: ** (اختیاری) توضیحات
+* **transferable: ** (اختیاری) این فیلد مشخص کننده قابل حواله کرد بودن سفته است و به طور پیش فرض مقدار true میباشد
+
+
+ #### Successful result format (status code 200)
+````````````````
+{
+    "responseCode": "FN-PSKZ-20000100000",
+    "trackId": "526e-4a7f-92fd-af9f70f",
+    "result": {
+        "requestId": "132456",
+        "promissoryId": "3464621",
+        "unSignedPdf": "base64PDF",
+    },
+    "status": "DONE"
+}
+````````````````
+* **responseCode:** کد پاسخ دریافتی
+* ** trackId:** کد پیگیری که در فراخوانی سرویس فرستاده شده است.
+* ** result:** آبجکتی از پاسخ سرویس شامل:
+    * **requestId: ** شناسه درخواست
+    * **promissoryId: ** شناسه سفته
+    * **unSignedPdf: ** سفته ی امضا نشده با فرمت base64
+* ** status:** &#x202b; DONE/FAILED
+* ** error:** جزییات خطا (در صورت بروز خطا)
+  * **code:** استاتوس کد
+  * **message:** پیغام خطا
+
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+<!--در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [تبدیل شماره پلاک به کد](/doc/plateNumberTable.html)-->
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

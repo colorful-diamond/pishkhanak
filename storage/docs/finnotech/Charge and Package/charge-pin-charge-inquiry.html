@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام وضعیت پین شارژ</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /charge/v2/clients/{clientId}/pinChargeInquiry
+* **شرح: **  به کمک این سرویس با وارد کردن شناسه پیگیری سرویس دریافت پین شارژ، اطلاعات پین شارژ دریافتی را مشاهده کنید.
+
+* **اسکوپ: **  ```charge:pin-charge-inquiry:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+
+````````````````
+{address}/charge/v2/clients/{clientId}/pinChargeInquiry?trackId={trackId}&inquiryTrackId={inquiryTrackId}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت  توکن Client Credential سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId:**شناسه کلاینت
+
+#### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```getUserinfo781432```
+
+* **inquiryTrackId:** اختیاری (string)  &#x202b; کد پیگیری سرویس پین شارژ فراخوانی شده
+
+   * example:  ```heyhey```
+
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+   {
+   "responseCode": "FN-PGFH-20000100000",
+   "trackId": "8267738a-9efd-4995-8581-63b638a40f66",
+   "result": {
+       "status": "SUCCESS",
+       "pin": "111222333444555666777",
+       "serial": "29194000358477769"
+   },
+   "status": "DONE"
+   }
+````````````````
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **status:** وضعیت خرید شارژ؛ دارای دو مقدار SUCCESS و FAILED
+  * **pin:** مقدار پین در صورت SUCCESS بودن status
+  * **serial:** مقدار سریال در صورت SUCCESS بودن status
+  
+#### UnSuccessful result format
+در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>

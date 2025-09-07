@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+	<meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام وضعیت حیات</title>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /kyc/v2/clients/{clientId}/deathStatusInquiry
+* **شرح: **  این سرویس با دریافت کدملی و تاریخ تولد، وضعیت حیات که یکی از مقادیر زنده یا مرده است را در خروجی نمایش میدهد.  این سرویس از ساعت ۲۳:۰۰ تا ساعت ۷:۰۰ غیر فعال است . در صورتی که در این بازه سرویس را فراخوانی کنید با خطای 'شما در بازه زمانی تعریف شده قرار ندارید' مواجه خواهید شد .
+
+* **اسکوپ: **  ```kyc:death-status-inquiry:get```
+
+* **رویکرد: ** ```Client-Credential```
+
+* **<a href="Responsecodes.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+
+````````````````
+{address}/kyc/v2/clients/{clientId}/deathStatusInquiry?trackId={trackId}&nationalCode={nationalCode}&birthDate={birthDate}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+
+#### URI Parameters
+* **clientId :**  (اجباری) شناسه کلاینت
+
+#### Query Parameters
+* **trackId:**  اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+
+  * example:  ```9602281200```
+* **nationalCode:**  کد ملی
+* **birthDate:**  &#x202b; تاریخ تولد صاحب  کد ملی که اجباری است، به صورت yyyy/mm/dd
+
+
+###Results Format
+
+
+#### Successful result format (status code 200)
+*‌ فیلدهای زیر را در پاسخ مشاهده میکنید.
+````````````````
+		  {
+
+	 		"trackId": "9602281200",
+	        "responseCode": "FN-KCFH-20002500000",
+    		"result": {
+	 				"deathStatus": "زنده",
+	 		        "trackingCode": "123"
+		    },
+	 		"status": "DONE"
+
+		  }
+````````````````
+
+
+* **deathStatus:** &#x202b; وضعیت حیات که یکی از مقادیر زنده|مرده را دارد
+* **trackingCode:** &#x202b; کد رهگیری ثبت احوال
+* **trackId:** کد پیگیری، اگر ارسال شده باشد همان مقدار برگردانده میشود و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **status:**  &#x202b; وضعیت فراخوانی که میتواند یکی از موارد DONE|FAILED باشد
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+

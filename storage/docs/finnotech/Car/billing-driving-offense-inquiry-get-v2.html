@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="robots" content="noindex"/>
+</head>
+<html>
+<title>استعلام خلافی خودرو (ورژن دو)
+    </title>
+
+<style>
+  #plateTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 400px;
+    margin: auto;
+
+  }
+  
+  #plateTable td, #plateTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  #plateTable tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #plateTable tr:hover {background-color: #ddd;}
+  
+  #plateTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #04AA6D;
+    color: white;
+  }
+</style>
+<body onload="checkSandbox()">
+ <xmp theme="cerulean" style="display:none;">
+
+###GET   /billing/v2/clients/{clientId}/drivingOffense
+* **شرح: **  سرویس استعلام خلافی خودرو با گرفتن شماره موبایل، کدملی و پلاک خودرو لیست خلافی های خودرو را همراه شماره قبض و شماره پرداخت برمیگرداند.
+
+* **اسکوپ: **  ```billing:driving-offense-inquiry:get```
+
+* **رویکرد: ** ```Client_Credential```
+
+* **<a href="ResponsecodesBilling.pdf"> دانلود مستندات ریسپانس کد ها</a> **
+
+````````````````
+{address}/billing/v2/clients/{clientId}/drivingOffense?version=2&trackId={trackId}&mobile={mobile}&nationalID={nationalID}&plateNumber={plateNumber}
+````````````````
+<div class="sandboxaddress sandbox" id="sandbox" style="float:right" style="display: none" >
+ https://sandboxapi.finnotech.ir<b><span class="finnotech-sandbox-address-text"> :address </span></b>
+</div>
+
+<div class="production-address production" style="float:right" style="display: block">
+ https://api.finnotech.ir <b> :address </b>
+ </div>
+
+
+#### Headers
+مقادیر زیر باید در هدر قرار بگیرد
+````````````````
+Authorization : Bearer {Token}
+````````````````
+* برای فراخوانی این سرویس لازم است پس از دریافت  توکن Client Credential سرویس را فراخوانی نمایید.
+
+#### URI Parameters
+* **clientId:**شناسه کلاینت
+
+
+ #### Query Parameters
+* **trackId:** اختیاری (string)  &#x202b; کد پیگیری، رشته ای اختیاری با طول حداکثر ۴۰ کاراکتر شامل حرف و عدد. در صورت ارسال trackId، فراخوانی سرویس خود را با همین مقدار استعلام و پیگیری کنید.(در گزارش فراخوانی سرویس ها با همین رشته نتیجه را ببینید). در صورتیکه که این فیلد را ارسال نکنید یک رشته UUID برای این فراخوانی در نظر گرفته میشود و در پاسخ فراخوانی برگردانده میشود.
+  * example:  ```getUserinfo876543```
+* **mobile:** اجباری (string)  &#x202b; شماره موبایل متعلق به صاحب خودرو.
+  * example:  ```09998887766```
+* **nationalID:** اجباری (string)  &#x202b; شماره ملی متعلق به صاحب خودرو.
+  * example:  ```6789123456```
+* **plateNumber:** اجباری (string)  &#x202b; شماره پلاک ۹ رقمی خودرو که باید طبق الگوی توضیح داده شده در انتهای مستند وارد شود. 
+  * example:  ```552411188```
+
+
+
+####Results Format
+##### Successful result format (status code 200)
+````````````````
+{
+  "trackId": "4ce7fa61-1734-4ced-b343-554a9ec5bad9",
+  "result": {
+      "Bills": [    
+        {
+          "id": "id",
+          "type": "توقف دوبله در معابر",
+          "description": "الصاقی",
+          "code": "2085",
+          "price": 600000,
+          "city": null,
+          "location": "تهران ولیعصر بهرامی",
+          "date": "1396/11/24 - 11:11",
+          "serial": "999999999_99",
+          "dataValue": "",
+          "barcode": null,
+          "license": "plateNumber",
+          "billId": 12345678,
+          "paymentId": 123456789,
+          "normalizedDate": "2018-02-13 11:11:00",
+          "isPayable": true,
+          "policemanCode": null,
+          "hasImage": false
+      },
+      ],
+      "TotalAmount": 600000
+  },
+  "status": "DONE"
+}
+````````````````
+
+     
+     
+     
+* **trackId: ** کد پیگیری، اگر ارسال شده باشد همان مقدار و در غیر اینصورت یک رشته تصادفی تولید و برگردانده میشود
+* **result:** آبجکتی از پاسخ سرویس شامل:
+  * **Bills:** آرایه‌ای از خلافی‌های خودرو که هرکدام از آن‌ها دارای مبلغ، شناسه‌قبض و شناسه پرداخت می‌باشد.
+    * **id:**  مشخصه پرداخت
+    * **type:** نوع تخلف
+    * **description:**  شرح نوع ثبت
+    * **price:**  مبلغ خلافی
+    * **city:**  شهر
+    * **location:**  آدرس محدوده ی تخلف
+    * **date:**  تاریخ شمسی
+    * **serial:**  پلاک کد شده
+    * **license:** شماره پلاک خودرو
+    * **billId:**  شناسه قبض
+    * **paymentId:**  شناسه پرداخت
+    * **normalizedDate:** تاریخ میلادی
+    * **isPayable:** قابلیت پرداخت را مشخص می‌کند. در صورتی که مقدار آن برابر با true باشد آنگاه جریمه قابل پرداخت است.
+    * **hasImage:** وضعیت ثبت تصویر توسط دوربین زا نشان می‌دهد. در صورتی که مقدار آن true باشد، آنگاه جریمه توسط دوربین ثبت شده است.
+  * ** TotalAmount:** مبلغ کل جریمه
+* **status: ** وضعیت فراخوانی سرویس
+ * DONE: فراخوانی موفق سرویس
+ * FAILED: فراخوانی ناموفق سرویس
+* **error:** جزییات خطا (در صورت بروز خطا)
+
+
+#### UnSuccessful result format
+ در اینجا میتوانید لیست خطاهای سرویس ها را مشاهده کنید  [لیست خطاها](/doc/generic-errors.html)
+
+
+<h4 dir="rtl">نحوه تشکیل شماره نه رقمی plateNumber</h4>
+<div dir="rtl" style="font-size: 15px;">
+   شماره پلاک یا plateNumber به‌ مانند سطر سبزرنگ جدول پایین ساخته می‌شود.
+</div>
+<table dir="rtl" id="plateTable" style="margin-top: -570px">
+  <tr>
+    <td>
+      ایران ۸۸
+    </td>
+    <td>
+      ۱۱۱
+    </td>
+    <td>
+      ق
+    </td>
+    <td>
+      ۵۵
+    </td>
+  </tr>
+  <tr>
+    <td>
+      ۸۸
+    </td>
+    <td>
+      ۱۱۱
+    </td>
+    <td>
+      ۲۴
+    </td>
+    <td>
+      ۵۵
+    </td>
+  </tr>
+  <tr>
+    <th colspan="4">
+      ۵۵۲۴۱۱۱۸۸
+    </th>
+  </tr>
+  
+  <tr>
+    <td colspan="2">
+      ۰۱
+    </td>
+    <td colspan="2">
+      الف 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۰۲
+    </td>
+    <td colspan="2">
+      ب 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۰۳
+    </td>
+    <td colspan="2">
+      پ 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۰۴
+    </td>
+    <td colspan="2">
+      ت 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۰۵
+    </td>
+    <td colspan="2">
+      ث 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۰۶
+    </td>
+    <td colspan="2">
+      ج 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۰۷
+    </td>
+    <td colspan="2">
+      چ 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۰۸
+    </td>
+    <td colspan="2">
+      ح    
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۰۹
+    </td>
+    <td colspan="2">
+      خ 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۱۰
+    </td>
+    <td colspan="2">
+      د 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۱۱
+    </td>
+    <td colspan="2">
+      ذ 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۱۲
+    </td>
+    <td colspan="2">
+      ر 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۱۳
+    </td>
+    <td colspan="2">
+      ز 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۱۴
+    </td>
+    <td colspan="2">
+      ژ 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۱۵
+    </td>
+    <td colspan="2">
+      س 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۱۶
+    </td>
+    <td colspan="2">
+      ش 
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۱۷ 
+    </td>
+    <td colspan="2">
+      ص
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۱۸ 
+    </td>
+    <td colspan="2">
+      ض
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۱۹ 
+    </td>
+    <td colspan="2">
+      ط
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۲۰ 
+    </td>
+    <td colspan="2">
+      ظ
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۲۱ 
+    </td>
+    <td colspan="2">
+      ع
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۲۲ 
+    </td>
+    <td colspan="2">
+      غ
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۲۳ 
+    </td>
+    <td colspan="2">
+      ف
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۲۴ 
+    </td>
+    <td colspan="2">
+      ق
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۲۵ 
+    </td>
+    <td colspan="2">
+      ک
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۲۶ 
+    </td>
+    <td colspan="2">
+      گ
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۲۷ 
+    </td>
+    <td colspan="2">
+      ل
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۲۸ 
+    </td>
+    <td colspan="2">
+      م
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۲۹ 
+    </td>
+    <td colspan="2">
+      ن
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۳۰ 
+    </td>
+    <td colspan="2">
+      و
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۳۱ 
+    </td>
+    <td colspan="2">
+      ه
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۳۲ 
+    </td>
+    <td colspan="2">
+      ی
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۳۳ 
+    </td>
+    <td colspan="2">
+      معلولین
+    </td>  
+  </tr>
+
+
+  <tr>
+    <td colspan="2">
+      ۳۴ 
+    </td>
+    <td colspan="2">
+      تشریفات
+    </td>  
+  </tr>
+</table>
+
+</xmp>
+</body>
+<script src="strapdown.js"></script>
+<script src="controler.js"></script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
