@@ -69,7 +69,8 @@ class ImportBlogBsonCommand extends Command
         try {
             // Check if pymongo is installed
             $pythonScript = $this->createPythonImportScript();
-            $command = "python3 {$pythonScript} " . escapeshellarg($filePath);
+            // Properly escape the python script path to prevent command injection
+            $command = "python3 " . escapeshellarg($pythonScript) . " " . escapeshellarg($filePath);
             
             if ($limit) {
                 $command .= " --limit " . escapeshellarg($limit);

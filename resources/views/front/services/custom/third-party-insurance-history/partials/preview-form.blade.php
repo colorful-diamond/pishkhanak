@@ -9,7 +9,7 @@
         <!-- Check if gateways are available -->
         @if($gateways && $gateways->isNotEmpty())
             <!-- Custom Wallet Charge Form -->
-            <form action="{{ route('app.user.wallet.charge') }}" method="POST" class="space-y-4">
+            <form action="{{ route('app.user.wallet.charge', [], false) }}" method="POST" class="space-y-4">
                 @csrf
                 
                 <!-- Hidden fields for service continuation -->
@@ -25,8 +25,8 @@
                         <select name="amount" 
                                 id="amount" 
                                 class="w-full px-4 py-4 pr-10 border-2 border-blue-300 rounded-lg bg-white text-gray-900 font-medium appearance-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer">
-                            <option value="100000">۱۰۰,۰۰۰ تومان</option>
-                            <option value="200000">۲۰۰,۰۰۰ تومان</option>
+                            <option value="100000" @if($service->price != 20000) selected @endif>۱۰۰,۰۰۰ تومان</option>
+                            <option value="200000" @if($service->price == 20000) selected @endif>۲۰۰,۰۰۰ تومان</option>
                             <option value="500000">۵۰۰,۰۰۰ تومان</option>
                             <option value="1000000">۱,۰۰۰,۰۰۰ تومان</option>
                         </select>

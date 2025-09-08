@@ -36,7 +36,7 @@ class SmsService
             $result = $this->sendSms($formattedMobile, $message);
             Log::info(json_encode($result));
 
-            if ($result && isset($result['success']) && $result['success']) {
+            if ($result === true) {
                 Log::info('OTP SMS sent successfully', [
                     'mobile' => $mobile,
                     'type' => $type,

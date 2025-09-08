@@ -25,9 +25,9 @@ async function handle(data) {
   } = data;
   let provider;
   if (mobile == '09153887809' || mobile == '09112697701' || mobile == '09104775864' || mobile == '09920860628Failed to send OTP: "محدودیت در درخواست گزارش') {
-    provider = 'nics24';
+    provider = 'rade';
   } else {
-    provider = 'nics24';
+    provider = 'rade';
   }
 
   const {

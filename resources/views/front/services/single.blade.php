@@ -17,7 +17,7 @@
         <!-- Main Service Card -->
         <div class="flex flex-col md:flex-row items-start gap-12">
             <!-- Form Section (Upper Custom View) -->
-            <div class="w-full md:w-1/2">
+            <div class="w-full {{ $service->hasMedia('thumbnail') ? 'md:w-1/2' : '' }}">
                 @php
                     // Hierarchical view loading for sub-services
                     $upperView = null;
@@ -52,20 +52,24 @@
                     </div>
                 @endif
             </div>
-            <!-- Image Section -->
-            <div class="w-full md:w-1/2 pb-4">
-                @if($service->hasMedia('thumbnail'))
+            <!-- Image Section - Only show if image exists -->
+            @if($service->hasMedia('thumbnail'))
+                <div class="w-full md:w-1/2 pb-4">
                     <img src="{{ $service->getFirstMediaUrl('thumbnail') }}" alt="{{ $service->title }}" class="w-full h-full rounded-2xl bg-sky-100">
-                @else
-                    <div class="w-full h-full bg-sky-100 rounded-2xl flex items-center justify-center">
-                        <p class="text-gray-400">بدون تصویر</p>
-                    </div>
-                @endif
-            </div>
+                </div>
+            @endif
         </div>
 
         <!-- Dynamic Content Section -->
-        @if($service->content)
+        @php
+            $content = $service->content ?? '';
+            $isPlaceholder = str_contains($content, 'در حال بازسازی') || 
+                           str_contains($content, 'بعداً مراجعه') ||
+                           str_contains($content, 'در دست بازسازی') ||
+                           strlen(strip_tags($content)) < 50;
+        @endphp
+        
+        @if($service->content && !$isPlaceholder)
             @if(str_contains($service->content, 'service-content'))
                 {!! $service->content !!}
             @else

@@ -28,10 +28,11 @@ class GatewayTransactionChartWidget extends ChartWidget
             ->select(
                 DB::raw('DATE(created_at) as date'),
                 DB::raw('COUNT(*) as total_count'),
-                DB::raw("COUNT(CASE WHEN status = '{$completedStatus}' THEN 1 END) as completed_count"),
-                DB::raw("SUM(CASE WHEN status = '{$completedStatus}' THEN total_amount ELSE 0 END) as revenue"),
-                DB::raw("SUM(CASE WHEN status = '{$completedStatus}' THEN gateway_fee ELSE 0 END) as profit")
+                DB::raw("COUNT(CASE WHEN status = ? THEN 1 END) as completed_count"),
+                DB::raw("SUM(CASE WHEN status = ? THEN total_amount ELSE 0 END) as revenue"),
+                DB::raw("SUM(CASE WHEN status = ? THEN gateway_fee ELSE 0 END) as profit")
             )
+            ->addBinding([$completedStatus, $completedStatus, $completedStatus], 'select')
             ->groupBy('date')
             ->orderBy('date')
             ->get()

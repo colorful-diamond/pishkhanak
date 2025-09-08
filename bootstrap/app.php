@@ -4,6 +4,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\CheckFinnotechSmsAuth;
+use App\Http\Middleware\SecurityHeaders;
+use App\Http\Middleware\AuthRateLimit;
+use App\Http\Middleware\InputValidation;
+use App\Http\Middleware\AuditLog;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -24,11 +28,22 @@ return Application::configure(basePath: dirname(__DIR__))
             'ai-search-throttle' => \App\Http\Middleware\AiSearchThrottle::class,
             'file-upload-security' => \App\Http\Middleware\FileUploadSecurityMiddleware::class,
             'redirect' => \App\Http\Middleware\RedirectMiddleware::class,
+            'security.headers' => SecurityHeaders::class,
+            'auth.rate.limit' => AuthRateLimit::class,
+            'input.validation' => InputValidation::class,
+            'audit.log' => AuditLog::class,
         ]);
         
         // Add redirect middleware to web group (early in the stack)
         $middleware->web(prepend: [
             \App\Http\Middleware\RedirectMiddleware::class,
+        ]);
+        
+        // Add security headers, input validation, and audit logging middleware to web group
+        $middleware->web(append: [
+            SecurityHeaders::class,
+            InputValidation::class,
+            AuditLog::class,
         ]);
         
         // Replace the default VerifyCsrfToken with our custom one

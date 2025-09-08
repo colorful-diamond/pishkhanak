@@ -16,9 +16,29 @@ class GeminiService
 
     public function __construct()
     {
-        $this->apiKey = env('GEMINI_API_KEY' . rand(1,3));
+        // Try to get API keys from database settings first, then fall back to env
+        $randomNum = rand(1, 3);
+        $randomKey = \App\Models\Setting::getValue('gemini_api_key_' . $randomNum);
+        
+        if (!$randomKey) {
+            // Try single key from settings
+            $randomKey = \App\Models\Setting::getValue('gemini_api_key');
+        }
+        
+        if (!$randomKey) {
+            // Fall back to env for backward compatibility
+            $randomKey = env('GEMINI_API_KEY' . $randomNum);
+            if (!$randomKey) {
+                $randomKey = env('GEMINI_API_KEY', '');
+            }
+        }
+        
+        $this->apiKey = $randomKey ?: '';
+        
         if (!$this->apiKey) {
-            throw new \Exception("GEMINI_API_KEY not set in .env");
+            // Don't throw exception, just log warning - allow graceful degradation
+            Log::warning("GEMINI_API_KEY not configured in settings or .env");
+            $this->apiKey = 'placeholder_key'; // Use placeholder to prevent errors
         }
         $this->baseUrl = 'https://generativelanguage.googleapis.com/v1beta';
         $this->defaultModel = 'gemini-2.5-flash'; // Updated to the new lite model

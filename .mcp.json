@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "chrome": {
+      "command": "npx",
+      "args": ["mcp-chrome-bridge"],
+      "env": {}
+    },
+    "cipher": {
+      "command": "npx",
+      "args": ["@byterover/cipher"],
+      "env": {
+        "CIPHER_CONFIG_PATH": "./.cipher/cipher.yml",
+        "CIPHER_WORKSPACE": "/home/pishkhanak/htdocs/pishkhanak.com"
+      }
+    }
+  }
+}

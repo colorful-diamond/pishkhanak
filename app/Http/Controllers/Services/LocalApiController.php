@@ -78,8 +78,11 @@ abstract class LocalApiController extends Controller implements BaseServiceContr
             ]);
 
             // Redirect to progress page
+            // For sub-services, use parent slug since the controller is mapped to parent
+            $serviceSlug = $service->parent_id ? $service->parent->slug : $service->slug;
+            
             return redirect()->route('services.progress', [
-                'service' => $service->slug,
+                'service' => $serviceSlug,
                 'hash' => $localRequest['hash']
             ]);
 
@@ -175,8 +178,11 @@ abstract class LocalApiController extends Controller implements BaseServiceContr
             ]);
 
             // Redirect back to progress page to show processing
+            // For sub-services, use parent slug since the controller is mapped to parent
+            $serviceSlug = $service->parent_id ? $service->parent->slug : $service->slug;
+            
             return redirect()->route('services.progress', [
-                'service' => $service->slug,
+                'service' => $serviceSlug,
                 'hash' => $hash
             ])->with('success', 'کد تایید دریافت شد، در حال پردازش نتیجه...');
 
@@ -217,7 +223,7 @@ abstract class LocalApiController extends Controller implements BaseServiceContr
                 'hash' => $localRequest['hash'],
                 'estimated_duration' => $this->estimatedDuration,
                 'progress_url' => route('services.progress', [
-                    'service' => $service->slug,
+                    'service' => $service->parent_id ? $service->parent->slug : $service->slug,
                     'hash' => $localRequest['hash']
                 ])
             ];
@@ -242,8 +248,16 @@ abstract class LocalApiController extends Controller implements BaseServiceContr
         $localRequest = $this->localRequestService->getRequest($resultId);
 
         if (!$localRequest || $localRequest['status'] !== 'completed') {
-            return redirect()->route('services.show', $service->slug)
-                ->withErrors(['error' => 'نتیجه مورد نظر یافت نشد.']);
+            // For sub-services, build the correct route
+            if ($service->parent_id) {
+                return redirect()->route('services.show', [
+                    'slug1' => $service->parent->slug,
+                    'slug2' => $service->slug
+                ])->withErrors(['error' => 'نتیجه مورد نظر یافت نشد.']);
+            } else {
+                return redirect()->route('services.show', $service->slug)
+                    ->withErrors(['error' => 'نتیجه مورد نظر یافت نشد.']);
+            }
         }
 
         return view('front.services.local-api.result', [
@@ -262,14 +276,30 @@ abstract class LocalApiController extends Controller implements BaseServiceContr
         $localRequest = $this->localRequestService->getRequestStatus($hash);
 
         if (!$localRequest) {
-            return redirect()->route('services.show', $service->slug)
-                ->withErrors(['error' => 'درخواست مورد نظر یافت نشد.']);
+            // For sub-services, build the correct route
+            if ($service->parent_id) {
+                return redirect()->route('services.show', [
+                    'slug1' => $service->parent->slug,
+                    'slug2' => $service->slug
+                ])->withErrors(['error' => 'درخواست مورد نظر یافت نشد.']);
+            } else {
+                return redirect()->route('services.show', $service->slug)
+                    ->withErrors(['error' => 'درخواست مورد نظر یافت نشد.']);
+            }
         }
 
         // Check if request is expired
         if ($localRequest['is_expired'] ?? false) {
-            return redirect()->route('services.show', $service->slug)
-                ->withErrors(['error' => 'درخواست منقضی شده است. لطفاً مجدداً تلاش کنید.']);
+            // For sub-services, build the correct route
+            if ($service->parent_id) {
+                return redirect()->route('services.show', [
+                    'slug1' => $service->parent->slug,
+                    'slug2' => $service->slug
+                ])->withErrors(['error' => 'درخواست منقضی شده است. لطفاً مجدداً تلاش کنید.']);
+            } else {
+                return redirect()->route('services.show', $service->slug)
+                    ->withErrors(['error' => 'درخواست منقضی شده است. لطفاً مجدداً تلاش کنید.']);
+            }
         }
 
         // Don't redirect if completed - stay on progress page to show 100% and action buttons
@@ -289,8 +319,11 @@ abstract class LocalApiController extends Controller implements BaseServiceContr
     public function showOtpVerification(Request $request, $service, string $hash)
     {
         // Redirect to progress page which now handles OTP input
+        // For sub-services, use parent slug since the controller is mapped to parent
+        $serviceSlug = $service->parent_id ? $service->parent->slug : $service->slug;
+        
         return redirect()->route('services.progress', [
-            'service' => $service->slug,
+            'service' => $serviceSlug,
             'hash' => $hash
         ]);
     }
@@ -300,8 +333,16 @@ abstract class LocalApiController extends Controller implements BaseServiceContr
      */
     public function showSmsVerification(Request $request, Service $service, string $hash)
     {
-        return redirect()->route('services.show', $service->slug)
-            ->withErrors(['error' => 'این سرویس از احراز هویت پیامکی پشتیبانی نمی‌کند.']);
+        // For sub-services, build the correct route
+        if ($service->parent_id) {
+            return redirect()->route('services.show', [
+                'slug1' => $service->parent->slug,
+                'slug2' => $service->slug
+            ])->withErrors(['error' => 'این سرویس از احراز هویت پیامکی پشتیبانی نمی‌کند.']);
+        } else {
+            return redirect()->route('services.show', $service->slug)
+                ->withErrors(['error' => 'این سرویس از احراز هویت پیامکی پشتیبانی نمی‌کند.']);
+        }
     }
 
     /**
@@ -309,8 +350,16 @@ abstract class LocalApiController extends Controller implements BaseServiceContr
      */
     public function handleSmsOtpVerification(Request $request, Service $service, string $hash)
     {
-        return redirect()->route('services.show', $service->slug)
-            ->withErrors(['error' => 'این سرویس از تایید پیامک پشتیبانی نمی‌کند.']);
+        // For sub-services, build the correct route
+        if ($service->parent_id) {
+            return redirect()->route('services.show', [
+                'slug1' => $service->parent->slug,
+                'slug2' => $service->slug
+            ])->withErrors(['error' => 'این سرویس از تایید پیامک پشتیبانی نمی‌کند.']);
+        } else {
+            return redirect()->route('services.show', $service->slug)
+                ->withErrors(['error' => 'این سرویس از تایید پیامک پشتیبانی نمی‌کند.']);
+        }
     }
 
     /**

@@ -19,3 +19,6 @@ yarn-error.log
 /.vscode
 */cpu/*
 */gpu/*
+# Cipher MCP configuration and data
+.cipher/
+.cipher/.env

@@ -143,7 +143,10 @@ class RegenerateServiceContent extends Command
                 ->where('model_type', 'Service')
                 ->pluck('id');
             
-            $query->whereIn(DB::raw('CAST(content AS INTEGER)'), $failedAiContentIds);
+            // Safer approach: filter services where content matches failed AI content IDs
+            $query->whereIn('content', $failedAiContentIds->map(function($id) {
+                return (string) $id;
+            }));
         }
         
         elseif ($this->option('missing')) {
@@ -154,7 +157,7 @@ class RegenerateServiceContent extends Command
                   ->orWhereNotExists(function ($subQuery) {
                       $subQuery->select(DB::raw(1))
                                ->from('ai_contents')
-                               ->whereRaw('CAST(services.content AS INTEGER) = ai_contents.id');
+                               ->whereColumn('ai_contents.id', '=', DB::raw('CAST(services.content AS VARCHAR)'));
                   });
             });
         }
@@ -168,7 +171,7 @@ class RegenerateServiceContent extends Command
         }
         
         // Always filter active services only
-        $query->where('active', true);
+        $query->where('is_active', true);
         
         // Order by priority (you can adjust this)
         $query->orderBy('id');

@@ -54,7 +54,24 @@ class AutoGenerateServiceContent extends Command
                     ->orWhere('content', '')
                     ->orWhere(function($sq) {
                         // Content is not numeric (not an AI content ID)
-                        $sq->whereRaw("content !~ '^[0-9]+$'");
+                        // Check if content exists but is not a valid AI content ID
+                        $sq->whereNotNull('content')
+                           ->where('content', '!=', '')
+                           ->where(function($q) {
+                               // Content is not numeric OR doesn't exist in ai_contents
+                               // We check if content is not a valid AI content reference
+                               $q->whereNull('content')
+                                 ->orWhere('content', '=', '')
+                                 ->orWhere('content', 'LIKE', '%<%')  // Contains HTML
+                                 ->orWhere('content', 'LIKE', '%>%')  // Contains HTML
+                                 ->orWhereNotExists(function($query) {
+                                     // Check if the numeric content exists in ai_contents
+                                     $query->select(\DB::raw(1))
+                                           ->from('ai_contents')
+                                           ->whereRaw('CAST(ai_contents.id AS TEXT) = services.content')
+                                           ->whereRaw('services.content ~ ?', ['^[0-9]+$']);
+                                 });
+                           });
                     });
             });
         }
@@ -77,7 +94,24 @@ class AutoGenerateServiceContent extends Command
                     ->orWhere('content', '')
                     ->orWhere(function($sq) {
                         // Content is not numeric (not an AI content ID)
-                        $sq->whereRaw("content !~ '^[0-9]+$'");
+                        // Check if content exists but is not a valid AI content ID
+                        $sq->whereNotNull('content')
+                           ->where('content', '!=', '')
+                           ->where(function($q) {
+                               // Content is not numeric OR doesn't exist in ai_contents
+                               // We check if content is not a valid AI content reference
+                               $q->whereNull('content')
+                                 ->orWhere('content', '=', '')
+                                 ->orWhere('content', 'LIKE', '%<%')  // Contains HTML
+                                 ->orWhere('content', 'LIKE', '%>%')  // Contains HTML
+                                 ->orWhereNotExists(function($query) {
+                                     // Check if the numeric content exists in ai_contents
+                                     $query->select(\DB::raw(1))
+                                           ->from('ai_contents')
+                                           ->whereRaw('CAST(ai_contents.id AS TEXT) = services.content')
+                                           ->whereRaw('services.content ~ ?', ['^[0-9]+$']);
+                                 });
+                           });
                     });
             });
         }

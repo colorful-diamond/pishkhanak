@@ -10,22 +10,36 @@ Route::prefix('user')->middleware('require.auth')->group(function () {
     // Login routes (with guest middleware to redirect if already logged in)
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'showLoginForm'])->name('app.auth.login');
-        Route::post('/login', [AuthController::class, 'login'])->name('app.auth.login.submit');
+        Route::post('/login', [AuthController::class, 'login'])
+            ->middleware('auth.rate.limit:login')
+            ->name('app.auth.login.submit');
         
         // Register
         Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('app.auth.register');
-        Route::post('/register', [AuthController::class, 'register'])->name('app.auth.register.submit');
+        Route::post('/register', [AuthController::class, 'register'])
+            ->middleware('auth.rate.limit:register')
+            ->name('app.auth.register.submit');
 
         // OTP Routes
-        Route::post('/send-otp', [AuthController::class, 'sendOtp'])->name('app.auth.send-otp');
-        Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('app.auth.verify-otp');
-        Route::post('/register-without-otp', [AuthController::class, 'registerWithoutOtp'])->name('app.auth.register-without-otp');
+        Route::post('/send-otp', [AuthController::class, 'sendOtp'])
+            ->middleware('auth.rate.limit:otp')
+            ->name('app.auth.send-otp');
+        Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])
+            ->middleware('auth.rate.limit:verify-otp')
+            ->name('app.auth.verify-otp');
+        Route::post('/register-without-otp', [AuthController::class, 'registerWithoutOtp'])
+            ->middleware('auth.rate.limit:register')
+            ->name('app.auth.register-without-otp');
         
         // Password Reset
         Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('app.password.request');
-        Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('app.password.email');
+        Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])
+            ->middleware('auth.rate.limit:password-reset')
+            ->name('app.password.email');
         Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('app.password.reset');
-        Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('app.password.update');
+        Route::post('/reset-password', [AuthController::class, 'resetPassword'])
+            ->middleware('auth.rate.limit:password-reset')
+            ->name('app.password.update');
     });
     
     // Authenticated routes (require authentication)

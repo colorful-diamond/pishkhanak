@@ -284,14 +284,25 @@ class AiContent extends Model
                 // Add section content if exists
                 if (isset($this->ai_sections[$index])) {
                     $sectionContent = $this->ai_sections[$index];
-                    // Handle case where section content might be an array
+                    
+                    // Handle case where section content is an array with 'content' key
                     if (is_array($sectionContent)) {
-                        $sectionContent = is_string($sectionContent[0] ?? '') ? ($sectionContent[0] ?? '') : json_encode($sectionContent);
+                        if (isset($sectionContent['content'])) {
+                            // Section has 'content' key - use it
+                            $sectionContent = $sectionContent['content'];
+                        } else if (isset($sectionContent[0])) {
+                            // Section is array with numeric index
+                            $sectionContent = is_string($sectionContent[0]) ? $sectionContent[0] : json_encode($sectionContent);
+                        } else {
+                            // Unknown array structure - convert to JSON
+                            $sectionContent = json_encode($sectionContent);
+                        }
                     }
+                    
                     $content .= $sectionContent . "\n\n";
                 }
                 
-                // Add sub-headings if exist
+                // Add sub-headings if exist (without content, just the headings)
                 if (isset($heading['sub_headlines']) && is_array($heading['sub_headlines'])) {
                     foreach ($heading['sub_headlines'] as $subHeading) {
                         // Handle case where sub-heading might be an array

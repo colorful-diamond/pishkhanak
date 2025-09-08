@@ -54,8 +54,8 @@ class CleanupAbandonedHoldTransactions extends Command
         $abandonedTransactions = Transaction::where('confirmed', false)
             ->where('type', 'withdraw') // All wallet withdrawals
             ->where('created_at', '<', $cutoffTime)
-            ->whereRaw("meta->>'type' = ?", ['service_payment_hold'])
-            ->whereRaw("meta->>'description' LIKE ?", ['%نگهداری وجه برای سرویس%'])
+            ->where('meta->type', 'service_payment_hold')
+            ->where('meta->description', 'LIKE', '%نگهداری وجه برای سرویس%')
             ->get();
 
         if ($abandonedTransactions->isEmpty()) {

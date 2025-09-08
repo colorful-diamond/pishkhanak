@@ -311,13 +311,7 @@ class Service extends Model implements HasMedia
      */
     public function aiContent()
     {
-        // Check if content is numeric
-        $rawContent = $this->getRawContent();
-        if (is_numeric($rawContent)) {
-            return $this->belongsTo(\App\Models\AiContent::class, 'content');
-        }
-        
-        return null;
+        return $this->belongsTo(\App\Models\AiContent::class, 'content');
     }
 
     /**
