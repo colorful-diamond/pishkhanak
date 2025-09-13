@@ -88,7 +88,6 @@ class PopularServicesPage extends Page
                     ' . ($this->period !== 'all' ? 'AND transactions.created_at >= NOW() - INTERVAL \'' . (int)$this->period . ' DAY\'' : '') . '
                 ) as wallet_revenue')
             ])
-            ->withCount(['comments as total_comments'])
             ->with(['category']);
 
         // Apply category filter
@@ -118,6 +117,7 @@ class PopularServicesPage extends Page
             $service->total_revenue = $totalRevenue;
             $service->success_rate = $totalAttempts > 0 ? round(($totalSuccess / $totalAttempts) * 100, 1) : 0;
             $service->average_revenue = $totalAttempts > 0 ? round($totalRevenue / $totalAttempts) : 0;
+            $service->total_comments = 0; // Set to 0 since we don't have comments relationship
             
             // Determine primary tracking method
             if ($service->request_count > 0 && $service->result_count == 0) {

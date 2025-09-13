@@ -230,7 +230,7 @@
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
                                     <x-heroicon-o-chat-bubble-left class="w-3 h-3 mr-1" />
-                                    {{ $service->total_comments }}
+                                    0
                                 </span>
                             </td>
                             
