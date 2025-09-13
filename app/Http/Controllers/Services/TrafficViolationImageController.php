@@ -33,7 +33,7 @@ class TrafficViolationImageController extends BaseFinnotechController
         $this->validationRules = [
             'mobile' => 'required|string|regex:/^09[0-9]{9}$/',
             'national_code' => 'required|string|digits:10',
-            'violation_serial' => 'required|string|min:8|max:20',
+            'violation_serial' => 'required|string|min:8|max:20|regex:/^[a-zA-Z0-9]+$/',
         ];
         
         $this->validationMessages = [
@@ -43,6 +43,8 @@ class TrafficViolationImageController extends BaseFinnotechController
             'national_code.digits' => 'کد ملی باید 10 رقم باشد',
             'violation_serial.required' => 'سریال خلافی الزامی است',
             'violation_serial.min' => 'سریال خلافی باید حداقل 8 کاراکتر باشد',
+            'violation_serial.max' => 'سریال خلافی نباید بیش از 20 کاراکتر باشد',
+            'violation_serial.regex' => 'سریال خلافی تنها باید شامل حروف انگلیسی و اعداد باشد',
         ];
     }
 

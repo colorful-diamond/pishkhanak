@@ -55,13 +55,37 @@
             <!-- Image Section - Only show if image exists -->
             @if($service->hasMedia('thumbnail'))
                 <div class="w-full md:w-1/2 pb-4">
-                    <img src="{{ $service->getFirstMediaUrl('thumbnail') }}" alt="{{ $service->title }}" class="w-full h-full rounded-2xl bg-sky-100">
+                    <img src="{{ $service->getFirstMediaUrl('thumbnail') }}" alt="{{ $service->title }}" class="w-full h-full rounded-2xl">
                 </div>
             @endif
         </div>
 
         <!-- Dynamic Content Section -->
         @php
+            // Hierarchical view loading for content section
+            $contentView = null;
+            
+            if ($service->parent_id && $service->parent) {
+                // For sub-services: try sub-service specific content view first
+                $subContentView = 'front.services.custom.' . $service->parent->slug . '.' . $service->slug . '.content';
+                if (View::exists($subContentView)) {
+                    $contentView = $subContentView;
+                } else {
+                    // Fallback to parent's content view
+                    $parentContentView = 'front.services.custom.' . $service->parent->slug . '.content';
+                    if (View::exists($parentContentView)) {
+                        $contentView = $parentContentView;
+                    }
+                }
+            } else {
+                // For parent services: use their own content view
+                $parentContentView = 'front.services.custom.' . $service->slug . '.content';
+                if (View::exists($parentContentView)) {
+                    $contentView = $parentContentView;
+                }
+            }
+            
+            // Check if we should show database content
             $content = $service->content ?? '';
             $isPlaceholder = str_contains($content, 'در حال بازسازی') || 
                            str_contains($content, 'بعداً مراجعه') ||
@@ -69,7 +93,9 @@
                            strlen(strip_tags($content)) < 50;
         @endphp
         
-        @if($service->content && !$isPlaceholder)
+        @if($contentView)
+            @include($contentView)
+        @elseif($service->content && !$isPlaceholder)
             @if(str_contains($service->content, 'service-content'))
                 {!! $service->content !!}
             @else
@@ -131,6 +157,9 @@
                 </div>
             </div>
         @endif
+        
+        <!-- Comments Section -->
+        <x-comments :service="$service" />
         
     </div>
 </div>

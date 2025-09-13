@@ -21,15 +21,15 @@ class BlogPipelineResource extends Resource
 {
     protected static ?string $model = BlogContentPipeline::class;
 
-    protected static ?string $navigationGroup = 'PERSIAN_TEXT_2a4a3388';
+    protected static ?string $navigationGroup = 'هوش مصنوعی';
     
     protected static ?int $navigationSort = 8;
     
-    protected static ?string $navigationLabel = 'PERSIAN_TEXT_792695a4';
+    protected static ?string $navigationLabel = 'خط تولید محتوا';
     
-    protected static ?string $pluralLabel = 'PERSIAN_TEXT_c2507f66';
+    protected static ?string $pluralLabel = 'فرایندهای تولید محتوا';
     
-    protected static ?string $label = 'PERSIAN_TEXT_89189d5b';
+    protected static ?string $label = 'فرایند تولید محتوا';
 
     public static function form(Form $form): Form
     {
@@ -132,7 +132,7 @@ class BlogPipelineResource extends Resource
             ->actions([
                 GenerateAiContentEnhancedAction::make(),
                 Tables\Actions\Action::make('monitor_processing')
-                    ->label('PERSIAN_TEXT_ab555d7b')
+                    ->label('مونیتورینگ پردازش')
                     ->icon('heroicon-o-cpu-chip')
                     ->color('info')
                     ->visible(fn ($record) => $record->status === 'processing')

@@ -58,7 +58,7 @@ class GenerateMetaJob implements ShouldQueue
                     $this->session_hash,
                     78,
                     'meta_generation',
-                    'PERSIAN_TEXT_70054cbf'
+                    'در حال تولید متاداده...'
                 );
             }
             
@@ -196,7 +196,7 @@ class GenerateMetaJob implements ShouldQueue
                     $this->session_hash,
                     85,
                     'meta_completed',
-                    'PERSIAN_TEXT_56bdfe5f'
+                    'متاداده با موفقیت تولید شد'
                 );
             }
             
@@ -227,7 +227,7 @@ class GenerateMetaJob implements ShouldQueue
                     $this->session_hash,
                     85,
                     'meta_failed',
-                    'PERSIAN_TEXT_58d958ae'
+                    'تولید متاداده با خطا مواجه شد'
                 );
             }
 

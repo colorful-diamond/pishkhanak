@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 class PaymentGateway extends Model
 {
@@ -122,5 +123,94 @@ class PaymentGateway extends Model
     public function isSandbox(): bool
     {
         return $this->getConfigValue('sandbox', false);
+    }
+
+    /**
+     * Get cached gateway configuration
+     */
+    public function getCachedConfig(string $key = null, $default = null)
+    {
+        $cacheKey = "payment_gateway_config_{$this->id}";
+        
+        $config = Cache::remember($cacheKey, 3600, function () { // Cache for 1 hour
+            return $this->config;
+        });
+
+        if ($key === null) {
+            return $config;
+        }
+
+        return data_get($config, $key, $default);
+    }
+
+    /**
+     * Get decrypted password from cached config
+     */
+    public function getCachedPassword(string $configKey = 'terminal_password'): ?string
+    {
+        $encryptedPassword = $this->getCachedConfig($configKey);
+        
+        if (!$encryptedPassword) {
+            return null;
+        }
+
+        try {
+            return decrypt($encryptedPassword);
+        } catch (\Exception $e) {
+            // If decryption fails, assume it's plain text (for backward compatibility)
+            return $encryptedPassword;
+        }
+    }
+
+    /**
+     * Clear gateway configuration cache
+     */
+    public function clearConfigCache(): void
+    {
+        Cache::forget("payment_gateway_config_{$this->id}");
+    }
+
+    /**
+     * Cache all active gateways
+     */
+    public static function getCachedActiveGateways()
+    {
+        return Cache::remember('active_payment_gateways', 1800, function () { // Cache for 30 minutes
+            return static::where('is_active', true)
+                ->orderBy('sort_order')
+                ->orderBy('name')
+                ->get();
+        });
+    }
+
+    /**
+     * Clear active gateways cache
+     */
+    public static function clearActiveGatewaysCache(): void
+    {
+        Cache::forget('active_payment_gateways');
+    }
+
+    /**
+     * Model events to clear cache when updated
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Clear cache when gateway is updated or deleted
+        static::updated(function ($gateway) {
+            $gateway->clearConfigCache();
+            static::clearActiveGatewaysCache();
+        });
+
+        static::deleted(function ($gateway) {
+            $gateway->clearConfigCache();
+            static::clearActiveGatewaysCache();
+        });
+
+        static::created(function ($gateway) {
+            static::clearActiveGatewaysCache();
+        });
     }
 } 

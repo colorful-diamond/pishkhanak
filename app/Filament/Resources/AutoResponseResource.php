@@ -19,13 +19,13 @@ class AutoResponseResource extends Resource
 
     protected static ?string $model = AutoResponse::class;
 
-    protected static ?string $navigationGroup = 'PERSIAN_TEXT_4efd4a96';
+    protected static ?string $navigationGroup = 'مدیریت پشتیبانی';
 
-    protected static ?string $navigationLabel = 'PERSIAN_TEXT_3abb6841';
+    protected static ?string $navigationLabel = 'پاسخ‌های خودکار';
 
-    protected static ?string $modelLabel = 'PERSIAN_TEXT_dd57f89a';
+    protected static ?string $modelLabel = 'پاسخ خودکار';
 
-    protected static ?string $pluralModelLabel = 'PERSIAN_TEXT_3abb6841';
+    protected static ?string $pluralModelLabel = 'پاسخ‌های خودکار';
 
     protected static ?int $navigationSort = 5;
 
@@ -33,109 +33,109 @@ class AutoResponseResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('PERSIAN_TEXT_95d00d59')
+                Forms\Components\Section::make('اطلاعات اصلی')
                     ->schema([
                         Forms\Components\Select::make('context_id')
-                            ->label('PERSIAN_TEXT_0e9923cf')
+                            ->label('زمینه')
                             ->relationship('context', 'name')
                             ->required()
                             ->searchable()
                             ->preload()
-                            ->helperText('PERSIAN_TEXT_9fba795e'),
+                            ->helperText('زمینه یا موقعیتی که این پاسخ در آن استفاده می‌شود'),
 
                         Forms\Components\TextInput::make('title')
-                            ->label('PERSIAN_TEXT_34d19e14')
+                            ->label('عنوان')
                             ->required()
                             ->maxLength(255)
-                            ->helperText('PERSIAN_TEXT_d4680f3e'),
+                            ->helperText('عنوان کوتاه و مفید برای شناسایی پاسخ'),
 
                         Forms\Components\Select::make('language')
-                            ->label('PERSIAN_TEXT_4a8c7291')
+                            ->label('زبان')
                             ->options([
-                                'fa' => 'PERSIAN_TEXT_66030b73',
-                                'en' => 'PERSIAN_TEXT_36a74d2f',
+                                'fa' => 'فارسی',
+                                'en' => 'انگلیسی',
                             ])
                             ->default('fa')
                             ->required()
-                            ->helperText('PERSIAN_TEXT_b3f03748'),
+                            ->helperText('زبان پاسخ را انتخاب کنید'),
 
                         Forms\Components\RichEditor::make('response_text')
-                            ->label('PERSIAN_TEXT_8bdb11b4')
+                            ->label('متن پاسخ')
                             ->required()
                             ->columnSpanFull()
-                            ->helperText('PERSIAN_TEXT_17d0a196'),
+                            ->helperText('متن کامل پاسخی که به کاربر ارسال می‌شود'),
                     ])
                     ->columns(3),
 
-                Forms\Components\Section::make('PERSIAN_TEXT_327927bc')
+                Forms\Components\Section::make('پیوست‌ها و لینک‌ها')
                     ->schema([
                         Forms\Components\Repeater::make('attachments')
-                            ->label('PERSIAN_TEXT_ed7a12d7')
+                            ->label('پیوست‌ها')
                             ->schema([
                                 Forms\Components\FileUpload::make('file_path')
-                                    ->label('PERSIAN_TEXT_a0bb1346')
+                                    ->label('فایل')
                                     ->directory('auto-responses')
                                     ->required(),
                                 Forms\Components\TextInput::make('description')
-                                    ->label('PERSIAN_TEXT_86f150b8')
+                                    ->label('توضیحات')
                                     ->maxLength(255),
                             ])
                             ->collapsed()
-                            ->itemLabel(fn (array $state): ?string => $state['description'] ??'PERSIAN_TEXT_02b25ec3')
-                            ->addActionLabel('PERSIAN_TEXT_fe924973'),
+                            ->itemLabel(fn (array $state): ?string => $state['description'] ??'پیوست جدید')
+                            ->addActionLabel('افزودن پیوست'),
 
                         Forms\Components\Repeater::make('links')
-                            ->label('PERSIAN_TEXT_e7fa644e')
+                            ->label('لینک‌ها')
                             ->schema([
                                 Forms\Components\TextInput::make('title')
-                                    ->label('PERSIAN_TEXT_5ee32e01')
+                                    ->label('عنوان لینک')
                                     ->required()
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('url')
-                                    ->label('PERSIAN_TEXT_a98dd4d9')
+                                    ->label('آدرس URL')
                                     ->url()
                                     ->required()
                                     ->maxLength(500),
                             ])
                             ->collapsed()
-                            ->itemLabel(fn (array $state): ?string => $state['title'] ??'PERSIAN_TEXT_0be0b678')
-                            ->addActionLabel('PERSIAN_TEXT_e52fbbd7'),
+                            ->itemLabel(fn (array $state): ?string => $state['title'] ??'لینک جدید')
+                            ->addActionLabel('افزودن لینک'),
                     ]),
 
-                Forms\Components\Section::make('PERSIAN_TEXT_b67081a5')
+                Forms\Components\Section::make('تنظیمات')
                     ->schema([
                         Forms\Components\Toggle::make('is_active')
-                            ->label('PERSIAN_TEXT_25c499f4')
+                            ->label('فعال')
                             ->default(true)
-                            ->helperText('PERSIAN_TEXT_6daa1034'),
+                            ->helperText('پاسخ فعال باشد تا استفاده شود'),
 
                         Forms\Components\Toggle::make('mark_as_resolved')
-                            ->label('PERSIAN_TEXT_338503da')
+                            ->label('علامت‌گذاری به عنوان حل‌شده')
                             ->default(false)
-                            ->helperText('PERSIAN_TEXT_5dcd43ea'),
+                            ->helperText('تیکت به صورت خودکار حل‌شده علامت‌گذاری شود'),
                     ])
                     ->columns(2),
 
-                Forms\Components\Section::make('PERSIAN_TEXT_26a8e5c0')
+                Forms\Components\Section::make('آمار و تحلیل')
                     ->schema([
                         Forms\Components\Placeholder::make('usage_count')
-                            ->label('PERSIAN_TEXT_51b4a52e')
+                            ->label('تعداد استفاده')
                             ->content(fn ($record) => $record?->usage_count ?? 0),
 
                         Forms\Components\Placeholder::make('satisfaction_score')
-                            ->label('PERSIAN_TEXT_1df0b118')
+                            ->label('امتیاز رضایت')
                             ->content(fn ($record) => $record?->satisfaction_score 
-                                ? number_format($record->satisfaction_score, 1) . 'PERSIAN_TEXT_3fc892a6' 
-                                : 'PERSIAN_TEXT_e4966467'),
+                                ? number_format($record->satisfaction_score, 1) . ' از ۵' 
+                                : 'بدون داده'),
 
                         Forms\Components\Placeholder::make('effectiveness_percentage')
-                            ->label('PERSIAN_TEXT_9c17aedb')
+                            ->label('درصد اثربخشی')
                             ->content(fn ($record) => $record?->effectiveness_percentage !== null
                                 ? $record->effectiveness_percentage . '%'
-                                : 'PERSIAN_TEXT_e4966467'),
+                                : 'بدون داده'),
 
                         Forms\Components\Placeholder::make('created_at')
-                            ->label('PERSIAN_TEXT_50148776')
+                            ->label('تاریخ ایجاد')
                             ->content(fn ($record) => $record?->created_at?->diffForHumans() ?? '-'),
                     ])
                     ->columns(4)
@@ -148,28 +148,28 @@ class AutoResponseResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('context.name')
-                    ->label('PERSIAN_TEXT_0e9923cf')
+                    ->label('زمینه')
                     ->searchable()
                     ->sortable()
                     ->badge()
                     ->color('primary'),
 
                 Tables\Columns\TextColumn::make('title')
-                    ->label('PERSIAN_TEXT_ca970034')
+                    ->label('عنوان')
                     ->searchable()
                     ->limit(30),
 
                 Tables\Columns\TextColumn::make('language')
-                    ->label('PERSIAN_TEXT_4a8c7291')
+                    ->label('زبان')
                     ->badge()
                     ->formatStateUsing(fn ($state) => match ($state) {
-                        'fa' => 'PERSIAN_TEXT_66030b73',
+                        'fa' => 'فارسی',
                         'en' => 'English',
                         default => $state,
                     }),
 
                 Tables\Columns\IconColumn::make('is_active')
-                    ->label('PERSIAN_TEXT_25c499f4')
+                    ->label('فعال')
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle')
@@ -177,22 +177,22 @@ class AutoResponseResource extends Resource
                     ->falseColor('danger'),
 
                 Tables\Columns\IconColumn::make('mark_as_resolved')
-                    ->label('PERSIAN_TEXT_1bbccabe')
+                    ->label('علامت‌گذاری حل‌شده')
                     ->boolean()
                     ->trueIcon('heroicon-o-check-badge')
                     ->falseIcon('heroicon-o-minus-circle')
                     ->tooltip(fn ($state) => $state 
-                        ? 'PERSIAN_TEXT_c2c92a42'
-                        : 'PERSIAN_TEXT_e7949096'),
+                        ? 'تیکت به صورت خودکار حل‌شده علامت‌گذاری می‌شود'
+                        : 'تیکت به صورت خودکار حل‌شده علامت‌گذاری نمی‌شود'),
 
                 Tables\Columns\TextColumn::make('usage_count')
-                    ->label('PERSIAN_TEXT_9c8f9078')
+                    ->label('تعداد استفاده')
                     ->sortable()
                     ->badge()
                     ->color('info'),
 
                 Tables\Columns\TextColumn::make('satisfaction_score')
-                    ->label('PERSIAN_TEXT_202133ba')
+                    ->label('امتیاز رضایت')
                     ->sortable()
                     ->formatStateUsing(fn ($state) => $state !== null 
                         ? number_format($state, 1) 
@@ -206,7 +206,7 @@ class AutoResponseResource extends Resource
                     }),
 
                 Tables\Columns\TextColumn::make('effectiveness_percentage')
-                    ->label('PERSIAN_TEXT_f80d69bb')
+                    ->label('درصد اثربخشی')
                     ->formatStateUsing(fn ($state) => $state !== null ? $state . '%' : '-')
                     ->badge()
                     ->color(fn ($state) => match (true) {
@@ -217,52 +217,52 @@ class AutoResponseResource extends Resource
                     }),
 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('PERSIAN_TEXT_66fa013c')
+                    ->label('تاریخ ایجاد')
                     ->dateTime('Y/m/d')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('context_id')
-                    ->label('PERSIAN_TEXT_0e9923cf')
+                    ->label('زمینه')
                     ->relationship('context', 'name')
                     ->searchable()
                     ->preload(),
 
                 Tables\Filters\SelectFilter::make('language')
-                    ->label('PERSIAN_TEXT_4a8c7291')
+                    ->label('زبان')
                     ->options([
-                        'fa' => 'PERSIAN_TEXT_66030b73',
-                        'en' => 'PERSIAN_TEXT_36a74d2f',
+                        'fa' => 'فارسی',
+                        'en' => 'انگلیسی',
                     ]),
 
                 Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('PERSIAN_TEXT_88bd5656')
-                    ->placeholder('PERSIAN_TEXT_fe641855')
-                    ->trueLabel('PERSIAN_TEXT_25c499f4')
-                    ->falseLabel('PERSIAN_TEXT_7fdadc73'),
+                    ->label('فیلتر فعال بودن')
+                    ->placeholder('همه')
+                    ->trueLabel('فعال')
+                    ->falseLabel('غیرفعال'),
 
                 Tables\Filters\TernaryFilter::make('mark_as_resolved')
-                    ->label('PERSIAN_TEXT_669a9b04')
-                    ->placeholder('PERSIAN_TEXT_fe641855')
-                    ->trueLabel('PERSIAN_TEXT_5e8fdd3b')
-                    ->falseLabel('PERSIAN_TEXT_36f5ebad'),
+                    ->label('فیلتر حل‌شده')
+                    ->placeholder('همه')
+                    ->trueLabel('حل‌شده')
+                    ->falseLabel('حل‌نشده'),
 
                 Tables\Filters\Filter::make('high_usage')
-                    ->label('PERSIAN_TEXT_b1de14a8')
+                    ->label('استفاده بالا')
                     ->query(fn (Builder $query) => $query->where('usage_count', '>=', 10)),
 
                 Tables\Filters\Filter::make('low_satisfaction')
-                    ->label('PERSIAN_TEXT_82cc1645')
+                    ->label('رضایت پایین')
                     ->query(fn (Builder $query) => $query->where('satisfaction_score', '<', 3)),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('preview')
-                    ->label('PERSIAN_TEXT_f07d7cd0')
+                    ->label('پیش‌نمایش')
                     ->icon('heroicon-o-eye')
-                    ->modalHeading('PERSIAN_TEXT_62fa7e3c')
+                    ->modalHeading('پیش‌نمایش پاسخ خودکار')
                     ->modalContent(fn ($record) => view('filament.resources.auto-response.preview', ['response' => $record]))
                     ->modalSubmitAction(false),
             ])
@@ -270,13 +270,13 @@ class AutoResponseResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\BulkAction::make('activate')
-                        ->label('PERSIAN_TEXT_9947261b')
+                        ->label('فعال‌سازی')
                         ->icon('heroicon-o-check')
                         ->color('success')
                         ->requiresConfirmation()
                         ->action(fn ($records) => $records->each->update(['is_active' => true])),
                     Tables\Actions\BulkAction::make('deactivate')
-                        ->label('PERSIAN_TEXT_771a0789')
+                        ->label('غیرفعال‌سازی')
                         ->icon('heroicon-o-x-mark')
                         ->color('danger')
                         ->requiresConfirmation()

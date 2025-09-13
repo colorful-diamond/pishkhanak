@@ -26,6 +26,7 @@
         "alpinejs": "^3.14.9",
         "cropperjs": "^2.0.0",
         "flowbite": "^2.4.1",
-        "pagedone": "^1.1.2"
+        "pagedone": "^1.1.2",
+        "playwright": "^1.55.0"
     }
 }

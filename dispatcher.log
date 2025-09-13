@@ -1,0 +1,219 @@
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  45.88ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  45.42ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.79ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  59.22ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.61ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  77.60ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  1.89ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.21ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  1.96ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.04ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.00ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.10ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.04ms FAIL
+
+   INFO  Starting server on 0.0.0.0:9000 (reverb.pishkhanak.com).  
+
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.69ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.91ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification ....  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.64ms RUNNING
+ FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.73ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+ .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  1.89ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.92ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  18.87ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification .... RUNNING
+ .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  32.48ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  26.42ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  32.08ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  7.38ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  47.61ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.91ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.82ms  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification FAIL
+ .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  8.81ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  4.42ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... ....  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.37ms RUNNING
+ RUNNING
+ FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  4.95ms  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification ....  4.95ms FAIL
+ FAIL
+ RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  4.28ms .... RUNNING
+ FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  4.11ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification ....  3.66ms FAIL
+ RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification ....  3.87ms FAIL
+ RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  4.50ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.44ms FAIL
+  4.02ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.64ms .... RUNNING
+ FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.84ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  4.11ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  62.77ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.96ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  4.14ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.55ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.51ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  3.90ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.18ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.54ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.83ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.44ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification ....  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  3.83ms FAIL
+ RUNNING
+ .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.33ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.22ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.35ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.61ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.92ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  102.39ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.96ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+ .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification ....  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification RUNNING
+ .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  1.93ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.43ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.35ms  3.07ms FAIL
+ FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  51.00ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.66ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  1.78ms FAIL
+  3.45ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+ RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.50ms  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.24ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.48ms FAIL
+ FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification ....  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  1.75ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  RUNNING
+ 3.83ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.84ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.15ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.44ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  1.76ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.32ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification ....  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification RUNNING
+  3.96ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.95ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification ....  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+ RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  1.79ms  4.06ms FAIL
+ FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.21ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.29ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.30ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.83ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.10ms  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+ FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+ .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.93ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification .... RUNNING
+ .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  4.12ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification   3.44ms FAIL
+ 3.69ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  4.34ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+ .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.01ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  10.40ms .... RUNNING
+ FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification   2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification   2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  6.78ms 3.49ms FAIL
+ 3.53ms FAIL
+ FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  9.25ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.92ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.57ms  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification FAIL
+ .... RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2025-09-09 16:18:21 App\Jobs\ProcessLocalRequestJob  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification .... RUNNING
+ .... RUNNING
+ ................ RUNNING
+  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  2.97ms FAIL
+  2025-09-09 16:18:21 App\Jobs\ProcessLocalRequestJob  2025-09-09 16:18:21 App\Jobs\ProcessLocalRequestJob ................  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.42ms  2025-09-09 16:18:21 App\Notifications\TicketCreatedNotification  3.44ms FAIL
+ RUNNING
+ FAIL
+ ................ RUNNING
+  2025-09-09 16:18:21 App\Jobs\ProcessLocalRequestJob ........... 12.06ms FAIL
+  2025-09-09 16:18:21 App\Notifications\TicketRepliedNotification  36.28ms FAIL
+   INFO  Gracefully terminating connections.  
+
+  2025-09-09 16:23:24 App\Jobs\ProcessLocalRequestJob ... 5 دقیقه 2 ثانیه DONE
+  2025-09-09 16:23:24 App\Jobs\ProcessLocalRequestJob ... 5 دقیقه 2 ثانیه DONE

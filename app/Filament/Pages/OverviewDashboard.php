@@ -58,10 +58,10 @@ class OverviewDashboard extends Page
                     'success_rate' => $this->getPaymentSuccessRate(),
                 ],
                 'tickets' => [
-                    'open' => Ticket::whereHas('status', fn($q) => $q->where('slug', '!=', 'closed'))->count(),
+                    'open' => Ticket::whereHas('ticketStatus', fn($q) => $q->where('slug', '!=', 'closed'))->count(),
                     'new_today' => Ticket::whereDate('created_at', today())->count(),
-                    'urgent' => Ticket::whereHas('priority', fn($q) => $q->where('level', '>=', 8))
-                        ->whereHas('status', fn($q) => $q->where('slug', '!=', 'closed'))
+                    'urgent' => Ticket::whereHas('ticketPriority', fn($q) => $q->where('level', '>=', 8))
+                        ->whereHas('ticketStatus', fn($q) => $q->where('slug', '!=', 'closed'))
                         ->count(),
                 ],
                 'wallets' => [
@@ -135,7 +135,7 @@ class OverviewDashboard extends Page
         $health['payments'] = $recentFailures < 5 ? 'good' : ($recentFailures < 15 ? 'warning' : 'critical');
 
         // Ticket response health
-        $openTickets = Ticket::whereHas('status', fn($q) => $q->where('slug', '!=', 'closed'))->count();
+        $openTickets = Ticket::whereHas('ticketStatus', fn($q) => $q->where('slug', '!=', 'closed'))->count();
         $health['support'] = $openTickets < 10 ? 'good' : ($openTickets < 25 ? 'warning' : 'critical');
 
         // Wallet health

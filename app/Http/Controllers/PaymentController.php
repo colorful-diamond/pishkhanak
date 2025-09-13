@@ -155,6 +155,22 @@ class PaymentController extends Controller
                 'transaction' => $transaction,
                 'request_data' => $request->all(),
             ]);
+            
+            // 🔧 DUPLICATE PROCESSING PROTECTION: Check if transaction is already being processed
+            if ($transaction) {
+                $processingKey = "payment_processing_{$transaction}";
+                if (cache()->has($processingKey)) {
+                    Log::warning('🚫 DUPLICATE CALLBACK PREVENTED: Transaction already being processed', [
+                        'transaction_uuid' => $transaction,
+                        'gateway' => $gateway,
+                        'processing_key' => $processingKey,
+                    ]);
+                    return redirect()->route('app.page.home')->with('error', 'پرداخت در حال پردازش است. لطفاً منتظر بمانید.');
+                }
+                
+                // Set processing lock for 5 minutes
+                cache()->put($processingKey, true, 300);
+            }
 
             // Parse payload if present
             $payload = null;
@@ -212,7 +228,14 @@ class PaymentController extends Controller
             $this->updateTransactionStatus($gatewayTransaction, $verificationResult, $request->all());
 
             // Redirect to appropriate page
-            return $this->handleCallbackRedirect($gatewayTransaction, $verificationResult, $payload);
+            $result = $this->handleCallbackRedirect($gatewayTransaction, $verificationResult, $payload);
+            
+            // 🔧 CLEANUP: Remove processing lock after successful completion
+            if ($transaction) {
+                cache()->forget("payment_processing_{$transaction}");
+            }
+            
+            return $result;
 
         } catch (Exception $e) {
             Log::error('Payment callback failed', [
@@ -221,6 +244,11 @@ class PaymentController extends Controller
                 'transaction' => $transaction,
                 'request_data' => $request->all(),
             ]);
+            
+            // 🔧 CLEANUP: Remove processing lock on error
+            if ($transaction) {
+                cache()->forget("payment_processing_{$transaction}");
+            }
 
             return $this->redirectToFailurePage($e->getMessage());
         }
@@ -259,11 +287,17 @@ class PaymentController extends Controller
                 Log::info('Transaction marked as completed', [
                     'transaction_id' => $transaction->id,
                     'type' => $transaction->type,
-                    'will_process_wallet_charge' => $transaction->type === 'wallet_charge',
+                    'will_process_wallet_charge' => in_array($transaction->type, ['wallet_charge', 'wallet_charge_for_service']),
                 ]);
 
                 // If this is a wallet charge, update user balance
-                if ($transaction->type === 'wallet_charge') {
+                if (in_array($transaction->type, ['wallet_charge', 'wallet_charge_for_service'])) {
+                    Log::info('💰 PROCESSING WALLET CHARGE', [
+                        'transaction_id' => $transaction->id,
+                        'transaction_type' => $transaction->type,
+                        'user_id' => $transaction->user_id,
+                        'requires_login' => $transaction->metadata['requires_login'] ?? false
+                    ]);
                     $this->processWalletCharge($transaction);
                 }
 
@@ -319,6 +353,7 @@ class PaymentController extends Controller
         if (!$user && isset($metadata['requires_login']) && $metadata['requires_login']) {
             // Store transaction ID in session for processing after login
             Session::put('pending_wallet_charge_transaction_id', $transaction->id);
+            Session::put('pending_wallet_charge_transaction_uuid', $transaction->uuid);
             
             Log::info('Non-authenticated wallet charge pending login', [
                 'transaction_id' => $transaction->id,
@@ -456,23 +491,36 @@ class PaymentController extends Controller
         
         // Handle wallet charge for service continuation
         if (isset($metadata['type']) && $metadata['type'] === 'wallet_charge_for_service') {
-            // First, add the payment amount to user's wallet
-            $user->deposit($transaction->amount, [
-                'description' => 'شارژ کیف‌پول برای ادامه سرویس',
-                'gateway_transaction_id' => $transaction->id,
-                'gateway_reference_id' => $transaction->gateway_reference_id,
-            ]);
+            // Only charge wallet if user is authenticated
+            if ($user) {
+                // First, add the payment amount to user's wallet
+                $user->deposit($transaction->amount, [
+                    'description' => 'شارژ کیف‌پول برای ادامه سرویس',
+                    'gateway_transaction_id' => $transaction->id,
+                    'gateway_reference_id' => $transaction->gateway_reference_id,
+                ]);
 
-            // Process service continuation if metadata is available
-            if (isset($metadata['continue_service'])) {
-                $this->processPendingServiceContinuation($user, $metadata);
+                // Process service continuation if metadata is available
+                if (isset($metadata['continue_service'])) {
+                    $this->processPendingServiceContinuation($user, $metadata);
+                    return;
+                }
+            } else {
+                // For guest users, transaction is already stored in session above
+                Log::info('Guest wallet charge for service pending login', [
+                    'transaction_id' => $transaction->id,
+                    'amount' => $transaction->amount,
+                    'metadata' => $metadata
+                ]);
+                
+                // Don't process wallet charge yet - wait for user to login
                 return;
             }
         }
         
-        // Regular service payment processing
+        // Regular service payment processing (don't charge wallet - PaymentController handles it)
         $servicePaymentService = app(ServicePaymentService::class);
-        $result = $servicePaymentService->processPaymentCallback($transaction);
+        $result = $servicePaymentService->processPaymentCallback($transaction, false);
         
         if ($result['success']) {
             Log::info('Service payment processed successfully', [
@@ -567,10 +615,10 @@ class PaymentController extends Controller
             // Check if this is a non-authenticated user payment
             if (!$user && isset($metadata['requires_login']) && $metadata['requires_login']) {
                 // Store transaction UUID in multiple places for redundancy
-                Session::put('pending_wallet_charge_transaction_uuid', $transaction->uuid);
-                Session::put('pending_wallet_charge_transaction_id', $transaction->id);
-                Session::put('pending_wallet_charge_success', true);
-                Session::put('pending_wallet_charge_amount', $transaction->amount);
+                Session::put('guest_payment_success', true);
+                Session::put('guest_payment_transaction_id', $transaction->id);
+                Session::put('guest_payment_amount', $transaction->amount);
+                Session::put('pending_transaction', $transaction->uuid);
                 
                 // Also store in a cookie for better persistence
                 Cookie::queue('pending_transaction', $transaction->uuid, 60); // 60 minutes
@@ -593,14 +641,13 @@ class PaymentController extends Controller
                 }
                 
                 return redirect()->route('app.auth.login')
-                    ->with('success', 'پرداخت با موفقیت انجام شد. لطفاً وارد حساب کاربری خود شوید.')
                     ->with('show_wallet_info', true);
             }
             
             if (isset($metadata['type']) && in_array($metadata['type'], ['service_payment', 'wallet_charge_for_service'])) {
-                // Service payment - redirect to service result
+                // Service payment - redirect to service result (don't charge wallet - already handled)
                 $servicePaymentService = app(ServicePaymentService::class);
-                $result = $servicePaymentService->processPaymentCallback($transaction);
+                $result = $servicePaymentService->processPaymentCallback($transaction, false);
                 
                 if ($result['success'] && isset($result['redirect'])) {
                     return redirect($result['redirect']);

@@ -1,0 +1,370 @@
+{
+  "timestamp": "2025-09-08T17:32:41.304Z",
+  "totalServices": 25,
+  "totalResults": 25,
+  "totalErrors": 1,
+  "results": [
+    {
+      "service": {
+        "title": "دریافت تصویر تخلفات رانندگی",
+        "slug": "traffic-violation-image",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:25:31.801Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "لیست پلاک‌های فعال با کدملی",
+        "slug": "active-plates-list",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:25:46.700Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام عوارض آزادراهی با شماره پلاک",
+        "slug": "toll-road-inquiry",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:26:01.090Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام تطبیق مالکیت و نوع خودرو",
+        "slug": "vehicle-ownership-inquiry",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:26:20.514Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام خلافی موتور",
+        "slug": "motor-violation-inquiry",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:26:35.800Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام ریسک رانندگان با کدملی",
+        "slug": "driver-risk-inquiry",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:26:53.133Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "تاریخچه پلاک با کدملی و شماره پلاک",
+        "slug": "plate-history-inquiry",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:27:11.802Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام اطلاعات خودرو و تخفیفات بیمه",
+        "slug": "car-information-and-insurance-discounts",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:28:11.211Z",
+      "attempt": 2
+    },
+    {
+      "service": {
+        "title": "جریمه طرح ترافیک",
+        "slug": "shahrdarikhodro",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:28:29.803Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "کارت و سند خودرو",
+        "slug": "cardocuments",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:28:43.229Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "مالیات انتقال خودرو",
+        "slug": "cartax",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:28:58.899Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "مالیات انتقال موتور",
+        "slug": "motortransfertax",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:29:15.942Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "معاینه فنی",
+        "slug": "technicalexaminationcertificate",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:29:30.387Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "تاریخچه پلاک",
+        "slug": "car-plate-history",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:29:45.407Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "سوابق خودرو",
+        "slug": "carauthenticity",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:30:01.526Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام سوابق بیمه تامین اجتماعی",
+        "slug": "social-security-insurance-inquiry",
+        "category": "Insurance"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:30:17.964Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "اعتبار دفترچه بیمه",
+        "slug": "insurancecard",
+        "category": "Insurance"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:30:32.389Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "بیمه‌نامه‌",
+        "slug": "insurancepolicy",
+        "category": "Insurance"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:30:48.475Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "حکم تامین اجتماعی",
+        "slug": "hokmmostamari",
+        "category": "Social"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:31:07.324Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "حکم بازنشستگان کشوری",
+        "slug": "hokmbazneshasteghi",
+        "category": "Social"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:31:24.020Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "کالابرگ الکترونیکی",
+        "slug": "electronic-subsidy",
+        "category": "Social"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:31:40.518Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "معافیت تحصیلی",
+        "slug": "study-exemption",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:31:55.950Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "اجاره نامه ملک",
+        "slug": "rentalcontractinquiry",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:32:11.013Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "سیم‌کارت‌های به‌نام",
+        "slug": "my-simcart",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:32:25.716Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "دریافت آدرس با کد‌پستی",
+        "slug": "postal-address-lookup",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:32:41.256Z",
+      "attempt": 1
+    }
+  ],
+  "errors": [
+    {
+      "service": {
+        "title": "استعلام اطلاعات خودرو و تخفیفات بیمه",
+        "slug": "car-information-and-insurance-discounts",
+        "category": "Vehicle"
+      },
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.google.com/search?q=site%3Apishkhanak.com%20%22%D8%A7%D8%B3%D8%AA%D8%B9%D9%84%D8%A7%D9%85%20%D8%A7%D8%B7%D9%84%D8%A7%D8%B9%D8%A7%D8%AA%20%D8%AE%D9%88%D8%AF%D8%B1%D9%88%20%D9%88%20%D8%AA%D8%AE%D9%81%DB%8C%D9%81%D8%A7%D8%AA%20%D8%A8%DB%8C%D9%85%D9%87%22&hl=en\", waiting until \"networkidle\"\u001b[22m\n",
+      "attempt": 1,
+      "timestamp": "2025-09-08T17:27:47.382Z"
+    }
+  ]
+}

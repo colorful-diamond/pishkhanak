@@ -102,7 +102,7 @@ class TelegramTicketBot
             // Try to send error message to user
             $chatId = $this->extractChatId($update);
             if ($chatId) {
-                $this->sendMessage($chatId, "PERSIAN_TEXT_66d4a89d");
+                $this->sendMessage($chatId, "متاسفانه خطایی رخ داده است");
             }
         }
     }
@@ -157,7 +157,7 @@ class TelegramTicketBot
                     $handler = $this->commandHandlers[$command];
                     return $this->$handler($chatId, $userId, $args);
                 } else {
-                    return $this->sendMessage($chatId, "PERSIAN_TEXT_f2e11d4a");
+                    return $this->sendMessage($chatId, "دستور شناخته شده نیست");
                 }
             }
             

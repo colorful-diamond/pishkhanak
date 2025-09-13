@@ -36,9 +36,18 @@ class AccessPanelProvider extends PanelProvider
             ->path('access')
             ->login()
             ->colors([
-                'primary' => Color::Indigo,
+                'primary' => Color::Sky,
+                'gray' => Color::Slate,
+                'danger' => Color::Red,
+                'info' => Color::Blue,
+                'success' => Color::Green,
+                'warning' => Color::Amber,
             ])
             ->font('Vazirmatn', provider: GoogleFontProvider::class)
+            ->brandName('پیشخانه • مرکز مدیریت')
+            ->brandLogo(asset('images/logo.png'))
+            ->brandLogoHeight('2rem')
+            ->favicon(asset('favicon.ico'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -78,6 +87,17 @@ class AccessPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->sidebarFullyCollapsibleOnDesktop()
+            ->sidebarCollapsibleOnDesktop()
+            ->navigationGroups([
+                'داشبوردها',
+                'کاربران و مشتریان',
+                'مالی و پرداخت',
+                'پشتیبانی',
+                'تنظیمات سیستم',
+                'گزارشات',
+            ])
+            ->maxContentWidth('full')
+            ->spa()
             ;
     }
 }

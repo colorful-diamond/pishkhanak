@@ -130,19 +130,37 @@ abstract class BaseSmsFinnotechController extends BaseFinnotechController
                 
                 if ($result['success']) {
                     
+                    // Create ServiceRequest record for tracking
+                    $serviceRequest = \App\Models\ServiceRequest::create([
+                        'service_id' => $service->id,
+                        'user_id' => $user->id,
+                        'input_data' => $serviceData,
+                        'status' => 'processed',
+                        'processed_at' => now(),
+                        'ip_address' => $request->ip(),
+                        'user_agent' => $request->userAgent(),
+                    ]);
+                    
                     // Deduct the service price from the user's wallet using Bavix Wallet
                     // This ensures the user's balance is reduced by the service price (in tooman, as per project rules)
                     // The withdraw method will throw an exception if the balance is insufficient, but we've already checked above
                     // We also attach a description and metadata for traceability
-                    $user->withdraw($service->price, [
+                    $walletTransaction = $user->withdraw($service->price, [
                         'description' => "پرداخت سرویس: {$service->title}",
                         'service_id' => $service->id,
+                        'service_request_id' => $serviceRequest->id,
                         'type' => 'service_payment'
+                    ]);
+
+                    // Update service request with wallet transaction ID
+                    $serviceRequest->update([
+                        'wallet_transaction_id' => $walletTransaction->id
                     ]);
 
                     $serviceResult = \App\Models\ServiceResult::create([
                         'service_id' => $service->id,
                         'user_id' => $user->id,
+                        'service_request_id' => $serviceRequest->id,
                         'input_data' => $serviceData,
                         'output_data' => $result['data'],
                         'status' => 'success',
@@ -313,10 +331,22 @@ abstract class BaseSmsFinnotechController extends BaseFinnotechController
                     ->withInput();
             }
 
+            // Create ServiceRequest record for tracking
+            $serviceRequest = \App\Models\ServiceRequest::create([
+                'service_id' => $service->id,
+                'user_id' => $verificationRequest['user_id'],
+                'input_data' => $verificationRequest['service_data'],
+                'status' => 'processed',
+                'processed_at' => now(),
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+            ]);
+            
             // Payment and result storage AFTER successful service processing
             // Note: Payment deduction is now handled by individual service controllers
             $serviceResult = \App\Models\ServiceResult::create([
                 'service_id' => $service->id,
+                'service_request_id' => $serviceRequest->id,
                 'user_id' => Auth::id(),
                 'input_data' => $verificationRequest['service_data'],
                 'output_data' => $result['data'],

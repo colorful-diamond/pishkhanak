@@ -25,6 +25,6 @@ class EditAutoResponse extends EditRecord
 
     protected function getSavedNotificationTitle(): ?string
     {
-        return 'PERSIAN_TEXT_40d0a6e5';
+        return 'پاسخ خودکار با موفقیت ویرایش شد';
     }
 }

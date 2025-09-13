@@ -178,7 +178,8 @@ class AiService
     public function generateSlug(string $title, string $language = 'English')
     {
         if (!$this->aiSetting) {
-            throw new \Exception('No active AI settings found');
+            Log::warning('No active AI settings found, falling back to manual slug generation', ['title' => $title]);
+            return \Illuminate\Support\Str::slug($title);
         }
 
         $template = $this->getPromptTemplate('slug_generation', [

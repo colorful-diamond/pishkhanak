@@ -40,23 +40,23 @@ class TicketStatsSecondRowWidget extends BaseWidget
             ->value('avg_response');
         
         return [
-            Stat::make('PERSIAN_TEXT_72008d08', number_format($unassignedTickets))
-                ->description('PERSIAN_TEXT_424a810b')
+            Stat::make('تیکت‌های بدون مسئول', number_format($unassignedTickets))
+                ->description('تیکت‌هایی که هنوز تخصیص نیافته‌اند')
                 ->descriptionIcon('heroicon-m-user-plus')
                 ->color($unassignedTickets > 0 ? 'warning' : 'success'),
                 
-            Stat::make('PERSIAN_TEXT_cf713f31', number_format($overdueTickets))
-                ->description('PERSIAN_TEXT_7dcb1990')
+            Stat::make('تیکت‌های عقب‌افتاده', number_format($overdueTickets))
+                ->description('تیکت‌های بیش از ۲۴ ساعت بدون پاسخ')
                 ->descriptionIcon('heroicon-m-clock')
                 ->color($overdueTickets > 0 ? 'danger' : 'warning'),
                 
-            Stat::make('PERSIAN_TEXT_aac7d1e0', number_format($todayTickets))
-                ->description('PERSIAN_TEXT_e0618071')
+            Stat::make('تیکت‌های امروز', number_format($todayTickets))
+                ->description('تیکت‌های ایجادشده امروز')
                 ->descriptionIcon('heroicon-m-calendar')
                 ->color('primary'),
                 
-            Stat::make('PERSIAN_TEXT_aa7e9106', $avgResponseTime ? round($avgResponseTime, 1) . 'PERSIAN_TEXT_5cdcc33b' : 'PERSIAN_TEXT_264f61d0')
-                ->description('PERSIAN_TEXT_3d479511')
+            Stat::make('میانگین زمان پاسخ', $avgResponseTime ? round($avgResponseTime, 1) . ' ساعت' : 'بدون داده')
+                ->description('میانگین زمان اولین پاسخ به تیکت')
                 ->descriptionIcon('heroicon-m-bolt')
                 ->color($avgResponseTime && $avgResponseTime < 24 ? 'success' : ($avgResponseTime && $avgResponseTime < 48 ? 'warning' : 'danger')),
         ];

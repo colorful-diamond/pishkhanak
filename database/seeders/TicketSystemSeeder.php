@@ -129,16 +129,16 @@ class TicketSystemSeeder extends Seeder
 
         // Create ticket statuses (simplified to only use existing columns)
         $statuses = [
-            ['name' => 'باز', 'is_active' => true],
-            ['name' => 'در حال بررسی', 'is_active' => true],
-            ['name' => 'در انتظار پاسخ کاربر', 'is_active' => true],
-            ['name' => 'حل شده', 'is_active' => true],
-            ['name' => 'بسته', 'is_active' => true],
+            ['name' => 'باز', 'slug' => 'open', 'color' => '#3B82F6', 'is_active' => true],
+            ['name' => 'در حال بررسی', 'slug' => 'in-progress', 'color' => '#F59E0B', 'is_active' => true],
+            ['name' => 'در انتظار پاسخ کاربر', 'slug' => 'waiting-for-user', 'color' => '#8B5CF6', 'is_active' => true],
+            ['name' => 'حل شده', 'slug' => 'resolved', 'color' => '#10B981', 'is_active' => true],
+            ['name' => 'بسته', 'slug' => 'closed', 'color' => '#6B7280', 'is_active' => true],
         ];
 
         foreach ($statuses as $statusData) {
             TicketStatus::firstOrCreate(
-                ['name' => $statusData['name']],
+                ['slug' => $statusData['slug']],
                 $statusData
             );
         }

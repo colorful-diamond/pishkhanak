@@ -219,7 +219,7 @@ class SmsService
      */
     private function getOtpMessage(string $code, string $type): string
     {
-        $appName = config('app.name', 'پیشخانک');
+        $appName = config('app.name', 'پیشخوانک');
 
         switch ($type) {
             case Otp::TYPE_LOGIN:

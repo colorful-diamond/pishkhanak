@@ -36,6 +36,46 @@ class PaymentService
 
             // Validate payment data
             $validatedData = $this->validatePaymentData($paymentData);
+            
+            // 🔧 DUPLICATE PROTECTION: Check for existing pending transactions
+            $existingTransaction = null;
+            
+            // Check for service request duplicates
+            if (isset($validatedData['metadata']['service_request_hash'])) {
+                $existingTransaction = GatewayTransaction::where('status', 'pending')
+                    ->whereJsonContains('metadata->service_request_hash', $validatedData['metadata']['service_request_hash'])
+                    ->where('user_id', $validatedData['user_id'] ?? null)
+                    ->where('created_at', '>', now()->subMinutes(30)) // Only check transactions from last 30 minutes
+                    ->first();
+            }
+            // Check for wallet charge duplicates (same user, same amount, same type)
+            elseif (isset($validatedData['metadata']['type']) && $validatedData['metadata']['type'] === 'wallet_charge') {
+                $existingTransaction = GatewayTransaction::where('status', 'pending')
+                    ->where('user_id', $validatedData['user_id'] ?? null)
+                    ->where('amount', $validatedData['amount'])
+                    ->where('type', 'wallet_charge')
+                    ->where('created_at', '>', now()->subMinutes(10)) // Shorter window for wallet charges
+                    ->first();
+            }
+            
+            if ($existingTransaction) {
+                Log::warning('🚫 DUPLICATE PAYMENT PREVENTED: Existing pending transaction found', [
+                    'existing_transaction_id' => $existingTransaction->id,
+                    'service_request_hash' => $validatedData['metadata']['service_request_hash'] ?? null,
+                    'user_id' => $validatedData['user_id'] ?? null,
+                    'amount' => $validatedData['amount'],
+                    'type' => $validatedData['metadata']['type'] ?? null,
+                    'existing_created_at' => $existingTransaction->created_at,
+                    'time_diff_minutes' => now()->diffInMinutes($existingTransaction->created_at),
+                ]);
+                
+                DB::rollBack();
+                return [
+                    'success' => false,
+                    'message' => 'پرداخت قبلی در حال پردازش است. لطفاً منتظر بمانید.',
+                    'existing_transaction_id' => $existingTransaction->id,
+                ];
+            }
 
             // Get user and currency
             $user = null;

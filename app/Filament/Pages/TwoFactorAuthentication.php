@@ -22,9 +22,9 @@ class TwoFactorAuthentication extends Page implements HasForms, HasActions
     use InteractsWithActions;
 
     protected static string $view = 'filament.pages.two-factor-authentication';
-    protected static ?string $navigationLabel = 'PERSIAN_TEXT_f597256e';
-    protected static ?string $title = 'PERSIAN_TEXT_f597256e';
-    protected static ?string $navigationGroup = 'PERSIAN_TEXT_b67081a5';
+    protected static ?string $navigationLabel = 'احراز هویت دو مرحله‌ای';
+    protected static ?string $title = 'احراز هویت دو مرحله‌ای';
+    protected static ?string $navigationGroup = 'امنیت';
     protected static ?int $navigationSort = 1;
 
     public ?string $confirmationCode = '';
@@ -40,8 +40,8 @@ class TwoFactorAuthentication extends Page implements HasForms, HasActions
     {
         return [
             TextInput::make('confirmationCode')
-                ->label('PERSIAN_TEXT_c093b9f4')
-                ->placeholder('PERSIAN_TEXT_57c5ed70')
+                ->label('کد تایید')
+                ->placeholder('کد ۶ رقمی را وارد کنید')
                 ->numeric()
                 ->maxLength(6)
                 ->visible(fn () => Auth::user()->two_factor_enabled && !Auth::user()->two_factor_confirmed_at),
@@ -55,45 +55,45 @@ class TwoFactorAuthentication extends Page implements HasForms, HasActions
 
         if (!$user->two_factor_enabled) {
             $actions[] = Action::make('enable')
-                ->label('PERSIAN_TEXT_e2bdc21a')
+                ->label('فعال‌سازی احراز هویت دو مرحله‌ای')
                 ->color('success')
                 ->icon('heroicon-o-shield-check')
                 ->action('enableTwoFactor')
                 ->requiresConfirmation()
-                ->modalHeading('PERSIAN_TEXT_e2bdc21a')
-                ->modalDescription('PERSIAN_TEXT_7b0376af');
+                ->modalHeading('فعال‌سازی احراز هویت دو مرحله‌ای')
+                ->modalDescription('آیا مطمئن هستید که می‌خواهید احراز هویت دو مرحله‌ای را فعال کنید؟');
         } else {
             if (!$user->two_factor_confirmed_at) {
                 $actions[] = Action::make('confirm')
-                    ->label('PERSIAN_TEXT_afe51151')
+                    ->label('تایید کد')
                     ->color('success')
                     ->icon('heroicon-o-check-circle')
                     ->action('confirmTwoFactor');
             }
 
             $actions[] = Action::make('showRecoveryCodes')
-                ->label('PERSIAN_TEXT_d431cc33')
+                ->label('نمایش کدهای بازیابی')
                 ->color('info')
                 ->icon('heroicon-o-key')
                 ->action('showRecoveryCodes');
 
             $actions[] = Action::make('regenerateRecoveryCodes')
-                ->label('PERSIAN_TEXT_0a0644b3')
+                ->label('تولید مجدد کدهای بازیابی')
                 ->color('warning')
                 ->icon('heroicon-o-arrow-path')
                 ->action('regenerateRecoveryCodes')
                 ->requiresConfirmation()
-                ->modalHeading('PERSIAN_TEXT_0a0644b3')
-                ->modalDescription('PERSIAN_TEXT_e06f4492');
+                ->modalHeading('تولید مجدد کدهای بازیابی')
+                ->modalDescription('با تولید مجدد کدهای بازیابی، کدهای قبلی غیرفعال می‌شوند. آیا مطمئن هستید؟');
 
             $actions[] = Action::make('disable')
-                ->label('PERSIAN_TEXT_a05ec6e3')
+                ->label('غیرفعال‌سازی احراز هویت دو مرحله‌ای')
                 ->color('danger')
                 ->icon('heroicon-o-x-circle')
                 ->action('disableTwoFactor')
                 ->requiresConfirmation()
-                ->modalHeading('PERSIAN_TEXT_a05ec6e3')
-                ->modalDescription('PERSIAN_TEXT_f8fd9bed');
+                ->modalHeading('غیرفعال‌سازی احراز هویت دو مرحله‌ای')
+                ->modalDescription('با غیرفعال‌سازی احراز هویت دو مرحله‌ای، امنیت حساب شما کاهش می‌یابد. آیا مطمئن هستید؟');
         }
 
         return $actions;
@@ -104,8 +104,8 @@ class TwoFactorAuthentication extends Page implements HasForms, HasActions
         Auth::user()->enableTwoFactorAuthentication();
         
         Notification::make()
-            ->title('PERSIAN_TEXT_29e18053')
-            ->body('PERSIAN_TEXT_79145d08')
+            ->title('احراز هویت دو مرحله‌ای فعال شد')
+            ->body('برای تایید و فعال‌سازی کامل، لطفاً کد QR را با اپلیکیشن احراز هویت خود اسکن کرده و کد تایید را وارد کنید.')
             ->success()
             ->send();
     }
@@ -118,8 +118,8 @@ class TwoFactorAuthentication extends Page implements HasForms, HasActions
 
         if (!Auth::user()->verifyTwoFactorCode($this->confirmationCode)) {
             Notification::make()
-                ->title('PERSIAN_TEXT_642a882c')
-                ->body('PERSIAN_TEXT_e1cfffd9')
+                ->title('کد تایید نامعتبر')
+                ->body('کد واردشده صحیح نیست. لطفاً کد درست را از اپلیکیشن احراز هویت وارد کنید.')
                 ->danger()
                 ->send();
             return;
@@ -130,8 +130,8 @@ class TwoFactorAuthentication extends Page implements HasForms, HasActions
         $this->recoveryCodes = Auth::user()->two_factor_recovery_codes;
 
         Notification::make()
-            ->title('PERSIAN_TEXT_c6d45641')
-            ->body('PERSIAN_TEXT_888913c6')
+            ->title('احراز هویت دو مرحله‌ای تایید شد')
+            ->body('احراز هویت دو مرحله‌ای با موفقیت فعال شد. کدهای بازیابی را در مکان امنی ذخیره کنید.')
             ->success()
             ->send();
 
@@ -143,8 +143,8 @@ class TwoFactorAuthentication extends Page implements HasForms, HasActions
         Auth::user()->disableTwoFactorAuthentication();
         
         Notification::make()
-            ->title('PERSIAN_TEXT_735c2305')
-            ->body('PERSIAN_TEXT_4ac81573')
+            ->title('احراز هویت دو مرحله‌ای غیرفعال شد')
+            ->body('احراز هویت دو مرحله‌ای با موفقیت غیرفعال شد. حساب شما اکنون تنها با رمز عبور محافظت می‌شود.')
             ->warning()
             ->send();
     }
@@ -161,8 +161,8 @@ class TwoFactorAuthentication extends Page implements HasForms, HasActions
         $this->showRecoveryCodes = true;
         
         Notification::make()
-            ->title('PERSIAN_TEXT_d241e20e')
-            ->body('PERSIAN_TEXT_233bccc1')
+            ->title('کدهای بازیابی جدید تولید شد')
+            ->body('کدهای بازیابی جدید با موفقیت تولید شد. کدهای قبلی دیگر قابل استفاده نیستند.')
             ->success()
             ->send();
     }

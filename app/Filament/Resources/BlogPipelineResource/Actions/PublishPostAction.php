@@ -16,16 +16,16 @@ class PublishPostAction extends Action
     public static function make(?string $name = null): static
     {
         return parent::make($name ?? 'publish')
-            ->label('PERSIAN_TEXT_f5b3e7eb')
+            ->label('انتشار مقاله')
             ->icon('heroicon-o-globe-alt')
             ->color('success')
             ->requiresConfirmation()
-            ->modalHeading('PERSIAN_TEXT_c66b50b0')
-            ->modalDescription('PERSIAN_TEXT_1a80dcf3')
-            ->modalSubmitActionLabel('PERSIAN_TEXT_68e323cd')
+            ->modalHeading('انتشار مقاله در وبسایت')
+            ->modalDescription('آیا مطمئن هستید که می‌خواهید این مقاله را در وبسایت منتشر کنید؟')
+            ->modalSubmitActionLabel('انتشار مقاله')
             ->form([
                 Forms\Components\TextInput::make('slug')
-                    ->label('PERSIAN_TEXT_7c76fed6')
+                    ->label('نشانی URL (Slug)')
                     ->required()
                     ->default(function (BlogContentPipeline $record) {
                         try {
@@ -52,31 +52,31 @@ class PublishPostAction extends Action
                             return Str::slug($record->ai_title ?: $record->title);
                         }
                     })
-                    ->helperText('PERSIAN_TEXT_04c9f639'),
+                    ->helperText('نشانی یکتای مقاله در آدرس وبسایت'),
                 Forms\Components\Select::make('category_id')
-                    ->label('PERSIAN_TEXT_b561a47a')
+                    ->label('دسته‌بندی')
                     ->options(Category::pluck('name', 'id'))
                     ->default(fn (BlogContentPipeline $record) => $record->category_id)
                     ->searchable()
                     ->required(),
                 Forms\Components\Select::make('status')
-                    ->label('PERSIAN_TEXT_fe00462b')
+                    ->label('وضعیت انتشار')
                     ->options([
-                        'published' => 'PERSIAN_TEXT_2d5566e3',
-                        'draft' => 'PERSIAN_TEXT_6ed250fe',
-                        'scheduled' => 'PERSIAN_TEXT_49a77064',
+                        'published' => 'منتشر شده',
+                        'draft' => 'پیش‌نویس',
+                        'scheduled' => 'زمان‌بندی شده',
                     ])
                     ->default('published')
                     ->required(),
                 Forms\Components\DateTimePicker::make('published_at')
-                    ->label('PERSIAN_TEXT_394a9f99')
+                    ->label('تاریخ انتشار')
                     ->default(now())
                     ->visible(fn (Forms\Get $get): bool => $get('status') === 'scheduled'),
                 Forms\Components\Toggle::make('featured')
-                    ->label('PERSIAN_TEXT_253ec389')
+                    ->label('مقاله ویژه')
                     ->default(false),
                 Forms\Components\Textarea::make('summary')
-                    ->label('PERSIAN_TEXT_f5d8f72d')
+                    ->label('خلاصه مقاله')
                     ->default(fn (BlogContentPipeline $record) => $record->ai_summary ?: $record->original_summary)
                     ->rows(3),
             ])
@@ -101,7 +101,7 @@ class PublishPostAction extends Action
                                 'meta_keywords' => is_array($record->meta_keywords) ? implode(',', $record->meta_keywords) : $record->meta_keywords,
                             ]);
                             
-                            $message = 'PERSIAN_TEXT_babac2e2';
+                            $message = 'مقاله با موفقیت به‌روزرسانی شد';
                         }
                     } else {
                         // Create new post
@@ -121,7 +121,7 @@ class PublishPostAction extends Action
                             'views' => 0,
                         ]);
                         
-                        $message = 'PERSIAN_TEXT_38121f62';
+                        $message = 'مقاله با موفقیت منتشر شد';
                     }
                     
                     // Update pipeline record
@@ -136,10 +136,10 @@ class PublishPostAction extends Action
                     Notification::make()
                         ->success()
                         ->title($message)
-                        ->body('PERSIAN_TEXT_eb5ccb48' . $post->title)
+                        ->body('مقاله «' . $post->title . '» آماده مشاهده است')
                         ->actions([
                             \Filament\Notifications\Actions\Action::make('view')
-                                ->label('PERSIAN_TEXT_1722ad5e')
+                                ->label('مشاهده مقاله')
                                 ->url(route('app.blog.show', $post->slug))
                                 ->openUrlInNewTab(),
                         ])
@@ -148,8 +148,8 @@ class PublishPostAction extends Action
                 } catch (\Exception $e) {
                     Notification::make()
                         ->danger()
-                        ->title('PERSIAN_TEXT_1c126031')
-                        ->body('PERSIAN_TEXT_05f6ce76' . $e->getMessage())
+                        ->title('خطا در انتشار مقاله')
+                        ->body('خطا در انتشار مقاله: ' . $e->getMessage())
                         ->send();
                 }
             })

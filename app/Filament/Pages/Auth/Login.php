@@ -40,12 +40,12 @@ class Login extends BaseLogin
     protected function getTwoFactorFormComponent(): Component
     {
         return TextInput::make('two_factor_code')
-            ->label('PERSIAN_TEXT_15dc74db')
-            ->placeholder('PERSIAN_TEXT_9b889162')
+            ->label('کد تایید دو مرحله‌ای')
+            ->placeholder('کد ۶ رقمی از اپلیکیشن احراز هویت')
             ->maxLength(50)
             ->visible(fn () => $this->requiresTwoFactor)
             ->required(fn () => $this->requiresTwoFactor)
-            ->helperText('PERSIAN_TEXT_1d6c8d58');
+            ->helperText('کد تایید را از اپلیکیشن Google Authenticator یا Authy وارد کنید');
     }
 
     public function authenticate(): ?LoginResponse
@@ -94,8 +94,8 @@ class Login extends BaseLogin
                 $this->requiresTwoFactor = true;
                 
                 Notification::make()
-                    ->title('PERSIAN_TEXT_bb27dbb8')
-                    ->body('PERSIAN_TEXT_c54d53fd')
+                    ->title('کد تایید دو مرحله‌ای مورد نیاز است')
+                    ->body('لطفاً کد تایید ۶ رقمی را از اپلیکیشن احراز هویت خود وارد کنید')
                     ->info()
                     ->send();
                 
@@ -119,7 +119,7 @@ class Login extends BaseLogin
             session()->forget(['2fa_user_id', '2fa_remember']);
             
             throw ValidationException::withMessages([
-                'data.email' => 'PERSIAN_TEXT_39780dda',
+                'data.email' => 'نشست منقضی شده است. لطفاً دوباره وارد شوید.',
             ]);
         }
 
@@ -130,7 +130,7 @@ class Login extends BaseLogin
             session()->forget(['2fa_user_id', '2fa_remember']);
             
             throw ValidationException::withMessages([
-                'data.email' => 'PERSIAN_TEXT_b996c401',
+                'data.email' => 'کاربر یافت نشد. لطفاً دوباره تلاش کنید.',
             ]);
         }
 
@@ -139,13 +139,13 @@ class Login extends BaseLogin
         
         if (!$code) {
             throw ValidationException::withMessages([
-                'data.two_factor_code' => 'PERSIAN_TEXT_b57253dd',
+                'data.two_factor_code' => 'کد تایید الزامی است.',
             ]);
         }
 
         if (!$user->verifyTwoFactorCode($code)) {
             throw ValidationException::withMessages([
-                'data.two_factor_code' => 'PERSIAN_TEXT_875c0a7e',
+                'data.two_factor_code' => 'کد تایید نامعتبر است. لطفاً دوباره تلاش کنید.',
             ]);
         }
 

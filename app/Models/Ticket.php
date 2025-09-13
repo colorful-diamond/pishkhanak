@@ -111,25 +111,25 @@ class Ticket extends Model
     }
 
     /**
-     * Get the ticket category
+     * Get the ticket category relation
      */
-    public function category(): BelongsTo
+    public function ticketCategory(): BelongsTo
     {
         return $this->belongsTo(TicketCategory::class, 'category_id');
     }
 
     /**
-     * Get the ticket priority
+     * Get the ticket priority relation
      */
-    public function priority(): BelongsTo
+    public function ticketPriority(): BelongsTo
     {
         return $this->belongsTo(TicketPriority::class, 'priority_id');
     }
 
     /**
-     * Get the ticket status
+     * Get the ticket status relation
      */
-    public function status(): BelongsTo
+    public function ticketStatus(): BelongsTo
     {
         return $this->belongsTo(TicketStatus::class, 'status_id');
     }

@@ -53,6 +53,11 @@ class InputValidation
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Skip validation for admin panel routes (trusted authenticated users)
+        if ($this->isAdminPanelRoute($request)) {
+            return $next($request);
+        }
+        
         // Validate all input parameters
         $this->validateInput($request);
         
@@ -67,6 +72,29 @@ class InputValidation
         }
         
         return $next($request);
+    }
+
+    /**
+     * Check if the current request is for an admin panel route
+     */
+    protected function isAdminPanelRoute(Request $request): bool
+    {
+        $path = $request->path();
+        
+        // Skip validation for admin panel routes
+        $adminRoutes = [
+            'access',           // Filament admin panel
+            'livewire',         // Livewire requests
+            '_debugbar',        // Laravel Debugbar
+        ];
+        
+        foreach ($adminRoutes as $adminRoute) {
+            if (str_starts_with($path, $adminRoute)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     /**

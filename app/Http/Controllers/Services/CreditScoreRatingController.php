@@ -56,23 +56,46 @@ class CreditScoreRatingController extends BaseSmsFinnotechController implements 
         ];
 
         try {
-            // Extract credit score information if available
+            // Extract Iranian banking credit information if available
             if (isset($responseData['data'])) {
                 $data = $responseData['data'];
                 
-                $formatted['credit_score'] = [
-                    'score' => $data['score'] ?? 0,
-                    'max_score' => $data['max_score'] ?? 850,
+                // Iranian credit scoring system (0-900 scale)
+                $formatted['credit_info'] = [
+                    'score' => $data['credit_score'] ?? $data['score'] ?? 0,
+                    'max_score' => 900, // Iranian system uses 0-900 scale
                     'rating' => $data['rating'] ?? 'نامشخص',
-                    'factors' => $data['factors'] ?? []
+                    'rating_grade' => $data['grade'] ?? $this->getRatingGrade($data['credit_score'] ?? $data['score'] ?? 0),
+                    'percentage' => $data['percentage'] ?? round(($data['credit_score'] ?? $data['score'] ?? 0) / 900 * 100),
+                    'status' => $data['status'] ?? 'قابل بررسی'
                 ];
                 
-                $formatted['summary'] = [
-                    'payment_history' => $data['payment_history'] ?? 'نامشخص',
-                    'credit_utilization' => $data['credit_utilization'] ?? 'نامشخص',
-                    'credit_length' => $data['credit_length'] ?? 'نامشخص',
-                    'credit_mix' => $data['credit_mix'] ?? 'نامشخص',
-                    'new_credit' => $data['new_credit'] ?? 'نامشخص'
+                // Banking status information
+                $formatted['banking_status'] = [
+                    'blacklist_status' => $data['blacklist_status'] ?? 'قابل بررسی',
+                    'returned_cheques' => $data['returned_cheques'] ?? 'نامشخص',
+                    'facility_status' => $data['facility_status'] ?? 'قابل بررسی',
+                    'guarantee_status' => $data['guarantee_status'] ?? 'قابل بررسی'
+                ];
+                
+                // Credit factors with Iranian banking system terminology
+                $formatted['credit_factors'] = [
+                    'payment_history' => [
+                        'status' => $data['payment_history'] ?? 'قابل بررسی',
+                        'description' => 'تاریخچه پرداخت اقساط و تسهیلات'
+                    ],
+                    'facility_utilization' => [
+                        'status' => $data['facility_utilization'] ?? 'قابل بررسی',
+                        'description' => 'نحوه استفاده از تسهیلات بانکی'
+                    ],
+                    'credit_length' => [
+                        'status' => $data['credit_length'] ?? 'قابل بررسی',
+                        'description' => 'سابقه کار با سیستم بانکی'
+                    ],
+                    'guarantor_status' => [
+                        'status' => $data['guarantor_status'] ?? 'قابل بررسی',
+                        'description' => 'وضعیت تعهدات ضمانتی'
+                    ]
                 ];
             }
         } catch (\Exception $e) {
@@ -102,7 +125,7 @@ class CreditScoreRatingController extends BaseSmsFinnotechController implements 
      */
     public function getServiceDescription(): string
     {
-        return 'مشاهده امتیاز و رتبه اعتباری شما در سیستم بانکی';
+        return 'استعلام امتیاز اعتباری و رتبه بانکی از مرکز اطلاعات اعتباری ایران - بررسی تاریخچه پرداخت، محکومیت‌های مالی و وضعیت دریافت تسهیلات';
     }
 
     /**
@@ -119,24 +142,59 @@ class CreditScoreRatingController extends BaseSmsFinnotechController implements 
     public function getPreviewData(array $serviceData, Service $service): array
     {
         try {
-            // Return sample preview data for credit score rating
+            // Return sample preview data based on Iranian banking credit system
             $previewData = [
-                'credit_score' => [
-                    'score' => 750,
-                    'max_score' => 850,
+                'credit_info' => [
+                    'credit_score' => 785,
+                    'max_score' => 900,
                     'rating' => 'عالی',
-                    'percentage' => 88
+                    'rating_grade' => 'A',
+                    'percentage' => 87,
+                    'status' => 'قابل دریافت تسهیلات'
                 ],
-                'factors' => [
-                    'payment_history' => ['score' => 95, 'impact' => 'بالا'],
-                    'credit_utilization' => ['score' => 25, 'impact' => 'متوسط'],
-                    'credit_length' => ['score' => 80, 'impact' => 'متوسط'],
-                    'credit_mix' => ['score' => 60, 'impact' => 'کم'],
-                    'new_credit' => ['score' => 85, 'impact' => 'کم']
+                'banking_status' => [
+                    'blacklist_status' => 'عدم وجود در لیست سیاه',
+                    'returned_cheques' => 0,
+                    'facility_status' => 'بدون تسهیلات معوق',
+                    'guarantee_status' => 'بدون ضمانت معوق'
+                ],
+                'credit_factors' => [
+                    'payment_history' => [
+                        'score' => 95, 
+                        'status' => 'عالی', 
+                        'description' => 'تاریخچه پرداخت منظم و بدون تاخیر'
+                    ],
+                    'facility_utilization' => [
+                        'score' => 78, 
+                        'status' => 'خوب', 
+                        'description' => 'استفاده متعادل از تسهیلات بانکی'
+                    ],
+                    'credit_length' => [
+                        'score' => 82, 
+                        'status' => 'خوب', 
+                        'description' => 'سابقه مطلوب در سیستم بانکی'
+                    ],
+                    'guarantor_status' => [
+                        'score' => 90, 
+                        'status' => 'عالی', 
+                        'description' => 'عدم وجود تعهدات ضمانتی معوق'
+                    ]
+                ],
+                'available_facilities' => [
+                    'personal_loan' => 'قابل دریافت تا 500 میلیون ریال',
+                    'credit_card' => 'قابل دریافت با حد اعتباری بالا',
+                    'car_loan' => 'قابل دریافت با شرایط مناسب',
+                    'mortgage' => 'قابل دریافت با بررسی کارشناسی'
                 ],
                 'recommendations' => [
-                    'تنوع بیشتر در انواع اعتبار',
-                    'کاهش درخواست‌های جدید اعتبار'
+                    'حفظ رکورد پرداخت به موقع اقساط',
+                    'عدم افزایش بیش از حد تعهدات ضمانتی',
+                    'مراجعه به شعب بانک‌ها برای دریافت تسهیلات'
+                ],
+                'warning_notes' => [
+                    'این اطلاعات بر اساس آخرین داده‌های مرکز اطلاعات اعتباری است',
+                    'رتبه اعتباری ممکن است بر اساس تراکنش‌های جدید تغییر کند',
+                    'تصمیم نهایی درخصوص تسهیلات با بانک‌های مربوطه است'
                 ]
             ];
             
@@ -165,5 +223,18 @@ class CreditScoreRatingController extends BaseSmsFinnotechController implements 
     public function getPreviewTemplate(): string
     {
         return 'front.services.custom.credit-score-rating.preview';
+    }
+
+    /**
+     * Get credit rating grade based on Iranian banking system
+     */
+    private function getRatingGrade(int $score): string
+    {
+        if ($score >= 800) return 'A+';
+        if ($score >= 700) return 'A';
+        if ($score >= 600) return 'B';
+        if ($score >= 500) return 'C';
+        if ($score >= 400) return 'D';
+        return 'F';
     }
 }

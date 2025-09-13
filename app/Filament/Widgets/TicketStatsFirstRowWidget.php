@@ -39,28 +39,28 @@ class TicketStatsFirstRowWidget extends BaseWidget
         $myTickets = $currentUser ? Ticket::where('user_id', $currentUser->id)->count() : 0;
         
         return [
-            Stat::make('PERSIAN_TEXT_95ec8314', number_format($totalTickets))
-                ->description('PERSIAN_TEXT_b8e0cc2b')
+            Stat::make('کل تیکت‌ها', number_format($totalTickets))
+                ->description('مجموع تیکت‌های سیستم')
                 ->descriptionIcon('heroicon-m-ticket')
                 ->color('primary'),
                 
-            Stat::make('PERSIAN_TEXT_45b439eb', number_format($openTickets))
-                ->description('PERSIAN_TEXT_dac63629')
+            Stat::make('تیکت‌های باز', number_format($openTickets))
+                ->description('تیکت‌های در انتظار بررسی')
                 ->descriptionIcon('heroicon-m-exclamation-circle')
                 ->color($openTickets > 10 ? 'danger' : ($openTickets > 5 ? 'warning' : 'success')),
                 
-            Stat::make('PERSIAN_TEXT_3cf0bf7f', number_format($closedTickets))
-                ->description('PERSIAN_TEXT_fc051316')
+            Stat::make('تیکت‌های بسته', number_format($closedTickets))
+                ->description('تیکت‌های حل‌شده و بسته')
                 ->descriptionIcon('heroicon-m-check-circle')
                 ->color('success'),
                 
-            Stat::make('PERSIAN_TEXT_b21bd6a1', number_format($urgentTickets))
-                ->description('PERSIAN_TEXT_70dbaa3f')
+            Stat::make('تیکت‌های فوری', number_format($urgentTickets))
+                ->description('تیکت‌های با اولویت بالا')
                 ->descriptionIcon('heroicon-m-fire')
                 ->color($urgentTickets > 0 ? 'danger' : 'success'),
                 
-            Stat::make('PERSIAN_TEXT_df184102', number_format($myTickets))
-                ->description('PERSIAN_TEXT_bf9dd8dd')
+            Stat::make('تیکت‌های من', number_format($myTickets))
+                ->description('تیکت‌های من در سیستم')
                 ->descriptionIcon('heroicon-m-user')
                 ->color('info'),
         ];

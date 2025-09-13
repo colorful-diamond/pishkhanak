@@ -224,7 +224,7 @@ abstract class BaseFinnotechController extends Controller implements BaseService
             }
 
             // Process the service directly
-            $result = $this->processService($serviceData, $service);
+            $result = $this->process($serviceData, $service);
 
             if (!$result['success']) {
                 return back()
@@ -573,7 +573,7 @@ abstract class BaseFinnotechController extends Controller implements BaseService
                 return redirect($authUrl);
             } else {
                 // Fallback: treat as regular service (shouldn't happen with correct config)
-                return $this->processService($serviceData, $service);
+                return $this->process($serviceData, $service);
             }
 
         } catch (Exception $e) {

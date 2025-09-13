@@ -25,6 +25,6 @@ class EditAutoResponseContext extends EditRecord
 
     protected function getSavedNotificationTitle(): ?string
     {
-        return 'PERSIAN_TEXT_c8748e19';
+        return 'زمینه پاسخ خودکار با موفقیت ویرایش شد';
     }
 }

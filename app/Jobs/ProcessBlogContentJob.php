@@ -129,10 +129,9 @@ class ProcessBlogContentJob implements ShouldQueue
             Log::info('Blog content processed successfully', [
                 'pipeline_id' => $pipeline->id,
                 'title' => $pipeline->ai_title,
-                'quality_score'PERSIAN_TEXT_039f54e9'programmatic',
-                [
-                    'subtitle' => $pipeline->ai_headings[0] ?? null,
-                ]
+                'quality_score' => $qualityScore,
+                'processing_time' => $pipeline->processing_time_seconds,
+                'subtitle' => $pipeline->ai_headings[0] ?? null,
             );
             
             if ($thumbnailPath) {

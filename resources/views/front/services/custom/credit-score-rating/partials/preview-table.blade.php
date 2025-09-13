@@ -3,12 +3,16 @@
     <!-- Service Header with Icon -->
 
     @php
-        // For sub-services, the service slug itself is the bank slug
+        // For credit-score-rating service, always use sky blue theme
         $bankSpecific = false;
         $bankInfo = null;
         $bankColor = null;
         
-        if ($service->parent_id && $service->parent) {
+        // Force sky blue for main credit score rating service
+        if ($service->slug === 'credit-score-rating') {
+            $bankColor = '#0ea5e9'; // sky-500 color
+            $bankSpecific = false;
+        } elseif ($service->parent_id && $service->parent) {
             // This is a sub-service, use the service slug as bank slug
             $bankSlug = $service->slug;
             $bankSpecific = true;
@@ -47,7 +51,7 @@
                  @if($bankColor)
                  style="background: linear-gradient(135deg, {{ $bankColor }} 0%, {{ $bankColor }}CC 100%);"
                  @else
-                 class="bg-gradient-to-br from-purple-500 to-purple-600"
+                 class="bg-gradient-to-br from-sky-400 to-sky-500"
                  @endif>
                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
@@ -69,7 +73,7 @@
          style="background: linear-gradient(135deg, rgba({{ $rgb['r'] }}, {{ $rgb['g'] }}, {{ $rgb['b'] }}, 0.05) 0%, rgba({{ $rgb['r'] }}, {{ $rgb['g'] }}, {{ $rgb['b'] }}, 0.1) 100%); 
                 border-color: rgba({{ $rgb['r'] }}, {{ $rgb['g'] }}, {{ $rgb['b'] }}, 0.3);"
          @else
-         class="bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200"
+         class="bg-gradient-to-r from-sky-50 to-blue-50 border-sky-200"
          @endif>
         
         @php
@@ -77,12 +81,23 @@
             $nationalCode = $requestDetails['national_code'] ?? '1234567890';
             $mobile = $requestDetails['mobile'] ?? '09123456789';
             
-            // Get preview data or use defaults
+            // Get Iranian banking credit preview data or use defaults
             $previewData = $previewData ?? [];
-            $creditScore = $previewData['credit_score']['score'] ?? 750;
-            $maxScore = $previewData['credit_score']['max_score'] ?? 850;
-            $rating = $previewData['credit_score']['rating'] ?? 'عالی';
-            $percentage = $previewData['credit_score']['percentage'] ?? 88;
+            
+            // Iranian banking credit system data (0-900 scale)
+            $creditInfo = $previewData['credit_info'] ?? [];
+            $creditScore = $creditInfo['credit_score'] ?? 785;
+            $maxScore = $creditInfo['max_score'] ?? 900;
+            $rating = $creditInfo['rating'] ?? 'عالی';
+            $ratingGrade = $creditInfo['rating_grade'] ?? 'A';
+            $percentage = $creditInfo['percentage'] ?? 87;
+            $status = $creditInfo['status'] ?? 'قابل دریافت تسهیلات';
+            
+            // Banking status information
+            $bankingStatus = $previewData['banking_status'] ?? [];
+            $creditFactors = $previewData['credit_factors'] ?? [];
+            $availableFacilities = $previewData['available_facilities'] ?? [];
+            $recommendations = $previewData['recommendations'] ?? [];
         @endphp
         
         <!-- User Information -->
@@ -100,9 +115,11 @@
             </div>
         </div>
     </div>
+    
+    {{-- Credit report preview hidden as requested --}}
 
     <!-- Service Information -->
-    <div class="border-t border-gray-200 pt-4">
+    <div class="border-t border-gray-200 pt-4 mt-6">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div>
@@ -110,7 +127,7 @@
                 </div>
             </div>
             <div class="text-left">
-                <div class="text-lg font-bold" @if($bankColor) style="color: {{ $bankColor }};" @else class="text-purple-600" @endif>
+                <div class="text-lg font-bold" @if($bankColor) style="color: {{ $bankColor }};" @else class="text-sky-600" @endif>
                     {{ number_format($service->price) }} تومان
                 </div>
             </div>

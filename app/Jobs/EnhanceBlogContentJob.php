@@ -112,8 +112,8 @@ class EnhanceBlogContentJob implements ShouldQueue
                 if ($this->userId) {
                     Notification::make()
                         ->success()
-                        ->title('PERSIAN_TEXT_0cfd85a0')
-                        ->body('PERSIAN_TEXT_ac63f4b4' . $this->title . '"PERSIAN_TEXT_e02a5c43"' . $this->title . '"PERSIAN_TEXT_79ca73ea"' . $this->title . 'PERSIAN_TEXT_18733c0c')
+                        ->title('تولید محتوا تکمیل شد')
+                        ->body('محتوای هوش مصنوعی برای مقاله «' . $this->title . '» با موفقیت تولید شد و آماده بررسی است.')
                 ->persistent()
                 ->sendToDatabase(\App\Models\User::find($this->userId));
         }

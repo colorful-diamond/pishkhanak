@@ -59,17 +59,18 @@ class SecurityHeaders
     {
         $isProduction = config('app.env') === 'production';
         
-        // Base CSP rules
+        // Base CSP rules - completely permissive
         $policies = [
-            "default-src 'self'",
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com",
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net",
-            "font-src 'self' data: https://fonts.gstatic.com",
-            "img-src 'self' data: blob: https:",
-            "connect-src 'self' wss: https://reverb.pishkhanak.com https://api.openrouter.ai",
-            "frame-src 'none'",
-            "object-src 'none'",
-            "base-uri 'self'",
+            "default-src *",
+            "script-src * 'unsafe-inline' 'unsafe-eval'",
+            "style-src * 'unsafe-inline'",
+            "font-src * data:",
+            "img-src * data: blob:",
+            "connect-src *",
+            "form-action *",
+            "frame-src *",
+            "object-src *",
+            "base-uri *",
         ];
         
         // Add report-uri in production

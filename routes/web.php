@@ -184,6 +184,15 @@ Route::prefix('services')->name('services.')->group(function () {
         abort(404);
     })->where(['service' => '[a-z0-9\-]+'])->name('static-preview');
 
+    // Comment routes for services
+    Route::prefix('{service}/comments')->name('comments.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ServiceCommentController::class, 'index'])->name('index');
+        Route::post('/', [\App\Http\Controllers\ServiceCommentController::class, 'store'])->name('store');
+        Route::post('/{comment}/vote', [\App\Http\Controllers\ServiceCommentController::class, 'vote'])->name('vote');
+        Route::post('/{comment}/report', [\App\Http\Controllers\ServiceCommentController::class, 'report'])->name('report');
+        Route::get('/{comment}/replies', [\App\Http\Controllers\ServiceCommentController::class, 'replies'])->name('replies');
+    });
+
     // Dynamic service routes (must be last)
     Route::get('/{slug1}/{slug2?}', [ServiceController::class, 'show'])
         ->where(['slug1' => '[a-z0-9\-]+', 'slug2' => '[a-z0-9\-]+'])
@@ -247,7 +256,8 @@ Route::prefix('guest')->name('guest.')->group(function () {
 
         // Guest payment callback
         Route::match(['get', 'post'], '/callback/{gateway}/{transaction?}', [GuestPaymentController::class, 'handleCallback'])
-            ->name('callback');
+            ->name('callback')
+            ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class);
 
         // Phone verification after payment
         Route::get('/verify-phone', [GuestPaymentController::class, 'showPhoneVerification'])

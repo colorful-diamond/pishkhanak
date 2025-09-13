@@ -28,7 +28,7 @@ class ListAutoResponses extends ListRecords
     {
         if (request()->has('context')) {
             $contextName = \App\Models\AutoResponseContext::find(request('context'))?->name;
-            return 'PERSIAN_TEXT_24755c5c' . ($contextName ?? 'PERSIAN_TEXT_84df55d3');
+            return 'پاسخ‌های خودکار - ' . ($contextName ?? 'همه زمینه‌ها');
         }
 
         return parent::getTitle();

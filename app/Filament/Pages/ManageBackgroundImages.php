@@ -15,8 +15,8 @@ class ManageBackgroundImages extends Page
 {
     use WithFileUploads;
 
-    protected static ?string $navigationGroup = 'PERSIAN_TEXT_2a4a3388';
-    protected static ?string $navigationLabel = 'PERSIAN_TEXT_88d943dc';
+    protected static ?string $navigationGroup = 'هوش مصنوعی';
+    protected static ?string $navigationLabel = 'مدیریت تصاویر پس‌زمینه';
     protected static ?int $navigationSort = 3;
     protected static string $view = 'filament.pages.manage-background-images';
     
@@ -39,10 +39,10 @@ class ManageBackgroundImages extends Page
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('PERSIAN_TEXT_63e69ec7')
+                Forms\Components\Section::make('آپلود تصاویر پس‌زمینه جدید')
                     ->schema([
                         Forms\Components\FileUpload::make('backgroundUpload')
-                            ->label('PERSIAN_TEXT_5e0f73b6')
+                            ->label('انتخاب تصاویر')
                             ->multiple() // Enable multiple file uploads
                             ->image()
                             ->imageEditor()
@@ -53,7 +53,7 @@ class ManageBackgroundImages extends Page
                             ->maxSize(5120) // 5MB per file
                             ->maxFiles(10) // Maximum 10 files at once
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                            ->helperText('PERSIAN_TEXT_d20edb21'),
+                            ->helperText('حداکثر ۱۰ فایل با حجم ۵ مگابایت برای هر فایل - فرمت‌های JPEG، PNG، WebP'),
                     ])
                     ->columns(1),
             ]);
@@ -65,7 +65,7 @@ class ManageBackgroundImages extends Page
         if (empty($this->backgroundUpload)) {
             Notification::make()
                 ->warning()
-                ->title('PERSIAN_TEXT_e10b547e')
+                ->title('لطفاً حداقل یک تصویر انتخاب کنید')
                 ->send();
             return;
         }
@@ -139,18 +139,18 @@ class ManageBackgroundImages extends Page
                 Notification::make()
                     ->success()
                     ->title($uploadedCount > 1 
-                        ? "PERSIAN_TEXT_3c42cac3" 
-                        : 'PERSIAN_TEXT_afaf34d8')
+                        ? "تصاویر پس‌زمینه با موفقیت آپلود شدند" 
+                        : 'تصویر پس‌زمینه با موفقیت آپلود شد')
                     ->send();
             } elseif ($uploadedCount > 0 && $failedCount > 0) {
                 Notification::make()
                     ->warning()
-                    ->title("PERSIAN_TEXT_f81ea3ac")
+                    ->title("برخی فایل‌ها آپلود شدند، برخی ناموفق")
                     ->send();
             } else {
                 Notification::make()
                     ->danger()
-                    ->title('PERSIAN_TEXT_e0e2221c')
+                    ->title('خطا در آپلود تصاویر')
                     ->send();
             }
             
@@ -163,7 +163,7 @@ class ManageBackgroundImages extends Page
         } catch (\Exception $e) {
             Notification::make()
                 ->danger()
-                ->title('PERSIAN_TEXT_0032c6c5')
+                ->title('خطا در پردازش آپلود')
                 ->body($e->getMessage())
                 ->send();
             
@@ -181,7 +181,7 @@ class ManageBackgroundImages extends Page
             if (str_contains($path, 'gradient_')) {
                 Notification::make()
                     ->warning()
-                    ->title('PERSIAN_TEXT_2ea7bd01')
+                    ->title('حذف تصاویر گرادینت مجاز نیست')
                     ->send();
                 return;
             }
@@ -192,7 +192,7 @@ class ManageBackgroundImages extends Page
             
             Notification::make()
                 ->success()
-                ->title('PERSIAN_TEXT_7ba1d3a0')
+                ->title('تصویر پس‌زمینه با موفقیت حذف شد')
                 ->send();
                 
             $this->loadBackgrounds();
@@ -200,7 +200,7 @@ class ManageBackgroundImages extends Page
         } catch (\Exception $e) {
             Notification::make()
                 ->danger()
-                ->title('PERSIAN_TEXT_cb762249')
+                ->title('خطا در حذف تصویر پس‌زمینه')
                 ->body($e->getMessage())
                 ->send();
         }
@@ -212,8 +212,8 @@ class ManageBackgroundImages extends Page
             $service = app(ThumbnailGeneratorService::class);
             
             $thumbnailPath = $service->generateThumbnail(
-                mainTitle: 'PERSIAN_TEXT_6a0da637',
-                subtitle: 'PERSIAN_TEXT_17a72d10',
+                mainTitle: 'پیش‌نمایش تصویر پس‌زمینه',
+                subtitle: 'نمونه تولید تصویر شاخص',
                 backgroundPath: $backgroundPath
             );
             
@@ -224,7 +224,7 @@ class ManageBackgroundImages extends Page
         } catch (\Exception $e) {
             Notification::make()
                 ->danger()
-                ->title('PERSIAN_TEXT_d0a67255')
+                ->title('خطا در تولید پیش‌نمایش')
                 ->body($e->getMessage())
                 ->send();
         }

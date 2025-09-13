@@ -92,13 +92,23 @@ class PageController extends Controller
             'query-input' => 'required name=search_term_string'
         ]);
 
-        // Get categories with their services (only parent services)
-        $categories = ServiceCategory::with(['services' => function($query) {
+        // Get categories with their services - Banking services first, then others in reverse order
+        $allCategories = ServiceCategory::with(['services' => function($query) {
                 $query->where('status', 'active')
                       ->whereNull('parent_id')
                       ->orderBy('created_at', 'desc');
             }])
             ->get();
+            
+        // Custom ordering: Banking first (ID=1), then others in reverse ID order
+        $bankingCategory = $allCategories->where('id', 1)->first();
+        $otherCategories = $allCategories->where('id', '!=', 1)->sortByDesc('id');
+        
+        $categories = collect();
+        if ($bankingCategory) {
+            $categories->push($bankingCategory);
+        }
+        $categories = $categories->merge($otherCategories);
 
         // Get popular services for quick links
         $popularServices = Service::where('status', 'active')

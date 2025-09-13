@@ -702,13 +702,14 @@ export async function handleCreditScoreInquiry(data) {
   // Initialize browser with stealth configuration
   console.log('🌐 [NICS24-CREDIT-FLOW] Initializing browser with stealth...');
   const { chromium } = await import('playwright');
-  const browser = await chromium.launch({ 
-    headless: true,
-    args: getStealthLaunchArgs(getRandomUserAgent())
-  });
-  console.log('✅ [NICS24-CREDIT-FLOW] Browser initialized successfully');
-
+  let browser = null;
+  
   try {
+    browser = await chromium.launch({ 
+      headless: true,
+      args: getStealthLaunchArgs(getRandomUserAgent())
+    });
+    console.log('✅ [NICS24-CREDIT-FLOW] Browser initialized successfully');
     // Start the flow with retries
     console.log(`🔄 [NICS24-CREDIT-FLOW] Starting main process loop (max ${maxRetries} attempts)`);
     while (retryCount < maxRetries) {
@@ -751,7 +752,11 @@ export async function handleCreditScoreInquiry(data) {
             authToken: otpResult.authToken,
             success: otpResult.success
           });
-          await markOtpRequired(requestHash, otpResult.data || otpResult);
+          await markOtpRequired(requestHash, {
+            authToken: otpResult.authToken,
+            success: otpResult.success,
+            data: otpResult.data
+          });
           console.log('✅ [NICS24-DEBUG] Successfully marked OTP required in Redis');
         }
 
@@ -888,9 +893,6 @@ export async function handleCreditScoreInquiry(data) {
           await updateRedisProgress(requestHash, 100, 'completed', 'گزارش اعتباری با موفقیت دریافت شد');
         }
 
-        // Close browser
-        await browser.close();
-
         return {
           status: 'success',
           message: 'گزارش اعتباری با موفقیت دریافت شد',
@@ -924,8 +926,6 @@ export async function handleCreditScoreInquiry(data) {
     }
 
     // If we reach here, all retries failed
-    await browser.close();
-    
     return {
       status: 'error',
       code: 'MAX_RETRIES_EXCEEDED',
@@ -941,12 +941,6 @@ export async function handleCreditScoreInquiry(data) {
   } catch (error) {
     console.error('💥 [NICS24-CREDIT-FLOW] Unexpected error:', error.message);
     
-    try {
-      await browser.close();
-    } catch (closeError) {
-      console.error('❌ [NICS24-CREDIT-FLOW] Failed to close browser:', closeError.message);
-    }
-    
     if (requestHash) {
       await updateRedisProgress(requestHash, 100, 'error', 'خطای غیرمنتظره در سیستم');
     }
@@ -961,6 +955,24 @@ export async function handleCreditScoreInquiry(data) {
         error: error.message
       }
     };
+  } finally {
+    // GUARANTEED BROWSER CLEANUP
+    if (browser) {
+      try {
+        console.log('🧹 [NICS24-CREDIT-FLOW] Closing browser...');
+        await browser.close();
+        console.log('✅ [NICS24-CREDIT-FLOW] Browser closed successfully');
+      } catch (closeError) {
+        console.error('❌ [NICS24-CREDIT-FLOW] Failed to close browser gracefully:', closeError.message);
+        try {
+          console.log('🔪 [NICS24-CREDIT-FLOW] Force killing browser...');
+          await browser.kill();
+          console.log('✅ [NICS24-CREDIT-FLOW] Browser killed successfully');
+        } catch (killError) {
+          console.error('💥 [NICS24-CREDIT-FLOW] Failed to kill browser:', killError.message);
+        }
+      }
+    }
   }
 }
 
@@ -971,12 +983,13 @@ async function handleResendSmsOnly(mobile, nationalCode, requestHash) {
   console.log('🔄 [NICS24-CREDIT] Processing resend SMS request...');
   
   const { chromium } = await import('playwright');
-  const browser = await chromium.launch({ 
-    headless: true,
-    args: getStealthLaunchArgs(getRandomUserAgent())
-  });
+  let browser = null;
 
   try {
+    browser = await chromium.launch({ 
+      headless: true,
+      args: getStealthLaunchArgs(getRandomUserAgent())
+    });
     const loginResult = await nics24.login();
     if (loginResult.status !== 'success') {
       throw new Error('Failed to initialize NICS24 session');
@@ -987,13 +1000,15 @@ async function handleResendSmsOnly(mobile, nationalCode, requestHash) {
     // Send OTP again
     const otpResult = await sendOtpRequest(page, nationalCode, mobile, requestHash);
     
-    await browser.close();
-    
     if (otpResult.success) {
       // Mark OTP as required in Redis (notify frontend about resend)
       if (requestHash) {
         console.log('🎯 [NICS24-RESEND-DEBUG] Marking OTP required after resend');
-        await markOtpRequired(requestHash, otpResult.data || otpResult);
+        await markOtpRequired(requestHash, {
+          authToken: otpResult.authToken,
+          success: otpResult.success,
+          data: otpResult.data
+        });
         console.log('✅ [NICS24-RESEND-DEBUG] Successfully marked OTP required after resend');
       }
 
@@ -1013,12 +1028,6 @@ async function handleResendSmsOnly(mobile, nationalCode, requestHash) {
   } catch (error) {
     console.error('❌ [NICS24-CREDIT] Resend SMS failed:', error.message);
     
-    try {
-      await browser.close();
-    } catch (closeError) {
-      console.error('❌ [NICS24-CREDIT] Failed to close browser:', closeError.message);
-    }
-    
     return {
       status: 'error',
       code: 'RESEND_FAILED',
@@ -1028,6 +1037,24 @@ async function handleResendSmsOnly(mobile, nationalCode, requestHash) {
         nationalCode: nationalCode
       }
     };
+  } finally {
+    // GUARANTEED BROWSER CLEANUP
+    if (browser) {
+      try {
+        console.log('🧹 [NICS24-RESEND] Closing browser...');
+        await browser.close();
+        console.log('✅ [NICS24-RESEND] Browser closed successfully');
+      } catch (closeError) {
+        console.error('❌ [NICS24-RESEND] Failed to close browser gracefully:', closeError.message);
+        try {
+          console.log('🔪 [NICS24-RESEND] Force killing browser...');
+          await browser.kill();
+          console.log('✅ [NICS24-RESEND] Browser killed successfully');
+        } catch (killError) {
+          console.error('💥 [NICS24-RESEND] Failed to kill browser:', killError.message);
+        }
+      }
+    }
   }
 }
 
@@ -1053,12 +1080,13 @@ export async function handleOtpRetry(data) {
   }
 
   const { chromium } = await import('playwright');
-  const browser = await chromium.launch({ 
-    headless: true,
-    args: getStealthLaunchArgs(getRandomUserAgent())
-  });
+  let browser = null;
 
   try {
+    browser = await chromium.launch({ 
+      headless: true,
+      args: getStealthLaunchArgs(getRandomUserAgent())
+    });
     const loginResult = await nics24.login();
     if (loginResult.status !== 'success') {
       throw new Error('Failed to initialize NICS24 session');
@@ -1073,8 +1101,6 @@ export async function handleOtpRetry(data) {
     
     // Verify the new OTP
     const scoreResult = await verifyOtpAndGetScore(page, nationalCode, mobile, otp, authToken, requestHash);
-    
-    await browser.close();
     
     if (scoreResult.success) {
       // Update final progress
@@ -1113,12 +1139,6 @@ export async function handleOtpRetry(data) {
   } catch (error) {
     console.error('❌ [NICS24-CREDIT] OTP retry failed:', error.message);
     
-    try {
-      await browser.close();
-    } catch (closeError) {
-      console.error('❌ [NICS24-CREDIT] Failed to close browser:', closeError.message);
-    }
-    
     return {
       status: 'error',
       code: 'OTP_RETRY_ERROR',
@@ -1130,6 +1150,24 @@ export async function handleOtpRetry(data) {
         requestHash: requestHash
       }
     };
+  } finally {
+    // GUARANTEED BROWSER CLEANUP
+    if (browser) {
+      try {
+        console.log('🧹 [NICS24-RETRY] Closing browser...');
+        await browser.close();
+        console.log('✅ [NICS24-RETRY] Browser closed successfully');
+      } catch (closeError) {
+        console.error('❌ [NICS24-RETRY] Failed to close browser gracefully:', closeError.message);
+        try {
+          console.log('🔪 [NICS24-RETRY] Force killing browser...');
+          await browser.kill();
+          console.log('✅ [NICS24-RETRY] Browser killed successfully');
+        } catch (killError) {
+          console.error('💥 [NICS24-RETRY] Failed to kill browser:', killError.message);
+        }
+      }
+    }
   }
 }
 

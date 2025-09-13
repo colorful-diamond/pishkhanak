@@ -189,7 +189,7 @@ class ProcessSimpleAutoResponseJob implements ShouldQueue
     {
         $variables = [
             'ticket_number' => $this->ticket->ticket_number,
-            'user_name' => $this->ticket->user->name ?? 'PERSIAN_TEXT_ee8c069b',
+            'user_name' => $this->ticket->user->name ?? 'کاربر مهمان',
             'user_mobile' => $this->ticket->user->mobile ?? '',
             'created_date' => $this->ticket->created_at->format('Y/m/d'),
             'created_time' => $this->ticket->created_at->format('H:i'),

@@ -22,7 +22,9 @@ class ProcessBlogContentWithMonitoringJob implements ShouldQueue
     protected array $options;
     protected ?AiProcessingStatus $status = null;
 
-    /* PERSIAN_COMMENT */
+    /**
+     * تولید تصویر شاخص برای مقاله
+     */
     protected function generateThumbnail(BlogContentPipeline $pipeline): void
     {
         try {
@@ -48,7 +50,7 @@ class ProcessBlogContentWithMonitoringJob implements ShouldQueue
                 'pipeline_id' => $pipeline->id,
                 'error' => $e->getMessage()
             ]);
-            $this->updateStep('image_generation', 'failed', 'PERSIAN_TEXT_16fe389c');
+            $this->updateStep('image_generation', 'failed', 'خطا در تولید تصویر شاخص');
         }
     }
     
@@ -129,7 +131,7 @@ class ProcessBlogContentWithMonitoringJob implements ShouldQueue
         
         // Mark status as failed
         if ($this->status) {
-            $this->status->failProcessing('PERSIAN_TEXT_94ab3081' . $exception->getMessage());
+            $this->status->failProcessing('پردازش محتوا با شکست مواجه شد: ' . $exception->getMessage());
         }
     }
 }

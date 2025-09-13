@@ -1,0 +1,44 @@
+{
+  "storageState": {
+    "cookies": [
+      {
+        "name": "cookiesession1",
+        "value": "678B2882B340AABDA1963707D8D584A7",
+        "domain": "etebarito.nics24.ir",
+        "path": "/",
+        "expires": 1789243424.648128,
+        "httpOnly": true,
+        "secure": true,
+        "sameSite": "Lax"
+      },
+      {
+        "name": "token",
+        "value": "mtFEvRAmucnGiNZjP17jgT7sHPh/iffdMCOYihD/i9wjzRLS7xJ2lgzAiE4+WatIuPeVVduZE9R2gy47+gg42+1tJFBSJ7LsLhYwp+/u4xjRSus6uL1EyUt7uEDKve7ASJJ6V7QDWVoHPIsMo2Hgv/C6uUzqHlaXb847uEfz3HCwcX12oKsudUQYPP7/ML2AHntcR+BbY2xt434OATBW0sXdA4IaSbGFb1ReP+rqrBSkpz8BtAHmISvOl22cwJoOZ8QuIXkz03YRt+7qJ6zVAyPWGnJegJMQhJYKjbUltDiIIZbg+jmme/TCpVMyK8pYq7wYOjYCVnZ/cRrQ3cJjyF24fbwzpU7AgeV/eGR3nUSGbAT1JCBtr6rBqOmeXGXssTG3CZG5tIOjj8n4tQNNcZMkzuLiUpFFftdOXLsf7ICvGJyxU2/f43vYUOP1t20b26+zz22YnMIIW5Akytu+Z672WHjhMwjcaqMCxnIWq9meMMXi4Mw2GOxkrPYZgXAzPAuQVLgpL4G6AocOD1TLtqYe8h+l7n9zvr8NB/o2XFNYV5eAfytBXtOvh/dPbTX9z5s/2maPSfGx3kq1J3aurbvg5jpJ7dKZ88u9pwL9Xdy6BKN9sl4Q0vhBp7yZ55+I+mB7f0K/+k5H8vpRo7z9XgjisGB+sybu2kUidY2u0bnaL0ADmFpK3ctHC/u31AWtkGAlGm7fH3phBSC1gHLOOZiEOo4bn7s9lR2Yyjzev64YYEy4YTS0V02H4XCYNCFgLAfCb8KE/kdnyCB4JNft1Khcs0oRYP45pHWfmusu8T4UeynrrSPN+yRok5DI1lzYSNMqXGKW3EaTb+OWdf0OTzJxiLNVbAKR47E/WYxhjxyfMnEjf7wbHACXanEJA+eLJiQCDsE0saAw5G78wZoT5SMXAXigfR0Wf/PpPmsc0jHdmNi4dg4k5ajTUXooW7FpYVr9IIc5gKwDDlv3S5V8pPMGhbiYgUUW1gWhYKGKH/B/wC8UNAe2sTKdBRL+fz/5lnvzDDsZLGrsAbWfPg70koAwVHaPx01hGZ6vUvnrhAC6DfPMGxtNe/CzB1c39EsLAlP0m4vkxz1gll6z+Rax/45gAodEnpP8zJLGTNMO/kHf9BlbzWS0OSYy9fd+t5DNGOmkwW1aUbdwYdClIeSDjzuQQF0hTv5b5TSp8GNwaAhwDmsvZpSovg7nBwVdSoUODJm4dyXbrDGKqgePnOl1L71NEyhQmpKJTTEP4Or9J5wLJBY7UR4lg1B6hM0htGrDrq0Z9drU08wTrvVmdX2ITyU15LSIaa1pnpyTuSVywoP0F3S+8eXRfCOBWoIlvzocXEIpsGb96OXt4IbCDF8tjVJYPKyK1rOk9SwlnTLz+J7vKB9B+dgr9nHovZR5TLjIOPQCjfkzCi/9wQaP3h3DbZ7dcQUdRSC7Vm/LDpN9/c63lCs5D3yhyHisluO/1DSyKlUlFPVSN0pROo/yq2pOFiJ5aySdG09glMeRcHLE2B9BFixLNnANFeONWi2hHrtLOeUzl1AgO7XRir933TpKkH006nwBnVTROnHiB4DgeAYsXdw5pfxjjr8axq6HVnawQmO8IG0dQSk9pIuABI0iqTsKr0L3v8MjmAVFwOmN66gy0fqZGAs2ODbmpqEslpshrU9rSmcfQu58de65wqWlvA==",
+        "domain": "etebarito.nics24.ir",
+        "path": "/",
+        "expires": 1757793839,
+        "httpOnly": false,
+        "secure": false,
+        "sameSite": "Lax"
+      }
+    ],
+    "origins": [
+      {
+        "origin": "https://etebarito.nics24.ir",
+        "localStorage": [
+          {
+            "name": "user_data",
+            "value": "{\"reset\":false,\"login\":true,\"expires\":\"9000\",\"isSm\":false,\"publicMenu\":[{\"to\":\"/pishkhan\",\"title\":\"پیشخوان\",\"key\":null},{\"to\":\"/inquiry\",\"title\":\"دریافت گزارش\",\"key\":null},{\"to\":\"/share\",\"title\":\"امکانات کسب‌وکارها\",\"key\":null},{\"to\":\"/objection\",\"title\":\"اعتراض\",\"key\":null}],\"adminMenu\":[],\"userId\":\"9e822ca9-5b3c-58f3-dd83-3a1b288e7dcf\",\"name\":\"عادله\",\"sureName\":\"کیانی فر\",\"email\":\"khoshdel.net@gmail.com\",\"phoneNumber\":\"09112697701\",\"userName\":\"pishkhanak\",\"image\":null,\"imageType\":null,\"imageName\":null,\"userHaseCurrentPass\":true,\"nationalCode\":\"6300057062\",\"amount\":\"10440000.00\",\"personType\":1,\"ceoNationalCode\":null,\"bussinessRequestStatus\":1}"
+          },
+          {
+            "name": "serverAddressLocalStroage",
+            "value": "https://etebarito.Nics24.ir"
+          }
+        ]
+      }
+    ]
+  },
+  "createdAt": "2025-09-12T20:04:18.166Z",
+  "user": "pishkhanak",
+  "provider": "nics24"
+}

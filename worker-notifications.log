@@ -1,0 +1,710 @@
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ...... 41.64ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.73ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.41ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.57ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.98ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.81ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.74ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.11ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.20ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.11ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.62ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.00ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.10ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.22ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ...... 41.48ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.31ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.16ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.94ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob RUNNING
+ ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob 3.23ms FAIL
+ ....... 3.16ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob RUNNING
+ ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.09ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.46ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.86ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.02ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.74ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.42ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.60ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.88ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+ ....... 2.96ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.75ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.31ms RUNNING
+ FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.67ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.26ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.51ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob 3.49ms FAIL
+ ....... 3.61ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.43ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.62ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+ ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.75ms FAIL
+ 3.81ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.48ms FAIL
+ 3.79ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.57ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.01ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.66ms  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob FAIL
+ ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.70ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.54ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob RUNNING
+ ....... 3.77ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.94ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.78ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob 3.91ms FAIL
+ ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.79ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.86ms  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob FAIL
+ ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.91ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.02ms ........... FAIL
+ RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.89ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.99ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob RUNNING
+ ....... 3.85ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.04ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... ........... 3.87ms RUNNING
+ FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.17ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob 3.54ms FAIL
+ ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.07ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.96ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... ....... 4.37ms RUNNING
+ FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.72ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... ....... RUNNING
+ 3.57ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.31ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 1.95ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.44ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.04ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.28ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.12ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... ....... 3.77ms RUNNING
+ FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.27ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.33ms  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.75ms FAIL
+ FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.42ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.41ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.27ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.66ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.44ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.81ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... ........... 2.69ms FAIL
+ RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.05ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.73ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob RUNNING
+ ....... 4.74ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.86ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.18ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.45ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 1.89ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.63ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 1.94ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... ....... 2.49ms FAIL
+ RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.28ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 1.81ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.01ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.01ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.57ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.87ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.93ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.41ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.27ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.81ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.75ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.22ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 4.03ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 3.53ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.12ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.13ms FAIL
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ........... ....... 2.36ms FAIL
+ RUNNING
+  2025-09-09 16:18:21 App\Jobs\SendTelegramNotificationJob ....... 2.49ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 2.35ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 2.33ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.06ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 2.73ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.22ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.40ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.49ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.41ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.48ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.81ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.35ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.34ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.16ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob RUNNING
+ ....... 3.54ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.64ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.73ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.80ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob RUNNING
+ ....... 3.86ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.70ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.84ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.78ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.83ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.67ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.94ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.73ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob 3.85ms FAIL
+ ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.85ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob 3.96ms FAIL
+ ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.74ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.76ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.88ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.91ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.99ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.86ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.93ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.44ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.96ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.33ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.97ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.25ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.01ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.87ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...... 52.49ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ..... 109.54ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...... 65.19ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob 4.27ms FAIL
+ ....... 6.05ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob RUNNING
+ ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.07ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.90ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 2.93ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.83ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ....... 3.08ms RUNNING
+ FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.81ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 2.93ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob RUNNING
+ ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 2.92ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.71ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 2.92ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... ........... 3.77ms FAIL
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 2.99ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.87ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.27ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 3.86ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 2.85ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 9.39ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 5.49ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 5.03ms ........... RUNNING
+ FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 5.11ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.14ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.72ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 5.32ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.01ms FAIL
+ ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.91ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...... 11.29ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.21ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.49ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.28ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.85ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... ........... RUNNING
+ 7.49ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.72ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.85ms FAIL
+ ....... 4.28ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.98ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... RUNNING
+ 7.67ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.67ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.17ms FAIL
+ ....... 7.88ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.64ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.55ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.81ms FAIL
+ ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.80ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ....... RUNNING
+ 8.00ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 4.69ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.50ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.79ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.94ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 5.79ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 5.95ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... 7.69ms FAIL
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 5.00ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.70ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 5.15ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 5.40ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.59ms  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob FAIL
+ ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob 9.37ms FAIL
+ ....... 7.64ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob RUNNING
+ ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... ....... 8.10ms FAIL
+ 7.47ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.55ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.00ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.88ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.62ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.84ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob RUNNING
+ ....... 7.76ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.57ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.49ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.47ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.94ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob RUNNING
+ ....... 6.32ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.88ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.20ms  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob FAIL
+ ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.84ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.20ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.24ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 9.78ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.50ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.37ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.05ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ....... 5.13ms FAIL
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 5.94ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 5.14ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.08ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.51ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.68ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.48ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob RUNNING
+ ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob 7.66ms FAIL
+ ....... 7.47ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.75ms FAIL
+ 7.65ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.79ms FAIL
+ 7.75ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.72ms FAIL
+ 7.68ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob 7.53ms FAIL
+ ....... 7.65ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.73ms FAIL
+ 7.66ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.59ms FAIL
+ 7.62ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.63ms FAIL
+ 7.59ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.55ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.63ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.63ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.23ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.21ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.72ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.86ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.24ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob .......  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob 7.52ms FAIL
+ ....... 6.96ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ........... RUNNING
+ RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.80ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.74ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.42ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... ........... 7.40ms RUNNING
+ FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.55ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.54ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.60ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.47ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.62ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.56ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... ....... 6.57ms RUNNING
+ FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.59ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.65ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.68ms ....... FAIL
+ 7.65ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob RUNNING
+ ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.75ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.60ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 6.55ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.86ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.94ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.77ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.00ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 9.84ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.02ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.06ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 7.88ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.06ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.09ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.18ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ....... 8.33ms FAIL
+  2025-09-09 16:18:22 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.09ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ...... 10.11ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.25ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.32ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.12ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.17ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.30ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.14ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.24ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.62ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.39ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.20ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.10ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.76ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.69ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.34ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.27ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.30ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob RUNNING
+ ....... 8.20ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.27ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... RUNNING
+ 8.02ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 4.54ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.06ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.25ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.26ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.22ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.05ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.26ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.40ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.16ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.21ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.27ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.17ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.28ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.08ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ...... 11.37ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... ....... 8.75ms RUNNING
+ FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.76ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... ....... 8.08ms FAIL
+ RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.19ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... ........... 8.18ms FAIL
+ RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.18ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... ........... 8.09ms FAIL
+ RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.30ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... ........... 8.22ms FAIL
+ RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.23ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... ....... 8.17ms FAIL
+ RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 7.99ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... RUNNING
+ 8.27ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.20ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ...........  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... RUNNING
+ 8.35ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ........... RUNNING
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.21ms FAIL
+  2025-09-09 16:18:23 App\Jobs\SendTelegramNotificationJob ....... 8.19ms FAIL

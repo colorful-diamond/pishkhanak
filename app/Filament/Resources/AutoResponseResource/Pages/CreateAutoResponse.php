@@ -16,7 +16,7 @@ class CreateAutoResponse extends CreateRecord
 
     protected function getCreatedNotificationTitle(): ?string
     {
-        return 'PERSIAN_TEXT_070e96dd';
+        return 'پاسخ خودکار با موفقیت ایجاد شد';
     }
 
     protected function mutateFormDataBeforeCreate(array $data): array

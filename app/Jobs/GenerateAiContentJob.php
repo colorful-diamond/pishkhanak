@@ -334,7 +334,7 @@ class GenerateAiContentJob implements ShouldQueue
     protected function buildHeadingsPrompt(AiContent $aiContent)
     {
         $settings = $aiContent->generation_settings ?? $this->settings ?? [];
-        $language = $aiContent->language === 'Persian' ? 'PERSIAN_TEXT_66030b73' : $aiContent->language;
+        $language = $aiContent->language === 'Persian' ? 'فارسی' : $aiContent->language;
         $headingsNumber = $settings['headings_number'] ?? 8;
         $subHeadingsNumber = $settings['sub_headings_number'] ?? 2;
         
@@ -342,20 +342,63 @@ class GenerateAiContentJob implements ShouldQueue
                 Description: {$aiContent->short_description}
                 Language: {$language}
                 Each heading should have {$subHeadingsNumber} sub-headings.
-                Format the response as a JSON array with 'title' and 'subheadings' keys."17c1a648"Write a detailed section for the heading: {$heading['title']}
+                Format the response as a JSON array with 'title' and 'subheadings' keys.";
+    }
+    
+    /**
+     * Build prompt for section generation
+     */
+    protected function buildSectionPrompt(AiContent $aiContent, $heading)
+    {
+        $settings = $aiContent->generation_settings ?? $this->settings ?? [];
+        $language = $aiContent->language === 'Persian' ? 'فارسی' : $aiContent->language;
+        $tone = $settings['tone'] ?? 'professional';
+        $length = $settings['section_length'] ?? '500-800 words';
+        
+        return "Write a detailed section for the heading: {$heading['title']}
                 Context: {$aiContent->title}
                 Sub-headings to cover: " . implode(', ', $heading['subheadings'] ?? []) . "
                 Language: {$language}
                 Tone: {$tone}
                 Length: {$length}
-                Write comprehensive, informative content."2e96374f"Create a comprehensive summary of this article: {$aiContent->title}
+                Write comprehensive, informative content.";
+    }
+    
+    /**
+     * Build prompt for summary generation
+     */
+    protected function buildSummaryPrompt(AiContent $aiContent)
+    {
+        $language = $aiContent->language === 'Persian' ? 'فارسی' : $aiContent->language;
+        
+        return "Create a comprehensive summary of this article: {$aiContent->title}
                 Based on the following sections: " . json_encode($aiContent->ai_headings) . "
                 Language: {$language}
-                Make it engaging and informative, 2-3 paragraphs."cd7324f1"Generate SEO meta tags and schema markup for: {$aiContent->title}
+                Make it engaging and informative, 2-3 paragraphs.";
+    }
+    
+    /**
+     * Build prompt for meta and schema generation
+     */
+    protected function buildMetaPrompt(AiContent $aiContent)
+    {
+        $language = $aiContent->language === 'Persian' ? 'فارسی' : $aiContent->language;
+        
+        return "Generate SEO meta tags and schema markup for: {$aiContent->title}
                 Description: {$aiContent->short_description}
                 Language: {$language}
                 Include: meta title, meta description, keywords, Open Graph tags, Twitter Card tags, and JSON-LD schema.
-                Format as JSON with 'meta' and 'schema' keys."PERSIAN_TEXT_2b60b7cb"Generate 5-7 frequently asked questions with answers about: {$aiContent->title}
+                Format as JSON with 'meta' and 'schema' keys.";
+    }
+    
+    /**
+     * Build prompt for FAQ generation
+     */
+    protected function buildFAQPrompt(AiContent $aiContent)
+    {
+        $language = $aiContent->language === 'Persian' ? 'فارسی' : $aiContent->language;
+        
+        return "Generate 5-7 frequently asked questions with answers about: {$aiContent->title}
                 Based on the content: " . substr(json_encode($aiContent->ai_sections), 0, 1000) . "
                 Language: {$language}
                 Format as JSON array with 'question' and 'answer' keys.";
@@ -502,7 +545,7 @@ class GenerateAiContentJob implements ShouldQueue
         
         // Add FAQ if exists
         if ($aiContent->ai_faq && is_array($aiContent->ai_faq)) {
-            $html .= "2318b7f5";
+            $html .= "<h2>سوالات متداول</h2>\n";
             $html .= "<div class=\"faq\">\n";
             foreach ($aiContent->ai_faq as $faq) {
                 $html .= "<div class=\"faq-item\">\n";

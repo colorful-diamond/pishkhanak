@@ -58,7 +58,7 @@ class GenerateFAQJob implements ShouldQueue
                     $this->session_hash,
                     88,
                     'faq_generation',
-                    'PERSIAN_TEXT_d0ecd500'
+                    'در حال تولید سوالات متداول...'
                 );
             }
             
@@ -211,7 +211,7 @@ class GenerateFAQJob implements ShouldQueue
                     $this->session_hash,
                     100,
                     'completed',
-                    'PERSIAN_TEXT_3577724e'
+                    'سوالات متداول با موفقیت تولید شد'
                 );
             }
             
@@ -245,7 +245,7 @@ class GenerateFAQJob implements ShouldQueue
                     $this->session_hash,
                     100,
                     'completed_with_errors',
-                    'PERSIAN_TEXT_abea4c8d'
+                    'تولید سوالات متداول با خطا مواجه شد'
                 );
             }
 
@@ -318,7 +318,7 @@ class GenerateFAQJob implements ShouldQueue
                 $this->session_hash,
                 100,
                 'completed_with_errors',
-                'PERSIAN_TEXT_545a5626'
+                'خطا در تولید سوالات متداول'
             );
         }
     }

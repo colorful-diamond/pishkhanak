@@ -1,0 +1,496 @@
+{
+  "timestamp": "2025-09-08T17:13:46.703Z",
+  "totalServices": 34,
+  "totalResults": 34,
+  "totalErrors": 1,
+  "results": [
+    {
+      "service": {
+        "title": "استعلام رنگ چک با کد ملی",
+        "slug": "check-color",
+        "category": "Banking"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:05:22.019Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام و دریافت شماره شهاب",
+        "slug": "shahab-number",
+        "category": "Banking"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:05:36.530Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "تبدیل شماره حساب به شبا",
+        "slug": "account-iban",
+        "category": "Banking"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:05:47.644Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام اعتبار و محکومیت مالی",
+        "slug": "financial-judgment-inquiry",
+        "category": "Banking"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:05:58.510Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام چک در راه",
+        "slug": "coming-check-inquiry",
+        "category": "Banking"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:06:12.753Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام ضمانت وام با کدملی",
+        "slug": "loan-guarantee-inquiry",
+        "category": "Banking"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:06:26.631Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام و بررسی شماره شبا",
+        "slug": "iban-check",
+        "category": "Banking"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:07:15.994Z",
+      "attempt": 2
+    },
+    {
+      "service": {
+        "title": "استعلام چک برگشتی با کدملی و شناسه صیاد",
+        "slug": "cheque-inquiery",
+        "category": "Banking"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:07:28.136Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "اعتبار معاملاتی افراد",
+        "slug": "transaction-check",
+        "category": "Banking"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:07:42.599Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "تبدیل شماره کارت به شماره حساب",
+        "slug": "card-account",
+        "category": "Banking"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:07:56.037Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "خلافی خودرو",
+        "slug": "khalafi",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:08:08.993Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "خلافی موتورسیکلت",
+        "slug": "khalafimotor",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:08:21.649Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "عوارض آزادراهی",
+        "slug": "freeway",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:08:34.676Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "نمره منفی گواهینامه",
+        "slug": "nomremanfi",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:08:46.358Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "پلاک‌های فعال",
+        "slug": "platenumber",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:08:59.653Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام خلافی خودرو کلی و جزئی",
+        "slug": "car-violation-inquiry",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:09:11.565Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام نمره منفی گواهینامه",
+        "slug": "negative-license-score",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:09:25.651Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام وضعیت گواهینامه با کدملی",
+        "slug": "driving-license-status",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:09:38.001Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "عوارض سالیانه خودرو",
+        "slug": "avarezkhodro",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:09:52.657Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "گواهینامه رانندگی",
+        "slug": "drivinglicence",
+        "category": "Vehicle"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:10:08.219Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "گذرنامه",
+        "slug": "passport",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:10:24.103Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام وضعیت گذرنامه",
+        "slug": "passport-status-inquiry",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:10:36.979Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "پیگیری کارت ملی",
+        "slug": "national-id-card",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:10:48.971Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام اتباع خارجی",
+        "slug": "expats-inquiries",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:11:02.046Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام وضعیت حیات",
+        "slug": "liveness-inquiry",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:11:20.333Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام ممنوع الخروجی",
+        "slug": "inquiry-exit-ban",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:11:34.927Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "کارت پایان خدمت",
+        "slug": "military-card",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:11:52.735Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "پیگیری مرسوله پستی",
+        "slug": "posttracking",
+        "category": "KYC"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:12:07.985Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "بیمه شخص ثالث",
+        "slug": "bimesales",
+        "category": "Insurance"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:12:25.907Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "استعلام سوابق بیمه نامه شخص ثالث",
+        "slug": "third-party-insurance-history",
+        "category": "Insurance"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:12:43.268Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "سوابق بیمه",
+        "slug": "tamin",
+        "category": "Insurance"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:13:01.908Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "یارانه",
+        "slug": "yaraneh",
+        "category": "Social"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:13:19.511Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "فیش تامین اجتماعی",
+        "slug": "fishmostamari",
+        "category": "Social"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:13:31.459Z",
+      "attempt": 1
+    },
+    {
+      "service": {
+        "title": "نسخه تامین اجتماعی",
+        "slug": "electronicprescribe",
+        "category": "Social"
+      },
+      "results": [],
+      "analysis": {
+        "indexed": false,
+        "reason": "No results found"
+      },
+      "timestamp": "2025-09-08T17:13:46.662Z",
+      "attempt": 1
+    }
+  ],
+  "errors": [
+    {
+      "service": {
+        "title": "استعلام و بررسی شماره شبا",
+        "slug": "iban-check",
+        "category": "Banking"
+      },
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.google.com/search?q=site%3Apishkhanak.com%20%22%D8%A7%D8%B3%D8%AA%D8%B9%D9%84%D8%A7%D9%85%20%D9%88%20%D8%A8%D8%B1%D8%B1%D8%B3%DB%8C%20%D8%B4%D9%85%D8%A7%D8%B1%D9%87%20%D8%B4%D8%A8%D8%A7%22&hl=en\", waiting until \"networkidle\"\u001b[22m\n",
+      "attempt": 1,
+      "timestamp": "2025-09-08T17:07:00.802Z"
+    }
+  ]
+}

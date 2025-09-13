@@ -132,21 +132,53 @@ class SepGateway extends AbstractPaymentGateway
      */
     protected function getToken(GatewayTransaction $transaction): array
     {
+        // Always use normal PaymentController callback (was working before)
         $callbackUrl = route('payment.callback', ['gateway' => 'sep', 'transaction' => $transaction->uuid]);
+            
+        Log::info('🔗 SEP GATEWAY: Using default PaymentController callback', [
+            'transaction_id' => $transaction->id,
+            'transaction_uuid' => $transaction->uuid,
+            'callback_url' => $callbackUrl,
+        ]);
 
         $requestData = [
             'action' => 'token',
             'TerminalId' => (string) $this->getConfig('terminal_id'),
-            'Amount' => $transaction->total_amount * 10, // Convert from Toman to Rial (multiply by 10)
+            'Amount' => $transaction->total_amount * 10, // Convert Toman to Rial for SEP
             'ResNum' => $transaction->reference_id ?? $transaction->uuid,
             'RedirectUrl' => $callbackUrl,
             'SettlementIbanInfo' => [
                 [
                     'IBAN' => 'IR850560611828005171403801',
-                    'Amount' => $transaction->total_amount * 10,
+                    'Amount' => $transaction->total_amount * 10, // Convert Toman to Rial for SEP
                 ]
             ]
         ];
+
+        // Add ResNum1-4 parameters for reporting and tracking (max 50 chars each)
+        $metadata = $transaction->metadata ?? [];
+        
+        // ResNum1: Service ID for tracking which service was paid for
+        if (isset($metadata['service_id'])) {
+            $requestData['ResNum1'] = substr('SERVICE_' . $metadata['service_id'], 0, 50);
+        }
+        
+        // ResNum2: Service request hash for guest payment tracking
+        if (isset($metadata['service_request_hash'])) {
+            $requestData['ResNum2'] = substr($metadata['service_request_hash'], 0, 50);
+        }
+        
+        // ResNum3: Payment type (guest vs user)
+        if (isset($metadata['type'])) {
+            $requestData['ResNum3'] = substr(strtoupper($metadata['type']), 0, 50);
+        }
+        
+        // ResNum4: User ID or guest session for tracking
+        if (isset($metadata['user_id'])) {
+            $requestData['ResNum4'] = substr('USER_' . $metadata['user_id'], 0, 50);
+        } elseif (isset($metadata['guest_session_token'])) {
+            $requestData['ResNum4'] = substr('GUEST_' . substr($metadata['guest_session_token'], 0, 40), 0, 50);
+        }
 
         // Add optional fields
         if (!empty($transaction->user?->mobile)) {
@@ -166,6 +198,19 @@ class SepGateway extends AbstractPaymentGateway
 
         // Remove any fields with null values
         $requestData = array_filter($requestData, function($v) { return $v !== null; });
+
+        // Log ResNum parameters for debugging
+        Log::info('🏦 SEP GATEWAY: ResNum parameters configured', [
+            'transaction_id' => $transaction->id,
+            'transaction_uuid' => $transaction->uuid,
+            'ResNum' => $requestData['ResNum'] ?? null,
+            'ResNum1' => $requestData['ResNum1'] ?? null,
+            'ResNum2' => $requestData['ResNum2'] ?? null, 
+            'ResNum3' => $requestData['ResNum3'] ?? null,
+            'ResNum4' => $requestData['ResNum4'] ?? null,
+            'metadata_source' => $metadata,
+            'note' => 'ResNum1-4 are for SEP reporting panel only, not returned in callback',
+        ]);
 
         $apiUrl = $this->getCurrentApiUrl() . '/onlinepg/onlinepg';
         
@@ -214,6 +259,52 @@ class SepGateway extends AbstractPaymentGateway
     public function verifyPayment(GatewayTransaction $transaction, array $callbackData): array
     {
         try {
+            // Log COMPLETE return data for analysis
+            Log::info('🔍 SEP RETURN DATA: Complete analysis of all returned parameters', [
+                'transaction_id' => $transaction->id,
+                'transaction_uuid' => $transaction->uuid,
+                'timestamp' => now(),
+                'http_method' => request()->method(),
+                'request_ip' => request()->ip(),
+                'complete_callback_data' => $callbackData,
+                'callback_data_count' => count($callbackData),
+                'callback_keys' => array_keys($callbackData),
+                'callback_values' => array_values($callbackData),
+                // Check all possible ResNum variations
+                'resnum_analysis' => [
+                    'ResNum' => $callbackData['ResNum'] ?? 'NOT_PRESENT',
+                    'ResNum1' => $callbackData['ResNum1'] ?? 'NOT_PRESENT',
+                    'ResNum2' => $callbackData['ResNum2'] ?? 'NOT_PRESENT', 
+                    'ResNum3' => $callbackData['ResNum3'] ?? 'NOT_PRESENT',
+                    'ResNum4' => $callbackData['ResNum4'] ?? 'NOT_PRESENT',
+                    'resnum' => $callbackData['resnum'] ?? 'NOT_PRESENT', // lowercase
+                    'resnum1' => $callbackData['resnum1'] ?? 'NOT_PRESENT',
+                    'resnum2' => $callbackData['resnum2'] ?? 'NOT_PRESENT',
+                    'resnum3' => $callbackData['resnum3'] ?? 'NOT_PRESENT', 
+                    'resnum4' => $callbackData['resnum4'] ?? 'NOT_PRESENT',
+                ],
+                // Standard SEP parameters
+                'standard_params' => [
+                    'State' => $callbackData['State'] ?? 'NOT_PRESENT',
+                    'Status' => $callbackData['Status'] ?? 'NOT_PRESENT',
+                    'RefNum' => $callbackData['RefNum'] ?? 'NOT_PRESENT',
+                    'TraceNo' => $callbackData['TraceNo'] ?? 'NOT_PRESENT',
+                    'RRN' => $callbackData['RRN'] ?? 'NOT_PRESENT',
+                    'Amount' => $callbackData['Amount'] ?? 'NOT_PRESENT',
+                    'AffectiveAmount' => $callbackData['AffectiveAmount'] ?? 'NOT_PRESENT',
+                    'SecurePan' => $callbackData['SecurePan'] ?? 'NOT_PRESENT',
+                    'HashedCardNumber' => $callbackData['HashedCardNumber'] ?? 'NOT_PRESENT',
+                    'TerminalId' => $callbackData['TerminalId'] ?? 'NOT_PRESENT',
+                    'MID' => $callbackData['MID'] ?? 'NOT_PRESENT',
+                    'Token' => isset($callbackData['Token']) ? 'PRESENT' : 'NOT_PRESENT',
+                    'Wage' => $callbackData['Wage'] ?? 'NOT_PRESENT',
+                ],
+                'raw_post_data' => file_get_contents('php://input'),
+                'request_headers' => request()->headers->all(),
+                'query_parameters' => request()->query->all(),
+                'note' => 'Complete debugging to analyze what SEP actually returns',
+            ]);
+
             // Log verification attempt
             $this->logTransaction(
                 $transaction,
@@ -228,14 +319,30 @@ class SepGateway extends AbstractPaymentGateway
             $state = $callbackData['State'] ?? null;
             $status = $callbackData['Status'] ?? null;
             
-            // Log callback data for debugging
-            Log::info('SEP callback data analysis', [
+            // Log ALL callback data for debugging ResNum1-4 parameters
+            Log::info('🔍 SEP CALLBACK: Complete callback data analysis', [
+                'transaction_id' => $transaction->id,
                 'state' => $state,
                 'status' => $status,
-                'has_ref_num' => isset($callbackData['RefNum']),
-                'has_token' => isset($callbackData['Token']),
+                'resnum_main' => $callbackData['ResNum'] ?? null,
+                'resnum1' => $callbackData['ResNum1'] ?? null, // Check if returned
+                'resnum2' => $callbackData['ResNum2'] ?? null, // Check if returned  
+                'resnum3' => $callbackData['ResNum3'] ?? null, // Check if returned
+                'resnum4' => $callbackData['ResNum4'] ?? null, // Check if returned
                 'amount' => $callbackData['Amount'] ?? null,
                 'affective_amount' => $callbackData['AffectiveAmount'] ?? null,
+                'ref_num' => $callbackData['RefNum'] ?? null,
+                'trace_no' => $callbackData['TraceNo'] ?? null,
+                'rrn' => $callbackData['RRN'] ?? null,
+                'secure_pan' => $callbackData['SecurePan'] ?? null,
+                'hashed_card_number' => $callbackData['HashedCardNumber'] ?? null,
+                'terminal_id' => $callbackData['TerminalId'] ?? null,
+                'mid' => $callbackData['MID'] ?? null,
+                'wage' => $callbackData['Wage'] ?? null,
+                'token' => isset($callbackData['Token']) ? 'present' : 'not_present',
+                'all_callback_keys' => array_keys($callbackData),
+                'complete_callback_data' => $callbackData,
+                'note' => 'Debugging to check if ResNum1-4 are actually returned',
             ]);
             
             // Handle cancellation cases directly from callback data
@@ -261,6 +368,19 @@ class SepGateway extends AbstractPaymentGateway
             if ($state === 'OK' && $status == 2) {
                 // Payment is successful - use callback data directly
                 $receiptData = $callbackData;
+                
+                // Check if ResNum1-4 are returned in successful payments
+                Log::info('🎉 SEP SUCCESS: Checking ResNum1-4 in successful payment callback', [
+                    'transaction_id' => $transaction->id,
+                    'original_resnum' => $receiptData['ResNum'] ?? null,
+                    'returned_resnum1' => $receiptData['ResNum1'] ?? null,
+                    'returned_resnum2' => $receiptData['ResNum2'] ?? null,
+                    'returned_resnum3' => $receiptData['ResNum3'] ?? null,
+                    'returned_resnum4' => $receiptData['ResNum4'] ?? null,
+                    'ref_num' => $receiptData['RefNum'] ?? null,
+                    'all_success_callback_keys' => array_keys($receiptData),
+                    'full_success_data' => $receiptData,
+                ]);
                 
                 // Validate amounts (gateway returns Rial, transaction is in Toman)
                 $gatewayAmountRial = $receiptData['AffectiveAmount'];
@@ -288,6 +408,21 @@ class SepGateway extends AbstractPaymentGateway
                     ]);
                 }
 
+                // Extract ResNum1-4 if returned and add to metadata
+                $updatedMetadata = $transaction->metadata ?? [];
+                if (isset($receiptData['ResNum1'])) {
+                    $updatedMetadata['sep_returned_resnum1'] = $receiptData['ResNum1'];
+                }
+                if (isset($receiptData['ResNum2'])) {
+                    $updatedMetadata['sep_returned_resnum2'] = $receiptData['ResNum2'];  
+                }
+                if (isset($receiptData['ResNum3'])) {
+                    $updatedMetadata['sep_returned_resnum3'] = $receiptData['ResNum3'];
+                }
+                if (isset($receiptData['ResNum4'])) {
+                    $updatedMetadata['sep_returned_resnum4'] = $receiptData['ResNum4'];
+                }
+
                 // Store payment information
                 $transaction->update([
                     'gateway_transaction_id' => $receiptData['RefNum'],
@@ -296,7 +431,15 @@ class SepGateway extends AbstractPaymentGateway
                         'receipt' => $receiptData,
                         'verification' => $receiptData, // Use same data for verification
                         'settlement' => $settleResult, // Store settlement result
+                        'resnum_fields' => [ // Store ResNum fields separately for easy access
+                            'ResNum' => $receiptData['ResNum'] ?? null,
+                            'ResNum1' => $receiptData['ResNum1'] ?? null,
+                            'ResNum2' => $receiptData['ResNum2'] ?? null,
+                            'ResNum3' => $receiptData['ResNum3'] ?? null,
+                            'ResNum4' => $receiptData['ResNum4'] ?? null,
+                        ],
                     ],
+                    'metadata' => $updatedMetadata,
                     'processed_at' => now(),
                 ]);
 
@@ -328,6 +471,13 @@ class SepGateway extends AbstractPaymentGateway
                     'trace_number' => $receiptData['TraceNo'] ?? null,
                     'status' => 'verified',
                     'message' => 'Payment verified and settled successfully',
+                    // Include ResNum fields if returned for processing
+                    'resnum_data' => [
+                        'service_id' => $receiptData['ResNum1'] ?? null,
+                        'service_request_hash' => $receiptData['ResNum2'] ?? null,
+                        'payment_type' => $receiptData['ResNum3'] ?? null,
+                        'user_or_guest_id' => $receiptData['ResNum4'] ?? null,
+                    ],
                 ]);
             }
 

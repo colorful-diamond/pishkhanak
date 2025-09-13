@@ -16,6 +16,6 @@ class CreateAutoResponseContext extends CreateRecord
 
     protected function getCreatedNotificationTitle(): ?string
     {
-        return 'PERSIAN_TEXT_ade62162';
+        return 'زمینه پاسخ خودکار با موفقیت ایجاد شد';
     }
 }

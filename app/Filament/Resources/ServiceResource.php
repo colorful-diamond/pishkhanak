@@ -75,7 +75,7 @@ class ServiceResource extends Resource
                                     ->maxLength(255)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(function (string $state, callable $set) {
-                                        if($state !== '' || $state !== null){
+                                        if($state !== '' && $state !== null){
                                             $aiSlug = app(AiService::class)->generateSlug($state);
                                             $set('slug', $aiSlug);
                                         }
@@ -97,10 +97,12 @@ class ServiceResource extends Resource
                                 Forms\Components\TextInput::make('price')
                                     ->label(__('filament-panels::resources/service.fields.price'))
                                     ->integer()
+                                    ->default(0)
                                     ->prefix('تومان'),
                                 Forms\Components\TextInput::make('cost')
                                     ->label('هزینه سرویس (برای ما)')
                                     ->integer()
+                                    ->default(0)
                                     ->prefix('تومان')
                                     ->helperText('هزینه‌ای که برای اجرای این سرویس پرداخت می‌کنیم'),
                                 Forms\Components\Select::make('category_id')
@@ -125,45 +127,10 @@ class ServiceResource extends Resource
                                 SpatieTagsInput::make('tags')
                                     ->label(__('filament-panels::resources/service.fields.tags')),
                                 
-                                Forms\Components\Grid::make(1)
-                                    ->schema([
-                                        Forms\Components\Select::make('content_type')
-                                            ->label('نوع محتوا')
-                                            ->options([
-                                                'manual' => 'محتوای دستی',
-                                                'ai' => 'محتوای تولید شده با AI',
-                                            ])
-                                            ->default('manual')
-                                            ->reactive()
-                                            ->afterStateUpdated(function ($state, $get, $set) {
-                                                if ($state === 'manual' && is_numeric($get('content'))) {
-                                                    // Clear AI content selection when switching to manual
-                                                    $set('content', '');
-                                                }
-                                            })
-                                            ->helperText('انتخاب کنید که از محتوای دستی استفاده کنید یا محتوای AI'),
-                                        
-                                        Forms\Components\Select::make('content')
-                                            ->label('انتخاب محتوای AI')
-                                            ->relationship('aiContent', 'title')
-                                            ->searchable()
-                                            ->preload()
-                                            ->visible(fn ($get) => $get('content_type') === 'ai')
-                                            ->helperText('محتوای AI تولید شده را انتخاب کنید')
-                                            ->suffixAction(
-                                                Forms\Components\Actions\Action::make('generateAiContent')
-                                                    ->label('تولید محتوای جدید')
-                                                    ->icon('heroicon-o-sparkles')
-                                                    ->url(fn () => route('filament.admin.resources.ai-contents.create'))
-                                                    ->openUrlInNewTab()
-                                            ),
-                                        
-                                        Forms\Components\RichEditor::make('content')
-                                            ->label(__('filament-panels::resources/service.fields.content'))
-                                            ->required()
-                                            ->visible(fn ($get) => $get('content_type') === 'manual' || !$get('content_type'))
-                                            ->helperText(__('filament-panels::resources/service.fields.content_helper')),
-                                    ])
+                                Forms\Components\RichEditor::make('content')
+                                    ->label(__('filament-panels::resources/service.fields.content'))
+                                    ->required()
+                                    ->helperText(__('filament-panels::resources/service.fields.content_helper'))
                                     ->columnSpanFull(),
                                 Forms\Components\RichEditor::make('summary')
                                     ->label(__('filament-panels::resources/service.fields.summary'))
@@ -268,6 +235,52 @@ class ServiceResource extends Resource
                                     ->label(__('filament-panels::resources/service.fields.shares'))
                                     ->content(fn (?Service $record): string => $record?->shares ?? '0'),
                             ]),
+
+                        Forms\Components\Section::make('حالت تعمیر و نگهداری')
+                            ->schema([
+                                Forms\Components\Toggle::make('is_maintenance')
+                                    ->label('فعال کردن حالت تعمیر')
+                                    ->helperText('در این حالت، کاربران وارد شده نمی‌توانند از سرویس استفاده کنند')
+                                    ->reactive(),
+                                Forms\Components\Textarea::make('maintenance_message')
+                                    ->label('پیام خطای دلخواه')
+                                    ->placeholder('این سرویس در حال حاضر در دسترس نمی‌باشد. لطفا بعدا تلاش کنید.')
+                                    ->helperText('این پیام به کاربران نمایش داده می‌شود')
+                                    ->visible(fn (callable $get) => $get('is_maintenance') === true)
+                                    ->rows(3),
+                                Forms\Components\DateTimePicker::make('maintenance_ends_at')
+                                    ->label('زمان پایان تعمیرات')
+                                    ->helperText('اختیاری - سیستم به صورت خودکار بعد از این زمان از حالت تعمیر خارج می‌شود')
+                                    ->visible(fn (callable $get) => $get('is_maintenance') === true)
+                                    ->minDate(now())
+                                    ->native(false),
+                                Forms\Components\Toggle::make('maintenance_affects_children')
+                                    ->label('اعمال به زیرسرویس‌ها')
+                                    ->helperText('آیا حالت تعمیر به تمام زیرسرویس‌ها هم اعمال شود؟')
+                                    ->visible(fn (callable $get) => $get('is_maintenance') === true)
+                                    ->default(true),
+                                Forms\Components\Placeholder::make('maintenance_info')
+                                    ->label('اطلاعات تعمیرات')
+                                    ->visible(fn (?Service $record) => $record && $record->is_maintenance)
+                                    ->content(function (?Service $record): string {
+                                        if (!$record || !$record->is_maintenance) {
+                                            return '';
+                                        }
+                                        $html = '<div class="space-y-2">';
+                                        if ($record->maintenance_started_at) {
+                                            $html .= '<p><strong>شروع تعمیرات:</strong> ' . \Carbon\Carbon::parse($record->maintenance_started_at)->diffForHumans() . '</p>';
+                                        }
+                                        if ($record->maintenance_affects_children && $record->children()->exists()) {
+                                            $affectedCount = $record->getAffectedServices()->count() - 1;
+                                            if ($affectedCount > 0) {
+                                                $html .= '<p><strong>تعداد زیرسرویس‌های متأثر:</strong> ' . $affectedCount . ' سرویس</p>';
+                                            }
+                                        }
+                                        $html .= '</div>';
+                                        return $html;
+                                    }),
+                            ])
+                            ->collapsible(),
 
                         Forms\Components\Section::make(__('filament-panels::resources/service.sections.seo'))
                             ->schema([
@@ -431,6 +444,14 @@ class ServiceResource extends Resource
                 Tables\Columns\IconColumn::make('featured')
                     ->label(__('filament-panels::resources/service.fields.featured'))
                     ->boolean(),
+                Tables\Columns\IconColumn::make('is_maintenance')
+                    ->label('حالت تعمیر')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-wrench-screwdriver')
+                    ->falseIcon('heroicon-o-check-circle')
+                    ->trueColor('danger')
+                    ->falseColor('success')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('author.name')
                     ->label(__('filament-panels::resources/service.fields.author'))
                     ->searchable()
@@ -468,6 +489,8 @@ class ServiceResource extends Resource
                     ]),
                 TernaryFilter::make('featured')
                     ->label(__('filament-panels::resources/service.fields.featured')),
+                TernaryFilter::make('is_maintenance')
+                    ->label('حالت تعمیر'),
                 SelectFilter::make('author')
                     ->relationship('author', 'name'),
                 Tables\Filters\Filter::make('published_at')
@@ -530,6 +553,57 @@ class ServiceResource extends Resource
                             ->title(__('filament-panels::resources/service.notifications.Service_duplicated'))
                             ->success()
                             ->send();
+                    }),
+                Tables\Actions\Action::make('toggle_maintenance')
+                    ->label(fn (Service $record) => $record->is_maintenance ? 'غیرفعال کردن حالت تعمیر' : 'فعال کردن حالت تعمیر')
+                    ->icon(fn (Service $record) => $record->is_maintenance ? 'heroicon-o-check-circle' : 'heroicon-o-wrench-screwdriver')
+                    ->color(fn (Service $record) => $record->is_maintenance ? 'success' : 'warning')
+                    ->requiresConfirmation()
+                    ->modalHeading(fn (Service $record) => $record->is_maintenance ? 'غیرفعال کردن حالت تعمیر' : 'فعال کردن حالت تعمیر')
+                    ->modalDescription(fn (Service $record) => $record->is_maintenance 
+                        ? 'آیا مطمئن هستید که می‌خواهید حالت تعمیر را غیرفعال کنید؟' 
+                        : 'با فعال کردن حالت تعمیر، کاربران وارد شده نمی‌توانند از این سرویس استفاده کنند.')
+                    ->form(function (Service $record) {
+                        if ($record->is_maintenance) {
+                            return [];
+                        }
+                        return [
+                            Forms\Components\Textarea::make('maintenance_message')
+                                ->label('پیام خطای دلخواه')
+                                ->placeholder('این سرویس در حال حاضر در دسترس نمی‌باشد. لطفا بعدا تلاش کنید.')
+                                ->rows(3),
+                            Forms\Components\DateTimePicker::make('maintenance_ends_at')
+                                ->label('زمان پایان تعمیرات')
+                                ->helperText('اختیاری - سیستم به صورت خودکار بعد از این زمان از حالت تعمیر خارج می‌شود')
+                                ->minDate(now())
+                                ->native(false),
+                            Forms\Components\Toggle::make('maintenance_affects_children')
+                                ->label('اعمال به زیرسرویس‌ها')
+                                ->helperText('آیا حالت تعمیر به تمام زیرسرویس‌ها هم اعمال شود؟')
+                                ->default(true),
+                        ];
+                    })
+                    ->action(function (Service $record, array $data) {
+                        if ($record->is_maintenance) {
+                            $record->disableMaintenance();
+                            Notification::make()
+                                ->title('حالت تعمیر غیرفعال شد')
+                                ->success()
+                                ->send();
+                        } else {
+                            $record->enableMaintenance(
+                                $data['maintenance_message'] ?? null,
+                                $data['maintenance_ends_at'] ?? null,
+                                $data['maintenance_affects_children'] ?? true
+                            );
+                            
+                            $affectedCount = $record->getAffectedServices()->count();
+                            Notification::make()
+                                ->title('حالت تعمیر فعال شد')
+                                ->body($affectedCount > 1 ? "تعداد {$affectedCount} سرویس تحت تأثیر قرار گرفت" : null)
+                                ->success()
+                                ->send();
+                        }
                     }),
             ])
             ->recordUrl(fn (Service $record): string => static::getUrl('edit', ['record' => $record]))

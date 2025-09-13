@@ -14,34 +14,34 @@ class BulkGenerateContentAction extends BulkAction
     public static function make(?string $name = null): static
     {
         return parent::make($name ?? 'bulk_generate')
-            ->label('PERSIAN_TEXT_e3857236')
+            ->label('تولید گروهی محتوا')
             ->icon('heroicon-o-sparkles')
             ->color('warning')
             ->requiresConfirmation()
-            ->modalHeading('PERSIAN_TEXT_1a130efa')
-            ->modalDescription('PERSIAN_TEXT_db8ff978')
-            ->modalSubmitActionLabel('PERSIAN_TEXT_3cfdcdb4')
+            ->modalHeading('تولید محتوا برای مقالات انتخابی')
+            ->modalDescription('آیا مطمئن هستید که می‌خواهید برای مقالات انتخابی محتوا تولید کنید؟')
+            ->modalSubmitActionLabel('شروع تولید')
             ->form([
                 Forms\Components\Toggle::make('use_queue')
-                    ->label('PERSIAN_TEXT_60e3990d')
-                    ->helperText('PERSIAN_TEXT_be801b37')
+                    ->label('استفاده از صف پردازش')
+                    ->helperText('تولید محتوا در پس‌زمینه انجام شود')
                     ->default(true),
                 Forms\Components\Toggle::make('parallel_generation')
-                    ->label('PERSIAN_TEXT_e037ecce')
-                    ->helperText('PERSIAN_TEXT_561ce49c')
+                    ->label('تولید موازی')
+                    ->helperText('چندین مقاله به صورت هم‌زمان تولید شود')
                     ->default(false),
                 Forms\Components\Toggle::make('use_web_search')
-                    ->label('PERSIAN_TEXT_775698cb')
+                    ->label('استفاده از جستجوی وب')
                     ->default(true),
                 Forms\Components\Toggle::make('generate_images')
-                    ->label('PERSIAN_TEXT_00b4f311')
+                    ->label('تولید تصاویر')
                     ->default(false),
                 Forms\Components\Select::make('priority')
-                    ->label('PERSIAN_TEXT_44e7afcf')
+                    ->label('اولویت')
                     ->options([
-                        'high' => 'PERSIAN_TEXT_6986ecfe',
-                        'normal' => 'PERSIAN_TEXT_49415c45',
-                        'low' => 'PERSIAN_TEXT_a674038d',
+                        'high' => 'بالا',
+                        'normal' => 'عادی',
+                        'low' => 'پایین',
                     ])
                     ->default('normal'),
             ])
@@ -80,8 +80,8 @@ class BulkGenerateContentAction extends BulkAction
                 
                 Notification::make()
                     ->success()
-                    ->title('PERSIAN_TEXT_75185aa6')
-                    ->body("PERSIAN_TEXT_c7ef1edb")
+                    ->title('تولید محتوا آغاز شد')
+                    ->body("تولید محتوا برای {$count} مقاله در صف قرار گرفت و به زودی تکمیل خواهد شد.")
                     ->send();
             })
             ->deselectRecordsAfterCompletion();

@@ -1,0 +1,22 @@
+# Claude Code Safety Rules
+# This file prevents Claude Code from running dangerous commands
+
+# NEVER allow these dangerous migration commands:
+migrate:fresh
+migrate:refresh  
+migrate:reset
+migrate:rollback
+db:wipe
+schema:dump --prune
+
+# NEVER modify these critical files:
+.env
+database/
+storage/app/
+config/database.php
+
+# ALWAYS require explicit permission for:
+# - Any php artisan migrate commands
+# - Database modifications
+# - Schema changes
+# - Data deletion operations

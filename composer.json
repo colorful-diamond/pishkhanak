@@ -20,6 +20,7 @@
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "filament/spatie-laravel-tags-plugin": "^3.2",
         "google/apiclient": "^2.17",
+        "hekmatinasser/verta": "^8.5",
         "intervention/image": "^3.11",
         "laravel/framework": "^11.9",
         "laravel/reverb": "^1.0",
@@ -33,6 +34,8 @@
         "openai-php/laravel": "^0.10.1",
         "pbmedia/laravel-ffmpeg": "^8.5",
         "php-ffmpeg/php-ffmpeg": "^1.2",
+        "plank/laravel-metable": "^6.2",
+        "pragmarx/google2fa": "^8.0",
         "predis/predis": "^2.0",
         "ryangjchandler/blade-tabler-icons": "^2.3",
         "socialiteproviders/discord": "^4.2",
@@ -41,10 +44,8 @@
         "spatie/laravel-sluggable": "^3.6",
         "spatie/laravel-tags": "^4.6",
         "spatie/laravel-translatable": "^6.8",
-        "webbingbrasil/filament-copyactions": "^3.0",
-        "hekmatinasser/verta": "^8.5",
         "telegram-bot/api": "^2.5",
-        "plank/laravel-metable": "^6.2"
+        "webbingbrasil/filament-copyactions": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

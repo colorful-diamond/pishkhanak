@@ -13,8 +13,8 @@ class TicketObserver
     public function __construct()
     {
         try {
-            // Use the fixed bot with all features
-            $this->telegramBot = new \App\Services\TelegramBotFixed();
+            // Use the ticket bot service
+            $this->telegramBot = new TelegramTicketBot();
         } catch (\Exception $e) {
             Log::error('Failed to initialize Telegram bot in observer', ['error' => $e->getMessage()]);
             $this->telegramBot = null;

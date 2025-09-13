@@ -1,16 +1,95 @@
 {
   "servers": {
-    "chrome": {
+    "serena": {
+      "command": "/home/pishkhanak/serena/.venv/bin/serena",
+      "args": ["--mcp", "--working-dir", "/home/pishkhanak/htdocs/pishkhanak.com"],
+      "env": {
+        "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "4096000",
+        "MAX_MCP_OUTPUT_TOKENS": "100000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
+    },
+    "filesystem": {
+      "command": "mcp-server-filesystem",
+      "args": [],
+      "env": {
+        "MAX_MCP_OUTPUT_TOKENS": "100000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
+    },
+    "sequential-thinking": {
       "command": "npx",
-      "args": ["mcp-chrome-bridge"],
-      "env": {}
+      "args": ["sequential-thinking-mcp"],
+      "env": {
+        "MAX_MCP_OUTPUT_TOKENS": "100000",
+        "MAX_THINKING_TOKENS": "60000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp"],
+      "env": {
+        "MAX_MCP_OUTPUT_TOKENS": "100000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
+    },
+    "codanna": {
+      "command": "codanna",
+      "args": ["--mcp"],
+      "env": {
+        "MAX_MCP_OUTPUT_TOKENS": "100000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
+    },
+    "github": {
+      "command": "mcp-server-github",
+      "args": [],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "",
+        "MAX_MCP_OUTPUT_TOKENS": "100000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
+    },
+    "magic": {
+      "command": "npx",
+      "args": ["-y", "@21st-dev/magic@latest"],
+      "env": {
+        "API_KEY": "310f7fc57b46316a0b6ff74c5717796651c5b6b167ae706d3637b07210dc70cb",
+        "MAX_MCP_OUTPUT_TOKENS": "100000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
+    },
+    "morphllm": {
+      "command": "npx",
+      "args": ["-y", "morphllm-fast-apply"],
+      "env": {
+        "MORPH_API_KEY": "xAQ8c6He6tuCZBplHzlR",
+        "MAX_MCP_OUTPUT_TOKENS": "100000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp"],
+      "env": {
+        "MAX_MCP_OUTPUT_TOKENS": "100000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
     },
     "cipher": {
-      "command": "npx",
-      "args": ["@byterover/cipher"],
+      "command": "cipher",
+      "args": ["--mode", "mcp", "--config", "/home/pishkhanak/.config/cipher/cipher.yml"],
       "env": {
-        "CIPHER_CONFIG_PATH": "./.cipher/cipher.yml",
-        "CIPHER_WORKSPACE": "/home/pishkhanak/htdocs/pishkhanak.com"
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "USE_WORKSPACE_MEMORY": "true",
+        "WORKSPACE_VECTOR_STORE_COLLECTION": "pishkhanak_memory",
+        "CIPHER_CONTEXT": "persian_financial_platform",
+        "CIPHER_PROJECT": "pishkhanak",
+        "MCP_SERVER_MODE": "aggregator",
+        "CIPHER_CONFIG_PATH": "/home/pishkhanak/.config/cipher/cipher.yml",
+        "MAX_MCP_OUTPUT_TOKENS": "100000",
+        "MCP_TOOL_TIMEOUT": "600000"
       }
     }
   }

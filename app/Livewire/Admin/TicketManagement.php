@@ -36,11 +36,15 @@ class TicketManagement extends Component
 
     // Filters
     public $search = '';
+    public $searchType = 'all'; // all, ticket, user, content
+    public $dateFrom = '';
+    public $dateTo = '';
     public $filterStatus = '';
     public $filterCategory = '';
     public $filterPriority = '';
     public $filterAssigned = '';
     public $showOnlyMine = false;
+    public $showOverdue = false;
 
     // View settings
     public $perPage = 25;
@@ -87,15 +91,44 @@ class TicketManagement extends Component
 
     private function getFilteredTickets()
     {
-        $query = Ticket::with(['user', 'category', 'priority', 'status', 'assignedTo', 'messages'])
+        $query = Ticket::with(['user', 'ticketCategory', 'ticketPriority', 'ticketStatus', 'assignedTo', 'messages'])
             ->latest('updated_at');
 
+        // Enhanced search functionality
         if ($this->search) {
-            $query->where(function($q) {
-                $q->where('ticket_number', 'like', "%{$this->search}%")
-                  ->orWhere('subject', 'like', "%{$this->search}%")
-                  ->orWhereHas('user', fn($uq) => $uq->where('name', 'like', "%{$this->search}%"));
+            $searchTerm = $this->search;
+            $query->where(function($q) use ($searchTerm) {
+                switch ($this->searchType) {
+                    case 'ticket':
+                        $q->where('ticket_number', 'like', "%{$searchTerm}%")
+                          ->orWhere('subject', 'like', "%{$searchTerm}%")
+                          ->orWhere('description', 'like', "%{$searchTerm}%");
+                        break;
+                    case 'user':
+                        $q->whereHas('user', fn($uq) => $uq->where('name', 'like', "%{$searchTerm}%")
+                                                          ->orWhere('email', 'like', "%{$searchTerm}%"));
+                        break;
+                    case 'content':
+                        $q->whereHas('messages', fn($mq) => $mq->where('message', 'like', "%{$searchTerm}%"));
+                        break;
+                    default: // 'all'
+                        $q->where('ticket_number', 'like', "%{$searchTerm}%")
+                          ->orWhere('subject', 'like', "%{$searchTerm}%")
+                          ->orWhere('description', 'like', "%{$searchTerm}%")
+                          ->orWhereHas('user', fn($uq) => $uq->where('name', 'like', "%{$searchTerm}%")
+                                                            ->orWhere('email', 'like', "%{$searchTerm}%"))
+                          ->orWhereHas('messages', fn($mq) => $mq->where('message', 'like', "%{$searchTerm}%"));
+                        break;
+                }
             });
+        }
+
+        // Date range filtering
+        if ($this->dateFrom) {
+            $query->whereDate('created_at', '>=', $this->dateFrom);
+        }
+        if ($this->dateTo) {
+            $query->whereDate('created_at', '<=', $this->dateTo);
         }
 
         if ($this->filterStatus) {
@@ -120,6 +153,12 @@ class TicketManagement extends Component
             $query->where('assigned_to', Auth::id());
         }
 
+        if ($this->showOverdue) {
+            $query->whereHas('ticketStatus', fn($q) => $q->where('slug', '!=', 'closed'))
+                  ->where('created_at', '<', now()->subHours(24))
+                  ->whereNull('first_response_at');
+        }
+
         return $query->paginate($this->perPage);
     }
 
@@ -127,7 +166,7 @@ class TicketManagement extends Component
     {
         return [
             'total' => Ticket::count(),
-            'open' => Ticket::whereHas('status', fn($q) => $q->open())->count(),
+            'open' => Ticket::whereHas('ticketStatus', fn($q) => $q->where('slug', 'open'))->count(),
             'overdue' => $this->getOverdueCount(),
             'myTickets' => Ticket::where('assigned_to', Auth::id())->count(),
             'unassigned' => Ticket::whereNull('assigned_to')->count(),
@@ -136,7 +175,7 @@ class TicketManagement extends Component
 
     private function getOverdueCount()
     {
-        return Ticket::whereHas('status', fn($q) => $q->open())
+        return Ticket::whereHas('ticketStatus', fn($q) => $q->where('slug', 'open'))
                     ->where('created_at', '<', now()->subHours(24))
                     ->whereNull('first_response_at')
                     ->count();
@@ -145,7 +184,7 @@ class TicketManagement extends Component
     public function openTicket($ticketId)
     {
         $this->selectedTicket = Ticket::with([
-            'user', 'category', 'priority', 'status', 'assignedTo',
+            'user', 'ticketCategory', 'ticketPriority', 'ticketStatus', 'assignedTo',
             'messages.user', 'messages.attachments', 'activities.user'
         ])->findOrFail($ticketId);
         
@@ -329,7 +368,19 @@ class TicketManagement extends Component
 
     public function clearFilters()
     {
-        $this->reset(['search', 'filterStatus', 'filterCategory', 'filterPriority', 'filterAssigned', 'showOnlyMine']);
+        $this->reset(['search', 'searchType', 'dateFrom', 'dateTo', 'filterStatus', 'filterCategory', 'filterPriority', 'filterAssigned', 'showOnlyMine', 'showOverdue']);
+        $this->resetPage();
+    }
+
+    public function toggleOverdue()
+    {
+        $this->showOverdue = !$this->showOverdue;
+        $this->resetPage();
+    }
+
+    public function quickSearch($type)
+    {
+        $this->searchType = $type;
         $this->resetPage();
     }
 

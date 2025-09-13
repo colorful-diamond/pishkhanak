@@ -50,7 +50,7 @@
 
     <!-- Services by Category -->
     <section class="box-border flex relative flex-col shrink-0 animate-fadeIn mt-6" aria-label="Available Services">
-        @foreach($categories->reverse() as $category)
+        @foreach($categories as $category)
         @if($category->services && $category->services->count() > 0)
         <section
             class="flex overflow-hidden flex-col p-6 md:p-10 mt-6 w-full rounded-[32px] text-sky-900 relative"
@@ -82,7 +82,7 @@
                         @if($service->hasMedia('icon'))
                             <img loading="lazy"
                                  src="{{ $service->getFirstMediaUrl('icon') }}"
-                                 class="object-contain shrink-0 w-8 h-8 md:w-12 md:h-12" 
+                                 class="object-contain shrink-0 w-12 h-12 md:w-16 md:h-16" 
                                  alt="{{ $service->getDisplayTitle() }} Icon" />
                         @else
                             <div class="w-8 h-8 md:w-12 md:h-12 bg-sky-200 rounded-lg flex items-center justify-center">

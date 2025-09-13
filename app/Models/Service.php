@@ -65,6 +65,13 @@ class Service extends Model implements HasMedia
         'faqs',
         'related_articles',
         'comment_status',
+        
+        // Maintenance Mode Fields
+        'is_maintenance',
+        'maintenance_message',
+        'maintenance_started_at',
+        'maintenance_ends_at',
+        'maintenance_affects_children',
     ];
 
     /**
@@ -83,6 +90,10 @@ class Service extends Model implements HasMedia
         'faqs' => 'array',
         'related_articles' => 'array',
         'comment_status' => 'boolean',
+        'is_maintenance' => 'boolean',
+        'maintenance_affects_children' => 'boolean',
+        'maintenance_started_at' => 'datetime',
+        'maintenance_ends_at' => 'datetime',
     ];
 
 
@@ -261,6 +272,49 @@ class Service extends Model implements HasMedia
     }
 
     /**
+     * Get the comments for the service
+     */
+    public function serviceComments()
+    {
+        return $this->hasMany(ServiceComment::class, 'service_id');
+    }
+
+    /**
+     * Get approved comments for the service
+     */
+    public function approvedComments()
+    {
+        return $this->hasMany(ServiceComment::class, 'service_id')
+            ->where('status', 'approved')
+            ->whereNull('parent_id')
+            ->with('approvedReplies', 'user')
+            ->orderBy('is_featured', 'desc')
+            ->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Get the average rating for the service
+     */
+    public function getAverageRatingAttribute()
+    {
+        return $this->serviceComments()
+            ->where('status', 'approved')
+            ->whereNotNull('rating')
+            ->avg('rating');
+    }
+
+    /**
+     * Get the total number of ratings
+     */
+    public function getTotalRatingsAttribute()
+    {
+        return $this->serviceComments()
+            ->where('status', 'approved')
+            ->whereNotNull('rating')
+            ->count();
+    }
+
+    /**
      * Store the original content value temporarily
      */
     protected $originalContentValue = null;
@@ -356,5 +410,108 @@ class Service extends Model implements HasMedia
             return $this->parent->explanation ?? $this->explanation;
         }
         return $this->explanation;
+    }
+
+    /**
+     * Check if service is in maintenance mode
+     * Considers parent service maintenance if applicable
+     */
+    public function isInMaintenance(): bool
+    {
+        // Check if maintenance period has ended
+        if ($this->is_maintenance && $this->maintenance_ends_at && $this->maintenance_ends_at->isPast()) {
+            // Auto-disable maintenance if end time has passed
+            $this->update(['is_maintenance' => false]);
+            return false;
+        }
+
+        // Check own maintenance status
+        if ($this->is_maintenance) {
+            return true;
+        }
+
+        // Check parent maintenance status if this is a sub-service
+        if ($this->parent_id) {
+            if (!$this->relationLoaded('parent')) {
+                $this->load('parent');
+            }
+            
+            if ($this->parent && $this->parent->maintenance_affects_children) {
+                return $this->parent->isInMaintenance();
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get maintenance message (own or inherited from parent)
+     */
+    public function getMaintenanceMessage(): ?string
+    {
+        if ($this->is_maintenance && $this->maintenance_message) {
+            return $this->maintenance_message;
+        }
+
+        // Check parent for message if inheriting maintenance
+        if ($this->parent_id && !$this->is_maintenance) {
+            if (!$this->relationLoaded('parent')) {
+                $this->load('parent');
+            }
+            
+            if ($this->parent && $this->parent->maintenance_affects_children && $this->parent->isInMaintenance()) {
+                return $this->parent->maintenance_message ?? 'این سرویس در حال حاضر در دسترس نمی‌باشد. لطفا بعدا تلاش کنید.';
+            }
+        }
+
+        return $this->maintenance_message ?? 'این سرویس در حال حاضر در دسترس نمی‌باشد. لطفا بعدا تلاش کنید.';
+    }
+
+    /**
+     * Enable maintenance mode
+     */
+    public function enableMaintenance(string $message = null, \DateTime $endsAt = null, bool $affectsChildren = true): void
+    {
+        $this->update([
+            'is_maintenance' => true,
+            'maintenance_message' => $message,
+            'maintenance_started_at' => now(),
+            'maintenance_ends_at' => $endsAt,
+            'maintenance_affects_children' => $affectsChildren,
+        ]);
+    }
+
+    /**
+     * Disable maintenance mode
+     */
+    public function disableMaintenance(): void
+    {
+        $this->update([
+            'is_maintenance' => false,
+            'maintenance_message' => null,
+            'maintenance_started_at' => null,
+            'maintenance_ends_at' => null,
+        ]);
+    }
+
+    /**
+     * Get all affected services (including children if applicable)
+     */
+    public function getAffectedServices()
+    {
+        if (!$this->is_maintenance || !$this->maintenance_affects_children) {
+            return collect([$this]);
+        }
+
+        $affected = collect([$this]);
+        
+        if ($this->children()->exists()) {
+            $children = $this->children()->with('children')->get();
+            foreach ($children as $child) {
+                $affected = $affected->merge($child->getAffectedServices());
+            }
+        }
+
+        return $affected;
     }
 }

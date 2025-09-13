@@ -22,7 +22,7 @@ class Tickets extends Page
     public static function getNavigationBadge(): ?string
     {
         try {
-            return (string) Ticket::whereHas('status', fn($q) => $q->where('slug', '!=', 'closed'))->count();
+            return (string) Ticket::whereHas('ticketStatus', fn($q) => $q->where('slug', '!=', 'closed'))->count();
         } catch (\Exception $e) {
             return null;
         }
@@ -31,7 +31,7 @@ class Tickets extends Page
     public static function getNavigationBadgeColor(): ?string
     {
         try {
-            $openCount = Ticket::whereHas('status', fn($q) => $q->where('slug', '!=', 'closed'))->count();
+            $openCount = Ticket::whereHas('ticketStatus', fn($q) => $q->where('slug', '!=', 'closed'))->count();
             
             if ($openCount > 10) {
                 return 'danger';

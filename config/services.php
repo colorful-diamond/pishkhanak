@@ -175,9 +175,10 @@ return [
     */
 
     'telegram' => [
-        'bot_token' => env('TELEGRAM_BOT_TOKEN', '7696804096:AAFUuZaXsoLDYIb8KJ7w-eLlhq4D422C1oc'),
-        'bot_username' => env('TELEGRAM_BOT_USERNAME', 'pishkhanak_bot'),
-        'channel_id' => env('TELEGRAM_CHANNEL_ID', '-1003097450288'),
+        'bot_token' => env('TELEGRAM_BOT_TOKEN'),
+        'bot_username' => env('TELEGRAM_BOT_USERNAME'),
+        'channel_id' => env('TELEGRAM_CHANNEL_ID'),
+        'webhook_secret' => env('TELEGRAM_WEBHOOK_SECRET'),
         'proxy' => [
             'enabled' => env('TELEGRAM_PROXY_ENABLED', true),
             'type' => env('TELEGRAM_PROXY_TYPE', 'socks5'),

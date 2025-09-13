@@ -24,7 +24,7 @@ class TicketsDashboard extends Page
     public static function getNavigationBadge(): ?string
     {
         try {
-            return (string) Ticket::whereHas('status', fn($q) => $q->where('slug', '!=', 'closed'))->count();
+            return (string) Ticket::whereHas('ticketStatus', fn($q) => $q->where('slug', '!=', 'closed'))->count();
         } catch (\Exception $e) {
             return null;
         }
@@ -33,7 +33,7 @@ class TicketsDashboard extends Page
     public static function getNavigationBadgeColor(): ?string
     {
         try {
-            $openCount = Ticket::whereHas('status', fn($q) => $q->where('slug', '!=', 'closed'))->count();
+            $openCount = Ticket::whereHas('ticketStatus', fn($q) => $q->where('slug', '!=', 'closed'))->count();
             
             if ($openCount > 15) {
                 return 'danger';
@@ -58,7 +58,7 @@ class TicketsDashboard extends Page
     {
         $openStatusIds = TicketStatus::whereIn('slug', ['open', 'in-progress'])->pluck('id')->toArray();
         $urgentTickets = Ticket::whereIn('status_id', $openStatusIds)
-            ->whereHas('priority', fn($q) => $q->where('level', '>=', 8))
+            ->whereHas('ticketPriority', fn($q) => $q->where('level', '>=', 8))
             ->count();
 
         return [
@@ -74,7 +74,7 @@ class TicketsDashboard extends Page
     {
         try {
             // Calculate average response time for resolved tickets in hours
-            $resolvedTickets = Ticket::whereHas('status', fn($q) => $q->whereIn('slug', ['resolved', 'closed']))
+            $resolvedTickets = Ticket::whereHas('ticketStatus', fn($q) => $q->whereIn('slug', ['resolved', 'closed']))
                 ->whereBetween('created_at', [now()->subDays(30), now()])
                 ->get();
 
