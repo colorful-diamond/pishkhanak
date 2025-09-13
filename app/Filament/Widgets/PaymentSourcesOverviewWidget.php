@@ -33,10 +33,15 @@ class PaymentSourcesOverviewWidget extends BaseWidget
             ->whereNotNull('meta->service_id')
             ->sum('amount');
             
-        // Get most popular service
-        $mostPopularService = Service::select('services.*', DB::raw('COUNT(service_results.id) as usage_count'))
-            ->leftJoin('service_results', 'services.id', '=', 'service_results.service_id')
-            ->groupBy('services.id')
+        // Get most popular service (combining both service_requests and service_results)
+        $mostPopularService = Service::select([
+                'services.*', 
+                DB::raw('(
+                    (SELECT COUNT(*) FROM service_requests WHERE service_requests.service_id = services.id) +
+                    (SELECT COUNT(*) FROM service_results WHERE service_results.service_id = services.id)
+                ) as usage_count')
+            ])
+            ->having('usage_count', '>', 0)
             ->orderByDesc('usage_count')
             ->first();
             
