@@ -22,6 +22,7 @@ use Archilex\AdvancedTables\Plugin\AdvancedTablesPlugin;
 use App\Filament\Pages\Tickets;
 use App\Filament\Pages\OverviewDashboard;
 use App\Filament\Pages\PaymentsDashboard;
+use App\Filament\Pages\PopularServicesPage;
 use App\Filament\Pages\WalletsDashboard;
 use App\Filament\Pages\TicketsDashboard;
 use App\Filament\Pages\UsersDashboard;
@@ -59,6 +60,7 @@ class AccessPanelProvider extends PanelProvider
                 UsersDashboard::class,
                 
                 // Other Pages
+                PopularServicesPage::class,
                 Tickets::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
