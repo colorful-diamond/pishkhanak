@@ -48,42 +48,44 @@ class PopularServicesPage extends Page
                     SELECT COUNT(*) 
                     FROM service_requests 
                     WHERE service_requests.service_id = services.id
-                    ' . ($this->period !== 'all' ? 'AND service_requests.created_at >= DATE_SUB(NOW(), INTERVAL ' . (int)$this->period . ' DAY)' : '') . '
+                    ' . ($this->period !== 'all' ? 'AND service_requests.created_at >= NOW() - INTERVAL \'' . (int)$this->period . ' DAY\'' : '') . '
                 ) as request_count'),
                 DB::raw('(
                     SELECT COUNT(*) 
                     FROM service_results 
                     WHERE service_results.service_id = services.id
-                    ' . ($this->period !== 'all' ? 'AND service_results.created_at >= DATE_SUB(NOW(), INTERVAL ' . (int)$this->period . ' DAY)' : '') . '
+                    ' . ($this->period !== 'all' ? 'AND service_results.created_at >= NOW() - INTERVAL \'' . (int)$this->period . ' DAY\'' : '') . '
                 ) as result_count'),
                 DB::raw('(
                     SELECT COUNT(*) 
                     FROM service_requests 
                     WHERE service_requests.service_id = services.id
-                    AND service_requests.status = "processed"
-                    ' . ($this->period !== 'all' ? 'AND service_requests.created_at >= DATE_SUB(NOW(), INTERVAL ' . (int)$this->period . ' DAY)' : '') . '
+                    AND service_requests.status = \'processed\'
+                    ' . ($this->period !== 'all' ? 'AND service_requests.created_at >= NOW() - INTERVAL \'' . (int)$this->period . ' DAY\'' : '') . '
                 ) as successful_requests'),
                 DB::raw('(
                     SELECT COUNT(*) 
                     FROM service_results 
                     WHERE service_results.service_id = services.id
-                    AND service_results.status = "success"
-                    ' . ($this->period !== 'all' ? 'AND service_results.created_at >= DATE_SUB(NOW(), INTERVAL ' . (int)$this->period . ' DAY)' : '') . '
+                    AND service_results.status = \'success\'
+                    ' . ($this->period !== 'all' ? 'AND service_results.created_at >= NOW() - INTERVAL \'' . (int)$this->period . ' DAY\'' : '') . '
                 ) as successful_results'),
                 DB::raw('(
-                    SELECT SUM(gateway_transactions.amount) 
+                    SELECT COALESCE(SUM(gateway_transactions.amount), 0) 
                     FROM gateway_transactions 
-                    WHERE gateway_transactions.status = "completed"
-                    AND JSON_EXTRACT(gateway_transactions.metadata, "$.service_id") = services.id
-                    ' . ($this->period !== 'all' ? 'AND gateway_transactions.created_at >= DATE_SUB(NOW(), INTERVAL ' . (int)$this->period . ' DAY)' : '') . '
+                    WHERE gateway_transactions.status = \'completed\'
+                    AND gateway_transactions.metadata->>\'service_id\' IS NOT NULL
+                    AND (gateway_transactions.metadata->>\'service_id\')::text::int = services.id
+                    ' . ($this->period !== 'all' ? 'AND gateway_transactions.created_at >= NOW() - INTERVAL \'' . (int)$this->period . ' DAY\'' : '') . '
                 ) as gateway_revenue'),
                 DB::raw('(
-                    SELECT SUM(ABS(transactions.amount)) 
+                    SELECT COALESCE(SUM(ABS(transactions.amount)), 0) 
                     FROM transactions 
-                    WHERE transactions.confirmed = 1
-                    AND transactions.type = "withdraw"
-                    AND JSON_EXTRACT(transactions.meta, "$.service_id") = services.id
-                    ' . ($this->period !== 'all' ? 'AND transactions.created_at >= DATE_SUB(NOW(), INTERVAL ' . (int)$this->period . ' DAY)' : '') . '
+                    WHERE transactions.confirmed = true
+                    AND transactions.type = \'withdraw\'
+                    AND transactions.meta->>\'service_id\' IS NOT NULL
+                    AND (transactions.meta->>\'service_id\')::text::int = services.id
+                    ' . ($this->period !== 'all' ? 'AND transactions.created_at >= NOW() - INTERVAL \'' . (int)$this->period . ' DAY\'' : '') . '
                 ) as wallet_revenue')
             ])
             ->withCount(['comments as total_comments'])
@@ -97,9 +99,9 @@ class PopularServicesPage extends Page
         // Add total usage count (combining requests and results)
         $query->addSelect(DB::raw('(
             (SELECT COUNT(*) FROM service_requests WHERE service_requests.service_id = services.id' . 
-            ($this->period !== 'all' ? ' AND service_requests.created_at >= DATE_SUB(NOW(), INTERVAL ' . (int)$this->period . ' DAY)' : '') . ') +
+            ($this->period !== 'all' ? ' AND service_requests.created_at >= NOW() - INTERVAL \'' . (int)$this->period . ' DAY\'' : '') . ') +
             (SELECT COUNT(*) FROM service_results WHERE service_results.service_id = services.id' . 
-            ($this->period !== 'all' ? ' AND service_results.created_at >= DATE_SUB(NOW(), INTERVAL ' . (int)$this->period . ' DAY)' : '') . ')
+            ($this->period !== 'all' ? ' AND service_results.created_at >= NOW() - INTERVAL \'' . (int)$this->period . ' DAY\'' : '') . ')
         ) as total_usage'));
 
         // Order by total usage
@@ -157,7 +159,7 @@ class PopularServicesPage extends Page
         // Revenue calculations
         $gatewayRevenue = DB::table('gateway_transactions')
             ->where('status', 'completed')
-            ->whereNotNull('metadata->service_id')
+            ->whereRaw("metadata->>'service_id' IS NOT NULL")
             ->when($dateFilter, function ($query) use ($dateFilter) {
                 return $query->where('created_at', '>=', $dateFilter);
             })
@@ -166,7 +168,7 @@ class PopularServicesPage extends Page
         $walletRevenue = DB::table('transactions')
             ->where('confirmed', true)
             ->where('type', 'withdraw')
-            ->whereNotNull('meta->service_id')
+            ->whereRaw("meta->>'service_id' IS NOT NULL")
             ->when($dateFilter, function ($query) use ($dateFilter) {
                 return $query->where('created_at', '>=', $dateFilter);
             })

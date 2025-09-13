@@ -24,13 +24,13 @@ class PaymentSourcesOverviewWidget extends BaseWidget
             
         // Get gateway payments for services
         $gatewayServiceRevenue = GatewayTransaction::where('status', 'completed')
-            ->whereNotNull('metadata->service_id')
+            ->whereRaw("metadata->>'service_id' IS NOT NULL")
             ->sum('amount');
             
         // Get wallet payments for services
         $walletServiceRevenue = Transaction::where('confirmed', true)
             ->where('type', 'withdraw')
-            ->whereNotNull('meta->service_id')
+            ->whereRaw("meta->>'service_id' IS NOT NULL")
             ->sum('amount');
             
         // Get most popular service (combining both service_requests and service_results)
@@ -41,18 +41,17 @@ class PaymentSourcesOverviewWidget extends BaseWidget
                     (SELECT COUNT(*) FROM service_results WHERE service_results.service_id = services.id)
                 ) as usage_count')
             ])
-            ->having('usage_count', '>', 0)
             ->orderByDesc('usage_count')
             ->first();
             
         // Get payment method distribution
         $gatewayPaymentsCount = GatewayTransaction::where('status', 'completed')
-            ->whereNotNull('metadata->service_id')
+            ->whereRaw("metadata->>'service_id' IS NOT NULL")
             ->count();
             
         $walletPaymentsCount = Transaction::where('confirmed', true)
             ->where('type', 'withdraw')
-            ->whereNotNull('meta->service_id')
+            ->whereRaw("meta->>'service_id' IS NOT NULL")
             ->count();
 
         return [
